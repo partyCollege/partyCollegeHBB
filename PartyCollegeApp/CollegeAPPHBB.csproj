@@ -685,6 +685,19 @@
     <Content Include="img\student_file\arrow03.png" />
     <Content Include="img\student_file\arrow04.png" />
     <Content Include="img\student_file\dot.gif" />
+    <Content Include="lib\Aspose.Slides.dll" />
+    <Content Include="lib\Aspose.Words.dll" />
+    <Content Include="lib\Ionic.Zlib.dll" />
+    <Content Include="lib\Microsoft.QualityTools.Testing.Fakes.dll" />
+    <Content Include="lib\MySql.Data.dll" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\NPOI.dll" />
+    <Content Include="lib\QRCoder.dll" />
+    <Content Include="lib\Senparc.Weixin.dll" />
+    <Content Include="lib\Senparc.Weixin.QY.dll" />
+    <Content Include="lib\System.Net.Http.Formatting.dll" />
+    <Content Include="lib\System.Web.Http.dll" />
+    <Content Include="lib\System.Web.Http.WebHost.dll" />
     <Content Include="Script\angular-ui\bootstrap-theme.css" />
     <Content Include="Script\angular-ui\bootstrap-theme.min.css" />
     <Content Include="Script\angular-ui\bootstrap.css" />
@@ -4881,7 +4894,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties config_2json1_1json__JSONSchema="" TestJSON_2addressList_1json__JSONSchema="" />
+      <UserProperties TestJSON_2addressList_1json__JSONSchema="" config_2json1_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

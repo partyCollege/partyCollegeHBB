@@ -168,6 +168,14 @@
     <Content Include="bin\NPOI.dll" />
     <Content Include="bin\QRCoder.dll" />
     <Content Include="bin\SmsLib.dll" />
+    <Content Include="lib\Aspose.Slides.dll" />
+    <Content Include="lib\Aspose.Words.dll" />
+    <Content Include="lib\Ionic.Zlib.dll" />
+    <Content Include="lib\MySql.Data.dll" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\NPOI.dll" />
+    <Content Include="lib\QRCoder.dll" />
+    <Content Include="lib\SmsLib.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
