@@ -12,6 +12,7 @@ namespace PartyCollege
     {
 		void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
 		{
+            string s = "";   
 			//给api启用session
 			HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
 		}
@@ -23,6 +24,7 @@ namespace PartyCollege
 		protected void Application_Start()
 		{
 			GlobalConfiguration.Configure(WebApiConfig.Register);
+			string a = string.Empty;
 		}
         protected void Session_End(object s, EventArgs e)
         {

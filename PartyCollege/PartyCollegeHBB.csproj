@@ -3690,6 +3690,7 @@
     <Content Include="HtmlDisgn\studentCenter\myStudy.html" />
     <Content Include="HtmlDisgn\studentCenter\studyXd.html" />
     <Content Include="HtmlDisgn\studentCenter\videoCoures.html" />
+    <Content Include="Html\HtmlPage1.html" />
     <Content Include="Html\IndexFront.html" />
     <Content Include="Html\Login.html" />
     <Content Include="Html\IndexVideo.html" />
@@ -4702,6 +4703,7 @@
     <Compile Include="Controllers\SMSController.cs" />
     <Compile Include="Controllers\SQLHandlerController.cs" />
     <Compile Include="Controllers\uploadfileController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\videoPlayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
