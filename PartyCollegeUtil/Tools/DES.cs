@@ -18,7 +18,7 @@ namespace PartyCollegeUtil.Tools
     /// </summary>  
     public sealed class DES
     {
-		public static string NDRC_KEY_STRING = "ndrc@wlxy";
+        public static string NDRC_KEY_STRING = "ndrc@wlxy";
         #region  DES加解密方法及相关函数
 
         /// <summary>
@@ -492,4 +492,4 @@ namespace PartyCollegeUtil.Tools
         #endregion
     }
     #endregion
-}
+}  
