@@ -3690,6 +3690,7 @@
     <Content Include="HtmlDisgn\studentCenter\myStudy.html" />
     <Content Include="HtmlDisgn\studentCenter\studyXd.html" />
     <Content Include="HtmlDisgn\studentCenter\videoCoures.html" />
+    <Content Include="Html\HtmlPage1.html" />
     <Content Include="Html\IndexFront.html" />
     <Content Include="Html\Login.html" />
     <Content Include="Html\IndexVideo.html" />
