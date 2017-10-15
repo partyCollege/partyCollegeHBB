@@ -18,7 +18,6 @@ namespace PartCollege.Controllers
         public dynamic Post([FromBody]JObject json)
         {
 			CommonSqlService commonSrv = new CommonSqlService();
-            string s = "";
 			return commonSrv.GetPostData(json);
 			/*
 			try
