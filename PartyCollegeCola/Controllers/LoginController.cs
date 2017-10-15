@@ -38,6 +38,8 @@ namespace PartCollege.Controllers
             VerifyCodeService service = new VerifyCodeService();
             return service.VerifySMSCode(loginModel);
         }
+
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -53,11 +55,11 @@ namespace PartCollege.Controllers
             //验证码验证
             object verifycode = HttpContext.Current.Session["loginverify"];
             if (verifycode == null)
-            { 
+            {
                 returnInfo.message = "验证码错误";
                 returnInfo.result = false;
                 returnInfo.isVerify = true;
-                 return returnInfo;
+                return returnInfo;
             }
             string formcode = loginModel.verifycode;
             if (verifycode.ToString().ToLower() != formcode.ToLower())
@@ -68,9 +70,34 @@ namespace PartCollege.Controllers
                 return returnInfo;
             }
 
+            /*webservice域登陆
+            PartyCollegeCola.com.cofcoko.bpm.WebService domainAuthen = new PartyCollegeCola.com.cofcoko.bpm.WebService();
+            domainAuthen.Url = "http://bpm.cofcoko.com/DomainAuthenticate/WebService.asmx";
+            PartyCollegeCola.com.cofcoko.bpm.ADLoginRequest req = new PartyCollegeCola.com.cofcoko.bpm.ADLoginRequest();
+            req.Password = "";
+            req.UserAD = "";
+            req.Domain = "";
+            PartyCollegeCola.com.cofcoko.bpm.UserAuthenticateResponse resp = domainAuthen.ADLogin(req);
+            string mes = resp.ReturnMessage;
+            if (resp.ReturnFlag)
+            {
+                mes = "登陆成功";
+            }
+            else
+            {
+
+                //提示用户登录失败信息：userAuthenticateResponseService.ReturnMessage
+                mes = "LOGIN_USER_PASSWORD_INCORRECT";   //未知的用户名或错误密码
+                mes = "LOGIN_USER_NO_EXIST";             //用户不存在
+                mes = "LOGIN_USER_ACCOUNT_INACTIVE";     //帐号未激活
+                mes = "LOGIN_DOMAIN_INCORRECT";          //域服务器不存在
+                mes = "LOGIN_USER_FAIL";                 //认证失败
+            }
+            */
+
             LoginService loginSvc = new LoginService();
             dynamic result = loginSvc.Login(loginModel);
-            return result; 
+            return result;
         }
 
 
@@ -111,9 +138,9 @@ namespace PartCollege.Controllers
         [Route("api/Session")]
         [HttpPost]
         public dynamic GetClientSession([FromBody]dynamic loginModel)
-        { 
-            SessionObj clientSesObj = new SessionObj(); 
-            return clientSesObj.GetClientSession(); 
+        {
+            SessionObj clientSesObj = new SessionObj();
+            return clientSesObj.GetClientSession();
         }
 
 
@@ -150,7 +177,7 @@ namespace PartCollege.Controllers
         {
             LoginService loginService = new LoginService();
             dynamic dyn = loginService.ChangePassword(userModel);
-            return dyn; 
+            return dyn;
         }
 
         /// <summary>
@@ -185,28 +212,28 @@ namespace PartCollege.Controllers
             return dyn;
         }
 
-		[Route("api/cancerMananger")]
-		[HttpPost]
-		public dynamic cancerMananger([FromBody]dynamic objModel)
-		{
-			dynamic dyn = new ExpandoObject();
-			AccountService accSerice = new AccountService();
-			string accountid = objModel.accountid;
-			string userid = objModel.userid;
-			string departmentid = objModel.departmentid;
-			bool result=accSerice.cancerManager(accountid, "22928341-b8f9-41c4-9c0f-114eadcc444d", userid, departmentid);
-			if (result)
-			{
-				dyn.code = result;
-				dyn.message = "取消成功";
-			}
-			else
-			{
-				dyn.code = result;
-				dyn.message = "取消失败";
-			}
-			return dyn;
-		}
+        [Route("api/cancerMananger")]
+        [HttpPost]
+        public dynamic cancerMananger([FromBody]dynamic objModel)
+        {
+            dynamic dyn = new ExpandoObject();
+            AccountService accSerice = new AccountService();
+            string accountid = objModel.accountid;
+            string userid = objModel.userid;
+            string departmentid = objModel.departmentid;
+            bool result = accSerice.cancerManager(accountid, "22928341-b8f9-41c4-9c0f-114eadcc444d", userid, departmentid);
+            if (result)
+            {
+                dyn.code = result;
+                dyn.message = "取消成功";
+            }
+            else
+            {
+                dyn.code = result;
+                dyn.message = "取消失败";
+            }
+            return dyn;
+        }
 
 
         [Route("api/GetUser")]
