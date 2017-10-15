@@ -23,6 +23,7 @@ namespace PartyCollege
 		protected void Application_Start()
 		{
 			GlobalConfiguration.Configure(WebApiConfig.Register);
+			string a = string.Empty;
 		}
         protected void Session_End(object s, EventArgs e)
         {
