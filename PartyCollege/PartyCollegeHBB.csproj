@@ -4702,6 +4702,7 @@
     <Compile Include="Controllers\SMSController.cs" />
     <Compile Include="Controllers\SQLHandlerController.cs" />
     <Compile Include="Controllers\uploadfileController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\videoPlayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
