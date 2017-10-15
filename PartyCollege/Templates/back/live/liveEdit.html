@@ -1,0 +1,138 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+	<tabset>
+		<tab heading="直播基本信息" select="goPlatformEdit()" class="tab-item-balanced">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ibox float-e-margins">
+						<div class="widget style1 badge-primary">
+							<div class="row vertical-align">
+								<div class="col-md-12 text-center">
+									<h3>直播维护</h3>
+								</div>
+							</div>
+						</div>
+						<div class="ibox-content">
+							<form method="get" class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">直播名称</label>
+									<div class="col-sm-5"><input type="text" ng-model="live.name" class="form-control"></div>
+									<div class="col-sm-5 center">
+										<div class="row text-center">
+											<img ngf-src="files[0]||nowfile" style="width: 200px;height: 150px;" ngf-resize="{width: 200, height: 150, quality: 0.9}" />
+										</div>
+										<div class="row text-center padding-top">
+											<button class="btn btn-danger" ng-model="live.photo" ngf-accept="'image/*'" ngf-max-size="4MB" ngf-select="uploadFiles($files, $invalidFiles)">上传照片</button>
+										</div>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">直播介绍</label>
+									<div class="col-sm-10">
+										<input type="text" ng-model="live.introduction" class="form-control">
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">直播开始时间</label>
+									<div class="col-sm-5">
+										<input type="text" app-date max-date="live.endtime" ng-model="live.starttime" />
+									</div>
+									<div class="col-sm-5">
+										<div class="input-group clockpicker">
+											<input type="text" disabled class="form-control" ng-model="live.starttime_min">
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-time"></span>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">直播结束时间</label>
+									<div class="col-sm-5">
+										<input type="text" app-date min-date="live.starttime" ng-model="live.endtime" />
+									</div>
+									<div class="col-sm-5">
+										<div class="input-group clockpicker">
+											<input type="text" disabled class="form-control" ng-model="live.endtime_min">
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-time"></span>
+											</span>
+										</div>
+									</div>
+
+                                    <script type="text/javascript">
+                                        $('.clockpicker').clockpicker();
+                                    </script>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">主讲人</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="live.teachername" />
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">直播地点</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="live.place" />
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">直播URL</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="live.sourceurl" />
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">观看URL</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="live.playurl" />
+									</div>
+								</div>
+								<!--<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">观看范围</label>
+									<div class="col-sm-10">
+										<select class="form-control" ng-model="live.area">
+											<option value="2" >全平台</option>
+											<option value="1" selected="selected">本平台</option>
+											<option value="0">班级</option>
+										</select>
+									</div>
+								</div>-->
+								<div class="text-center">
+									<button class="btn btn-primary" ng-click="save()" ng-disabled="saveButtonDisabled">保存</button>
+									<button class="btn btn-default" ng-click="goback()">取消</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</tab>
+		<tab heading="发布范围" ng-if="nowid" select="goTabList()">
+		</tab>
+	</tabset>
+	<div ui-view></div>
+</div>
+<script type="text/ng-template" id="videoPerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row text-center"><h3>{{microVideo.name}}</h3></div>
+        <div class="row">
+            <div id="divVideo">
+            </div>
+        </div>
+    </div>
+
+</script>

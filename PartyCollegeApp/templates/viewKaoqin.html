@@ -1,0 +1,29 @@
+﻿<ion-view style="{{marTop}}" title="学员考勤列表">
+    <!--<gomain></gomain>-->
+    <go-main-page></go-main-page>
+
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item ng-repeat="item in kqxx" style="padding:10px 10px;padding-bottom:5px">
+                <div class="line-h-30">
+                    <div class="item-text-wrap black size-18">{{item.xm}}</div>
+                </div>
+                <div class="button-bar">
+                    <a class="button {{item.state=='公假'?'button-assertive':'button-stable'}}" ng-click="save('公假',item)">公假</a>
+                    <a class="button {{item.state=='出勤'?'button-assertive':'button-stable'}}" ng-click="save('出勤',item)">出勤</a>
+                    <a class="button {{item.state=='早退'?'button-assertive':'button-stable'}}" ng-click="save('早退',item)">早退</a>
+                    <a class="button {{item.state=='事假'?'button-assertive':'button-stable'}}" ng-click="save('事假',item)">事假</a>
+                </div>
+                <div class="button-bar">
+                    <a class="button {{item.state=='未签'?'button-assertive':'button-stable'}}" ng-click="save('未签',item)">未签</a>
+                    <a class="button {{item.state=='迟到'?'button-assertive':'button-stable'}}" ng-click="save('迟到',item)">迟到</a>
+                    <a class="button {{item.state=='病假'?'button-assertive':'button-stable'}}" ng-click="save('病假',item)">病假</a>
+                </div>
+            </ion-item>
+            <div ng-show="kqxx.length==0" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+                暂无考勤信息
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

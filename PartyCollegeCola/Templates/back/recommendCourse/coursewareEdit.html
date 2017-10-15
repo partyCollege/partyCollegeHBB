@@ -1,0 +1,273 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+</style>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1  badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>公开课信息</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal" name="courseInfoForm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课程名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-disabled="true"
+                                       class="form-control"
+                                       ng-model="course.name" />
+
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">授课人</label>
+                            <div class="col-sm-10">
+                                <ui-select ng-model="course.teachers" multiple theme="bootstrap" ng-disabled="true" name="teachers">
+                                    <ui-select-match placeholder="请选择授课人">{{$item.name}} &lt;{{$item.company}}&gt;</ui-select-match>
+                                    <ui-select-choices repeat="item in allTeachers | filter: $select.search">
+                                        <div style="font-weight:bold" ng-bind-html="item.name | highlight: $select.search"></div>
+                                        <small ng-bind-html="item.company | highlight: $select.search"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">授课时间</label>
+                            <div class="col-sm-10">
+                                <div app-date ng-model="course.teachtime" name="teachtime" ng-disabled="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">视频封面图</label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <img ngf-src="files[0]||nowfile" style="width:200px;height: 120px;" ngf-resize="{width: 200, height: 120, quality: 0.9}" />
+                                </div>
+                                <!--<div class="row padding-top">
+                                    <button class="btn btn-danger platformdisabled" ng-model="course.photo" ngf-accept="'image/*'" ngf-max-size="4MB" ngf-select="uploadFiles($files, $invalidFiles)">上传</button>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课程简介</label>
+                            <div class="col-sm-10">
+                                <div summernote lang="zh-CN" ng-model="course.comment"></div>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">时长</label>
+
+                            <div class="col-sm-10">
+                                <div class="input-group m-b"><input type="number" ng-model="course.duration" class="form-control" name="duration" ng-disabled="true"> <span class="input-group-addon">分钟</span></div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">实际时长</label>
+
+                            <div class="col-sm-10">
+                                <div class="input-group m-b">
+                                    <input type="text" readonly ng-model="course.realduration" class="form-control" name="realduration"> <span class="input-group-addon">
+                                        <!--<button ng-disabled="isNew" ng-click="GetRealDuration()">点击获取时长</button>-->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课件模式</label>
+                            <div class="col-sm-10">
+                                <div class="input-group m-b" ng-init="myradio='option1'">
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" ng-model="course.videotype" id="inlineRadio1" value="0" name="radioInline" ng-disabled="true">
+                                        <label for="inlineRadio1"> 单视频 </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <input type="radio" ng-model="course.videotype" id="inlineRadio2" value="1" name="radioInline" ng-disabled="true">
+                                        <label for="inlineRadio2"> 双视频 </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <input type="radio" ng-model="course.videotype" id="inlineRadio2" value="2" name="radioInline" ng-disabled="true">
+                                        <label for="inlineRadio2"> 单视频+PPT </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">授课人视频</label>
+
+                            <div class="col-sm-4">
+                                <div class="input-group m-b">
+                                    {{course.teachervideoname}}
+                                    <!--<button class="btn btn-sm btn-primary platformdisabled" ngf-accept="'video/*'" ngf-select="uploadvideoFiles($files, $invalidFiles)" ng-model="course.videofile" multiple>选择视频</button>-->
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-info" ng-click="openVideoPerview('videofile',course.teachervideo)">预览</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                视频状态:{{course.videostatus}}
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2" ng-if="course.videofile.length>0">
+
+                            </div>
+                            <div class="col-sm-10" ng-if="course.videofile.length>0">
+                                <ul>
+                                    <li ng-repeat="f in course.videofile" style="font:smaller">
+                                        {{f.name}}&nbsp;&nbsp;&nbsp;&nbsp;文件大小{{(f.size/1048576).toFixed(2)}}M {{f.$errorParam}}
+                                        <button class="btn btn-info platformdisabled" ng-click="uploadvideo('videofile')">上传</button>
+
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <small class="pull-left">进度<span style="color:red">{{process_videofile}}</span>%</small>
+                                        </div>
+                                        <div class="progress progress-small">
+                                            <div style="width: {{process_videofile}}%;" class="progress-bar"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed" ng-if="course.videotype=='1'"></div>
+                        <div class="form-group" ng-if="course.videotype=='1'">
+                            <label class="col-sm-2 control-label">PPT视频</label>
+                            <div class="col-sm-4">
+                                <div class="input-group m-b">
+                                    {{course.pptvideoname}}
+                                    <!--<button class="btn btn-sm btn-primary platformdisabled" ngf-accept="'video/*'" ngf-select="uploadpptFiles($files, $invalidFiles)" ng-model="course.pptfile" multiple>选择视频</button>-->
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-info" ng-click="openVideoPerview('pptfile',course.pptvideo)">预览</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                视频状态:{{course.videostatus}}
+                            </div>
+                        </div>
+                        <div class="row" ng-if="course.videotype=='1'">
+                            <div class="col-sm-2" ng-if="course.pptfile.length>0">
+
+                            </div>
+                            <div class="col-sm-10" ng-if="course.pptfile.length>0">
+                                <ul>
+                                    <li ng-repeat="f in course.pptfile" style="font:smaller">
+                                        {{f.name}}&nbsp;&nbsp;&nbsp;&nbsp;文件大小{{(f.size/1048576).toFixed(2)}}M {{f.$errorParam}}
+                                        <button class="btn btn-info platformdisabled" ng-click="uploadvideo('pptfile')">上传</button>
+
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <small class="pull-left">进度<span style="color:red">{{process_pptfile}}</span>%</small>
+                                        </div>
+                                        <div class="progress progress-small">
+                                            <div style="width: {{process_pptfile}}%;" class="progress-bar"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--<div class="text-center">
+                            <button class="btn btn-primary platformdisabled" ng-click="save()" ng-disabled="courseInfoForm.$invalid || saveButtonDisabled">保存</button>
+                            <button class="btn btn-default" ng-click="goback()">取消</button>
+                        </div>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/ng-template" id="videoPerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div id="divVideo">
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+<script type="text/ng-template" id="doubluevideoPerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="video-box video-f">
+                <div id="doubleTeacher" class=".doubleTeacher">
+                </div>
+            </div>
+            <div id="doublePPT">
+            </div>
+        </div>
+
+    </div>
+    <div class="exchange">
+    </div>
+    <style>
+    </style>
+</script>
+<script>
+    var player1 = {};
+    var player2 = {};
+    var videoNum = 0;
+    function s2j_onPlayerInitOver() {
+
+        videoNum++;
+        if (videoNum == 2) {
+            //console.log(player2);
+            player2.j2s_banUI();
+            player2.j2s_hideRightPanel();
+            player1.j2s_rightpanelBtnSet();
+            player2.j2s_rightpanelBtnSet();
+        }
+    }
+    function s2j_onChapterBtnClick() {
+        alert("");
+        //alert("s2j_onChapterBtnClick")
+    }
+</script>

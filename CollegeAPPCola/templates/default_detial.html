@@ -1,0 +1,40 @@
+﻿<ion-view title="{{title}}">
+    <go-main-page></go-main-page>
+    <ion-content class="has-tabs">
+        <div class="list">
+            <div class="item item-input default_detail_hd" ng-repeat="item in data" ng-if="!item.subTitle&&item.isTitle">
+                <span class="input-label" ng-if="item.isTitle!='true'&&item.isHTML!=true">{{item.title}}</span>
+                <div class="title" ng-if="item.isTitle=='true'">{{item.value}}</div>
+                <span ng-if="item.isTitle!='true'&&item.src==''&&item.isHTML!=true">{{item|columnDisplayFilter}}</span>
+                <a ng-click="downfile('{{item.attrSrc}}','{{item.filename}}')" ng-if="item.src!=''">{{item.filename}}</a>
+            </div>
+            <div class="row text-center default_detail_center">
+                <div class="col bg-info" ng-repeat="item in data" ng-if="item.subTitle">
+                    <p style="text-align:center"><b>{{item.title}}</b>:{{item|columnDisplayFilter}}</p>
+                </div>
+            </div>
+            <div class="item item-input padding-right default_detail_table" ng-repeat="item in data" ng-if="!item.isTitle&&!item.subTitle&&!item.attachs&&!item.isPic">
+                <span class="input-label" ng-if="item.isTitle!='true'&&item.isHTML!=true">{{item.title}}</span>
+                <p ng-if="item.isTitle!='true'&&item.src==''&&item.isHTML!=true" style="white-space:normal">{{item|columnDisplayFilter}}</p>
+            </div>
+            <div class="item item-input padding-right default_detail_table" ng-repeat="item in data" ng-if="item.isPic">
+                <span class="input-label" ng-if="item.isTitle!='true'&&item.isHTML!=true">{{item.title}}</span>
+                <img ng-src="{{item.contentPic}}" style="width:{{item.width}}px;height:{{item.height}}px"/>
+            </div>
+            <div class="item default_detail_data" ng-repeat="item in data" ng-if="!item.isTitle&&!item.subTitle&&item.attachs">
+                <span class="input-label" ng-if="item.isTitle!='true'&&item.isHTML!=true" style="margin-right:10px;">{{item.title}}</span>
+                <p>
+                    <div ng-repeat="attach in item.attachs.attachs">
+                        <a ng-click="downfile('{{attach.filePath}}','{{attach.filename}}')" ng-if="item.attachs.attachs.length>0">{{attach.filename}}</a>
+                        <div style="margin-bottom:20px"></div>
+                    </div>
+                </p>
+            </div>
+            <div ng-repeat="item in data" style="padding:10px" ng-if="item.isHTML==true&&item.isTitle!='true'">
+                <!--<ion-scroll class="default_detail_scroll" ng-if="item.isHTML==true&&item.isTitle!='true'" zooming="true" direction="y">-->
+                <p ng-if="item.isHTML==true&&item.isTitle!='true'" ng-bind-html="item.value"></p>
+                <!--</ion-scroll>-->
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

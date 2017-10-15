@@ -1,0 +1,15 @@
+﻿
+<div class="main">
+    <div class="course_tj informInfo_box">
+        <h3 class="title">{{newsInfo.title}}</h3>
+        <p ng-bind-html="newsInfo.content">
+        </p>
+        <p class="text-right gray">
+            {{newsInfo.source}}<br />
+            {{newsInfo.publishtime | date :'yyyy年MM月dd日'}}
+        </p>
+        <!--<div class="more">
+            <span class="btn">返回通知公告</span>
+        </div>-->
+    </div>
+</div>

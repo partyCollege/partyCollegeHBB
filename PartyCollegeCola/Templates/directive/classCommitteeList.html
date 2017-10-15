@@ -1,0 +1,16 @@
+﻿
+<div class="popup_box">
+    <div class="popup_content">
+        <!--班委 开始-->
+        <div class="content studentsList">
+            <h2>班委<a ng-click="myConfig.contanctsType[1].select()"><i class="tubiaoicon-17"></i></a></h2>
+            <form action="" method="post">
+                <input type="text" name="" id="" value="" ng-model="filterOptions.searchText" placeholder="输入关键字" />
+                <input type="submit" value="搜索" ng-click="search()" />
+            </form>
+            <div class="clear"></div>
+            <div class="gridStyle serialize" ng-grid="gridOptions"></div>
+        </div>
+        <!--班委 结束-->
+    </div>
+</div>

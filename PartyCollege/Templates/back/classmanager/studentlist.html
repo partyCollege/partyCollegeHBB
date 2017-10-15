@@ -1,0 +1,208 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 360px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 430px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 600px;
+        }
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row form-horizontal">
+        <div class="col-md-8 form-group">
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="col-sm-4 control-label">学员姓名</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search.name" />
+                    </div>
+                </div>
+				<div class="col-md-4">
+					<label class="col-sm-4 control-label">职级</label>
+					<div class="col-sm-8">
+						<select class="form-control select" search-dbcolumn="rank" search-handle="like" search-dbtype="string" ng-model="search.rank">
+							<option ng-repeat="p in levelArr" ng-value="p.showvalue">{{p.showvalue}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label class="col-sm-4 control-label">手机号码</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" search-dbcolumn="cellphone" search-handle="like" search-dbtype="string" ng-model="search.cellphone" />
+					</div>
+				</div>
+            </div>
+        </div>
+        <div class="col-md-4 text-right">
+            <button class="btn btn-info" ng-click="goSearch()">检索</button> 
+            <button class="btn btn-info" ng-click="addStudent()">添加学员</button>
+            <button class="btn btn-danger" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="deleteStudent()">删除</button>
+
+        </div>
+    </div>
+    <div class="row">
+        <div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="grid1"></div>
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="delconfirm.html">
+	<div class="modal-header text-right">
+		<button class="btn btn-warning btn-circle" ng-click="closeDel()" type="button">
+			<i class="fa fa-times tubiaoicon-17"></i>
+		</button>
+	</div>
+
+	<div class="modal-body">
+		<h3>确定要删除选中的学员吗？</h3>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="okDel()">确定</button>
+		<button class="btn btn-warning" type="button" ng-click="isDelAccept=false;closeDel()">取消</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="confirm.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <h3>重新导入学员会覆盖所有已存在学员</h3>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" type="button" ng-click="isAccept=false;close()">取消</button>
+    </div>
+</script>
+<script type="text/ng-template" id="studentImport.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div style="height:500px;overflow-y:auto;margin-left:10px">
+            <div class="row text-center" style="line-height:30px;margin:0px;font-size:20px;">
+                成功记录：<span style="color:green">{{studentSuccess}}</span>失败记录：<span style="color:red">{{studentFail}}</span>
+            </div>
+            <div class="row" style="line-height:30px;margin:0px">
+                <div class="col-md-6" style="font-weight:bold;border:1px solid black;">
+                    姓名
+                </div>
+                <div class="col-md-6" style="font-weight:bold;border-right:1px solid black;border-bottom:1px solid black;border-top:1px solid black">
+                    出错信息
+                </div>
+            </div>
+            <div class="row" style="line-height:24px" ng-repeat="student in importStudent" ng-if="student.success==false">
+                <div class="col-md-6" style="border-bottom:1px solid black;border-right:1px solid black;">
+                    {{student.name}}
+                </div>
+                <div class="col-md-6" style="border-bottom:1px solid black;">
+                    {{student.message}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="close()">确定</button>
+		<!--<button class="btn btn-primary" type="button" ng-click="exportfailed()">导出</button>-->
+    </div>
+</script>
+<script type="text/ng-template" id="studentInfo.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3> 导入学员</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <form method="get" class="form-horizontal" name="stuInfoForm">
+                            <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-sm-4 control-label"><span style="color:red;">*</span>姓名</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="student.name" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-sm-4 control-label"><span style="color:red;">*</span>身份证号</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="student.idcard" class="form-control" required>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="col-sm-4 control-label"><span style="color:red;">*</span>性别</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-model="student.sex" required>
+                                            <option value="1">男</option>
+                                            <option value="0">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-sm-4 control-label"><span style="color:red;">*</span>民族</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-model="student.nation" required>
+                                            <option ng-repeat="nation in nations">{{nation}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="col-sm-4 control-label"><span style="color:red;">*</span>手机号码</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="student.cellphone" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-sm-4 control-label"><span style="color:red;">*</span>工作单位</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="student.company" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group text-center">
+                                <button class="btn btn-info" ng-click="saveStudent()" ng-disabled="stuInfoForm.$invalid||saveStudentDisabled">保存</button>
+                                <button class="btn btn-default" ng-click="close()">取消</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

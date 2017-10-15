@@ -1,0 +1,31 @@
+﻿<style>
+    .item-checkbox .checkbox { left:10%; }
+    .checkbox input:before, .checkbox-icon:before{ width:70%;height:70%;margin-top:3px; }
+    .checkbox input:after, .checkbox-icon:after { top:29%;left:10%;}
+</style>
+<ion-view title="选择班次">
+    <ion-header-bar align-title="center" class="bar  bar-head bar-assertive">
+        <h1 class="title">选择班次</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list" style="margin-top:9px;">
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper" style="margin-bottom:0;">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="查询" ng-model="keyval" maxlength="10">
+                </label>
+            </div>
+            <li class="item item-checkbox" ng-click="checked(item)" ng-repeat="item in bclist |queryStuList:keyval">
+                <label class="checkbox">
+                    <input type="checkbox">
+                </label>
+                <div class="item-content item-text-wrap">
+                    {{item.bt2}}
+                </div>
+            </li>
+        </div>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-assertive" ng-click="displayProp()">
+        <span class="title">取消</span>
+    </ion-footer-bar>
+</ion-view>

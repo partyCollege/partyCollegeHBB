@@ -1,0 +1,26 @@
+﻿<ion-view title="通讯录">
+    <go-main-page></go-main-page>
+    <ion-content>
+        <div class="item" style="text-align:center">
+            <img width="132" height="170" ng-src="../api/getAttach/action/getAttach/xyPhoto/{{dataStu[0].id}}" />
+        </div>
+        <div class="item item-input">
+            <span class="input-label">姓名</span>
+            <span>{{dataStu[0].bt}}</span>
+        </div>
+        <div class="item item-input" style="padding-right:20px;">
+            <span class="input-label">所属单位</span>
+            <span class="item-text-wrap">{{dataStu[0].szdw}}</span>
+        </div>
+        <div class="item item-input" style="padding-right:20px;">
+            <span class="input-label">职务</span>
+            <span class="item-text-wrap">{{dataStu[0].zw}}</span>
+        </div>
+        <div class="item item-input">
+            <span class="input-label">手机号码</span>
+            <a style="text-decoration:underline" href="tel:{{dataStu[0].sjhm}}">{{dataStu[0].sjhm}}</a>
+            <a href="tel:{{dataStu[0].sjhm}}" style="margin-left:20px;"><i class="icon ion-android-call"></i></a>
+            <a href="sms:{{dataStu[0].sjhm}}" style="margin-left:20px;"><i class="icon ion-chatbox-working" style="font-size:20px"></i></a>
+        </div>
+    </ion-content>
+</ion-view>

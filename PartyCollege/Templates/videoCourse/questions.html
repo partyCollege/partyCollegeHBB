@@ -1,0 +1,44 @@
+﻿<div class="question_one" ng-repeat="item in questions">
+    <div class="content">
+        <i></i>{{item.qcontent}}
+        <div class="right cz">
+            <a ng-click="answerShow(item.id)"><span class="noborder"><i class="tubiaoicon-28"></i>回答 {{item.replylist.length}}</span></a>
+            <a ng-click="attention(item.id)">
+                <span class="zan" ng-class="{'red':item.isattention}"><i class="tubiaoicon-09"></i>{{item.isattention ? '已关注':'关注'}}</span>
+                <!--<span><i></i>关注 {{item.attentioncount}}</span>-->
+            </a>
+            <a ng-click="clickALike(item.id)">
+                <span class="zan" ng-class="{'red':item.isclick}"><i class="tubiaoicon-18"></i>{{item.isclick ? '已赞':'点赞'}}（{{item.clickcount}}）</span>
+            </a>
+            <span class="zan" ng-if="item.noreply && item.accountid == user.accountId" ng-click="deleQuestion(item.id,1)"><i class="tubiaoicon-12"></i>删除</span>
+            
+        </div>
+        <p><span>时间：{{item.createdtime  | dateFilter:'yyyy-MM-dd'}}</span><span>来自：{{item.quser}}</span></p>
+    </div>
+    <div class="answer">
+        <form id="" action="" method="post" ng-if="item.answershow">
+            <p>我来回答</p>
+            <textarea ng-model="item.replycontent"></textarea>
+            <button class="btn" type="button" ng-click="answer(item.id)">发布</button>
+            <div class="clear"></div>
+        </form>
+        <div class="answer_one" ng-repeat="reply in item.replylist">
+            <span class="left">答案：</span>
+            <p class="right">
+                {{reply.pcontent}}
+            </p>
+            <div class="clear"></div>
+            <span>源自{{reply.fromtype == "1" ? '学员':'老师'}}：{{reply.fromuser}}</span><span class="time">时间：{{reply.createdtime | dateFilter:'yyyy-MM-dd'}} </span>
+            <!--<span class="zan"><i></i>{{reply.clickcount}}</span>-->
+
+            <a ng-click="clickALike_reply(item.id,reply.id)" ng-if="reply.status">
+                <span class="zan" ng-class="{'red':reply.isclick}">
+                    <i class="tubiaoicon-18"></i>{{reply.isclick ? '已赞（'+ reply.clickcount +')':'点赞（'+ reply.clickcount +')'}}
+                </span>
+            </a>
+            <span class="del" ng-if="!reply.status && reply.accountid == user.accountId" ng-click="deleAnswer(reply.id,1)"><i class="tubiaoicon-12"></i>删除</span>
+            <span class="zan" ng-if="!reply.status"><i></i>(未采纳)</span>
+        </div>
+    </div>
+</div>
+<div class="more"><a class="btn" ng-click="loadMoreQuestions()">更多</a></div>

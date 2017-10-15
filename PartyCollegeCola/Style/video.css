@@ -1,0 +1,31 @@
+﻿.modal-open{
+    overflow: auto;
+}
+.modal-open .modal{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.fade{
+    -webkit-transition: opacity 0s linear;
+    -o-transition: opacity 0s linear;
+    transition: opacity 0s linear;
+}
+.modal-open .modal .modal-dialog{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    -webkit-transition: opacity 0s linear !important;
+    -o-transition: opacity 0s linear !important;
+    transition: opacity 0s linear !important;
+}
+.modal-open .modal .modal-content{
+    background: none;
+    box-shadow: none;
+    width: 100%;
+    height: 100%;
+    position: static;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+}

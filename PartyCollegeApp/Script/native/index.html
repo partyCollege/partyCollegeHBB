@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+<!--        <meta name="format-detection" content="telephone=no">-->
+<!--        <meta name="msapplication-tap-highlight" content="no">-->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+            <script type="text/javascript">
+                window.uexOnload = function(){
+                    
+                    
+                }
+            function showPluginHtml(htmlName)
+            {
+                window.location.href = htmlName;
+            }
+            </script>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="conbor">
+            <div class="consj">
+                <br/>
+                <br/>
+                <br/>
+                <div class="btn bg_1" onclick = "showPluginHtml('battery.html');">Batery电池功能</div><br/>
+                <div class="btn bg_2" onclick = "showPluginHtml('camera.html');">Camera相机功能</div><br/>
+                <div class="btn bg_3" onclick = "showPluginHtml('contacts.html');">Contacts联系人功能</div><br/>
+                <div class="btn bg_4" onclick = "showPluginHtml('device.html');">Device获取设备信息</div><br/>
+                <div class="btn bg_5" onclick = "showPluginHtml('alert.html');">Alert弹窗功能</div><br/>
+                <div class="btn bg_6" onclick = "showPluginHtml('fileWriter.html');">showFileWriterHtml写文件</div><br/>
+                <div class="btn bg_6" onclick = "showPluginHtml('fileReader.html');">showFileReaderHtml读文件</div><br/>
+                <div class="btn bg_1" onclick = "showPluginHtml('fileTransfer.html');">FileTransfer文件下载上传</div><br/>
+                <div class="btn bg_2" onclick = "showPluginHtml('gps.html');">GPS功能</div><br/>
+                <div class="btn bg_3" onclick = "showPluginHtml('media.html');">Media多媒体(cordova下载插件类)</div><br/>
+                <div class="btn bg_4" onclick = "showPluginHtml('anotherMedia.html');">Media多媒体(移动办公原有插件类--本地音乐播放)</div><br/>
+                <div class="btn bg_4" onclick = "showPluginHtml('record.html');">Record录音(移动办公原有插件类--录音功能)</div><br/>
+                <div class="btn bg_5" onclick = "showPluginHtml('connection.html');">Connection网络状态</div><br/>
+                <div class="btn bg_6" onclick = "showPluginHtml('open.html');">Open打开应用或网址</div><br/>
+                <div class="btn bg_1" onclick = "showPluginHtml('scan.html');">Barcode扫描、生成二维码</div><br/>
+                <div class="btn bg_2" onclick = "showPluginHtml('acceleration.html');">Acceleration加速度</div><br/>
+                <div class="btn bg_3" onclick = "showPluginHtml('orientation.html');">Orientation方向</div><br/>
+                <div class="btn bg_4" onclick = "showPluginHtml('chat.html');">Chat聊天</div><br/>
+                <div class="btn bg_5" onclick = "showPluginHtml('error.html');">Error错误</div><br/>
+                <div class="btn bg_6" onclick = "showPluginHtml('http.html');">Http网络相关</div><br/>
+                <div class="btn bg_1" onclick = "showPluginHtml('info.html');">Info设备信息</div><br/>
+                <div class="btn bg_2" onclick = "showPluginHtml('openFile.html');">openFile打开文件</div><br/>
+                <div class="btn bg_3" onclick = "showPluginHtml('pushmessage.html');">Pushmessage推送消息</div><br/>
+                <div class="btn bg_4" onclick = "showPluginHtml('recognition.html');">Recognition语音识别</div><br/>
+                <div class="btn bg_5" onclick = "showPluginHtml('securitySettings.html');">SecuritySettings安全设置</div><br/>
+                <div class="btn bg_6" onclick = "showPluginHtml('sqlite.html');">Sqlite数据库操作</div><br/>
+                <div class="btn bg_1" onclick = "showPluginHtml('store.html');">Store测试存储</div><br/>
+                <div class="btn bg_2" onclick = "showPluginHtml('tel.html');">电话短信功能</div><br/>
+                <div class="btn bg_4" onclick = "showPluginHtml('toast.html');">弹框</div><br/>
+                <div class="btn bg_5" onclick = "showPluginHtml('window.html');">窗口</div><br/>
+                <div class="btn bg_6" onclick = "showPluginHtml('wps.html');">WPS操作</div><br/>
+                <div class="btn bg_1" onclick = "showPluginHtml('xsf.html');">设备信息</div><br/>
+                <div class="btn bg_1" onclick = "showPluginHtml('zip.html');">压缩解压缩</div><br/>
+                <div class="btn bg_2" onclick = "showPluginHtml('showContactsList.html');">展示A~Z通讯录</div><br/>
+                <div class="btn bg_3" onclick = "showPluginHtml('showUserCenter.html');">展示个人中心</div><br/>
+            </div>
+        </div>
+        <script type="text/javascript" src="native.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
+    </body>
+</html>

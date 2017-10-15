@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="../css/ionic.css" rel="stylesheet" />
+    <link href="../css/ionicIcon/css/ionicons.css" rel="stylesheet" />
+    <script src="../Script/angular/angular.js"></script>
+    <script src="../Script/ionic/ionic.js"></script>
+    <script src="../Script/ionic/ionic.bundle.js"></script>
+    <script src="../Script/angular/lodash.js"></script>
+    <script src="../Script/angular/restangular.js"></script>
+    <script src="../Script/APPScript/APP.js"></script>
+    <script>
+        app.controller("placardinfoController", function ($scope, $timeout, $ionicListDelegate, Restangular, $location, getUser) {
+            var userid = getUser();
+            Restangular.setDefaultRequestParams(['remove', 'post', "put", "get"], { formAPP: true });
+            var baseAccounts = Restangular.all('placardinfo');
+            $scope.placardinfoList = baseAccounts.getList().$object;
+        });
+    </script>
+</head>
+<body>
+    <div ng-app="app" class="padding-horizontal">
+        <ion-content ng-controller="placardinfoController">
+            <a class="button icon icon-right ion-chevron-right" href="PLACARDINFO.html">tiaozhuan</a>
+            <div class="list fade-in-not-out" ng-repeat="item in placardinfoList|limitTo:20">
+            </div>
+        </ion-content>
+    </div>
+</body>
+</html>

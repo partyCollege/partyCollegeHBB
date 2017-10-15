@@ -1,0 +1,17 @@
+﻿<div class="courseInfo_hbb_box">
+    <ul class="commentList">
+        <li ng-repeat="n in datalist">
+            <div class="img">
+                <img ng-src="{{n.userphoto}}" onerror="this.src = '../img/commentList_userImg.png'" />
+            </div>
+            <span class="pull-right gray" ng-bind="n.submittime"></span>
+            <p class="userName" ng-bind="n.name"></p>
+            <p ng-bind="n.comments"></p>
+        </li>
+        <li ng-if="datalist.length==0">暂无评论</li>
+    </ul>
+    <div class="more" ng-if="searchparameter.isMore">
+        <a href="" class="btn" ng-click="more()">更多</a>
+        <i class="icon icon_more"></i>
+    </div>
+</div>

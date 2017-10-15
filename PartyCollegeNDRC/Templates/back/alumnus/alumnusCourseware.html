@@ -1,0 +1,70 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+     .mycenter{
+        text-align:center;
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row form-horizontal">
+        <div class="col-md-9 form-group">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="col-sm-3 control-label">课程名称</label>
+                    <div class="col-sm-9 text-left">
+                        <input type="text" class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search.name" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-sm-4 control-label">授课人</label>
+                    <div class="col-sm-7 text-left">
+                        <input type="text" class="form-control" search-dbcolumn="teachersname" search-handle="like" search-dbtype="string" ng-model="search.teachersname" />
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="col-sm-3 control-label">授课时间</label>
+                    <div class="col-sm-4 text-left">
+                        <div app-date ng-model="search.beginteachtime" search-dbcolumn="teachtime" search-handle="gte"></div>
+                    </div>
+                    <div class="col-sm-1 control-label">
+                        至
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <div app-date ng-model="search.endteachtime" search-dbcolumn="teachtime" search-handle="lte"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 text-right">
+            <button class="btn btn-info" ng-click="goSearch()">检索</button>
+			<button class="btn btn-info" ui-sref="index.selectCourseware">选择课程</button>
+			<button class="btn btn-danger" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="delete()">删除</button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-pagination class="grid1" ui-grid-selection></div>
+    </div>
+
+</div>

@@ -1,0 +1,50 @@
+<ion-view  title="面授培训">
+	<ion-header-bar class="bar-positive" style="background-color: #558B2F;">
+		<a class='button button-icon icon ion-ios-arrow-back' ng-click='goBack()' style="color: #ffffff;"></a>
+        <h1 class="title">面授培训</h1>
+        <button ng-if = "info.status == '-1'" class="button button-positive" ng-click="confirmDeleteTrain();">删除</button>
+	</ion-header-bar>
+	<ion-content>
+		<div class="row face_details">
+			<div class="col col-33"><label>*</label>培训名称</div>
+			<div class="col col-67">{{info.title}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33"><label>*</label>培训类别</div>
+			<div class="col col-67">{{info.type}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33"><label>*</label>开始时间</div>
+			<div class="col col-67">{{info.starttime}}</div>
+		</div>
+        <div class="row face_details">
+			<div class="col col-33"><label>*</label>开始时间</div>
+			<div class="col col-67">{{info.endtime}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33"><label>*</label>拟报学时</div>
+			<div class="col col-67">{{info.studytime}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33"><label>*</label>申报年份</div>
+			<div class="col col-67">{{info.year}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33">培训地点</div>
+			<div class="col col-67">{{info.address}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33">主办单位</div>
+			<div class="col col-67">{{info.company}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33">证明人</div>
+			<div class="col col-67">{{info.reference}}</div>
+		</div>
+		<div class="row face_details">
+			<div class="col col-33">审核意见</div>
+			<div class="col col-67">{{info.remark}}</div>
+		</div>
+	</ion-content>
+
+</ion-view>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+
+ <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+        alert('onDeviceReady');
+    }
+
+    function start(){
+      alert("start");
+      xsfRecord.start("record.acc");
+      //
+    }
+    function pause(){
+      alert("pause");
+      xsfRecord.pause();
+      //
+    }
+    function resume(){
+      alert("resume");
+      xsfRecord.stop();
+      //
+    }
+    function stop(){
+      alert("stop");
+      xsfRecord.stop();
+      //
+    }
+    </script>
+  </head>
+  <body>
+      <a href="#" onclick="start()">start</a><br />
+      <a href="#" onclick="pause()">pause</a><br />
+      <a href="#" onclick="resume()">resume</a><br />
+      <a href="#" onclick="stop()">stop</a><br />
+  </body>
+  </body>
+  </body>
+</html>

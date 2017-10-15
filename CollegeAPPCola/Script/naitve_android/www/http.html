@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        var path;
+        function onDeviceReady() {
+            //alert('onDeviceReady');
+            xsf.getDeviceInfo(function(info){
+                              alert("info:" + info)
+                              path = info.WORK_DIR;
+                              //path = info.TEMP_DIR;
+                              });
+        }
+    function test_get() {
+        alert('test_get');
+        //getJSON 返回值为JSON格式
+        xsfHttp.get("http://www.baidu.com","{\"id\":1}",
+                    function (result) {
+                    alert(result);
+                    },
+                    function (error) {
+                    alert("open failed: " + error);
+                    }
+                    );
+                                 
+    }
+    function test_post() {
+        alert('test_post');
+                    //postJSON 返回值为JSON格式
+                    xsfHttp.post("http://192.168.1.105:8080/Demo/test.iphone","12345sssss sss&&<sspsdfa inao\r\ns12345",
+                                 function (result) {
+                                 alert(result);
+                                 },
+                                 function (error) {
+                                 alert("open failed: " + error);
+                                 }
+                                 );
+                                 
+    }
+    //
+    //window.open = xsfWindow.open;
+    $.ajax = xsfHttp.ajax;
+    function ajax() {
+        alert('ajax');
+        //var optians = "{datType:'text',url:'http://wwww.baidu.com/'}";
+        //$.ajax(optians);//datType = 'json'
+        xsfHttp.ajax({
+                url: "http://www.baidu.com",
+                dataType: "text",
+                type: "POST",
+                timeout: 20000,
+                async: false,
+                //data: "",
+                success: function (response) {
+                    alert("success")
+                },
+                error: function () {
+                    alert("error")
+                },
+                complete: function () {
+                    alert("complete")
+                }
+            });
+        //alert('ajax');
+                     
+    }
+    function upload(){
+        
+        var url = "http://192.168.1.222:8080/ezweb/action?uploadFile=test";
+        xsfHttp.upload("record.caf",url,
+                       function (result) {
+                        alert(result);
+                       },
+                       function (error) {
+                       alert("open failed: " + error);
+                       }
+                       );
+                       
+    }
+    function download1(){
+        var url = "http://117.184.89.78:7080/ezweb/upload/1.doc";
+        var filePath = path;
+        alert(filePath);
+        var downlaoder = xsfHttp.download(url,filePath,
+                       function (result) {
+                        alert("下载成功:" + result.fullPath);
+                       },
+                       function (error) {
+                       alert("open failed: " + error);
+                       }
+                       );
+        downlaoder.onprogress = function(progressEvent) {
+        if(progressEvent.lengthComputable){
+        	alert("" + progressEvent.total + "/" + progressEvent.loaded);
+        }
+    
+};        
+    }
+
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "ajax();">ajax</div><br/>
+      <div class = "btn bg_2" onclick = "test_get();">http get请求</div><br/>
+      <div class = "btn bg_3" onclick = "test_post();">test_post请求</div><br/>
+      <div class = "btn bg_4" onclick = "upload();">upload上传</div><br/>
+      <div class = "btn bg_5" onclick = "download1();">download下载</div><br/>
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

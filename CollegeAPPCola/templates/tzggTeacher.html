@@ -1,0 +1,22 @@
+﻿<!--通知公告-->
+<ion-list>
+    <a class="item item-button-right agreement-title-top item-padding-10 " href="{{goList}}">
+        <span style="position:relative">
+            <i class="icon ion-speakerphone size-20" style="color:#f00;"></i>&nbsp;&nbsp;<span class="size-18" style="font-weight:bolder">通知公告</span>
+        </span>
+        <span class="more"><i class="icon ion-ios-arrow-forward"></i></span>
+    </a>
+    <ion-item style="padding:13px 10px;color:#999" ng-if="ggList.length<=0">
+        暂无公告
+    </ion-item>
+    <div class="item item-padding-10 " ng-repeat="gg in ggList ">
+        <div class="row" style="margin-left:-6px;" ng-click="goDetial(gg)">
+            <div class="col-20">
+                <span class="size-18">{{gg.createdate|date:'MM-dd'}}</span>
+            </div>
+            <div class="col-80 size-18" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
+                <span class="size-18">{{gg.title}}</span>
+            </div>
+        </div>
+    </div>
+</ion-list>

@@ -1,0 +1,124 @@
+﻿<ion-view title="校院委会议" style="font-size:30px; background-color:#FFF; ">
+    <go-main-page></go-main-page>
+    <ion-nav-buttons side="right">
+        <button class='button button-icon icon ' ng-click="changePageView()">日历</button>
+        <button class='button button-icon icon ' ng-click='changeTodayView()'>今日</button>
+    </ion-nav-buttons>
+    <div ng-show="isshowloading" style="position:absolute;width:100%;height:50%;background-color:#fff;left:0px;top:{{styleTopString}}px;z-index:9999;text-align:center;padding-top:25px;font-size:20px;">
+        <div id="caseMarron">
+            <div id="boule"></div>
+            <div id="load">
+                <p>加载中 ...</p>
+            </div>
+        </div>
+    </div>
+    <div style=" background-color:white; margin-top:45px;" class="scroll-content week-content">
+        <div class="week-title">
+            <div class="row" style="margin-left:0px;">
+                <div class="col" style="font-size:12px;">
+                    周日
+                </div>
+                <div class="col" style="font-size:12px;">
+                    周一
+                </div>
+                <div class="col" style="font-size:12px;">
+                    周二
+                </div>
+                <div class="col" style="font-size:12px;">
+                    周三
+                </div>
+                <div class="col" style="font-size:12px;">
+                    周四
+                </div>
+                <div class="col" style="font-size:12px;">
+                    周五
+                </div>
+                <div class="col" style="font-size:12px;">
+                    周六
+                </div>
+            </div>
+        </div>
+        <div class="week-date" ng-show="weekpage">
+            <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="false">
+                <ion-slide ng-repeat="clitem in calendarList">
+                    <div class="date-solar-calendar">
+                        <div class="row" style="margin-left:0px;">
+                            <div ng-repeat="sditem in clitem.solarData" class="col" ng-click="changeTimeTableView(clitem,sditem,true)" ng-class="{true:'active',false:''}[sditem.date==activeDate]">
+                                <div>
+                                    {{sditem.day}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-lunar-calendar">
+                        <div class="row" style="margin-left:0px;">
+                            <div class="col" ng-repeat="lditem in clitem.lunarData" ng-click="changeTimeTableView(clitem,lditem,true)">
+                                {{lditem.day}}<em ng-show="lditem.data.length"></em>
+                            </div>
+                        </div>
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+
+        </div>
+    </div>
+    <ion-content style="margin-top:{{styleString}}px;" class="has-footer week-timetable-content mySchedule_box" delegate-handle="mainScroll">
+        <div ng-show="weekpage" class="weekPage">
+            <ion-list>
+                <ion-item ng-repeat="ttItem in timetable" class="item">
+                    <div class="xyhyText clearfix">
+                        <h2 ng-show="ttItem.odate" class="timetable-info" style="white-space:normal">
+                            <i class="ion-android-clipboard" style="margin-right:5px;"></i>
+                            {{ttItem.bt}}
+                        </h2>
+                    </div>
+                    <div class="xyhyTd clearfix">
+                        <h2 ng-show="ttItem.odate" class="timetable-info">
+                            <i class="ion-clock"></i> {{ttItem.odate|date:'HH:mm'}}
+                        </h2>
+                        <h2 ng-show="ttItem.hydd" class="timetable-info xyhyDd">
+                            <i class="ion-ios-location-outline"></i> 【{{ttItem.hydd}}】
+                        </h2>
+                    </div>
+                    <h2 ng-show="ttItem.yhbm" class="timetable-info" style="white-space:normal;">
+                        <i>参加部门：</i>
+                        <span>{{ttItem.yhbm}}</span>
+                    </h2>
+                </ion-item>
+            </ion-list>
+            <div ng-show="!timetable.length" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                <i class="ion-clipboard" style="font-size:90px"></i><br />
+                无会议安排
+            </div>
+        </div>
+        <div ng-show="!weekpage">
+            <div ng-repeat="ml in monthlist">
+                <div style="height:22px;background-color:#efefef;color:#333;text-align:left;font-size:16px;padding-left:10px;">
+                    {{ml.month}}月
+                </div>
+                <div ng-if="ml.date==clitem.ym1||ml.date==clitem.ym2" ng-repeat="clitem in calendarList">
+                    <div class="date-solar-calendar">
+                        <div class="row" style="padding-bottom:0px;">
+                            <div ng-repeat="sditem in clitem.solarData" style="padding-bottom:0px;" class="col" ng-class="{true:'active',false:''}[sditem.date==activeDate]">
+                                <span ng-if="ml.date==sditem.ym" ng-click="changeTimeTableView(clitem,sditem,false)" style="display:block">
+                                    <div>
+                                        {{sditem.day}}
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-lunar-calendar">
+                        <div class="row" style="padding-top:0px;">
+                            <div class="col" style="padding-top:0px;font-size:13px" ng-repeat="lditem in clitem.lunarData">
+                                <span ng-if="ml.date==lditem.ym" ng-click="changeTimeTableView(clitem,lditem,false)" style="display:block">
+                                    {{lditem.day}}<em ng-show="lditem.data.length"></em>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

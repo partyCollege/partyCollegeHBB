@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+ <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            alert('onDeviceReady');
+        }
+        var my_media;
+        var media_record;
+        function play(){
+            alert("play");
+            //通过URL播放一段音乐。
+            my_media = new Media("http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3",
+                               // success callback
+                                 function () {
+                                 console.log("playAudio():Audio Success");
+                                 alert("playAudio():Audio Success");
+                                 },
+                               // error callback
+                               function (err) {
+                               console.log("playAudio():Audio Error: " + err);
+                               alert("playAudio():Audio Error: " + err);
+                               }
+                               );
+                               // Play audio
+                               my_media.play();
+        }
+        function playLocalMusic()
+        {
+            alert("playLocalMusic");
+            my_media = new Media("Honor.mp3",
+                                        // success callback
+                                        function () {
+                                        console.log("playAudio():Audio Success");
+                                        alert("playAudio():Audio Success");
+                                        },
+                                        // error callback
+                                        function (err) {
+                                        console.log("playAudio():Audio Error: " + err);
+                                        alert("playAudio():Audio Error: " + err);
+                                        }
+                                        );
+                                        my_media.play();
+        }
+        function fail(error) {
+            console.log(error.code);
+            alert(error);
+        }
+        function pause(){
+            alert("pause");
+            my_media.pause();
+        }
+        function resume(){
+            alert("resume");
+            my_media.play();
+        }
+        function stop(){
+            alert("stop");
+            my_media.stop();
+            my_media.release();
+        }
+    
+        function startRecord()
+        {
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+                                     
+                                     console.log('file system open: ' + fs.name);
+                                     fs.root.getFile("myrecording.wav", { create: true, exclusive: false }, function (fileEntry) {
+                                                     
+                                                     console.log("fileEntry is file?" + fileEntry.isFile.toString());
+                                            
+                                            
+                                                     var src = "documents://myrecording.wav";
+                                                     media_record = new Media(src,
+                                                                              // success callback
+                                                                              function() {
+                                                                              console.log("recordAudio():Audio Success");
+                                                                              alert("recordAudio():Audio Success");
+                                                                              },
+                                                                              
+                                                                              // error callback
+                                                                              function(err) {
+                                                                              console.log("recordAudio():Audio Error: "+ err.code);
+                                                                              alert("recordAudio():Audio Error: "+ err.code);
+                                                                              alert(err.message);
+                                                                              });
+                                                     
+                                                     // Record audio
+                                                     media_record.startRecord();
+                                                     }, onErrorCreateFile);
+                                     
+                                     }, onErrorLoadFs);
+            
+        }
+        function pauseRecord()
+        {
+            media_record.pauseRecord();
+        }
+        function resumeRecord()
+        {
+            media_record.resumeRecord();
+        }
+        function stopRecord()
+        {
+            media_record.stopRecord();
+        }
+        function playRecord()
+        {
+            
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+                                     fs.root.getFile("myrecording.wav", { create: true, exclusive: false }, function (fileEntry) {
+                                                     //播放本地音乐，音乐文件路径获取方法。
+                                                     var src = fileEntry.toInternalURL();
+                                                     alert(src);
+                                                     var playRecord_media = new Media(src,
+                                                                                      // success callback
+                                                                                      function () {
+                                                                                      console.log("playAudio():Audio Success");
+                                                                                      alert("playAudio():Audio Success");
+                                                                                      },
+                                                                                      // error callback
+                                                                                      function (err) {
+                                                                                      console.log("playAudio():Audio Error: " + err);
+                                                                                      alert("playAudio():Audio Error: " + err);
+                                                                                      alert("error" + err.message);
+                                                                                      }
+                                                                                      );
+                                                     // Play audio
+                                                     playRecord_media.play();
+                                                     }, fail);
+                                     
+                                     }, fail);
+            
+        }
+        function onErrorCreateFile(err)
+        {
+            alert("Create File Error" + err);
+        }
+        function onErrorLoadFs(err)
+        {
+            alert("Load Fs Error" + err);
+        }
+        function fail(err)
+        {
+            alert("Error : " + err);
+        }
+     function goHome()
+     {
+         window.location.href = "index.html";
+     }
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "play();">play传入MP3文件的地址进行播放</div><br/>
+      <div class = "btn bg_1" onclick = "playLocalMusic();">playLocalMusic播放本地音乐</div><br/>
+      <div class = "btn bg_2" onclick = "pause();">pause暂停正在播放的音乐</div><br/>
+      <div class = "btn bg_3" onclick = "resume();">resume继续播放</div><br/>
+      <div class = "btn bg_4" onclick = "stop();">stop停止播放</div><br/>
+<!--      <div class = "btn bg_5" onclick = "startRecord();">startRecord开始录音</div><br/>-->
+<!--      <div class = "btn bg_6" onclick = "pauseRecord();">pauseRecord暂停录音</div><br/>-->
+<!--      <div class = "btn bg_1" onclick = "resumeRecord();">resumeRecord继续录音</div><br/>-->
+<!--      <div class = "btn bg_2" onclick = "stopRecord();">stopRecord结束录音</div><br/>-->
+<!--      <div class = "btn bg_3" onclick = "playRecord();">playRecord播放录音</div><br/>-->
+      <div class = "btn bg_4" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

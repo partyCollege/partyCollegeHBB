@@ -1,0 +1,36 @@
+﻿<ion-view title="">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-head-bar align-title="center" class="bar bar-subheader weekReport_hd">
+        <!--<div class="buttons">
+            <button class="button button-energized" ng-click="goprev()">上一周</button>
+        </div>-->
+        <span class="title">
+            <!--{{nowWeekStart|date:'MM-dd'}} 至 {{nowWeekEnd|date:'MM-dd'}}-->
+            <select ng-show="weekType.querytype == 2" ng-options="m.text for m in queryByMonth" ng-true-value="m.value for m in queryByMonth" ng-model="chooseMonth">
+                <option value="">请选择时间</option>
+            </select>
+            <select ng-show="weekType.querytype == 1" ng-options="m.text for m in brithdayMonth" ng-true-value="m.value for m in brithdayMonth" ng-model="chooseWeek">
+                <option value="">请选择时间</option>
+            </select>
+        </span>
+        <div class="buttons searchBtn">
+            <button class="btn btn-warning btn-lg" ng-click="gonext()">搜索</button>
+        </div>
+    </ion-head-bar>
+
+    <ion-content class="has-footer has-header has-subheader weekReport_bd">
+        <div class="list card weekReport_list" ng-repeat="weekday in  weekDayClass">
+            <div class="item item-divider title" istitle="true">{{weekday.bcname}}</div>
+            <div class="item">
+                <div class="row">
+                    <div class="col item-icon-left"><p class="ion-ios7-time-outline">&nbsp;{{weekday.mc}}</p></div>
+                    <div class="col item-icon-left"><p>平均分:&nbsp;&nbsp;{{weekday.pjf}}</p></div>
+                </div>
+            </div>
+            <div class="list card" ng-if="weekDayClass.length==0">
+                <div class="item item-divider">本周暂无数据</div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+

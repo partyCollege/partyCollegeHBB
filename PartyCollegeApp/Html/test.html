@@ -1,0 +1,621 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no" />
+    <title>{{AppConfig.title}}</title>
+    <script src="../bower_components/jquery/jquery-1.11.1.min.js"></script>
+    <link href="../css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css" />
+    <script src="../js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+
+    <!--<link href="../css/ionic.css" rel="stylesheet" />-->
+    <!--<link href="../bower_components/ionic/release/css/ionic.css" rel="stylesheet" />-->
+    <link href="../bower_components/ionic/release/css/ionic_red.css" rel="stylesheet" />
+    <link href="../css/ionicIcon/css/ionicons.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/wijmo.css" rel="stylesheet" />
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <link href="../content/app.css" rel="stylesheet" />
+    <!--IOS壳中取消2面2行注释-->
+    <!--<script src="../Script/native/native.js"></script>
+    <script src="../Script/native/merge.js"></script>-->
+    <!--Android壳中取消2面2行注释-->
+    <!--<script src="../Script/naitve_android/native.js"></script>
+    <script src="../Script/naitve_android/merge_android.js.js"></script>-->
+    <script src="../bower_components/ionic/release/js/ionic.bundle.min.js"></script>
+    <script src="../bower_components/moment/min/moment.min.js"></script>
+    <script src="../bower_components/moment/locale/zh-cn.js"></script>
+    <script src="../bower_components/angular-moment/angular-moment.js"></script>
+
+    <!--<script src="../Script/ionic/ionic.bundle.js"></script>-->
+    <script src="../Script/angular/lodash.js"></script>
+    <script src="../Script/angular/restangular.js"></script>
+    <script src="../Script/APPScript/filter.js"></script>
+    <script src="../Script/APPScript/APP.js"></script>
+    <script src="../Script/APPScript/directive.js"></script>
+    <script src="../Script/APPScript/FACTORY.js"></script>
+    <script src="../Script/APPScript/controller.js"></script>
+    <script src="../Script/APPScript/LTcontroller.js"></script>
+    <script src="../Script/APPScript/lunarCalendar.js"></script>
+    <!--<script src="../Script/jquery/jquery-1.11.0.min.js"></script>-->
+    <script src="../Script/APPScript/DateHandler.js"></script>
+    <script src="../Script/wijimo/bootstrap.min.js"></script>
+    <!--<script src="../Script/jquery/jquery.pin.js"></script>-->
+    <script src="../Script/wijimo/wijmo.angular.min.js"></script>
+    <script src="../Script/wijimo/controls/wijmo.min.js"></script>
+    <script src="../Script/wijimo/controls/wijmo.input.min.js"></script>
+    <script src="../Script/wijimo/controls/cultures/wijmo.culture.zh.js"></script>
+    <script src="../Script/APPScript/BASE64.js"></script>
+    <script src="../Script/APPScript/md5.js"></script>
+    <script src="../Script/APPScript/Controller/appraisecontroll.js"></script>
+    <script src="../Script/APPScript/services.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+
+	<!--文件上传-->
+	<script src="../bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
+	<script src="../bower_components/ng-file-upload-shim/ng-file-upload.min.js"></script>
+
+    <!--video-->
+    <script src="../bower_components/videogular/videogular.js"></script>
+    <script src="../bower_components/videogular-controls/vg-controls.js"></script>
+    <script src="../bower_components/videogular-overlay-play/vg-overlay-play.js"></script>
+    <script src="../bower_components/videogular-poster/vg-poster.js"></script>
+    <script src="../bower_components/videogular-buffering/vg-buffering.js"></script>
+    <!--video-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3gqRCzNgHHe1uMHGkrYzfv0o"></script>
+    <script src="../bower_components/jquery/jquery.qqFace.js"></script>
+    <script>
+
+		app.controller("myController", function (FilesService,$timeout, getDataSource, $scope, $ionicActionSheet, $timeout, $ionicBackdrop, $ionicLoading, $ionicListDelegate, Restangular) {
+			//获取面授统计学时
+			getDataSource.getDataSource("getSumStudytimeTrain", {year:2016}, function (data) {
+				console.log("面授统计学时", data);
+			}, function (error) { });
+
+			//修改手机号
+			function func_2() {
+				var p = {
+					accountid: $rootScope.user.accountId,
+					studentid: $rootScope.user.studentId,
+					cellphone1: $scope.telObj.telphone,
+					cellphone2: $scope.telObj.telphone
+				};
+				getDataSource.getDataSource("usercenter-changetel", p, function (data) {
+					console.log("修改成功", data);
+				}, function (error) { });
+			}
+			//面授申请保存
+			function func_1(){
+				$scope.train = {
+					title: "",//培训名称
+					categoryone: "组织调训",//组织调训，干部选学
+					categorytwo: "业务培训", //业务培训,岗位培训,任职培训,初任培训
+					categorythree: "面授培训",//面授培训,网络培训
+					categoryfour: "境内培训", //境内培训，境外培训
+					starttime: "",//开始时间
+					endtime: "",//结束时间
+					studytime: "",//学习时间
+					year: "",//年份
+					address: "",//地址
+					company: "",//主办单位
+					reference: "",//证明人
+					status: 0,//状态,0 未提交 1 已提交 2 审核通过 -1 驳回
+					remark: ""//备注
+				};
+				Restangular.all("addtrain").post(train).then(function (data) {
+
+				});
+			}
+
+			
+			
+
+			//面授申请列表,进行提交和取消
+			function oper2(){
+				var parameter = {
+					status: 1,//状态,0 未提交 1 已提交 2 审核通过 -1 驳回
+					id: '操作数据id', remark: ""
+				};
+				getDataSource.getDataSource("submitrain", parameter, function (data) {
+					if (data[0] && data[0].crow > 0) {
+						CommonService.alert("操作成功");
+						$scope.tabs[$scope.pIndex].init();
+					}
+				}, function (error) { });
+			}
+			//删除面授
+			function del() {
+				var parameter = { id: 'c57480ad-8836-4468-af1b-d27582b27067' };
+				getDataSource.getDataSource("deletetrain", parameter, function (data) {
+
+				});
+			}
+
+			//提交评价
+			function func_2() {
+		    	//课程评价配置
+		    	$scope.scoreConfig = [
+					{
+						itemid: 1,
+						itemname: '观点正确',
+						rate: 3,
+						max: 5,
+						isReadonly: false
+					},
+					{
+						itemid: 2,
+						itemname: '联系实际',
+						rate: 3,
+						max: 5,
+						isReadonly: false
+					},
+					{
+						itemid: 3,
+						itemname: '内容丰富',
+						rate: 3,
+						max: 5,
+						isReadonly: false
+					},
+					{
+						itemid: 4,
+						itemname: '讲授认真',
+						rate: 3,
+						max: 5,
+						isReadonly: false
+					},
+					{
+						itemid: 5,
+						itemname: '互动充分',
+						rate: 3,
+						max: 5,
+						isReadonly: false
+					}
+		    	];
+                
+		    	var dataPost = {
+		    		accountid: $rootScope.user.accountId,//帐号ID
+		    		classcourseid: "",//可以为空
+		    		studentid: $rootScope.user.studentId,//学员ID
+		    		coursewareid: $stateParams.coursewareid,//课程ID
+		    		classid: $rootScope.user.classId,//班级ID
+		    		scoreList: $scope.scoreConfig,//评价配置
+		    		courseAppraiseContent: ''//评价内容
+		    	};
+
+		    	Restangular.all("submitAppraise").post(dataPost).then(function (data) {
+		    		
+		    	});
+		    }
+
+
+		    //点击忘记密码下一步调用，验证手机号，验证码是否正确
+			function func_3() {
+		        $scope.findpwdObj = {
+		            cellphone: "",//手机号
+		            yzmcode: "",// fromApp:true时，yzmcode可以不传 
+		            smsyzmcode: "",//短信验证码
+		            password1: "",//密码
+		            password2: "",//密码
+		            fromApp: true
+		        }
+		        Restangular.all("existscellphone").post($scope.findpwdObj).then(function (data) {
+		            if (data.result) {
+		                callback(data);
+		            } else {
+		                $scope.registerError.message = data.message;
+		                $scope.registerError.idx = data.validateIndex;
+		                $scope.registerError.style[data.validateIndex] = true;
+		                $scope.changefindpwdVerifyCode
+		            }
+		        });
+		    }
+            //重置密码
+		    function resetpwd() {
+		        var parameter = {
+		            cellphone: $scope.findpwdObj.cellphone,
+		            password1: Base64.encode($scope.findpwdObj.password1),
+		            password2: Base64.encode($scope.findpwdObj.password2)
+		        };
+
+		        Restangular.all("resetpassword").post(parameter).then(function (datatemp) {
+		            console.log("重置密码", datatemp);
+		        });
+		    }
+		    //验证短信验证码
+		    //function verifysmscode(){
+		    //    Restangular.all("VerifySMSCode").post({ smscode: '客户端输入验证码', keyname:'键名' }).then(function (datatemp) {
+		    //        if (datatemp.code == "success") {
+		    //            success();
+		    //        } else {
+		    //            failed();
+		    //        }
+		    //    });
+		    //}
+
+		    //发送短信验证码
+		    function getsmscode() {
+				$scope.sendMsg = function () {
+					Restangular.all("getSMSCode").post({ phone:'18019241620', keyname: "validatesmscode" }).then(function (data) {
+						console.log("发送成功", data);
+					});
+				}
+			}
+			//模拟登录
+			{
+				Restangular.all("login").post({
+					logname: 'sysadmin',
+					hashpwd: Base64.encode('11111111'),
+					verifycode: '888888',
+					fromApp: true
+				}).then(function (data) {
+					console.log("登录成功", data);
+				});
+			}
+
+			$timeout(function () {
+				//面授申请列表
+				$scope.inittrain = function () {
+					$scope.pagefilter = {
+						year: '2016',
+						maxSize: 6,
+						totalItems: 0,
+						pageSize: 10,
+						currentPage: 1
+					};
+
+					Restangular.all("gettrain").post($scope.pagefilter).then(function (data) {
+						console.log("gettrain",data)
+					});
+				}
+				$scope.inittrain();
+				//面授申请编辑获取
+				//function oper3(){
+				getDataSource.getDataSource("gettrain", { id: 'c57480ad-8836-4468-af1b-d27582b27067' }, function (data) {
+					console.log("gettrain", data);
+				}, function (error) { });
+				//}
+
+				
+
+				//获取用户对象
+				Restangular.all("getUserInfo").post({
+					studentid: '5cff189e-9690-11e6-a71f-00fffab6298f',//学员Id
+				}).then(function (data) {
+					console.log("获取用户对象", data);
+				});
+
+			    //找回密码验证码
+			    $scope.findpwdVerifyCodeSrc = "../api/VerifyCode/findpwdverify/" + new Date().getTime();
+			    $scope.changefindpwdVerifyCode = function () {
+			        $scope.findpwdVerifyCodeSrc = "../api/VerifyCode/findpwdverify/" + new Date().getTime();
+			    }
+
+				//已完成课程列表
+				{
+					$scope.postData = {
+						pageindex: 1,
+						pagesize: 6
+					};
+					getDataSource.getDataSource("getfinishedcourseware", postData, function (data) {
+						console.log("已完成课程列表", data);
+					}, function (error) { });
+			    }
+
+				//课程详情页
+				{
+					//查询条件
+					$scope.searchparameter = {
+						coursewareid: '72a32176-b5d4-4cb9-adcf-27106703aef2',//课程Id
+						studentid: '5cff189e-9690-11e6-a71f-00fffab6298f',//学员ID
+						studentid2: '5cff189e-9690-11e6-a71f-00fffab6298f',
+						pageIndex: 1,
+						pageSize: 5,
+						isMore: false
+					};
+					getDataSource.getDataSource(["getCourseInfo_SelectCourse", "getCoursewareTeachers"], $scope.searchparameter, function (datatemp) {
+						console.log("课程详情页获取成功", datatemp);
+						//var data = _.find(datatemp, { name: "getCourseInfo_SelectCourse" }).data;//课程信息
+						//$scope.datateacher = _.find(datatemp, { name: "getCoursewareTeachers" }).data;//教师信息
+						
+					});
+				}
+
+				//获取课程的评价列表
+				{
+					$scope.searchparameter = {
+						coursewareid: '课程ID',
+						pageIndex: 1,
+						pageSize: 5
+					};
+					Restangular.all("getallcoursecomments").post($scope.searchparameter).then(function (data) {
+						console.log("课程的评价列表", data);
+					});
+				}
+
+				//课程简介
+				{
+					var postData = { coursewareid: '72a32176-b5d4-4cb9-adcf-27106703aef2' };
+					getDataSource.getDataSource("getCourseInfo_SelectCourse", postData, function (data) {
+						console.log("课程简介", data);
+					}, function (error) { });
+				}
+
+				//取消选课
+				{
+					var postData = { coursewareid: '课程ID' };
+					// 取消选课
+					if (false) {
+						getDataSource.getDataSource("deletestudyrecord", postData, function (data) {
+							console.log("取消选课", data);
+						}, function (error) { });
+					}
+				}
+
+				{
+					var postData = {coursewareid:'课程ID'};
+					// 选课
+					if (false) {
+						Restangular.all("addcoursewareuser").post(postData).then(function (data) {
+							console.log("选课", data);
+						});
+					}
+				}
+
+				var imgurl=FilesService.showFile("coursewarePhoto", "5e3c3a3f-ce49-416b-b75b-7d8d596aad1c.jpg", "5e3c3a3f-ce49-416b-b75b-7d8d596aad1c.jpg");
+				console.log("imgurl", imgurl);
+				//所有必修课
+				{
+					var postData = {
+						classid: "ce089abf-e59a-415a-82d7-d62ffac43390",//给班次id 就是按班查询，不给班就查该学员所有班的必修课。
+						currentPage: 1,
+						orderType: 1,
+						pageSize: 6,
+						studentid: "5cff189e-9690-11e6-a71f-00fffab6298f"
+					};
+					Restangular.all("searchClassCoursewarelist").post(postData).then(function (data) {
+						console.log("所有必修课", data);
+						if (data.result) {
+							
+							//$scope.datalist = _.union($scope.datalist, doWork(data.list));;
+							//$scope.allcount = data.allcount;
+							//if ($scope.datalist.length < $scope.allcount && data.list.length > 0)
+							//	$scope.searchparameter.isMore = true;
+						}
+					});
+				}
+				//获取本年度已获得学时
+				{
+					getDataSource.getDataSource("getUserReportByUserId", {},
+						function (data) {
+							console.log("本年度已获得学时", data);
+						});
+				}
+
+			    //班级详情
+				{
+				    $scope.postData = {
+				        id: '5cff189e-9690-11e6-a71f-00fffab6298f'//班级Id
+				    };
+
+				    getDataSource.getDataSource("getClassInfoById", $scope.postData, function (data) {
+				        console.log("我的班级", data);
+				    }, function (data) {
+				        console.log("error:", data);
+				    });
+				}
+
+                //班级详情里的课程列表
+				{
+				    var postData = {
+				        classid:'',
+				        studentid: '5cff189e-9690-11e6-a71f-00fffab6298f',
+				        currentPage: 1,
+				        pageSize: 4,
+				        orderType: 1//1按最近学习排序，2按学习进度排序
+				    };
+
+				    Restangular.all("searchClassCoursewarelist").post(postData).then(
+                        function (data) {
+                            console.log("我的班级里课程列表", data);
+                            //var coursedata = data.courseList;
+                            //for (var i = 0; i < coursedata.length; i++) {
+                            //    coursedata[i].imagephoto = FilesService.showFile("coursewarePhoto", coursedata[i].imagephoto, coursedata[i].imagephoto);
+                            //}
+                            //$scope.courseList = coursedata;
+
+                        });
+				}
+
+				//我的班级
+				{
+					$scope.postData = {
+						pageindex: 1,
+						pagesize: 6
+					};
+
+					getDataSource.getDataSource("getMyClassList", $scope.postData, function (data) {
+						console.log("我的班级", data);
+					}, function (data) {
+						console.log("error:", data);
+					});
+				}
+
+			    //我的历史班级
+				{
+				    $scope.postData = {
+				        pageindex: 1,
+				        pagesize: 6
+				    };
+
+				    getDataSource.getDataSource("getMyHistoryClassList", $scope.postData, function (data) {
+				        console.log("我的历史班级", data);
+				    }, function (data) {
+				        console.log("error:", data);
+				    });
+				}
+
+				//我的课程
+				{
+					$scope.searchparameter = {
+						condation: "", //课程名称、主讲人、课程来源
+						searchType: "1",
+						pageIndex: 1,
+						pageSize: 6
+					};
+					Restangular.all("getallstudylist").post($scope.searchparameter).then(function (data) {
+						if (data.result) {
+							console.log("我的课程", data);
+							//$scope.datalist = _.union($scope.datalist, doWork(data.list));;
+							//$scope.allcount = data.allcount;
+							//if ($scope.datalist.length < $scope.allcount && data.list.length > 0)
+							//	$scope.searchparameter.isMore = true;
+						}
+					});
+				}
+
+				//查询用户信息
+				{
+					getDataSource.getDataSource("getUserInfo", { studentid: '5cff189e-9690-11e6-a71f-00fffab6298f' }, function (data) {
+						console.log("用户信息:", data);
+					}, function (data) {
+						console.log("error:", data);
+					});
+				}
+				//获取一级分类
+				{
+					getDataSource.getDataSource("mystudy-allcourse-category", { fid: '0' }, function (data) {
+						console.log("一级分类:", data);
+					}, function (data) {
+						console.log("error:", data);
+					});
+				}
+
+				//默认加载课程列表页面
+				{
+					var searchP = {
+						condation: "", //课程名称、主讲人、课程来源
+						onecate: "", //一级分类ID
+						twocate: "", //二级分类ID
+						year: "", //年份,按'=,2016',
+						courseType: "", //课程类型：0：视频，1:非视频
+						searchType: "", //查询类别: 全部:'',最新:'1',精品:'2',推荐:'3',排行:'4'
+						pageIndex: 1,
+						pageSize: 6
+					}
+
+					Restangular.all("getcoursewarelist").post(searchP).then(function (data) {
+						console.log("课程列表", data);
+					});
+				}
+
+				//获取职级
+				{
+					getDataSource.getDataSource("getSyCode", { category: "职级" }, function (data) {
+						console.log("职级:", data);
+					}, function (data) {
+						console.log("error:", data);
+					});
+				}
+
+				//加载部门
+				{
+					Restangular.all("GetDepartment").post({
+						pid: '0',
+						id: '100000'
+					}).then(function (data) {
+						console.log("获取部门", data);
+					});
+				}
+
+				//$scope.testLogin = function () {
+				//}
+				// Triggered on a button click, or some other target
+				//$scope.show = function () {
+				//    // Show the action sheet
+				//    var hideSheet = $ionicActionSheet.show({
+				//        buttons: [
+				//          { text: '<b>Share</b> This' },
+				//          { text: 'Move' }
+				//        ],
+				//        destructiveText: 'Delete',
+				//        titleText: 'Modify your album',
+				//        cancelText: 'Cancel',
+				//        cancel: function () {
+				//            // add cancel code..
+				//        },
+				//        buttonClicked: function (index) {
+				//            return true;
+				//        }
+				//    });
+				//};
+				//$scope.showLoading = function () {
+				//    $ionicLoading.show({
+				//        template: 'Loading...'
+				//    });
+				//};
+			}, 3000);
+		});
+    </script>
+
+
+
+</head>
+<body>
+    <div ng-app="app" class="padding-horizontal">
+        <ion-side-menus>
+
+            <!-- Center content -->
+            <ion-side-menu-content>
+                <ion-content ng-controller="myController">
+					<button ng-click="sendMsg()" class="button button-block button-positive">
+						发送验证码
+					</button>
+					<button ng-click="testLogin()" class="button button-block button-positive">
+						测试登录
+					</button>
+
+                    忘记密码验证码<img class="yzmImg" ng-src="{{findpwdVerifyCodeSrc}}" title="点击换一个" ng-click="changefindpwdVerifyCode()" />
+
+                    <button class="button button-block" ng-click="showLoading()">显示</button>
+                    <div class="list">
+
+                        <label class="item item-input item-select">
+                            <div class="input-label">
+                                Lightsaber
+                            </div>
+                            <select>
+                                <option>Blue</option>
+                                <option selected>Green</option>
+                                <option>Red</option>
+                            </select>
+                        </label>
+
+                    </div>
+                    <ion-list>
+                        <ion-item ng-repeat="item in bcglList">
+                            <p>
+                                {{item.INFO_ID}}<a class="icon-right" href="#">
+                                    {{item.INFO_ID}}
+                                </a>
+                            </p>
+
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+                <div class="bar bar-footer bar-dark">
+                    <h1 class="title">尾部</h1>
+                </div>
+            </ion-side-menu-content>
+
+            <!-- Left menu -->
+            <ion-side-menu side="left">
+                <ion-header-bar class="bar-dark">
+                    <h1 class="title">Projects</h1>
+                </ion-header-bar>
+            </ion-side-menu>
+
+        </ion-side-menus>
+    </div>
+</body>
+</html>

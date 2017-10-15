@@ -1,0 +1,21 @@
+﻿<ion-view title="四川党校报">
+    <ion-header-bar class="bar bar-header bar-dark">
+        <input type="text" ng-model="query" />
+    </ion-header-bar>
+    <ion-content>
+        <ion-refresher on-refresh="doRefresh()"
+                       pulling-text="拖动刷新"
+                       refreshing-text="加载中"
+                       refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <div class="list fade-in-not-out" ng-repeat="item in xblist|filter:query">
+            <div class="item item-button-right" ng-click="showDetial('{{item.id}}')">
+                <h2>{{item.TITLE}}</h2>
+                <p>{{item.ONDATE|date:"yyyy-MM-dd"}}</p>
+
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" icon="ion-loading-c" distance="1%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title></title>
+	<link href="../css/ionic.css" rel="stylesheet" />
+	<link href="../css/ionicIcon/css/ionicons.css" rel="stylesheet" />
+	<script src="../Script/ionic/ionic.bundle.js"></script>
+	<script src="../Script/angular/lodash.js"></script>
+	<script src="../Script/angular/restangular.js"></script>
+	<script src="../Script/APPScript/APP.js"></script>
+	<script>
+		app.config(function ($stateProvider, $urlRouterProvider) {
+			$stateProvider
+				.state('list', {
+					url: "/list",
+					templateUrl: "ginboxlist.html"
+				});
+			$urlRouterProvider.otherwise("list");
+		});
+
+		//controller名称必须有一个div ng-controller="aginboxController" 与之对应。
+		app.controller("aginboxController", function ($scope, $timeout, $ionicListDelegate, Restangular, $location, getUser) {
+			var userid = getUser();
+			Restangular.setDefaultRequestParams(['remove', 'post', "put", "get"], { formAPP: true, userid: userid });
+			//此处的参数取得是控制器类名XXXXController之前的部分XXXX.
+			var baseAccounts = Restangular.all('ginbox');
+			$scope.ginboxList = baseAccounts.getList().$object;
+
+			$scope.doRefresh = function () {
+				$scope.$broadcast('scroll.refreshComplete');
+			};
+		});
+
+	</script>
+</head>
+<body>
+	<div class="padding-horizontal" ng-controller="aginboxController">
+		<ion-nav-view animation="slide-left-right"></ion-nav-view>
+		<script id="ginboxlist.html" type="text/ng-template">
+			<ion-view title="list">
+				<ion-header-bar class="bar bar-header bar-dark">
+					<input type="text" ng-model="query" />
+				</ion-header-bar>
+				<ion-content>
+					<ion-refresher on-refresh="doRefresh()"
+								   pulling-text="拖动刷新"
+								   refreshing-text="加载中"
+								   refreshing-icon="ion-loading-c">
+					</ion-refresher>
+					<div class="list fade-in-not-out" ng-repeat="item in ginboxList|filter:query">
+						<a class="item item-button-right" href="#/list/info?info_id={{item.INFO_ID}}">
+							<h2>{{item.BT}}</h2>
+							<p>{{item.RDATE|date:"yyyy-MM-dd"}}</p>
+							<button class="button item-button-right">
+								<i class="icon ion-ios7-alarm-outline"></i>
+							</button>
+						</a>
+					</div>
+				</ion-content>
+			</ion-view>
+		</script>
+	</div>
+</body>
+</html>

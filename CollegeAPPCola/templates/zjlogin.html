@@ -1,0 +1,40 @@
+﻿<ion-view title="" style="font-size:30px">
+    <ion-header-bar id="headBar" align-title="center" class="bar bar-positive">
+        <div><img ng-init="$scope.showLogo=true;" ng-if="showLogo" style=" vertical-align:top;" width="33" height="33" ng-src="../img/{{LogoPath}}" /></div>
+        <h1 class="title">登录</h1>
+        <button class="button button-clear button-white ion-android-social" ng-if="showVister==true" ng-click="visterLogin()">访客登录</button>
+    </ion-header-bar>
+
+    <ion-content class="padding-top bg-gray" ng-controller="zjloginController">
+        <ion-slide-box does-continue="true" auto-play="true" show-pager="false" ng-if="needShowImage" ng-show="loginImg.length>0">
+            <ion-slide ng-repeat="img in loginImg">
+                <div class="center-block text-center"><img style="border-radius:5%" ng-src="../img/loginImg/{{img.imgSrc}}"></div>
+            </ion-slide>
+        </ion-slide-box>
+        <div class="list padding-top padding-left padding-right">
+            <label class="item item-input">
+                <span class="input-label icon ion-android-social-user">&nbsp;&nbsp;用户名：</span>
+                <input type="text" placeholder="用户名" ng-model="logname" required>
+            </label>
+            <label class="item item-input">
+                <span class="input-label icon ion-locked">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
+                <input type="password" placeholder="密码" ng-model="password" required>
+            </label>
+            <!--<label class="item item-input">
+                <span class="input-label">&nbsp;&nbsp;&nbsp;&nbsp;记住密码</span>
+                <label class="toggle">
+                    <input type="checkbox" ng-init="remberPSD=true;" ng-model="remberPSD">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </label>-->
+        </div>
+        <div class="padding-left padding-right" style="text-align:center">
+            <div class="btn-group btn-group-lg">
+                <button class="btn btn-info btn-lg" style="width:150px;" ng-click="zjlogin()">登 录</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+

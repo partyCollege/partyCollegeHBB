@@ -1,0 +1,86 @@
+﻿<ion-view title="通讯录">
+    <go-main-page ></go-main-page>
+    <ion-nav-buttons side='right'>
+        <button class='button button-balanced' style='font-size:16px' ng-click='selectUsers()' ng-disabled="checkedList.length==0&&cantChoose" ng-show="canchoose">确定</button>
+    </ion-nav-buttons>
+    <ion-header-bar align-title="center" class="bar bar-subheader search_container">
+        <label class="item item-input searchStyle">
+            <i class="icon ion-search placeholder-icon searchIcon"></i>
+            <input class="searchInput" type="text" placeholder="查询" ng-model="keyword" maxlength="10">
+        </label>
+    </ion-header-bar>
+    <ion-content delegate-handle="myScroll" style="padding-bottom:10px;{{marTop}}" class="has-tabs studentList_container">
+        <ion-list class="list" ng-if="dataBzr.length>0">
+            <div class="item item-button-right agreement-title-red studentList_hd" ng-if="!canchoose">
+                <span>班主任</span>
+            </div>
+            <ion-checkbox style="background-color:#ddd;text-align:center" ng-model="checkAll.bzr" ng-if="canchoose">班主任</ion-checkbox>
+            <ion-item class="item-nomargin-nopadding studentList_bd">
+                <div ng-repeat="dataRepeat in dataBzr|queryStuList:keyword">
+                    <ion-checkbox ng-if="canchoose" ng-model="checkedList[dataRepeat.id]">{{dataRepeat.bt}}</ion-checkbox>
+                    <ion-item class="item-icon-left item-icon-right" ng-if="!canchoose">
+                        <h2>
+                            <i class="icon ion-ios7-person icon-left"></i>
+                            <span ng-bind="dataRepeat.bt"></span>
+                            <a class="icon ion-ios7-telephone icon-right" href="tel:{{dataRepeat.sjhm}}" ng-if="dataRepeat.sjhm!=null"></a>
+                        </h2>
+                    </ion-item>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list class="list" ng-if="dataClassTeacher.length>0&&AppConfig.canChooseClassTeacher==true">
+            <div class="item item-button-right agreement-title-red studentList_hd" ng-if="!canchoose">
+                <span>课程老师</span>
+            </div>
+            <ion-checkbox style="background-color:#ddd;text-align:center" ng-model="checkAll.classTeacher" ng-if="canchoose">课程老师</ion-checkbox>
+
+            <ion-item class="item-nomargin-nopadding studentList_bd">
+                <div ng-repeat="dataRepeat in dataClassTeacher|queryStuList:keyword">
+                    <ion-checkbox ng-if="canchoose" ng-model="checkedList[dataRepeat.id]">{{dataRepeat.uname}}</ion-checkbox>
+                    <ion-item class="item-icon-left item-icon-right" ng-if="!canchoose">
+                        <h2>
+                            <i class="icon ion-ios7-person icon-left"></i>
+                            <span ng-bind="dataRepeat.uname"></span>
+                        </h2>
+                    </ion-item>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list class="list" ng-repeat="rowXZ in dataXZ">
+            <div class="item item-button-right agreement-title-red studentList_hd" ng-if="!canchoose">
+                <span>{{rowXZ.name}}</span>
+            </div>
+            <ion-checkbox style="background-color:#ddd;text-align:center" ng-model="checkAll['group'+rowXZ.id]" ng-if="canchoose">{{rowXZ.name}}</ion-checkbox>
+            <ion-item class="item-nomargin-nopadding studentList_bd">
+                <div ng-repeat="dataRepeat in dataStu|queryStuList:keyword" ng-if="rowXZ.name==dataRepeat.xz" ng-show="showgroup(rowXZ,keyword)">
+                    <ion-checkbox ng-if="canchoose" ng-model="checkedList[dataRepeat.id]">{{dataRepeat.bt}}</ion-checkbox>
+                    <ion-item class="item-icon-left item-icon-right" ng-if="!canchoose">
+                        <h2>
+                            <i class="icon ion-ios7-person icon-left"></i>
+                            <span ng-bind="dataRepeat.bt" ng-click="gotoDetial(dataRepeat.id)"></span>
+                            <span class="grey size-14" ng-click="gotoDetial(dataRepeat.id)" ng-bind="dataRepeat.szdw"></span>
+                            <a class="icon ion-ios7-telephone icon-right" href="tel:{{dataRepeat.sjhm}}" ng-if="dataRepeat.sjhm!=null"></a>
+                        </h2>
+                    </ion-item>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list ng-show="dataXZ.length==0">
+            <div class="item item-button-right agreement-title-red studentList_hd">
+                <span>同学</span>
+            </div>
+            <ion-item class="item-nomargin-nopadding studentList_bd">
+                <div ng-repeat="dataRepeat in dataStu|queryStuList:keyword">
+                    <ion-item class="item-icon-left item-icon-right">
+                        <h2>
+                            <i class="icon ion-ios7-person icon-left"></i>
+                            <span ng-bind="dataRepeat.bt" ng-click="gotoDetial(dataRepeat.id)"></span>
+                            <span class="grey size-14" ng-bind="dataRepeat.szdw"></span>
+                            <a class="icon ion-ios7-telephone icon-right" href="tel:{{dataRepeat.sjhm}}" ng-if="dataRepeat.sjhm!=null"></a>
+                        </h2>
+                    </ion-item>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

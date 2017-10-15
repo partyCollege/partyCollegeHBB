@@ -1,0 +1,75 @@
+﻿<ion-header-bar align-title="left" class="bar-positive" style="background-color:#558b2f">
+	
+	<h1 class="title">面授申报</h1>
+	<div class="buttons">
+		<button class="button button-outline" ng-click="closeCreatePopover();">关闭</button>
+	</div>
+</ion-header-bar>
+<ion-content class="has-header has-footer" style="background-color:#fff; bottom: 50px;">
+	<div class="list face_list">
+		<label class="item item-input item-stacked-label ">
+			<span class="input-label"><strong>*</strong>培训名称</span>
+			<input type="text" ng-model="train.title">
+		</label>
+
+		<label class="item item-input item-stacked-label hbb-active-select-container" ng-click="showFormRankPopup(0)">
+			<span class="input-label"><strong>*</strong>培训类别1</span><br />
+			<input type="text" ng-model="train.categoryone" readonly>
+			<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+		</label>
+
+		<label class="item item-input item-stacked-label hbb-active-select-container" ng-click="showFormRankPopup(1)">
+			<span class="input-label"><strong>*</strong>培训类别2</span><br />
+			<input type="text" ng-model="train.categorytwo" readonly>
+			<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+		</label>
+
+		<label class="item item-input item-stacked-label hbb-active-select-container" ng-click="showFormRankPopup(2)">
+			<span class="input-label"><strong>*</strong>培训类别3</span><br />
+			<input type="text" ng-model="train.categorythree" readonly>
+			<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+		</label>
+
+		<label class="item item-input item-stacked-label hbb-active-select-container" ng-click="showFormRankPopup(3)">
+			<span class="input-label"><strong>*</strong>培训类别4</span><br />
+			<input type="text" ng-model="train.categoryfour" readonly>
+			<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+		</label>
+
+		<label class="item item-input item-stacked-label ">
+			<span class="input-label"><strong>*</strong>开始时间</span>
+			<input type="date" ng-model="train.starttime">
+		</label>
+		<label class="item item-input item-stacked-label ">
+			<span class="input-label"><strong>*</strong>结束时间</span>
+			<input type="date" ng-model="train.endtime">
+		</label>
+
+		<label class="item item-input item-stacked-label hbb-active-select-container" ng-click="showFormRankPopup(4)">
+			<span class="input-label"><strong>*</strong>申报年份</span><br />
+			<input type="text" ng-model="train.year" readonly>
+			<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+		</label>
+
+		<label class="item item-input item-stacked-label ">
+			<span class="input-label"><strong>*</strong>拟报学时</span>
+			<input type="text" ng-model="train.studytime">
+		</label>
+		<label class="item item-input item-stacked-label ">
+			<span class="input-label">培训地点</span>
+			<input type="text" ng-model="train.address">
+		</label>
+		<label class="item item-input item-stacked-label ">
+			<span class="input-label">主办单位</span>
+			<input type="text" ng-model="train.company">
+		</label>
+		<label class="item item-input item-stacked-label ">
+			<span class="input-label">证明人</span>
+			<input type="text" ng-model="train.reference">
+		</label>
+	</div>
+	<div class="item" style=" text-align: center; border: none;">
+		<button class="button button-positive" style="width:49%;margin: 0 auto;" ng-click="applyCourse()">提交</button>
+		<button class="button button-outline" style="width:49%;margin: 0 auto;" ng-click="closeCreatePopover();">关闭</button>
+	</div>
+</ion-content>

@@ -1,0 +1,25 @@
+﻿<ion-view title="日程信息">
+    <go-main-page ng-show=""></go-main-page>
+    <ion-content direction="">
+        <div id="theCalendar">
+            <!--<wj-calendar style="width:100%;"
+                         value="today"
+                         min="{​{ minDate | date:'yyyy-MM-dd' }}"
+                         max="{​{ maxDate | date:'yyyy-MM-dd' }}" control="wijimo" item-formatter="format" invalidate="updateMonth" value-changed="changeDay(s,e)">
+            </wj-calendar>-->
+        </div>
+        <ion-scroll zooming="true" direction="y" style="width: 100%; height: 400px; background-color:#ddd">
+            <div class="list card" ng-if="nowDayData.length>0">
+                <div class="item" ng-repeat="item in  nowDayData">
+                    <h2><i class="ion-calendar" style="color:red"></i>&nbsp;&nbsp;{{item.name}}</h2>
+                    <p>{{item.st|date:"HH:mm"}}至{{item.et|date:"HH:mm"}}</p>
+                </div>
+            </div>
+            <div class="list card" ng-if="nowDayData.length==0">
+                <div class="item">
+                    <h2>暂无日程</h2>
+                </div>
+            </div>
+        </ion-scroll>
+    </ion-content>
+</ion-view>

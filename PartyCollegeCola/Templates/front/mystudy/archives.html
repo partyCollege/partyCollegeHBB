@@ -1,0 +1,70 @@
+﻿<div class="stu-file studyFile_box">
+    <div class="section" ng-repeat="n in datalist" >
+        <div class="tit"><a href="" class="flod"><img ng-src="{{n.src}}" alt="open" ng-click="onExpand(n)" /></a><i class="year">{{n.year}}</i>总共完成 <b class="c01">{{n.total_studytime}}</b> 学时，学习课件累计 <b class="c01">{{n.total_time_cn}}</b> 个小时。</div>
+        <div class="text" ng-if="n.expand">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tabs">
+                <tr>
+                    <th width="320" align="center" bgcolor="#f5f5f5" scope="col">&nbsp;</th>
+                    <th align="center" bgcolor="#f5f5f5" scope="col">课程/学时</th>
+                    <th align="center" bgcolor="#f5f5f5" scope="col">共计</th>
+                    <th align="center" bgcolor="#f5f5f5" scope="col">已完成</th>
+                    <th align="center" bgcolor="#f5f5f5" scope="col">完成率</th>
+                </tr>
+                <tr>
+                    <th align="center" bgcolor="#f5f5f5" scope="row"><b class="f14 c01" ng-click="goTrain(0)">年度计划</b></th>
+                    <td align="center">学时</td>
+                    <td align="center">{{n.yearplan_total}}</td>
+                    <td align="center">{{n.yearplan_finished}}</td>
+                    <td align="center"><b class="c02 f14">{{n.yearplan_progess}}</b></td>
+                </tr>
+                <tr>
+                    <th rowspan="2" align="center" bgcolor="#f5f5f5" class="f14 c01" scope="row"><b class="f14 c01" ng-click="goTrain(2)">参加{{n.class_classcount}}个培训班</b></th>
+                    <td align="center">课程</td>
+                    <td align="center">{{n.class_courseallcount}}门</td>
+                    <td align="center">{{n.class_coursefinishedcount}}门</td>
+                    <td rowspan="2" align="center"><b class="c02 f14">{{n.class_progess}}</b></td>
+                </tr>
+                <tr>
+                    <td align="center">学时</td>
+                    <td align="center">{{n.class_allstudytime}}</td>
+                    <td align="center">{{n.class_finishedstudytime}}</td>
+                </tr>
+                <tr>
+                    <th align="center" bgcolor="#f5f5f5" class="f14 c01" scope="row"><b class="f14 c01" ng-click="goTrain(3)">面授培训</b></th>
+                    <td align="center">学时</td>
+                    <td colspan="3" align="center"><a href="" title="" class="f14 c01" ng-click="goTrain(3)">{{n.train_studytime}}</a></td>
+                </tr>
+                <tr>
+                    <th rowspan="2" align="center" bgcolor="#f5f5f5" class="f14" scope="row"><b class="f14 c01" ng-click="goTrain(1)">选修学时</b></th>
+                    <td align="center">课程</td>
+                    <td align="center">{{n.choose_courseallcount}}门</td>
+                    <td align="center">{{n.choose_coursefinishedcount}}门</td>
+                    <td rowspan="2" align="center"><b class="c01 f14">100%</b></td>
+                </tr>
+                <tr>
+                    <td align="center">学时</td>
+                    <td align="center">{{n.choose_allstudytime}}</td>
+                    <td align="center">{{n.choose_finishedstutytime}}</td>
+                </tr>
+            </table>
+            <dl>
+                <dt>学习关键字</dt>
+                <dd><a href="" title="" class="but01" ng-repeat="k in n.keywordsArr">{{k}}</a></dd>
+            </dl>
+            <dl>
+                <dt>学习时间</dt>
+                <dd><a href="" title="" class="but01">上午 {{n.time_morning}} </a> <a href="" title="" class="but01">下午 {{n.time_noon}}</a> <a href="" title="" class="but01">晚上 {{n.time_night}}</a> </dd>
+            </dl>
+            <dl>
+                <dt>学习频度</dt>
+                <dd>您共登录了 <b class="c01 ">{{n.time_logincount}}</b> 次，{{n.year}}年第一次登录是 <b class=" c01">{{n.time_firstlogintime}}</b> ，最后一次登录是 <b class=" c01">{{n.time_lastlogintime}}</b> 。</dd>
+            </dl>
+            <dl>
+                <dt>评价与交流</dt>
+                <dd>评价了 <b class="c01">{{n.appraise_appraisecount}}</b> 课程，提出了 <b class="c01">{{n.appraise_coursecount}}</b> 问题，共记录了 <b class="c01">{{n.appraise_notecount}}</b> 笔记。</dd>
+            </dl>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,83 @@
+﻿
+<div class="main">
+    <div class="news_box">
+        <div class="left">
+            <div class="index_ac">
+                <div carousel interval="myInterval">
+					<div slide ng-repeat="item in coursewarelist[3]">
+						<a ng-click="openCoursedetail(item.id)" target="_blank">
+							<img ng-src="{{item.imagephoto}}" onerror="this.src='../img/course_img.jpg'" style="margin:auto;">
+							<span>{{item.name}}</span>
+						</a>
+					</div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="row clearfix indexSortList">
+                <div class="col-md-6" ng-click="HrefAllcourse();"><div class="courseSum"><i class="icon courseSum_icon"></i><span>课程总数<b>{{platformData.coursecount}}</b></span></div></div>
+                <div class="col-md-6"><div class="sutdentSum"><i class="icon sutdentSum_icon"></i><span>学员总数<b>{{platformData.studentcount}}</b></span></div></div>
+            </div>
+            <h2 class="common"><b>公告通知</b><a class="more"  href="index.html#/main/newslist/2">更多</a></h2>
+            <ul class="list list-unstyled">
+                <li ng-repeat="item in newlist[1]" ng-click="openNewsdetail(item.id,2)">{{item.title}}<span class="time">{{item.publishtime |date:'yyyy.MM.dd'}}</span></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="course_tj">
+        <h2 class="common"><b>最新课程</b><a class="more"  href="indexfront.html#/main/allcourse/1">更多</a></h2>
+        <ul class="course_list">
+            <li ng-repeat="item in coursewarelist[0]" ng-click="openCoursedetail(item.id)">
+                <img ng-src="{{item.imagephoto}}" onerror="this.src='../img/course_img.jpg'" />
+                <div class="info">
+                    <p>{{item.name}}</p>
+                    <span>主讲人：<b>{{item.teachersname}}</b></span>
+                    <span>选课人次：<b>{{item.choosecount}}</b></span>
+                </div>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_ph">
+        <h2 class="common"><b>课程排行</b><a class="more"  href="indexfront.html#/main/allcourse/4">更多</a></h2>
+        <ul class="left top">
+            <li ng-repeat="item in coursewarelist[1][0]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 1}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
+        </ul>
+        <ul class="right">
+            <li ng-repeat="item in coursewarelist[1][1]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 6}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_tj">
+        <h2 class="common"><b>精品课程</b><a class="more" href="indexfront.html#/main/allcourse/2">更多</a></h2>
+        <ul class="course_list">
+            <li ng-repeat="item in coursewarelist[2]" ng-click="openCoursedetail(item.id)">
+				<img ng-src="{{item.imagephoto}}" onerror="this.src='../img/course_img.jpg'" />
+                <div class="info">
+                    <p>{{item.name}}</p>
+                    <span>主讲人：<b>{{item.teachersname}}</b></span>
+                    <span>选课人次：<b>{{item.choosecount}}</b></span>
+                </div>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_tj">
+        <h2 class="common"><b>推荐课程</b><a class="more" href="indexfront.html#/main/allcourse/3">更多</a></h2>
+        <ul class="course_list">
+            <li ng-repeat="item in coursewarelist[3]" ng-click="openCoursedetail(item.id)">
+				<img ng-src="{{item.imagephoto}}" onerror="this.src='../img/course_img.jpg'" />
+                <div class="info">
+                    <p>{{item.name}}</p>
+                    <span>主讲人：<b>{{item.teachersname}}</b></span>
+                    <span>选课人次：<b>{{item.choosecount}}</b></span>
+                </div>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>

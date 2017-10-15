@@ -1,0 +1,19 @@
+﻿<div style="margin:7px 2px;border:1px solid #ddd;">
+	<div class="list agreement-title" style="padding:10px;margin-bottom:10px;">
+		{{assignobj.orderIdx}}、{{assignobj.name}}
+	</div>
+	<div class="row" style="margin:0;">
+		<div class="col">
+			<div style="font-size:14px;" ng-repeat="lvl in assignobj.PJLevelList">
+				<div ng-if="assignobj.yp" style="font-size:18px;color:#888;">
+					<ion-checkbox ng-disabled="assignobj.yp" ng-model="lvl.checked">{{lvl.discription}}</ion-checkbox>
+				</div>
+				<div ng-if="!assignobj.yp">
+					<ion-checkbox  ng-disabled="assignobj.yp" ng-model="lvl.checked">{{lvl.discription}}
+					</ion-checkbox>
+				</div>
+			</div>
+			<input type="hidden" class="hide-ngmode-val" ng-model="assignobj.selectValue" />
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="../Script/ionic/ionic.bundle.js"></script>
+    <script>
+        var app = angular.module("app", ['ngSanitize']);
+        app.controller("mycon", function ($scope, $sce) {
+            $scope.html = "ddddddd";
+            $scope.myHTML =
+             "<P><FONT size=4 face=宋体>校院属各部门： <BR>　　经校院领导同意，决定召开校院信息宣传工作会议，现将有关事项通知如下： <BR>　　一、会议时间 <BR>　　4月28日（星期日）上午9:00 <BR>　　二、会议地点 <BR>　　蜀光大厦圆桌会议室 <BR>　　三、参会人员 <BR>　　各部门分管信息宣传工作的领导1名、信息工作人员1名 <BR>　　三、会议内容 <BR>　　总结2012年校院信息宣传工作，表彰2012年信息宣传工作先进部门，部署2013年信息工作任务。 <BR>　　请各部门参会人员准时到会，参会情况将纳入信息宣传工作目标考核。 </FONT></P><P><FONT size=4 face=宋体></FONT>&nbsp;</P><P><FONT size=4 face=宋体>　　　　　　　　　　　　　　　　　　　　　办公室&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2013年4月24日 <BR></P></FONT>";
+            $scope.myHTML = $sce.getTrustedHtml($scope.myHTML);
+        });
+    </script>
+</head>
+<body ng-app="app">
+    <div ng-controller="mycon">
+        <div ng-bind="myHTML"></div>
+        <div ng-bind-html="myHTML"></div>
+    </div>
+</body>
+</html>

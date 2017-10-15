@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <items>
+    <item category="Question" zhName="调查问卷" ispageing="true" isCal="false">
+      <!--查询的SQL语句，可以为任意，注意不要带排序-->
+      <sql>
+        <![CDATA[select * from( select id as info_id,name,'统计' as getcount,case ispublic when 0 then '未公开' when 1 then '已公开' end as showpublic,case status when 1 then '未发布' when 2 then '已发布' end as fabuStatus,case type when 1 then '调查问卷' when 2 then '训前需求' when 3 then '训中需求' when 4 then '训后需求' end as dataType,dataflag from dsfa_question ) where 1=1
+		 ]]>
+      </sql>
+      <!--排序SQL-->
+      <orderbysql>
+        order by dataflag desc
+      </orderbysql>
+      <!--检索栏，SerchType暂时没用到，不过也必须填写。目前三种类型，文本检索（模糊检索）、时间检索（为2个文本框组合）、下拉框（Source为R_code中的Class）-->
+      <serchFields>
+        <field serchType="模糊检索" type="textBox" dbcolume="name">标题</field>
+        <field serchType="模糊检索" type="dropDownList" dbcolume="fabuStatus" source="问卷发布状态">
+          发布状态
+        </field>
+        <field serchType="模糊检索" type="dropDownList" dbcolume="showpublic" source="问卷公开状态">
+          是否公开
+        </field>
+        <field serchType="模糊检索" type="dropDownList" dbcolume="dataType" source="问卷类型">
+          问卷类型
+        </field>
+      </serchFields>
+      <!--fileName是要打印的证书模板文件名称，xyids就是要导出的选中学员ID-->
+     <buttons>
+        <button isfontButton="true" success="window.parent.open('addQuestion.aspx#?menuid=[info_id]');">新增</button>
+		<button isfontButton="true" success="if(ids==''){alert('请选择需要删除的内容')}else{if (confirm('是否确定要删除选中的数据？')) {$.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids, func: 'deleQuestion' },success: function (data) {  if (data ==1) {  alert('删除成功'); window.location.reload();}else(alert('问卷已被回答，无法删除！'))}});}}">删除</button>
+	 </buttons>
+      <columes needCheckBox="true" keyColume="info_id" >
+        <colume dbcolume="name" align="left" width="*" script="window.open('http://218.80.199.107:9901/DSFA/admin_client/questionnaire/design/views/nlayout.htm?id=[info_id]')">标题</colume>
+		    <colume dbcolume="fabuStatus" align="center" width="100" orderby="true">发布状态</colume>
+        <colume dbcolume="showpublic" align="center" width="100" script="window.open('addQuestion.aspx#?info_id=[info_id]')" orderby="true">是否公开</colume>
+        <colume dbcolume="dataType" align="center" width="100" orderby="true">问卷类型</colume>
+        <colume dbcolume="getcount" align="center" width="100" script="window.open('http://218.80.199.107:9901/DSFA/admin_client/questionnaire/design/views/analyze.htm?id=[info_id]')" >操作</colume>
+      </columes>
+    </item>
+  </items>
+</root>

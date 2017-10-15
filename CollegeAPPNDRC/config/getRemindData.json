@@ -1,0 +1,11 @@
+﻿[
+ {
+        "key": "0",
+        "sql": " select lw_type,ngrname,bt,keyname,createtime from grlw  where info_id=|[userid]|  "
+ },
+  {
+        "key": "1",
+        "sql": " select Onecard lw_type,telphone ngrname,danwei bt,gaishu keyname,createtime from gral where info_id=|[userid]|   "
+ }
+
+]

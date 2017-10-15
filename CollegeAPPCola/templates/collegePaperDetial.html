@@ -1,0 +1,19 @@
+﻿<ion-view title="通知公告">
+    <ion-header-bar class="bar bar-header bar-dark">
+        <a class="button icon-left" href="#/placardinfolist">返回</a>
+        <h1 class="title">通知公告</h1>
+        <a class="button icon-right  button-calm">保存</a>
+    </ion-header-bar>
+    <ion-content>
+        <div>
+            <label class="item item-input">
+                <span class="input-label">标题</span>
+                <span>{{nowitem.TITLE}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">发布时间</span>
+                <span>{{nowitem.ONDATE|date:'yyyy-mm-dd'}}</span>
+            </label>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html ng-app="ionicApp">
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="../css/ionic.css" rel="stylesheet" />
+    <script src="../Script/ionic/ionic.bundle.js"></script>
+    <script src="../Script/angular/lodash.js"></script>
+    <script>
+        var jsons = [
+            { name: "aaaaa", id: "1" },
+            { name: "bbbb", id: "2" },
+            { name: "ccccc", id: "3" },
+            { name: "ffffffff", id: "4" }
+        ];
+        var kclist = [
+            { name: "课程1", js: "教师", address: "教室1" },
+            { name: "课程2", js: "教师1", address: "教室2" },
+            { name: "课程3", js: "教师2", address: "教室3" },
+            { name: "课程4", js: "教师3", address: "教室4" }
+
+        ];
+
+        var classData = [
+            { name: "星期一", kc: kclist },
+            { name: "星期二", kc: kclist },
+            { name: "星期三", kc: kclist },
+            { name: "星期四", kc: kclist },
+            { name: "星期五", kc: kclist },
+            { name: "星期六", kc: kclist },
+            { name: "星期日", kc: kclist }
+        ];
+        var bc = [
+            { name: "班次1", classData: classData },
+            { name: "班次2", classData: classData },
+            { name: "班次3", classData: classData }
+        ];
+        var app = angular.module('ionicApp', ['ionic']);
+        app.config(function ($stateProvider, $urlRouterProvider) {
+            $stateProvider
+              .state('list', {
+                  url: "/list",
+                  templateUrl: "list.html"
+              })
+            .state("list/abc", {
+                url: "/list/abc",
+                templateUrl: "abc.html"
+            });
+            $urlRouterProvider.otherwise("/list");
+        });
+        app.controller('MyCtrl', function ($scope, $timeout) {
+            $scope.myTitle = 'Template';
+            $scope.jsons = jsons;
+            $scope.items = ['Item 1', 'Item 2', 'Item 3'];
+            $scope.nowclassdata = null;
+            $scope.classData = bc;
+            $scope.nowbcname = "";
+            $scope.changeselect = function () {
+                //$scope.nowbcList = _.find($scope.classData, function (chr) {
+                //    if (chr.name == $scope.nowbcname) {
+                //        return chr.classData;
+                //    }
+                //});
+            };
+            $scope.classData[0].name;
+            $scope.selected = $scope.classData[0];
+        }).filter("myfilter", function () {
+
+        });
+        app.controller("listController", function ($scope) {
+
+        });
+        app.controller("detialController", function ($scope, $location, $ionicNavBarDelegate) {
+            var title = $ionicNavBarDelegate.getTitle();
+            $scope.nowitem = _.find($scope.jsons, { 'id': $location.search().id });
+
+        });
+    </script>
+</head>
+
+<body ng-controller="MyCtrl">
+
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+    <script id="list.html" src="list.html" type="text/ng-template">
+        <ion-view title="'music'">
+            <ion-content ng-controller="listController">
+
+                <label class="item item-input item-select">
+                    <div class="item item-divider">
+                        列表1
+                    </div>
+                    <select ng-model="selected" ng-options="m.name for m in classData" ng-change="ffff()"></select>
+                </label>
+
+                <div class="list" style="margin-bottom:3px" ng-repeat="day in selected.classData">
+                    <div class="item item-divider item-icon-left"><i class="icon ion-arrow-right-b"></i>{{day.name}}</div>
+                    <div class="item" ng-repeat="classinfo in day.kc">
+                        <h2>{{classinfo.name}}</h2>
+                        <ul class="row">
+                            <li class="col">
+                                {{classinfo.js}}
+                            </li>
+                            <li class="col">
+                                {{classinfo.address}}
+                            </li>
+                            <li class="col">
+                                <a href="abc.docx" download="ffffffff.docx">xiazai1</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-view>
+    </script>
+    <script id="abc.html" type="text/ng-template">
+        <!-- The title of the ion-view will be shown on the navbar -->
+        <ion-view title="'abc'">
+            <div class="bar bar-header bar-dark">
+                <a class="button icon-left" href="#/list">Learn More</a>
+                <h1 class="title">bar-dark</h1>
+                <a class="button icon-right ion-chevron-right button-calm">Learn More</a>
+            </div>
+            <ion-content ng-controller="detialController">
+                <div>
+                    <label class="item item-input">
+                        <span class="input-label">Username</span>
+                        <input type="text" ng-model="nowitem.name">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Date</span>
+                        <input type="date">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Number</span>
+                        <input type="number">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">附件</span>
+                        <a href="党校项目进度.xls" ng-click="alert('')">附件</a>
+                    </label>
+                </div>
+            </ion-content>
+        </ion-view>
+    </script>
+</body>
+</html>

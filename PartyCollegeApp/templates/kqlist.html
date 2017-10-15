@@ -1,0 +1,57 @@
+﻿
+<ion-view>
+    <ion-header-bar align-title="center" class="bar-assertive">
+        <div class="buttons">
+            <button class='button button-icon icon ion-ios-arrow-back' style='font-size:12px' ng-click='goBack()'></button>
+        </div>
+        <h3 class='title'>{{showTitle}}({{dataStu.length}})</h3>
+    </ion-header-bar>
+    <ion-view ng-show="showW">
+        <ion-content style="top:43px;">
+            <ion-list class="list">
+                <div class="item text-center" ng-show="dataStu.length==0" style="color:#ccc; font-size:30px;border-bottom:0px;">
+                    <i class="ion-clipboard" style="font-size:90px"></i>
+                    <br />
+                    <br />
+                    暂无学员
+                </div>
+                <div ng-repeat="dataRepeat in dataStu">
+                    <ion-item ng-if="dataRepeat.phonestatus!=0" style="background-color:#EAEAEA;">
+                        <h2>
+                            <span ng-bind="dataRepeat.xyname"></span>
+                            <a class="ion-ios-telephone-outline yddmIcon" ng-click="cellPhone(dataRepeat,0)"  ng-if="dataRepeat.sjhm!=null"></a>
+                            <a class="ion-ios-email-outline yddmIcon" ng-click="cellPhone(dataRepeat,1)" ng-if="dataRepeat.sjhm!=null"></a>          
+                        </h2>
+                    </ion-item>
+                    <ion-item ng-if="dataRepeat.phonestatus==0">
+                        <h2>
+                            <span ng-bind="dataRepeat.xyname"></span>
+                            <a class="ion-ios-telephone-outline yddmIcon" ng-click="cellPhone(dataRepeat,0)"  ng-if="dataRepeat.sjhm!=null"></a>
+                            <a class="ion-ios-email-outline yddmIcon" ng-click="cellPhone(dataRepeat,1)"  ng-if="dataRepeat.sjhm!=null"></a>
+                        </h2>
+                    </ion-item>
+                </div>
+            </ion-list>
+        </ion-content>
+    </ion-view>
+    <ion-view ng-show="!showW">
+        <ion-content style="top:43px;">
+            <ion-list>
+                <div class="item text-center" ng-show="dataStu.length==0" style="color:#ccc; font-size:30px;border-bottom:0px;">
+                    <i class="ion-clipboard" style="font-size:90px"></i>
+                    <br />
+                    <br />
+                    暂无学员
+                </div>
+                <div ng-repeat="dataRepeat in dataStu">
+                    <a class="item" style="border-left:none;border-right:none;border-top:none;margin-bottom:2px;" ng-click="openModal(dataRepeat)">
+                        <h2>
+                            <span ng-bind="dataRepeat.xyname"></span>
+                            <span style="float:right;">{{dataRepeat.signtime|date:'MM-dd HH:mm'}}</span>
+                        </h2>
+                    </a>
+                </div>
+            </ion-list>
+        </ion-content>
+    </ion-view>
+</ion-view>

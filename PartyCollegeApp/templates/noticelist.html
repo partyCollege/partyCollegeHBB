@@ -1,0 +1,78 @@
+﻿<ion-view title="通知公告">
+    <go-main-page></go-main-page>
+    <ion-nav-buttons side="right">
+        <button class='button button-icon icon ' ng-click='openModal()' ng-show="showAdd">新增</button>
+    </ion-nav-buttons>
+    <!--<ion-header-bar class="bar bar-header bar-dark">
+        <div class='buttons'>
+            <button class='button button-icon icon ion-ios-arrow-back' style='font-size:12px' ng-click='goback()'></button>
+        </div>
+        <h3 class='title'>通知公告</h3>
+        <div class='buttons'>
+            <button class='button button-icon icon ' ng-click='openModal()' ng-show="showAdd">新增</button>
+        </div>
+    </ion-header-bar>-->
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item ng-repeat="item in dataSource" style="padding:10px 10px;padding-bottom:5px">
+                <div class="line-h-30">
+                    <div class="item-text-wrap black size-18" ng-click="godetail(item)" ng-show="item.isread==null">{{item.noticetitle}}</div>
+                    <div class="item-text-wrap size-18 grey" ng-click="godetail(item)" ng-show="item.isread!=null">{{item.noticetitle}}</div>
+                </div>
+                <div>
+                    <div class="pull-left" ng-show="showAdd" style="position:relative;height:35px;margin-top:10px">
+
+                        <button class="button button-small delete" style="border:0px;left:60px;">
+                            <span ng-bind="item.status" class="blue">发布</span>
+                        </button>
+
+                        <button class="button button-small delete" style="border:0px;" ng-click="deletenotice(item)">
+                            <span class="blue">删除</span>
+                        </button>
+                    </div>
+                    <div class="pull-right" ng-show="item.releasetime!=null" style="color:#C6C3C6;margin-top:10px;">
+                        <i class="ion-ios-clock-outline"></i>
+                        <span ng-bind="item.releasetime|date:'MM-dd HH:mm'"></span>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div ng-show="undisplay" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+            <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+            暂无通知公告
+        </div>
+        <script id="addnotice" type="text/ng-template">
+            <ion-modal-view>
+                <ion-content>
+                    <div class="list" style="background-color:#fff;padding:20px 10px 0px 10px;margin:0px;">
+                        <span class="size-20">标题：</span>
+                        <input type="text" ng-model="addnotice.title" class="ng-pristine ng-untouched ng-valid" style="width:98%;font-size:20px;margin:2px auto;line-height:20px;border:1px solid #eee" />
+                        <span class="size-20">内容：</span>
+                        <limit-text-area text-value="addnotice.content" size="20" style="padding:10px" max-length="500" rows="2"></limit-text-area>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="button button-assertive" ng-click="addNewNotice();" style="width:100%;">
+                                提 交
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="button button-stable" ng-click="closeModal();" style="width:100%;">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                    <!--<div class="list" style="background-color:#fff;">
+                        <span style="font-size:25px;">标题：</span>
+                        <input type="text" ng-model="addnotice.title" placeholder="请输入标题" class="ng-pristine ng-untouched ng-valid" style="width:100%;font-size:25px;margin:2px auto;line-height:25px;" />
+                        <br />
+                        <span style="font-size:25px;">内容：</span>
+                        <textarea rows="10" ng-model="addnotice.content" placeholder="请输入内容" class="ng-pristine ng-untouched ng-valid" style="width:100%;font-size:25px;margin:2px auto;line-height:25px;"></textarea>
+
+                    </div>-->
+                </ion-content>
+            </ion-modal-view>
+        </script>
+    </ion-content>
+</ion-view>

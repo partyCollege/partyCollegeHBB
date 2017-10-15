@@ -1,0 +1,183 @@
+﻿
+<div class="header">
+    <div class="top green_bg">
+        <div class="main">
+            <div class="courseName">
+                <div class="left"></div>
+				{{coursewareCommentData.csname}}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div class="courseFile">
+	<div ui-view ng-if="coursewareCommentData.videotype!=3" name="videoView"></div>
+	<div ui-view ng-if="coursewareCommentData.videotype==3" name="pptplayView"></div>
+</div>
+<div class="main" id="courseware">
+    <div class="videoCoures_box">
+        <div class="left">
+            <ul class="title">
+                <li class="noMargin" ng-class="{'select':videoConfig.mainConfig[0].select}"><a ng-click="aClick('coursewareCommentView')">课程简介</a></li>
+                <li ng-if="false" ng-class="{'select':videoConfig.mainConfig[1].select}"><a ng-click="aClick('questionnaireView')">问卷调查</a></li>
+                <li ng-class="{'select':videoConfig.mainConfig[2].select}"><a ng-click="aClick('questionsView')">问答</a></li>
+                <!--<li ng-class="{'select':videoConfig.mainConfig[3].select}"><a ng-click="aClick('feelLearnsView')">学后感</a></li>-->
+				<li ng-if="coursewareCommentData.videotype!=3" ng-class="{'select':videoConfig.mainConfig[4].select}"><a ng-click="aClick('noteView')">笔记</a></li>
+                <!--<li ng-class="{'select':videoConfig.mainConfig[5].select}"><a ng-click="aClick('examinationView')">考题</a></li>-->
+                <li ng-class="{'select':videoConfig.mainConfig[8].select}"><a ng-click="aClick('appraisetView')">评价</a></li>
+                <div class="clear"></div>
+            </ul>
+            <div ng-cloak class="courseInfo" ui-view name="coursewareCommentView" ng-if="videoConfig.mainConfig[0].show">
+
+            </div>
+
+            <div cloak class="examination" ng-controller="course_questionnaireController" ng-include="'../Templates/videoCourse/course_questionnaire.html'" ng-if="videoConfig.mainConfig[1].show">
+                
+            </div>
+
+            <div ng-cloak class="QA" ui-view name="questionView" ng-if="videoConfig.mainConfig[2].show">
+
+            </div>
+            <div ng-cloak class="xhg_box" ui-view name="feelLearnView" ng-if="videoConfig.mainConfig[3].show">
+
+            </div>
+
+            <div ng-cloak class="note_list" ui-view name="noteView" ng-if="videoConfig.mainConfig[4].show">
+            </div>
+
+            <div class="examination" ng-cloak ui-view name="examinationView" ng-if="videoConfig.mainConfig[5].show">
+            </div>
+
+            <div ng-cloak ui-view name="appraisetView" ng-if="videoConfig.mainConfig[8].show">
+            </div>
+
+        </div>
+        <div class="right">
+            <div class="block top">
+                <h2>教学评价</h2>
+                <div class="clear"></div>
+                <div class="fen">
+                    <div class="right btn" ng-if="isappraise[0].isappraise <= 0" ng-click="showAppraise()">评价</div>
+                    <i class="fen_num">{{avgscore}}</i>
+                    <!--<div class="right btn" ng-click="showAppraise()">去评价</div>-->
+                    <div class="courseFen left">
+                        <div class="courseFen_wc" ng-style="{width:(avgTotalscore.grade/10)*100}"></div>
+                    </div>
+                    <b class="right">{{avgTotalscore.gradecount}}人评价</b>
+                    <div class="clear"></div>
+                    <table>
+                        <tr>
+                            <td colspan="2">观点正确：{{decRound(avgscorelist[0]?avgscorelist[0].avgscore:0)}}</td>
+                        </tr>
+                        <tr>
+                            <td>联系实际：{{decRound(avgscorelist[1]?avgscorelist[1].avgscore:0)}}</td>
+                            <td class="noPadding">内容丰富：{{decRound(avgscorelist[2]?avgscorelist[2].avgscore:0)}}</td>
+                        </tr>
+                        <tr>
+                            <td>讲授认真：{{decRound(avgscorelist[3]?avgscorelist[3].avgscore:0)}}</td>
+                            <td class="noPadding">互动充分：{{decRound(avgscorelist[4]?avgscorelist[4].avgscore:0)}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="block">
+                <h2>教学资料</h2>
+                <div class="clear"></div>
+                <ul>
+                    <li ng-repeat="item in informationData | orderBy:'uploadtime':true"><i ng-class="item.type +'_ico'"></i><a ng-click="downFiles(item.id,item.attachservername, item.attachname, 'classAttach')">{{item.attachname}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--评价弹窗开始-->
+<div class="popup_box" ng-if="appraiseShow">
+    <div class="popup_content register">
+        <div class="content ">
+            <h2>教学评价<i class="tubiaoicon-17" ng-click="showAppraise()"></i></h2>
+            <form action="">
+                <ul class="evaluateList">
+                    <li>
+                        <label>观点正确：</label>
+                        <rating ng-model="scoreConfig[0].rate" max="scoreConfig[0].max" readonly="scoreConfig[0].isReadonly" on-hover="hoveringOver(0,value)" on-leave="leaveingOver(0)"></rating>
+                        <span class="label" ng-class="{'label-warning': scoreConfig[0].percent<3, 'label-info': scoreConfig[0].percent>=3 && scoreConfig[0].percent<7, 'label-success': scoreConfig[0].percent>=7}" ng-if="scoreConfig[0].percent>0">{{scoreConfig[0].percent}}</span>
+                    </li>
+                    <li>
+                        <label>内容丰富：</label>
+
+                        <rating ng-model="scoreConfig[1].rate" max="scoreConfig[1].max" readonly="scoreConfig[1].isReadonly" on-hover="hoveringOver(1, value)" on-leave="leaveingOver(1)"></rating>
+                        <span class="label" ng-class="{'label-warning': scoreConfig[1].percent<3, 'label-info': scoreConfig[1].percent>=3 && scoreConfig[1].percent<7, 'label-success': scoreConfig[1].percent>=7}" ng-if="scoreConfig[1].percent>0">{{scoreConfig[1].percent}}</span>
+
+                    </li>
+                    <li>
+                        <label>联系实际：</label>
+                        <rating ng-model="scoreConfig[2].rate" max="scoreConfig[2].max" readonly="scoreConfig[2].isReadonly" on-hover="hoveringOver(2, value)" on-leave="leaveingOver(2)"></rating>
+                        <span class="label" ng-class="{'label-warning': scoreConfig[2].percent<3, 'label-info': scoreConfig[2].percent>=3 && scoreConfig[2].percent<7, 'label-success': scoreConfig[2].percent>=7}" ng-if="scoreConfig[2].percent>0">{{scoreConfig[2].percent}}</span>
+                    </li>
+                    <li>
+                        <label>互动充分：</label>
+                        <rating ng-model="scoreConfig[3].rate" max="scoreConfig[3].max" readonly="scoreConfig[3].isReadonly" on-hover="hoveringOver(3, value)" on-leave="leaveingOver(3)"></rating>
+                        <span class="label" ng-class="{'label-warning': scoreConfig[3].percent<3, 'label-info': scoreConfig[3].percent>=3 && scoreConfig[3].percent<7, 'label-success': scoreConfig[3].percent>=7}" ng-if="scoreConfig[3].percent>0">{{scoreConfig[3].percent}}</span>
+                    </li>
+                    <li>
+                        <label>讲授认真：</label>
+                        <rating ng-model="scoreConfig[4].rate" max="scoreConfig[4].max" readonly="scoreConfig[4].isReadonly" on-hover="hoveringOver(4, value)" on-leave="leaveingOver(4)"></rating>
+                        <span class="label" ng-class="{'label-warning': scoreConfig[4].percent<3, 'label-info': scoreConfig[4].percent>=3 && scoreConfig[4].percent<7, 'label-success': scoreConfig[4].percent>=7}" ng-if="scoreConfig[4].percent>0">{{scoreConfig[4].percent}}</span>
+                    </li>
+                    <li>
+                        <label>评论：</label>
+                        <textarea class="pj_textarea" id="courseAppraiseContent"></textarea>
+                    </li>
+                    <li class="submit">
+                        <button class="btn" type="button" ng-click="clearAppraise()">清除</button>
+                        <button class="btn" type="button" ng-click="submitAppraise()"  ng-disabled="sumbitDisabled">提交</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<!--评价弹窗结束-->
+<div appfooter></div>
+<div float-menu></div>
+
+<!--提问模板-->
+<script type="text/ng-template" id="question.html">
+    <div class="popup_box">
+        <div class="videoCoures">
+            <h3>提问<i class="tubiaoicon-17" ng-click="cancel()"></i></h3>
+            <form action="" method="">
+                <div class="textarea">
+                    <textarea placeholder="请输入讨论内容..." ng-model="questionContent" maxlength="200"></textarea>
+                    <i class="num">{{currentCount}}/200</i>
+                </div>
+                <div class="submit_box"><button class="btn" type="submit" ng-disabled="disableSaveQuestion" ng-click="saveQuestion()">保存</button></div>
+            </form>
+        </div>
+    </div>
+</script>
+
+<!--笔记模板-->
+<script type="text/ng-template" id="studynote.html">
+    <div class="popup_box">
+        <div class="videoCoures">
+            <h3>笔记<i class="tubiaoicon-17" ng-click="cancel()"></i></h3>
+            <form action="" method="">
+                <div class="textarea">
+                    <textarea placeholder="请输入笔记内容..." ng-model="studynoteConfig.studynoteContent" maxlength="1000"></textarea>
+                    <i class="num">{{studynote_currentCount}}/1000</i>
+                </div>
+                <div class="img">
+                    <img ng-if="studynoteConfig.studynoteImg1 != ''" ng-src="{{studynoteConfig.studynoteImg1}}" />
+                    <img ng-if="studynoteConfig.studynoteImg2 != ''" ng-src="{{studynoteConfig.studynoteImg2}}" />
+                    <div class="jdt"><div class="yk"></div></div><span class="">{{secondsToHHmmss(studynoteConfig.videoTime)}}/{{coursewareCommentData.hours}}:{{coursewareCommentData.minutes}}:00</span>
+                </div>
+                <div class="submit_box"><button class="btn" type="submit" ng-disabled="saveNoteDisabled" ng-click="saveStudynote()">保存</button></div>
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+</script>
+
+

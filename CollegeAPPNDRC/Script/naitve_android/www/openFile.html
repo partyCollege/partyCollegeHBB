@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+ <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+    var path;
+    function onDeviceReady() {
+        alert('onDeviceReady');
+        path = cordova.file.documentsDirectory;
+        xsf.getDeviceInfo(function(info){
+                          });
+    }
+        function openPng(){
+            xsf.open("http://pic1.win4000.com/wallpaper/d/5247f00c52647.jpg");
+            //http://192.168.1.222:8080/ezweb/action?uploadFile=0&type=test.jpg
+        }
+        function openPdf(){
+           
+            xsf.open("test.pdf");
+        }
+        function openDoc(){
+            xsf.open("1.docx");
+        }
+        function openHttpDoc(){
+             alert("http://117.184.89.78:90/CollegeAPP/Html/1.doc");
+           xsf.open("http://117.184.89.78:90/CollegeAPP/Html/1.doc");
+        }
+        function openHttpDoc2(){
+               alert("http://10.40.32.120:8080/ezweb/action?downloadFile=1&fileId=417860&/2015-03-19%202015%E5%B9%B4%E6%94%BE%E5%81%87%E5%AE%89%E6%8E%92%E9%80%9A%E7%9F%A5.doc");
+            xsf.open("http://10.40.32.120:8080/ezweb/action?downloadFile=1&fileId=417860&/2015-03-19%202015%E5%B9%B4%E6%94%BE%E5%81%87%E5%AE%89%E6%8E%92%E9%80%9A%E7%9F%A5.doc");
+        }
+        function openMp4(){
+            xsf.open("1.mp4");
+            
+            
+        }
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+        </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "openPng();">openPng打开图片</div><br/>
+      <div class = "btn bg_2" onclick = "openPdf();">openPdf打开PDF</div><br/>
+      <div class = "btn bg_3" onclick = "openDoc();">openDoc打开doc文档</div><br/>
+      <div class = "btn bg_4" onclick = "openHttpDoc();">openHttpDoc打开在线文档</div><br/>
+      <div class = "btn bg_5" onclick = "openHttpDoc2();">openHttpDoc2打开在线文档</div><br/>
+      <div class = "btn bg_6" onclick = "openMp4();">openMp4打开MP4文件</div><br/>
+      <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

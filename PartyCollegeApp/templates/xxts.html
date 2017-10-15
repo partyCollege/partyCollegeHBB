@@ -1,0 +1,17 @@
+﻿        <!--信息推送-->
+<ion-list style="border:none">
+    <a class="item item-button-right agreement-title item-padding-10 " href="{{goList}}">
+        <i class="icon ion-calendar size-20" style="color:#f00;"></i>&nbsp;&nbsp;<span class="size-18" style="font-weight:bolder">信息传送</span><span class="more"><i class="icon ion-ios-arrow-forward"></i></span>
+    </a>
+    <ion-item style="padding:13px 10px;color:#999" ng-if="XXList.length<=0">
+        暂无信息传送
+    </ion-item>
+    <div class="item " style="padding:0px;border-bottom:none;" ng-repeat="xx in XXList">
+        <div style="margin-left:0px; margin-right:0px; padding:0px;" ng-click="goDetial(xx)">
+            <div class="course-info">
+                <div class="course-info-description size-18"><div class="course-info-time size-22">{{xx.scrq|date:'HH:mm'}}&nbsp;</div>{{xx.title}}</div>
+                <div class="col-20-name course-info-name size-16"><i class="ion-ios-person-outline size-22" ng-show="xx.from_user">&nbsp;</i>{{xx.from_user}}</div>
+            </div>
+        </div>
+    </div>
+</ion-list>

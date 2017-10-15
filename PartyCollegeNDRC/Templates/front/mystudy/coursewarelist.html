@@ -1,0 +1,82 @@
+﻿<div class="clearfix allCourseList_box">
+    <ul class="allCourseList">
+        <li class="title">
+            <h2 class="common">
+                <b>所有课程</b>
+                <div class="right">
+                    <i class="tubiaoicon-01"></i>
+                    <input type="text" placeholder="课程名称" ng-model="searchparameter.condation" ng-keyup="searchKeyup($event);" />
+                    <button type="button" ng-click="resetSearch()">搜索</button>
+                </div>
+            </h2>
+        </li>
+        <li>
+            <b>课程分类</b>
+            <div class="pull-right">
+                <a href="javascript:void(0);" class="pull-one active" id="linkAllOneCate" ng-click="linkActive('pull-one','linkAllOneCate')">全部</a>
+                <a href="javascript:void(0);" class="pull-one" ng-repeat="n in oneCategory" id="{{n.id}}" data-value="{{n.id}}" ng-click="linkActive('pull-one',n.id)">{{n.name}}（{{n.coursecount}}）</a> 
+            </div>
+        </li>
+        <li>
+            <b>二级分类</b>
+            <div class="pull-right">
+                <a href="javascript:void(0);" class="pull-two active" id="linkAllTwoCate" ng-click="linkActive('pull-two','linkAllTwoCate')">全部</a>
+                <a href="javascript:void(0);" class="pull-two" ng-repeat="n in twoCategory" id="{{n.id}}" data-value="{{n.id}}" ng-click="linkActive('pull-two',n.id)">{{n.name}}（{{n.coursecount}}）</a> 
+            </div>
+        </li>
+        <li>
+            <b>所属年份</b>
+            <div class="pull-right">
+                <a href="javascript:void(0);" class="pull-year active" id="linkAllYear" ng-click="linkActive('pull-year','linkAllYear')">全部</a>
+                <a href="javascript:void(0);" class="pull-year" ng-repeat="n in allYears" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-year',n.id)">{{n.showtext}}</a> 
+            </div>
+        </li>
+        <li>
+            <b>课程类型</b>
+            <div class="pull-right"> 
+                <a href="javascript:void(0);" class="pull-courseType active" id="linkAllCourseType" ng-click="linkActive('pull-courseType','linkAllCourseType')">全部</a>
+                <a href="javascript:void(0);" class="pull-courseType" ng-repeat="n in allCourseType" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseType',n.id)">{{n.showtext}}</a> 
+            </div>
+        </li>
+        <li>
+            <b>查询类别</b>
+            <div class="pull-right"> 
+                <a href="javascript:void(0);" class="pull-searchType active" id="linkAllSearchType" ng-click="linkActive('pull-searchType','linkAllSearchType')">全部</a>
+                <a href="javascript:void(0);" class="pull-searchType" ng-repeat="n in allSearchType" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-searchType',n.id)">{{n.showtext}}</a> 
+            </div>
+        </li>
+    </ul>
+</div>
+<h2 class="text-center searchSum">
+    搜索到<b>{{allcount}}</b>个课程信息
+</h2>
+<div class="lookCourseJd_box">
+    <ul class="clearfix lookCourseJd"> 
+        <li ng-repeat="n in datalist">
+            <div class="img">
+                <img ng-src="{{n.photo}}" onerror="this.src='../img/course_img.jpg'" ng-click="selectCourse(n)" />  
+            </div>
+            <div class="pull-left seachGet">
+				<h4 ng-click="selectCourse(n)" title="{{n.coursewarename}}">{{n.coursewarename}}</h4>
+                <p class="grey">
+                    <span>主讲人：{{n.teachersname}}</span>
+                    <span>上传时间：{{n.uploadtime}}</span>
+                </p>
+                <p class="grey">
+                    <span>学时：{{n.studytime}}</span>
+                    <span>课程类型：{{ n.coursetype==0 ? "视频课程" :"非视频课程"}}</span>
+                </p>
+                <p class="grey courseSource">课程来源：{{n.source}}</p>
+                <p>
+                    <span class="pf">评分：{{n.grade}}</span> 
+                    <span ng-class="{true: 'pull-right btn del', false: 'pull-right btn yx'}[n.style]" ng-click="selectCourse(n)">{{n.buttontext}}</span>
+                </p> 
+            </div>
+        </li>
+     </ul>
+    <div class="more" ng-if="searchparameter.isMore">
+        <a href="" class="btn" ng-click="more()">更多</a>
+        <i class="icon icon_more"></i>
+    </div>
+</div>
+<div class="clearfix"></div>

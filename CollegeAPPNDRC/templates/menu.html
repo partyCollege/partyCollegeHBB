@@ -1,0 +1,138 @@
+﻿<style>
+    .bottom60 {
+        bottom: 60px;
+    }
+    .ion-main {
+        background:url(../img/shouye1-icon80X80.png) no-repeat;
+        width:26px;
+        padding-top:2px;
+    }
+     .ion-main-outline {
+        background:url(../img/shouye-icon80X80.png) no-repeat;
+        width:26px;
+    }
+     .ion-study {
+        background:url(../img/xuexi1-icon80X80.png) no-repeat;
+        width:26px;
+    }
+     .ion-study-outline {
+        background:url(../img/xuexi-icon80X80.png) no-repeat;
+        width:26px;
+    }
+      .ion-epro {
+        background:url(../img/yanjiu1-icon80X80.png) no-repeat;
+        width:26px;
+    }
+     .ion-epro-outline {
+        background:url(../img/yanjiu-icon80X80.png) no-repeat;
+        width:26px;
+    }
+      .ion-tran {
+        background:url(../img/shixun1-icon80X80.png) no-repeat;
+        width:26px;
+    }
+     .ion-tran-outline {
+        background:url(../img/shixun-icon80X80.png) no-repeat;
+        width:26px;
+    }.ion-me {
+        background:url(../img/wo1-icon80X80.png) no-repeat;
+        width:26px;
+    }
+     .ion-me-outline {
+        background:url(../img/wo-icon80X80.png) no-repeat;
+        width:26px;   
+        color:#ababab;     
+    }
+    .tab-item .tab-item-active span {
+        color:#ef473a;
+    }
+    .tab-item span {
+    color:black;
+    font-size:10px;
+    font-weight:normal;
+    }
+    .tabs-color-assertive .tab-item {
+        color:#000 !important;
+    }
+    .tabs-color-assertive .tab-item.tab-item-active, .tabs-color-assertive .tab-item.active, .tabs-color-assertive .tab-item.activated {
+    color: #ef473a !important;
+    /*border: 0 solid #ef473a !important;*/
+    }
+</style>
+<ion-side-menus>
+    <ion-side-menu-content class="bar-positive">
+        <ion-nav-bar class="bar-positive">
+            <!--<ion-nav-buttons side="left">
+            <img ng-init="$scope.showLogo=true;" ng-if="$scope.showLogo" style="width:33px;height:33px" ng-src="../img/{{LogoPath}}" />
+            <button ng-click='goMain()' class='button button-icon icon ion-navicon' style='font-size:12px'></button>
+        </ion-nav-buttons>-->
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent" animation="slide-left-right" ng-if="hasMainBottomTab==true"></ion-nav-view>
+            <ion-tabs animation="slide-left-right" class="tabs-icon-top  tabs-color-assertive tabs-tabs" style="border-top:1px solid #ccc;">
+                <ion-tab nav-direction="forward" ng-if="tab.usertype.indexOf(user.usertype)>-1||(tab.usertype=='bzr'&&user.bcinfo_id&&user.usertype=='teacher')" ng-repeat="tab in mainTab" title="{{tab.name}}"
+                         icon-on="{{tab.icon}}" href="{{tab.link}}" icon-off="{{tab.icon}}-outline">
+                </ion-tab>
+            </ion-tabs>
+        
+        <!--<ion-nav-view name="menuContent" animation="slide-left-right" ng-if="hasTabMenu">
+            <ion-tabs animation="slide-left-right" class="tabs-icon-top  tabs-color-assertive tabs-tabs" style="border-top:1px solid #ccc;">
+                <ion-tab title="首页"
+                         icon-on="ion-main" ng-click="goRedSchool(1)" icon-off="ion-main-outline">
+                    <ion-header-bar class="bar-positive">
+                        <h1 class="title">首页</h1>
+                    </ion-header-bar>
+                </ion-tab>
+                <ion-tab title="学习"
+                         icon-on="ion-study" ng-click="goRedSchool(2)" icon-off="ion-study-outline">
+                    <ion-header-bar class="bar-positive">
+                        <h1 class="title">学习</h1>
+                    </ion-header-bar>
+                </ion-tab>
+                <ion-tab title="研究"
+                         icon-on="ion-epro" ng-click="goRedSchool(3)" icon-off="ion-epro-outline">
+                    <ion-header-bar class="bar-positive">
+                        <h1 class="title">研究</h1>
+                    </ion-header-bar>
+                </ion-tab>
+                <ion-tab title="实训"
+                         icon-on="ion-tran" ng-click="goRedSchool(4)" icon-off="ion-tran-outline">
+                    <ion-header-bar class="bar-positive">
+                        <h1 class="title">实训</h1>
+                    </ion-header-bar>
+                </ion-tab>
+                <ion-tab title="我"
+                         icon-on="ion-me" ng-click="goRedSchool(5)" icon-off="ion-me-outline">
+                    <ion-header-bar class="bar-positive">
+                        <h1 class="title">我</h1>
+                    </ion-header-bar>
+                </ion-tab>
+            </ion-tabs>
+        </ion-nav-view>-->
+    </ion-side-menu-content>
+    <!--<ion-side-menu side="left" ng-show="hasLeftMenu">
+        <ion-header-bar align-title="center" class="bar-stable">
+            <div class="buttons" nav-clear>
+                <button class="button button-icon icon ion-gear-b" ng-click="goMysettings()"></button>
+            </div>
+            <h1 class="title">导&nbsp;&nbsp;航</h1>
+            <div class="buttons pull-right" nav-clear menu-close ng-click="settings()" ng-if="usertype=='student'">
+                <button menu-close class="button button-icon icon ion-social-windows" style="color:#145fd7"></button>
+            </div>
+        </ion-header-bar>
+        <ion-content class="has-header" ng-class="{'bottom60':showChaoxing}">
+            <ion-list>
+                <ion-item nav-clear ng-repeat="menu in menus" ng-class="{true: 'background_gray', false: 'background_white'}[menu.checked==true]" ng-click="goMenu('{{menu.groupId}}',menu)">
+                    <i class="icon ion-ios7-arrow-right"></i> {{menu.title}} <span class="badge badge-assertive" ng-if="menu.badge>0">{{menu.badge}}</span>
+                    <a nav-clear menu-close ng-if="menu.checked" ng-class="{true: 'background_gray', false: 'background_white'}[submenu.checked]" class="item item-icon-left" ng-click="goMenu('{{submenu.groupId}}',submenu)" ng-repeat="submenu in menu.subMenus" style="border:0px">
+                        <span style="font-size:14px"><span style="width:3px; background-color:red"></span><i class="icon ion-ios7-arrow-right" style="font-size:16px"></i>{{submenu.title}}</span>
+                    </a>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+        <ion-footer-bar class="bar-stable" ng-if="showChaoxing" style="height:60px">
+            <div class="button-bar">
+                <a class="button button-clear" ng-click="openSuper()"><img src="../img/chaoxing.jpg" height="40" width="40"><br />进入超新</a>
+            </div>
+        </ion-footer-bar>
+    </ion-side-menu>-->
+</ion-side-menus>

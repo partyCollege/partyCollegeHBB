@@ -1,0 +1,77 @@
+﻿<ion-view title="个人信息">
+    <go-main-page></go-main-page>
+    <ion-content class="has-header">
+        <div class="studentUserInfo">
+            <div>
+                <span>民族：</span>
+                <p>
+                    <select ng-model="stuinfo.mz" ng-options="mz.showvalue as mz.datavalue for mz in mzlist"></select>
+                </p>
+            </div>
+            <div>
+                <span>出生日期：</span>
+                <p>
+                    <i id="iborder1"></i>
+                    <i id="iborder2"></i>
+                    <i id="iborder3"></i>
+                    <i id="iborder4"></i>
+                    <input style="line-height:10px; height:31px;" placeholder="例：1970-1-1" maxlength="30" id="csny" type="date" />
+                </p>
+            </div>
+            <div>
+                <span>党派：</span>
+                <p>
+                    <select ng-model="stuinfo.dp" ng-options="dp.showvalue as dp.datavalue for dp in dplist"></select>
+                </p>
+            </div>
+            <div>
+                <span>手机号码：</span>
+                <p>
+                    <input placeholder="请输入您的手机号码" maxlength="11" ng-model="stuinfo.sjhm" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " />
+                </p>
+            </div>
+            <div>
+                <span>身份证号：</span>
+                <p>
+                    <input placeholder="请输入您的身份证号" maxlength="18" name="sfzh" ng-model="stuinfo.sfzh" type="text" required />
+                    <span style="color:red" ng-show="myForm.sfzh.$dirty && myForm.sfzh.$invalid">
+                        <span style="width:10px;" ng-show="myForm.sfzh.$error.required">*</span>
+                    </span>
+                </p>
+            </div>
+            <div>
+                <span>办公电话：</span>
+                <p>
+                    <input placeholder="例: 010-8888888" maxlength="20" name="dwdh" ng-model="stuinfo.dwdh" type="text" required />
+                    <span style="color:red" ng-show="myForm.dwdh.$dirty && myForm.dwdh.$invalid">
+                        <span style="width:10px;" ng-show="myForm.dwdh.$error.required">*</span>
+                    </span>
+                </p>
+            </div>
+            <div>
+                <span>所在单位：</span>
+                <p>
+                    <input placeholder="请输入您的所在单位" maxlength="100" name="szdw" ng-model="stuinfo.szdw" type="text" required />
+                    <span style="color:red" ng-show="myForm.szdw.$dirty && myForm.szdw.$invalid">
+                        <span style="width:10px;" ng-show="myForm.szdw.$error.required">*</span>
+                    </span>
+                </p>
+            </div>
+            <div>
+                <span>职务：</span>
+                <p>
+                    <input placeholder="请输入您的职务" name="zw" maxlength="50" ng-model="stuinfo.zw" type="text" required />
+                    <span style="color:red" ng-show="myForm.zw.$dirty && myForm.zw.$invalid">
+                        <span style="width:10px;" ng-show="myForm.zw.$error.required">*</span>
+                    </span>
+                </p>
+            </div>
+            <button class="button button-assertive ty_font" ng-show="{{showSave}}" ng-click="updateStuInfo()" style="min-height:35px;height:35px;line-height:35px;margin-top:15px;width:100%;border-radius:5px;">
+                <!--<i class="ion-android-add" style="font-size:20px;margin-right:5px;"></i>-->保存
+            </button>
+            <!--<button class="button button-balanced ty_font" ng-click="exit()" style="min-height:35px;height:35px;line-height:35px;margin-top:15px;width:100%;border-radius:5px;">
+                退出系统
+            </button>-->
+        </div>
+    </ion-content>
+</ion-view>

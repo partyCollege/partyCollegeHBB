@@ -1,0 +1,28 @@
+﻿<div class="main">
+	<div class="stuCz_book_box">
+		<h2 class="common index"><b>常用软件</b></h2>
+		<!--<div style="height:1px;border-bottom:1px solid #eee;"></div>-->
+        <div class="commonSW_box">
+			<div class="btn" ng-repeat="item in softdata" style="height:80px; width:150px;white-space:normal; text-align:left;">
+				<img ng-src="{{item.attach_logo}}" />
+				<a class="sprite download" ng-click="downFiles(item)" title="{{item.remark}}">立即下载</a>
+				<div>{{item.attach}}</div>
+			</div>
+        </div>
+        <h2 class="common index"><b>常用资源</b></h2>
+		<div>
+			<table class="table table-bordered font-size-14">
+				<tr>
+					<th class="font-bold">资料名称</th>
+					<th class="font-bold">资料说明</th>
+					<th class="font-bold text-center" style="width: 100px;">上传日期</th>
+				</tr>
+                <tr ng-repeat="item in materialdata">
+                    <td><a ng-click="downFiles(item)">{{item.attach}}</a></td>
+					<td>{{item.remark}}</td>
+                    <td class="text-center">{{item.publishtime | date:'yyyy-MM-dd'}}</td>
+                </tr>
+			</table>
+		</div>
+	</div>
+</div>

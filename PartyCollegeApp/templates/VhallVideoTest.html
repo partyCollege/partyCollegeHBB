@@ -1,0 +1,17 @@
+﻿<script src="http://player.polyv.net/script/polyvplayer.min.js"></script>
+<ion-view title="{{title}}">
+    <go-main-page></go-main-page>
+    <ion-content delegate-handle="mainScroll">
+        <div id="mainVideo" style="height:300px">
+        </div>
+        <div>
+            播放时长：{{nowtime}}
+        </div>
+        <div>
+            <button class="btn btn-danger btn-sm" ng-click="play()">播放</button>
+            <button class="btn btn-danger btn-sm" ng-click="pause()">暂停</button>
+            <button class="btn btn-danger btn-sm" ng-click="changeVid1()">切换视频1</button>
+            <button class="btn btn-danger btn-sm" ng-click="changeVid2()">切换视频2</button>
+        </div>
+    </ion-content>
+</ion-view>

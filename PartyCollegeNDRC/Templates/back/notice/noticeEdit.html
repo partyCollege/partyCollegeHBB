@@ -1,0 +1,78 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="row text-right">
+					<div class="widget style1 badge-primary">
+						<div class="row vertical-align">
+							<div class="col-md-12 text-center">
+								<h3>公告编辑</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ibox-content">
+                    <form method="get" class="form-horizontal" name="noticForm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">公告标题</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"
+                                       valid-method="watch"
+                                       validator="required"
+                                       ng-model="noticeData.title" id="title_message">
+                                <p id="title_message" class="error"></p>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-sm-2 control-label">公告内容</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"
+                                       valid-method="watch"
+                                       validator="required"
+                                       ng-model="noticeData.content" id="content_message">
+                                <p id="content_message" class="error"></p>
+                            </div>
+                        </div>-->
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">公告内容</label>
+                            <div class="col-sm-10">
+                                <div summernote lang="zh-CN" ng-model="noticeData.content" required></div>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">公告类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="noticeData.category">
+                                    <option value="0">系统升级</option>
+                                    <option value="1">系统提醒</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否可关闭</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="noticeData.isclose">
+                                    <option value="0">不可关闭</option>
+                                    <option value="1">可关闭</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-primary" ng-if="currentConfig.btnSaveShow" ng-disabled="noticForm.$invalid||saveDisabled" ng-click="savePermssion();">保存</button>
+                            <button class="btn btn-danger" ng-if="currentConfig.btnPublishShow " ng-click="publishNotice();">发布</button>
+                            <button class="btn btn-danger" ng-if="currentConfig.btnUnPublishShow " ng-click="unpublishNotice();">撤销发布</button>
+                            <button class="btn btn-default" ng-click="goToList();">取消</button>
+                        </div>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

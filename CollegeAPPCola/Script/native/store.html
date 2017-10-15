@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            alert('onDeviceReady');
+            
+        }
+    function test() {
+        alert('test_get');
+        debugger
+        xsfStore.set("test","test_value",
+                    function (result) {
+                    },
+                    function (error) {
+                    alert(error);
+                    }
+                    );
+        /*xsfStore.set("test",1,
+                    function (result) {
+                    },
+                    function (error) {
+                    alert(error);
+                    }
+                    );*/
+        /*xsfStore.set("test",false,
+                    function (result) {
+                    },
+                    function (error) {
+                    alert("open failed: " + error);
+                    }
+                    );*//*
+        xsfStore.set("test",1.1,
+                    function (result) {
+                    alert(result);
+                    },
+                    function (error) {
+                    alert("open failed: " + error);
+                    }
+                    );*/
+        xsfStore.get("test",
+                    function (result) {
+                    alert(result);
+                    },
+                    function (error) {
+                    alert("open failed: " + error);
+                    }
+                    );
+        xsfStore.remove("test",
+                    function (result) {
+                    },
+                    function (error) {
+                    alert("open failed: " + error);
+                    }
+                    );
+        xsfStore.get("test",
+                    function (result) {
+                    alert("已经删除：" + result);
+                    },
+                    function (error) {
+                    alert("open failed: " + error);
+                    }
+                    );
+                                 
+    }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "test();">测试</div><br/>
+    
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

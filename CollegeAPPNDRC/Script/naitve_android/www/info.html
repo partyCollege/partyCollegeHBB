@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+	    document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
+			alert("onDeviceReady");
+			xsf.getDeviceInfo(function(info){
+				alert("info:" + info)
+				alert(info.WORK_DIR)
+				alert(info.TEMP_DIR)
+			});
+			//xsf.getDeviceId();
+		    //xsf.alert(device.version);
+		    //xsf.set("UID","11111");
+		    //xsf.get("UID",function(uid){
+		    //	alert(uid);
+		    //});
+		    //xsf.open("http://www.baidu.com");
+		    //xsf.playVideo("http://www.baidu.com");
+		    //xsf.openApp("com.ue.oa.activity.SplashActivity",{key1:'key1',key2:'key2'});
+		    //xsf.startService("com.ue.oa.activity",{key1:'key1',key2:'key2'});
+		    //var device = new Device();
+		    //alert("device:" + device);
+		    //Device.getInfo(function(s){
+		    //alert("s:" + s);
+		    //});
+		    //alert("device:" + Device);
+		    //alert("device:" + Device.uuid);
+		}
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+  </head>
+  <body>
+    <br/>
+    <br/>
+    <div class="btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

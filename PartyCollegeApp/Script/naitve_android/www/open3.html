@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type="text/javascript" charset="utf-8" src="native.js"></script>
+<script type="text/javascript" charset="utf-8">
+    //
+    var ref;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+    	xsfSplashscreen.hide();
+        alert('onDeviceReady');
+    }
+        
+    </script>
+</head>
+<body>
+	open3
+	<a href="#" onclick="xsfWindow.open('open2.html','title')"> open </a>
+	<br />
+	<a href="#" onclick="xsfWindow.close(1,function(){alert('closed3')})">
+		close </a>
+		<p><a href="open3.html">reload</a></p>
+		<p><a href="index.html">index</a></p>
+</body>
+</html>

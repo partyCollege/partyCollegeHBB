@@ -1,0 +1,62 @@
+﻿<div>
+    <div class="header index">
+		<div class="top">
+			<div class="clearfix main row">
+				<div class="col-md-4">
+				<!--技术支持电话：010-66556071 &nbsp; 邮箱:edu@mep.gov.cn-->
+				</div>
+				<!--<div class="col-md-4" ng-click="gologin()">
+					<a href=""><img class="" src="../img/logo.png" /></a>
+				</div>-->
+				<div class="col-md-3 text-center">
+					{{todaydatespan}}
+				</div>
+				<div class="col-md-5 text-right">
+					<a href="javascript:void(0);"><i class="icon user"></i>{{user.name}}</a>
+					<a href="javascript:void(0);" ng-click="toToSetting();"><i class="icon setting"></i>个人设置</a>
+					<a ng-if="userpermission[0]" href="../html/indexfront.html#/main/myclasslist" class="active"><i class="icon studyCenter"></i>学习中心</a>
+					<a href="javascript:void(0);" ng-if="userpermission[1]" ng-href="{{backurl}}"><i class="icon glCenter"></i>管理中心</a>
+					<a href="javascript:void(0);" ng-click="exit()"><i class="icon logout"></i>退出</a>
+				</div>
+			</div>
+		</div>
+        <div class="header_box">
+            <div class="main">
+                <div class="logo"><img class="" src="../img/logo_whiteBg.png" alt=" " /></div>
+            </div>
+        </div>
+        <div class="nav_index">
+			<ul class="main">
+				<li ng-repeat="menu in mainConfig" ng-click="aClick(menu,menu.elementName)"><a ng-class="{'select':menu.select}">{{menu.title}}</a></li>
+
+				<li class="right">
+					<i class="tubiaoicon-01"></i>
+					<input type="text" ng-model="searchKeys" placeholder="在此输入关键字" ng-keyup="searchKeyup($event);" />
+					<button type="button" class="btn" ng-click="searchNews()">搜索</button>
+				</li>
+				<div class="clear"></div>
+			</ul>
+
+            <!--<ul class="main">
+				<li ng-click="aClick('index',$event,mainConfig[0])"><a ng-class="{'select':mainConfig[0].select}" href="index.html">首页</a></li>
+                <li ng-click="aClick('allcourse',$event)"><a ng-class="{'select':mainConfig[1].select}" href="indexfront.html#/main/allcourse/0">课程</a></li>
+                <li ng-click="aClick('booklist',$event)"><a ng-class="{'select':mainConfig[2].select}" href="index.html#/main/booklist">教材推荐</a></li>
+                <li ng-click="aClick('download',$event)"><a ng-class="{'select':mainConfig[3].select}" href="index.html#/main/download">常用下载</a></li>
+                <li ng-click="aClick('help',$event)"><a ng-class="{'select':mainConfig[4].select}" href="index.html#/main/help">帮助中心</a></li>
+				<li ng-click="aClick('notice',$event)"><a ng-class="{'select':mainConfig[5].select}" aahref="index.html#/main/newslist/2">通知公告</a></li>
+				<li ng-click="aClick('newinfo',$event)"><a ng-class="{'select':mainConfig[6].select}" aahref="index.html#/main/newslist/3">最新动态</a></li>
+				<li ng-click="aClick('lowinfo',$event)"><a ng-class="{'select':mainConfig[7].select}" aahref="index.html#/main/newslist/4">政策法规</a></li>
+                <li class="right">
+                    <i class="tubiaoicon-01"></i>
+                    <input type="text" ng-model="searchKeys" placeholder="在此输入关键字" ng-keyup="searchKeyup($event);" />
+                    <button type="button" class="btn" ng-click="searchNews()">搜索</button>
+                </li>
+                <div class="clear"></div>
+            </ul>-->
+        </div>
+    </div>
+
+    <div ui-view name="contentView">
+    </div>
+    <div appfooter></div>
+</div>

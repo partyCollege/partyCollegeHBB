@@ -1,0 +1,70 @@
+﻿<ion-view title="选修课程">
+    <go-main-page></go-main-page>
+    <ion-tabs class="tabs-striped tabs-top">
+        <ion-tab title="待选{{unchoosed}}">
+            <ion-view>
+                <ion-content class="has-header" delegate-handle="mainScroll">
+                    <div class="card chooseClass_dx_container" ng-repeat="dataxxk in dataSource" ng-show="dataxxk.xxkdata.length>0">
+                        <div class="bar  title item item-divider chooseClass_hd">
+                            {{dataxxk.title}}&nbsp;&nbsp;<!--{{dataxxk.time}}&nbsp;&nbsp;-->您可以选择{{dataxxk.kcnum}}门课程
+                            <div class="pull-right">
+                                <button class="button button-positive">
+                                    提交
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item item-text-wrap chooseClass_bd" ng-repeat="dataRow in dataxxk.xxkdata">
+                            <ion-checkbox ng-model="dataRow.checked" ng-change="changeCheck(dataxxk,dataRow)" ng-disabled="dataRow.disabled">
+                                <div class="title">{{dataRow.kcmc}}</div>
+                                <div class="pull-right courseMark">
+                                    <span ng-bind="dataRow.mark">aaaaa</span>
+                                </div>
+                                <div class="pull-left courseIcon">
+                                    <i class="ion-person"></i>
+                                </div>
+                                <div class="pull-left courseTeacher">
+                                    <span>{{dataRow.jsmc}}</span>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </ion-checkbox>
+                        </div>
+                    </div>
+                    <div class="chooseClass_none" ng-show="undisplay">
+                        <i class="ion-clipboard"></i>
+                        <p>暂无选修课</p>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+        
+        <ion-tab title="已选{{choosed}}">
+            <ion-view>
+                <ion-content class="has-header">
+                    <div class="xxkc_container">
+                        <div class="chooseClass_yx_container" ng-repeat="dataxxk in dataHasSource" ng-show="dataxxk.xxkdata.length>0">
+                            <div class="item item-divider chooseClass_hd">
+                                {{dataxxk.title}}&nbsp;&nbsp;<!--{{dataxxk.time}}-->
+                            </div>
+                            <div class="item item-text-wrap chooseClass_bd" ng-repeat="dataRow in dataxxk.xxkdata">
+                                <ion-checkbox ng-model="dataRow.checked" ng-change="changeCheck(dataxxk,dataRow)" ng-disabled="true">
+                                    <div class="title">{{dataRow.kcmc}}</div>
+                                    <div class="clearfix">
+                                        <p class="pull-right  courseMark">
+                                            <span ng-bind="dataRow.mark"></span>
+                                        </p>
+                                        <p class="pull-left courseIcon">
+                                            <i class="ion-person"></i>
+                                        </p>
+                                        <p class="pull-left courseTeacher">
+                                            <span>{{dataRow.jsmc}}</span>
+                                        </p>
+                                    </div>
+                                </ion-checkbox>
+                            </div>
+                        </div>
+                     </div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+            <script type="text/javascript" charset="utf-8" src="external/jquery.js"></script>
+            <script type="text/javascript" charset="utf-8" src="native.js"></script>
+            <script type="text/javascript" charset="utf-8">
+                document.addEventListener("deviceready", onDeviceReady, false);
+                function onDeviceReady() {
+<!--                    alert('onDeviceReady');-->
+                }
+            function getDataAction(){
+                
+                //117.184.89.78:7080 http://192.168.1.222:8080/ezweb/action?getUsedContact=1&userId=461602&syncTimeStamp=1479264107000&rootDeptId=643800&start=1&limit=-1
+                $.ajax({
+                       type : 'GET',
+                       url : "http://192.168.1.222:8080/ezweb/action?getUsedContact=1&userId=461602&syncTimeStamp=1479264107000&rootDeptId=643800&start=1&limit=-1",
+                       data : "",
+                       dataType: "text",
+                       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                       success : function (data, status) {
+                       
+                       xsfContactsList.showContactsList(data);
+                       
+                       },
+                       error: function(data , status){
+                       alert("操作失败:服务器异常" + data.statusText);
+                       }
+                       });
+            }
+            function showContactsList()
+            {
+                xsfContactsList.showContactsList();
+            }
+            
+            function goHome()
+            {
+                window.location.href = "index.html";
+            }
+            </script>
+            </head>
+    <body>
+        <br/>
+        <br/>
+        
+        <div class = "btn bg_1" onclick = "getDataAction();">展示A~Z通讯录</div><br/>
+        <div class = "btn bg_4" onclick = "goHome();">返回</div><br/>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+﻿<ion-view title="个人信息">
+    <div class="bar bar-header bar-positive">
+        <button class='button button-icon icon ion-ios7-arrow-left' style='font-size:16px' ng-click='goBack()'>返回</button>
+        <h1 class="title">聊天设置</h1>
+    </div>
+    <ion-content class="has-header" style="background-color:#dddddd">
+        <div class="card">
+            <div class="item item-divider">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img ng-src="{{user.avatarpath}}" style="width:100px;height:100px;">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            {{user.name}}
+                        </div>
+                        <div class="row">
+                            手机号码:{{user.sjhm}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="tel:{{user.sjhm}}" class="item item-divider item-icon-left">
+                <i class="icon ion-ios-telephone"></i>
+                拨打手机号码
+            </a>
+            <a href="sms:{{user.sjhm}}" class="item item-divider item-icon-left">
+                <i class="icon ion-ios-chatbubble"></i>
+                发送短信息
+            </a>
+
+            <div class="item item-toggle" style="display:none">
+                屏蔽该用户信息
+                <label class="toggle toggle-positive">
+                    <input type="checkbox" checked="">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>xsfPushMessage 党校推送接口</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    var ref;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    
+    function onDeviceReady() {
+    	xsfSplashscreen.hide();
+    }
+    
+    function startPushMessage(){
+    	data = {
+    			"action" : "817376",
+    			"refreshTime":1000*60 //刷新时间 不传默认60s
+    	}
+		//注：action 地址返回数据格式
+        /* {
+         "messageId": "",
+         "rows": [
+         {
+         "title": "公告",
+         "type": 10004,
+         "content":"你有一条新的公告",
+         "action":""
+         },
+         {
+         "title": "会议通知",
+         "type": 10005，
+         "content":"你有一条新的公告",
+         "action":""
+         }
+         ]
+         } */
+    	xsfPushMessage.startPushMessage(data,onSuccess, onError);
+	}
+    
+    function stopPushMessage(){		
+    	xsfPushMessage.stopPushMessage(onSuccess, onError);
+	}
+    
+    function onSuccess(data){
+    	console.log(data.message + " - " + data.data);
+    }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    function onError(e){
+    	console.log(e.message + " - " + data.data);
+    }
+    </script>
+  </head>
+<body>
+    <br/>
+    <br/>
+	<div class="btn_container">
+		<div class="btn bg_1" onclick="startPushMessage()">startPushMessage()开始推送消息</div><br/>
+		<div class="btn bg_2" onclick="stopPushMessage()">stopPushMessage()停止推送消息</div><br/>
+        <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<ion-view   title="学习班">
+	<ion-header-bar align-title='center' class='hbb-bg'>
+		<a class='button button-icon icon ion-ios-arrow-back' ng-click='goBack()'></a>
+        <h3 class='title' style="color: #ffffff;">学习班</h3>
+	</ion-header-bar> 
+	<ion-content>
+		<div class="details">
+			<label>{{classInfo.name}}</label>
+			<p>培训类型：<span>{{classInfo.type}}</span></p>
+			<p>开班时间：<span>{{classInfo.starttime}}-{{classInfo.endtime}}</span></p>
+		</div>
+
+        <strong class="set">课程设置</strong>
+        
+        <ion-refresher on-refresh="getClassDetailList('new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+        </ion-refresher>
+		<ion-list class="list selectCourst-list hbb-class-deta">
+			<ion-item class="item item-thumbnail-left" id="li" ng-repeat="item in classDetailList" ng-click="goCourseDetail(item)">
+				<img ng-src="{{getImageUrl(item.imagephoto)}}">
+				<p class="class-name">{{item.name}}</p>
+				<p>主讲人：<span>{{item.teachersname}}</span></p>
+				<p class="course-hous">学时：{{item.studytime}}</p>
+			</ion-item>
+		</ion-list>
+        <div ng-if="!classDetailListMoreDataCanBeLoaded && classDetailList.length<=0" class="hbb-course-empty-placeholder">
+            <i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+            <div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+        </div>
+        <ion-infinite-scroll ng-if="classDetailListMoreDataCanBeLoaded" on-infinite="getClassDetailList('more')" distance="3%" icon="ion-loading-c">
+        </ion-infinite-scroll>
+	</ion-content>
+</ion-view>

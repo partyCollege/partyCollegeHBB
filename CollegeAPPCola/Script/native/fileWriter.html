@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FileWriter Example</title>
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        //alert("deviceready");
+        
+    }
+
+    function createFileAndWriteTextToFile()
+    {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+    function gotFS(fileSystem)
+    {
+        alert('file system open: ' + fileSystem.name);
+        fileSystem.root.getFile("readme.txt", { create: true, exclusive: false }, gotFileEntry, fail);
+    }
+    
+    function gotFileEntry(fileEntry) {
+        alert("fileEntry is file?" + fileEntry.isFile.toString());
+        //fileEntry.file(gotFile, fail);
+        writeFile(fileEntry, "测试文字内容");
+    }
+    function writeFile(fileEntry, dataObj) {
+        // Create a FileWriter object for our FileEntry (log.txt).
+        fileEntry.createWriter(function (fileWriter) {
+                               
+                               fileWriter.onwriteend = function() {
+                               console.log("Successful file read...");
+                               };
+                               
+                               fileWriter.onerror = function (e) {
+                               console.log("Failed file read: " + e.toString());
+                               };
+                               
+                               // If data object is not passed in,
+                               // create a new Blob instead.
+                               if (!dataObj) {
+                               dataObj = new Blob(['some file data'], { type: 'text/plain' });
+                               }
+                               
+                               fileWriter.write(dataObj);
+                               });
+                               alert("创建成功！ 文件名： " + fileEntry.name + " 文件内容 ：" + dataObj);
+    }
+    function fail(error) {
+        console.log(error.code);
+        alert("ERROR : " + error);
+    }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+  </head>
+  <body>
+    <br/>
+    <br/>
+    <div class = "btn bg_1" onclick = "createFileAndWriteTextToFile();">createFileAndWriteTextToFile()创建文件并写入（此示例为创建txt文件）</div><br/>
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

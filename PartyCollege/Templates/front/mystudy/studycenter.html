@@ -1,0 +1,40 @@
+﻿<h2 class="common">
+    <b>我的课程</b>
+    <input type="text" placeholder="输入关键字" ng-model="searchparameter.condation" ng-keyup="searchKeyup($event);" />
+    <button type="button" ng-click="resetSearch()">搜索</button>
+    <button type="button" ng-click="reset()" class="clearBtn">清除</button>
+    <div class="right_btnGroup">
+        <a class="active" href="javascript:void(0);" id="order1" ng-click="linkActive('order1')">按最近学习排序</a>
+        <a href="javascript:void(0);" id="order2" ng-click="linkActive('order2')">按选择时间排序</a>
+        <a href="javascript:void(0);" id="order3" ng-click="linkActive('order3')">按学习进度排序</a>
+    </div>
+</h2>
+<div class="lookCourseJd_box">
+    <ul class="clearfix lookCourseJd">
+        <li ng-repeat="n in datalist">
+            <div class="img"> 
+                <img ng-src="{{n.photo}}" onerror="this.src='../img/course_img.jpg'"   ng-click="playVideo(n)" />  
+            </div>
+            <div class="pull-left">
+                <h4 ng-click="playVideo(n)">{{n.name}}</h4>
+                <p class="time">（年份：{{n.courseyear}}）</p>
+                <span title="">学时：<em class="orange">{{n.isfinished=="1" ? n.studytime : "0" }}</em>/{{n.studytime}} </span>
+                <span>我的笔记：{{n.notecount}}</span>
+                <span>我的提问：{{n.quecount}}</span>
+                <div class="courseJdt_box">
+                    <div class="jdt" ng-style="{width:'{{ n.isplaycompletion=='1' ? '100%' : n.playpercentage }}'}">{{ n.isplaycompletion=="1" ? "100%" : n.playpercentage }}</div>
+                </div>
+                <p>
+                    <span class="pf">评分：9.8</span>
+                    <span class="btn begin" ng-click="playVideo(n)"><i class="tubiaoicon-49"></i>播放</span>
+                    <span class="btn del" ng-click="remove(n)">取消选课</span>
+                </p>
+            </div>
+        </li>
+    </ul>
+    <div class="more" ng-if="searchparameter.isMore">
+        <a href="" class="btn" ng-click="more()">更多</a>
+        <i class="icon icon_more"></i>
+    </div>
+</div>
+<div class="clearfix"></div>

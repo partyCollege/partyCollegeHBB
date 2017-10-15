@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>error</title>
+        
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", onDeviceReady, false);
+            function onDeviceReady() {
+                //alert('onDeviceReady');
+                xsfSplashscreen.hide();
+            }
+        function goHome(){
+            xsf.goHome();
+        }
+        </script>
+    </head>
+    <body>
+        <br/>
+        <a href="#" onclick="goHome()">request error!</a>
+    </body>
+</html>

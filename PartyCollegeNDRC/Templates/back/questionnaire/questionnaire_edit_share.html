@@ -1,0 +1,140 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>调查问卷维护</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">问卷名称</label>
+                            <div class="col-sm-10"><input type="text" ng-model="quest.title" class="form-control"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">问卷类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" disabled  ng-model="quest.category">
+                                    <option value="0">课程问卷</option>
+                                    <option value="1">其他问卷</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否可用</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="quest.status">
+                                    <option value="0">是</option>
+                                    <option value="-1">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">题目</label>
+                            <div class="col-sm-10">
+                                <div class="row text-right"></div>
+                                <div class="ibox-content">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:10%" class="text-center">序号</th>
+                                                <th class="text-center">标题</th>
+                                                <th class="text-center">题型</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in quests">
+                                                <td style="vertical-align: middle;">{{item.sort}}</td>
+                                                <td style="vertical-align: middle;">
+                                                    <div>
+                                                        <input type="text" ng-model="item.title" class="form-control" />
+                                                    </div>
+                                                    <div class="text-left" style="margin-top:10px" ng-if="item.category!=2">
+                                                        <div ng-repeat="answer in  item.answers">{{$index+1}}）{{answer.answer}}&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                                    </div>
+                                                    <div class="text-left" style="margin-top:10px" ng-if="item.category==2">
+                                                        <span>主观题</span>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align: middle;">{{item.category|answerCategoryFilter}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="quest_detail.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>问卷配置</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">题型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="nowanswers.category">
+                                    <option value="0">单选</option>
+                                    <option value="1">多选</option>
+                                    <option value="2">主观</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row text-right">
+                            <div class="row text-right"><i class="fa fa-plus fa-2x" style="color:red;cursor:pointer" ng-click="addanswer()"></i></div>
+                        </div>
+                        <div class="form-group" ng-if="nowanswers.category!=2 ">
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%" class="text-center">序号</th>
+                                        <th class="text-center">答案</th>
+                                        <th style="width:10%" class="text-center">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in nowanswers.answers">
+                                        <td style="vertical-align: middle;">{{$index+1}}</td>
+                                        <td style="vertical-align: middle;"><input type="text" ng-model="item.answer" class="form-control" /></td>
+                                        <td style="vertical-align: middle;">
+                                            <button class="btn btn-danger btn-sm" ng-click="deleteAnswer(item)">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-info" ng-click="saveAnswer()">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

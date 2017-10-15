@@ -1,0 +1,66 @@
+﻿<style>
+    .nodisplay {
+        display: none;
+    }
+
+    .needDisplay {
+        display: block;
+    }
+</style>
+<ion-view title="通讯录">
+    <go-main-page></go-main-page>
+    <ion-nav-buttons side='right'>
+        <button class='button button-balanced' style='font-size:16px' ng-click='selectUsers()' ng-disabled="checkedList.length==0&&cantChoose" ng-show="canChoose">确定</button>
+    </ion-nav-buttons>
+    <ion-tabs class="tabs-positive">
+        <ion-tab title="按部门">
+            <ion-header-bar align-title="center" class="bar bar-subheader">
+                <label class="item item-input" style="padding:0px">
+                    <i class="icon ion-search placeholder-icon" style="font-size:x-large; padding-left:5px"></i>
+                    <input type="text" placeholder="搜索" ng-model="query" ng-change="change(items,query)">
+                </label>
+            </ion-header-bar>
+            <ion-content>
+                <div class="list">
+                    <div ng-repeat="dept in items">
+                        <div class="item item-divider" ng-click="showUserByDept(dept)" ng-if="dept.isdept&&canChoose==false">
+                            <span ng><i class="icon ion-arrow-right-b padding-right"></i>{{dept.department}}</span>
+
+                        </div>
+                        <ion-checkbox style="background-color:#ddd;text-align:center" ng-model="checkAll['group'+dept.id]" ng-click="showUserByDept(dept)" ng-if="dept.isdept&&canChoose">{{dept.department}}</ion-checkbox>
+
+                        <ion-checkbox ng-if="!dept.isdept&&dept.isShow&&canChoose" ng-model="checkedList[dept.id]">{{dept.name}}</ion-checkbox>
+                        <div class="item item-button-right item-icon-right item-icon-left" ng-if="!dept.isdept&&dept.isShow&&!canChoose">
+                            <i class="icon ion-ios7-person icon-left"></i>
+                            <h2 ng-click="goDetial(dept.id)">{{dept.name}}</h2>
+                            <a class="icon ion-ios7-telephone icon-right" style="color:#498f24" ng-if="dept.mobileNumber!=''" ng-click="showActionSheet('{{dept.mobileNumber}}')"></a>
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-tab>
+        <ion-tab title="按拼音">
+            <ion-header-bar align-title="center" class="bar bar-subheader has-tabs-top">
+                <label class="item item-input" style="padding:0px">
+                    <i class="icon ion-search placeholder-icon" style="font-size:x-large; padding-left:5px"></i>
+                    <input type="text" placeholder="搜索" ng-model="query" ng-change="change(pyitems,query)">
+                </label>
+            </ion-header-bar>
+            <ion-content>
+                <div class="list">
+                    <div ng-repeat="dept in pyitems">
+                        <div class="item item-divider" ng-click="showUserByPy(dept)" ng-if="dept.isdept">
+                            <span><i class="icon ion-arrow-right-b padding-right"></i>{{dept.py}}</span>
+                        </div>
+                        <div class="item item-button-right item-icon-right item-icon-left" ng-if="!dept.isdept&&dept.isShow">
+                            <i class="icon ion-ios7-person icon-left"></i>
+                            <h2 ng-click="goDetial(dept.id)">{{dept.name}}</h2>
+                            <a class="icon ion-ios7-telephone icon-right" style="color:#498f24" ng-if="dept.mobileNumber!=''" ng-click="showActionSheet('{{dept.mobileNumber}}')"></a>
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>
+

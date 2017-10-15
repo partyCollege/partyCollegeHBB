@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+            <script type="text/javascript" charset="utf-8">
+                document.addEventListener("deviceready", onDeviceReady, false);
+                function onDeviceReady() {
+                    alert('onDeviceReady');
+                    //var config = {"fileName"};
+                    alert('onDeviceReady');
+                    //var config = {"fileName"};
+                    xsfWPS.open('http://app.hzswdx.gov.cn:81/CollegeAPPIOS/api/getAttach/action/getAttach/XFBsYWNhcmRcVFpHR1wyMDE2LTA3XDE4MjY1OWUwNWYxNzQxYTdiYTUwYTYzYjAxMTNhNjFkLmRvY3g=',"1.docx","123456789",true,false,
+                                function (result) {
+                                alert("open seccess");
+                                },
+                                function (error) {
+                                alert("open failed: " + error);
+                                }
+                                );
+                }
+            function goHome()
+            {
+                window.location.href = "index.html";
+            }
+            </script>
+            </head>
+    <body style='background-color:#00ff00'>
+        <br/>
+        <br/>
+        <p>wps wps</p>
+        
+        <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+    </body>
+</html>

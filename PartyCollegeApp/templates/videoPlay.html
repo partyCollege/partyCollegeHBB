@@ -1,0 +1,73 @@
+﻿<style>
+    .videogular-container {
+        width: 100%;
+        height: 300px;
+        margin: 0;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .videogular-container_audio_wx {
+        width: 100%;
+        height: 0px;
+        vertical-align: top;
+    }
+
+    .videogular-container_audio {
+        width: 100%;
+        height: 50px;
+        margin: auto;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .videoPadding_wx {
+        padding-top: 50px;
+    }
+</style>
+
+<ion-view id="videoHead">
+    <go-main-page my-title="{{form.title}}"></go-main-page>
+    <ion-content class="has-header">
+        <div id="myplayer" class="videogular-container" ng-click="changeTop()">
+            <videogular vg-theme="config.theme" vg-auto-play="true">
+                <vg-media vg-src="config.sources" vg-type="video">
+                </vg-media>
+                <vg-controls>
+                    <vg-play-pause-button></vg-play-pause-button>
+                    <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                    <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    </vg-scrub-bar>
+                    <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                    <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                    </vg-volume>
+                    <vg-fullscreen-button></vg-fullscreen-button>
+                </vg-controls>
+                <vg-overlay-play ng-if="isvideo"></vg-overlay-play>
+                <vg-poster vg-url='config.plugins.poster'></vg-poster>
+            </videogular>
+        </div>
+        <!--<div ng-class="{true: 'videoPadding_wx padding', false: 'padding'}[formweixin]" ng-bind-html="form.safeContent">
+        </div>
+        <div>
+            <div class="tabs has-tabs tabs-striped tabs-color-assertive" style="position:inherit">
+                <a class="tab-item" ng-class="{true: 'active', false: ''}[tab.active]" ng-repeat="tab in tabs" ng-click="go(tab)">
+                    <span style="font-weight:bold;font-size:1.3em"> {{tab.name}}</span>
+                </a>
+            </div>
+        </div>
+        <ion-scroll ng-show="nowtab=='简介'" zooming="true" direction="y" style="width:100%; height:400px;">
+            <div style="padding:5px" ng-bind-html="form.safeContent">
+
+            </div>
+        </ion-scroll>
+        <ion-scroll ng-show="nowtab=='互动'" zooming="true" direction="y" style="width:100%; height:400px;">
+            <div style="padding:5px">
+                <span><button ng-click="setVideo(1)">qiehuan</button></span>
+            </div>
+        </ion-scroll>-->
+    </ion-content>
+</ion-view>

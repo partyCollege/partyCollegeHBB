@@ -1,0 +1,40 @@
+﻿<ion-view title="请假单">
+    <go-main-page></go-main-page>
+    <ion-content>
+        <div class="card">
+            <label class="item item-input">
+                <span class="input-label">请假人</span>
+                <span>{{data.bt}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">请假开始时间</span>
+                <span>{{data.sdate|date:'yyyy-MM-dd HH:mm'}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">请假结束时间</span>
+                <span>{{data.edate|date:'yyyy-MM-dd HH:mm'}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">请假事由</span>
+                <span>{{data.content}}</span>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">请假类型</span>
+                <span>{{data.qjlx}}</span>
+            </label>
+            <div class="item item-input">
+                <span class="input-label">意见</span>
+
+                    <button class="button button-assertive" ng-click="save(1)">同意</button>&nbsp;&nbsp;<button class="button button-balanced" ng-click="saveNo()">不同意</button>
+
+            </div>
+            <div class="item item-input">
+                <span class="input-label"></span>
+
+
+
+            </div>
+            <img ng-src="../img/qingjia/{{data.info_id}}.jpg" style="width:100%">
+        </div>
+    </ion-content>
+</ion-view>

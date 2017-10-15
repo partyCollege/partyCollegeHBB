@@ -1,0 +1,284 @@
+﻿    <!--图片客户端裁剪-->
+<script src="../bower_components/fullAvatarEditor-2.3/scripts/swfobject.js"></script>
+<script src="../bower_components/fullAvatarEditor-2.3/scripts/fullAvatarEditor.js"></script>
+<div class="block userInfo">
+    <ul>
+        <li class="img">
+            <img ngf-src="userinfo.photoObj || userinfo.defaultphoto" onerror="this.scr = '../img/default_img.png'" />
+        </li>
+        <li class="right">
+            <button type="button" id="forUpload" ng-click="showAvatarUpload()">头像修改</button>
+            <button type="button" ng-click="pwdDialogClick(true)">密码修改</button>
+        </li>
+        <li>姓名：{{userinfo.name}}</li> 
+        <li>手机号码：{{userinfo.telphone}}<button type="button" ng-click="telDialogClick(true)">修改</button></li>
+    </ul>
+</div>
+<div class="popup_box" id="showAvatarDiv" style="display:none">
+    <div class="popup_content">
+        <div class="content uploadImg">
+            <h2>{{uploadTitle}}<i class="tubiaoicon-17" ng-click="showAvatarUpload()"></i></h2>
+            <div id="swfContainer"></div>
+        </div>
+    </div>
+</div>
+<div class="block">
+    <h2><b>基本信息</b><!--<a class="change" ng-click="editedClick(0)">{{userInfoEdited ? "修改" : "取消"}}</a>--></h2>
+    <form name="baseForm" novalidate>
+        <ul class="form">
+            <li>
+                <label for=""><i>*</i>登录帐号：</label>
+                <input type="text" ng-disabled="true" ng-value="userinfo.logname" />
+            </li>
+             <!--<li>
+                <label for=""><i>*</i>出生日期：</label> 
+                 <input type="text" ng-disabled="true" ng-value="userinfo.birthday" />
+            </li>
+            <li>
+                <label for=""><i>*</i>性别：</label>
+                <input name="sex" type="radio" value="1" ng-model="userinfo.sex" ng-disabled="userInfoEdited" ng-show="!userInfoEdited" /><span ng-show="!userInfoEdited">男</span>
+                <input name="sex" type="radio" value="0" ng-model="userinfo.sex" ng-disabled="userInfoEdited" ng-show="!userInfoEdited" /><span ng-show="!userInfoEdited">女</span>
+                <input type="text" ng-disabled="true" ng-value="userinfo.sex | sexFilter" ng-show="userInfoEdited" />
+            </li>
+            <li>
+                <label for=""><i>*</i>民族：</label>
+                <span class="select_box" ng-disabled="userInfoEdited" name="txtnation">
+                    <i class="shade"></i>
+                    <select ng-disabled="userInfoEdited" ng-model="userinfo.nation">
+                        <option ng-repeat="p in nations" ng-value="p.showvalue">{{p.showvalue}}</option>
+                    </select>
+                </span>
+            </li>
+            <li>
+                <label for=""><i>*</i>政治面貌：</label>
+                <span class="select_box" ng-disabled="userInfoEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.political" ng-disabled="userInfoEdited">
+                        <option ng-repeat="p in politicalArr" ng-value="p.showvalue">{{p.showvalue}}</option>
+                    </select>
+                </span>
+            </li>-->
+            <li>
+                <label for=""><i>*</i>职务：</label>
+                <input type="text"
+                       ng-model="userinfo.positions"
+                       ng-disabled="userInfoEdited"
+                       name="positions"
+                       autocomplete="off"
+                       validator="required"
+                       required-error-message="职务是必须的" />
+            </li>
+            <li>
+                <label for=""><i>*</i>职级：</label>
+                <span class="select_box" ng-disabled="userInfoEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.rank" ng-disabled="userInfoEdited">
+                        <option ng-repeat="p in levelArr" ng-value="p.showvalue">{{p.showvalue}}</option>
+                    </select>
+                </span>
+            </li>
+            <!--<li>
+                <label for=""><i>*</i>邮箱：</label>
+                <input type="text"
+                       ng-model="userinfo.email"
+                       ng-disabled="userInfoEdited"
+                       name="txtEmail"
+                       autocomplete="off"
+                       validator="required,email"
+                       required-error-message="邮箱是必须的"
+                       email-error-message="邮箱格式不正确" />
+            </li>-->
+        </ul>
+        <div class="cz" ng-show="!userInfoEdited">
+			<button type="submit" class="btn" ng-click="submit(0)" ng-disabled="baseForm.$invalid||saveInfoDisabled">保存</button>
+            <button type="button" class="btn grey" ng-click="editedClick(0)">取消</button>
+        </div>
+    </form>
+</div>
+<!--<div class="block">
+    <h2><b>单位信息</b><a class="change" ng-click="editedClick(1)">{{workPlaceEdited ? "修改" : "取消"}}</a></h2>
+    <form name="companyForm" novalidate>
+        <ul class="form">
+            <li>
+                <label for=""><i>*</i>单位名称：</label>
+                <input type="text"
+                       ng-model="userinfo.company"
+                       ng-disabled="workPlaceEdited"
+                       name="companyname"
+                       autocomplete="off"
+                       validator="required"
+                       required-error-message="单位名称是必须的" />
+            </li>
+            <li>
+                <label for=""><i>*</i>所在区域：</label>
+                <span class="select_box" ng-disabled="workPlaceEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.provice" ng-disabled="workPlaceEdited">
+                        <option ng-repeat="c in allCity" ng-value="c.name">{{c.name}}</option>
+                    </select>
+                </span>
+                <span class="select_box" ng-disabled="workPlaceEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.city" ng-disabled="workPlaceEdited" ng-change="userChanged()">
+                        <option ng-repeat="c in currentCities" ng-value="c.name">{{c.name}}</option>
+                    </select>
+                </span>
+                <span class="select_box" ng-disabled="workPlaceEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.area" ng-disabled="workPlaceEdited" ng-change="userChanged()">
+                        <option ng-repeat="c in currentCounties" ng-value="c">{{c}}</option>
+                    </select>
+                </span>
+            </li>
+            <li>
+                <label for=""><i>*</i>详细地址：</label>
+                <input type="text"
+                       ng-model="userinfo.companyaddress"
+                       ng-disabled="workPlaceEdited"
+                       name="companyaddress"
+                       autocomplete="off"
+                       validator="required"
+                       required-error-message="详细地址是必须的" />
+            </li>
+            <li>
+                <label for=""><i>*</i>单位电话：</label>
+                <input type="text"
+                       ng-model="userinfo.officetel"
+                       ng-disabled="workPlaceEdited"
+                       name="officetel"
+                       autocomplete="off"
+                       validator="required"
+                       maxlength="25"
+                       required-error-message="单位电话是必须的" />
+            </li>
+        </ul>
+        <div class="cz" ng-show="!workPlaceEdited">
+            <button type="submit" class="btn" ng-click="submit(1)" ng-disabled="companyForm.$invalid||saveInfoDisabled">保存</button>
+            <button type="button" class="btn grey" ng-click="editedClick(1)">取消</button>
+        </div>
+    </form>
+</div>-->
+
+<div class="popup_box" ng-show="isChangeTel || isChangePwd">
+    <!--密码修改 - 开始-->
+    <div class="popup_content register" ng-if="isChangePwd">
+        <div class="content ">
+            <h2>密码修改<i class="tubiaoicon-17" ng-click="pwdDialogClick(false)"></i></h2>
+            <br /><br />
+            <form action="" method="post" name="pwdForm" novalidate>
+                <ul>
+                    <li>
+                        <label>旧 密 码：</label>
+						<input type="password"
+						   name="sourcepassword"
+						   maxlength="18"
+						   placeholder="请输入旧密码"
+						   ng-model="pwdObj.sourcepassword"
+						   validator="required"
+						   required-error-message="旧密码是必须的" />
+                    </li>
+                    <li>
+                        <label>新 密 码：</label>
+						<input type="password"
+							   name="password"
+							   maxlength="18"
+							   placeholder="请输入新密码"
+							   ng-model="pwdObj.password"
+							   validator="required,password"
+							   required-error-message="密码是必须的"
+							   password-error-message="密码格式不正确"
+							   valid-callback="validation.confirmpassword.comfirm(pwdObj.password,pwdObj.confirmpassword)"
+							   invalid-callback="validation.confirmpassword.reset()" />
+                        <p class="ts">8-18个字符，区分大小写。</p>
+                    </li>
+                    <li class="getFen">
+                        <label>确认密码：</label>
+						<input type="password"
+						   name="confirmpassword"
+						   maxlength="18"
+						   placeholder="请再次输入新设置的密码"
+						   ng-model="pwdObj.confirmpassword"
+						   validator="confirmpwd"
+						   confirmpwd-error-message="确认密码格式不正确"
+						   valid-callback="validation.confirmpassword.comfirm(pwdObj.password,pwdObj.confirmpassword)"
+						   invalid-callback="validation.confirmpassword.reset()" />
+                        <span class="error" ng-if="validation.confirmpassword.message.length>0">{{validation.confirmpassword.message}}</span>
+                    </li>
+                    <li class="submit">
+						<button class="btn" type="submit" ng-click="modifyPwd()" ng-disabled="pwdForm.$invalid || !validation.confirmpassword.valid||modifyPwdDisabled">保存</button>
+                        <button class="btn grey" type="button" ng-click="pwdDialogClick(false)">取消</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <!--密码修改 - 结束-->
+    <!--手机修改 - 开始-->
+    <div class="popup_content register" ng-if="isChangeTel">
+        <div class="content ">
+            <h2>手机号修改<i class="tubiaoicon-17" ng-click="telDialogClick(false)"></i></h2>
+            <br /><br />
+            <form action="" method="post" name="telForm" novalidate>
+                <ul>
+                    <li>
+                        <label>新手机号：</label>
+						<input type="text"
+						   autocomplete="off"
+						   placeholder="请输入新手机号码"
+						   name="telphone"
+						   ng-model="telObj.telphone"
+						   maxlength="11"
+						   valid-method="watch"
+						   validator="cellphone"
+						   cellphone-error-message="手机号格式错误"
+						   valid-callback="validation.validtelphone.remotetelphone(sourceUserInfo.cellphone,telObj.telphone)"
+						   invalid-callback="validation.validtelphone.reset()" />
+                        <span class="error" ng-if="validation.validtelphone.message.length>0">{{validation.validtelphone.message}}</span>
+                        <span class="error" ng-if="updateCellPhoneErrorStyle.idx[0]" ng-bind="updateCellPhoneErrorStyle.message"></span>
+                        
+                    </li>
+                    <li>
+                        <label>验 证 码：</label> 
+                        <input class="yzm"
+                               type="text"
+                               autocomplete="off"
+                               name="verifycode"
+                               ng-model="telObj.verifycode"
+                               validator="required"
+                               maxlength="4"
+                               required-error-message="验证码是必须的" /> 
+                        <div class="inline-block"><img class="yzmImg" ng-src="{{regVerifyCodeSrc}}" title="点击换一个" ng-click="changeRegVerifyCode()" /><span ng-click="changeRegVerifyCode()">换一张</span></div> 
+                        <span class="error" ng-if="updateCellPhoneErrorStyle.idx[1]" ng-bind="updateCellPhoneErrorStyle.message"></span>
+                    </li>
+                    <li>
+                        <label>手机验证码：</label>
+                        <input type="text"
+                               maxlength="6"
+                               class="phone"
+                               autocomplete="off"
+                               name="inputcode"
+                               placeholder="请输入验证码"
+                               ng-model="telObj.inputcode"
+                               valid-method="watch"
+                               validator="required"
+                               required-error-message="手机验证码是必须的" />
+                        <button class="yzm" type="button" ng-click="verifyCodeClick()" ng-disabled="!isVerifyCode">{{btnVerifyCode}}</button>
+                        <span class="error" ng-if="updateCellPhoneErrorStyle.idx[2]" ng-bind="updateCellPhoneErrorStyle.message"></span>
+                    </li>
+                    <li class="submit">
+						<button class="btn" type="submit" ng-click="modifyTel()" ng-disabled="telForm.$invalid||updateCellPhoneBtnDisabled">保存</button>
+                        <button class="btn grey" type="button" ng-click="telDialogClick(false)">取消</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <!--手机修改 - 结束-->
+</div>
+<script type="text/javascript">
+    swfobject.addDomLoadEvent(function () {
+
+    });
+</script>
+
+

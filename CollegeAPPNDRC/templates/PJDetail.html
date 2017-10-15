@@ -1,0 +1,35 @@
+﻿<ion-view title="评价详情" style="{{marTop}}">
+    <ion-header-bar id="headBar" align-title="center" class="bar bar-assertive">
+        <button class="button button-icon icon ion-ios7-arrow-left" style="font-size:16px" ng-click="closeModal()">返回</button>
+        <!--<button class="button button-small button-clear icon ion-android-arrow-back" ng-click="closeModal();">&nbsp;返回&nbsp;</button>&nbsp;&nbsp;{{pjitem.bt}}
+        <br /><span style="float:right;font-size:14px;">{{pjitem.subtitle}}</span>-->
+    </ion-header-bar>
+    <ion-content>
+        <div class="container-fluid" style="background-color:#fff; padding-top:2px; padding:0px;">
+            <!--<div class="item item-divider bg-primary">
+                <span style="font-size:20px;">
+                    <button class="button button-small button-clear icon ion-android-arrow-back" ng-click="closeModal();">&nbsp;&nbsp;</button>&nbsp;&nbsp;{{pjitem.bt}}
+                    <br /><span style="float:right;font-size:14px;">{{pjitem.subtitle}}</span>
+                </span>
+            </div>-->
+            <div class="item item-body">
+                <div ng-switch="control.type" class="formtrstyle" id="{{control.elementid}}" controltype="control.type" ng-repeat="control in kcitem.PJCurrentItemList">
+                    <sycheckbox ng-switch-when="check" assignobj="control"></sycheckbox>
+                    <syradio ng-switch-when="radio" assignobj="control"></syradio>
+                    <syselect ng-switch-when="select" assignobj="control"></syselect>
+					<syselectsourse ng-switch-when="selectsourse" assignobj="control"></syselectsourse>
+                    <sytext ng-switch-when="text" assignobj="control"></sytext>
+                    <sytextarea ng-switch-when="textarea" assignobj="control"></sytextarea>
+                </div>
+            </div>
+			<div class="item" ng-if="showTotalScore">
+				总分：{{TotalScore}}
+			</div>
+            <div class=" footer">
+				<button class="button button-full button-my" ng-if="ShowSubmitBtn" ng-click="SavePJData(true);">
+					提交
+				</button>
+			</div>
+        </div>
+    </ion-content>
+</ion-view>

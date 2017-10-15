@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	一个班同一时间只能应用一个方案，当这个方案已经存在评价记录后，自动应用该方案；
+	
+	xml 所有属性为 小写字母;
+	code节点： version 为版本号；
+	plans 节点：defaultEdition 默认版本号；
+	plan 节点: 方案号；
+	item节点：相当于Tab页 ；
+			BCorClass：bc为班，
+			Class为课程；
+			pj_display_point：显示列头标题；
+			point：评价提交的分值；
+			level1id:相同level1title的level1id 相同，只能为数字；不同level1title 的level1id 必须不同； 
+			level2id：同level1id；
+			type: radio 为单选；textarea为文本域；
+			targeturl:学员系统录入评价外层tab页跳转URL配置。
+			teacherurl：老师登录学员系统查看评价情况的URL配置。
+	tabs节点：
+	tab节点：需指定tabid,为自然数。
+	ispj范围（-1未评，1已评，0暂存）. 
+	url 一般带ispj,tabid,role 3个参赛。 
+	role:指定student是录入显示，指定teacher是老师登陆学员系统显示。
+	showcount:tab页上显示记录行数；
+-->
+<Root>
+  <codes>
+    <code isyjs="0" version="1.0">
+      <plans defaultEdition="1">
+			  <plan edition="1"  name="方案1">
+				  <item order="1" name="专题讲授类课程" id="1" bcorclass="class" 
+					teacherurl="kcpjTabs.aspx?role=teacher&amp;itemid=[xmlsource.id]&amp;kcid=[request.kcid]&amp;bcorclass=[xmlsource.bcorclass]"
+					targeturl="kcpjTabs.aspx?role=student&amp;itemid=[xmlsource.id]&amp;kcid=[request.kcid]&amp;bcorclass=[xmlsource.bcorclass]"
+					keycolumn="kwid" orderIdx="xh">
+					  <tabs role="student">
+							<tab tabid="1" ispj="-1" name="未评" url="pjlist.aspx?ispj=-1&amp;role=student&amp;tabid=1">
+							<list>
+							  <sql>
+								  <![CDATA[
+										select rownum xh,m.* ,'评价' pjbtn,'未听' as weiting 
+										,m.pjitemcount
+										from (
+										  select 
+										  kcwh.zjr,g1.id kwid,g1.bt,kcwh.jxxs,kcwh.kssj,kcwh.jssj,kcwh.kc_id,(6-nvl(jst.ypitemcount,0)) as pjitemcount
+										  ,'[version]' version
+											,'[edition]'edition
+											,'[isyjs]' isyjs
+											,'[bcid]' bcid
+											,'[itemid]' itemid
+											,'[bcorclass]' bcorclass
+											,(case when [ispj]<>1 
+												and exists(select kwedate from jw_kcfb fb WHERE kwinfo_id=g1.id AND kwkcid=kcwh.kc_id and kwedate>SYSDATE-[sysconfig.PJKCJSLasyDays] and kwedate<sysdate) 
+												then 1 else 1 end) hasdispaly
+											,'[ispj]' ispj
+										from jw_kcwh kcwh 
+										inner join g_infos g1 on g1.id=kcwh.info_id and g1.deleted<>-1 and kcwh.jxxs is not null and kcwh.jxxs <>'讲座'
+										inner join jw_bcgl bc on kcwh.bcid like '%'||bc.info_id||'%'
+										inner join g_infos g2 on g2.id=bc.info_id and g2.deleted<>-1
+										inner join jw_kcfb fb on fb.kwinfo_id=kcwh.info_id
+										inner join jw_kcfbindex indx on indx.id=fb.fid
+										left join jw_appraiseStudentTotal jst on kcwh.info_id=jst.kwid and jst.userid=[userid]
+										where g1.objclass='KCWH' and bc.info_id='[bcid]' 
+										and fb.kwedate<SYSDATE 
+										order by fb.kwedate desc
+										) m
+									]]>
+							  </sql>
+							  <columns>
+								  <column dbcolumn="bt" width="30%" align="left" columntype="" istitle="true">课程名称</column>
+								  <column dbcolumn="zjr" width="30%" align="left" columntype="">任课老师</column>
+								  <column dbcolumn="pjitemcount" align="left" columntype="column">未评项</column>
+							  </columns>
+							</list>
+							</tab>
+							<tab name="已评" ispj="1" tabid="2" url="pjlist.aspx?ispj=1&amp;role=student&amp;tabid=2">
+							  <list>
+								  <sql>
+									  <![CDATA[
+                    select rownum xh,m.* ,'评价' pjbtn from (
+										  select 
+										  kcwh.zjr,g1.id kwid,g1.bt,kcwh.jxxs,kcwh.kssj,kcwh.jssj,kcwh.kc_id
+										  ,'[Version]' version
+											,'[edition]'edition
+											,'[isyjs]' isyjs
+											,'[bcid]'bcid
+											,'[itemid]' itemid
+											,'[bcorclass]' bcorclass
+											,(case when [ispj]<>1 
+												and exists(select kwedate from jw_kcfb fb WHERE kwinfo_id=g1.id AND kwkcid=kcwh.kc_id and kwedate>SYSDATE-[sysconfig.PJKCJSLasyDays] and kwedate<sysdate) 
+												then 1 else 1 end) hasdispaly
+											,'[ispj]' ispj
+										  from jw_kcwh kcwh 
+										  inner join g_infos g1 on g1.id=kcwh.info_id and g1.deleted<>-1 and kcwh.jxxs is not null and kcwh.jxxs <>'讲座'
+										  inner join jw_bcgl bc on kcwh.bcid like '%'||bc.info_id||'%'
+													inner join g_infos g2 on g2.id=bc.info_id and g2.deleted<>-1
+													inner join jw_kcfb fb on fb.kwinfo_id=kcwh.info_id
+													inner join jw_kcfbindex indx on indx.id=fb.fid
+													where g1.objclass='KCWH' and bc.info_id='[bcid]' 
+													and exists(select * from jw_appraise ja where ja.bcid=bc.info_id and ja.kcid=kcwh.kc_id and ja.kwid=g1.id and ja.ispost in(1)
+											    and version='[Version]' 
+											    and plan='[edition]' 
+											    and pjtypeid='[itemid]' 
+											    and pjtype='[bcorclass]'
+											    AND ja.userid=[userid])
+											and fb.kwedate<SYSDATE) m
+
+									]]>
+								  </sql>
+								  <columns>
+                    <column dbcolumn="bt" width="40%" align="left">课程名称</column>
+                    <column dbcolumn="zjr" width="40%" align="left">任课老师</column>
+                    <column dbcolumn="pjbtn" displayDBColumn="hasdispaly" width="10%"
+                    link="PJDetail.aspx?Version=[Version]&amp;edition=[edition]&amp;isyjs=[isyjs]&amp;kcid=[kc_id]&amp;kwid=[kwid]&amp;bcid=[bcid]&amp;itemid=[itemid]&amp;bcorclass=[bcorclass]&amp;ispj=[ispj]&amp;role=student&amp;tabid=2"
+                    align="center">评价</column>
+								  </columns>
+							  </list>
+						  </tab>
+							<tab name="暂存" ispj="0" tabid="3" url="pjlist.aspx?ispj=0&amp;role=student&amp;tabid=3">
+							  <list>
+								  <sql>
+									  <![CDATA[
+                    select rownum xh,m.* ,'评价' pjbtn from (
+										  select 
+										  kcwh.zjr,g1.id kwid,g1.bt,kcwh.jxxs,kcwh.kssj,kcwh.jssj,kcwh.kc_id
+										  ,'[version]' version
+											,'[edition]'edition
+											,'[isyjs]' isyjs
+											,'[bcid]'bcid
+											,'[itemid]' itemid
+											,'[bcorclass]' bcorclass
+											,(case when [ispj]<>1 
+												and exists(select kwedate from jw_kcfb fb WHERE kwinfo_id=g1.id AND kwkcid=kcwh.kc_id and kwedate>SYSDATE-[sysconfig.PJKCJSLasyDays] and kwedate<sysdate) 
+												then 1 else 1 end) hasdispaly
+											,'[ispj]' ispj
+										  from jw_kcwh kcwh
+										  inner join g_infos g1 on g1.id=kcwh.info_id and g1.deleted<>-1 and kcwh.jxxs is not null and kcwh.jxxs <>'讲座'
+										  inner join jw_bcgl bc on kcwh.bcid like '%'||bc.info_id||'%'
+													inner join g_infos g2 on g2.id=bc.info_id and g2.deleted<>-1
+													inner join jw_kcfb fb on fb.kwinfo_id=kcwh.info_id
+													inner join jw_kcfbindex indx on indx.id=fb.fid
+													where g1.objclass='KCWH' and bc.info_id='[bcid]' 
+													and exists(select * from jw_appraise ja where ja.bcid=bc.info_id and ja.ispost=0 and ja.kcid=kcwh.kc_id and ja.kwid=g1.id
+											    and version='[version]' 
+											    and plan='[edition]' 
+											    and pjtypeid='[itemid]'
+											    and pjtype='[bcorclass]'
+											    AND ja.userid=[userid])
+											and fb.kwedate<SYSDATE) m
+									]]>
+								  </sql>
+								  <columns>
+                    <column dbcolumn="bt" width="40%" align="left">课程名称</column>
+                    <column dbcolumn="zjr" width="40%" align="left">任课老师</column>
+                    <column dbcolumn="pjbtn" displayDBColumn="hasdispaly" width="10%"
+                    link="PJDetail.aspx?Version=[Version]&amp;edition=[edition]&amp;isyjs=[isyjs]&amp;kcid=[kc_id]&amp;kwid=[kwid]&amp;bcid=[bcid]&amp;itemid=[itemid]&amp;bcorclass=[bcorclass]&amp;ispj=[ispj]&amp;role=student&amp;tabid=3"
+                    align="center">评价</column>
+								  </columns>
+							  </list>
+						  </tab>
+							<tab name="未听" ispj="-2" tabid="4" url="pjlist.aspx?ispj=-2&amp;role=student&amp;tabid=4">
+							  <list>
+								  <sql>
+									  <![CDATA[
+										select rownum xh,m.* ,'评价' pjbtn from (
+										  select 
+										  kcwh.zjr,g1.id kwid,g1.bt,kcwh.jxxs,kcwh.kssj,kcwh.jssj,kcwh.kc_id
+										  ,'[Version]' version
+											,'[edition]'edition
+											,'[isyjs]' isyjs
+											,'[bcid]'bcid
+											,'[itemid]' itemid
+											,'[bcorclass]' bcorclass
+											,(0) hasdispaly
+											,'[ispj]' ispj
+										  from jw_kcwh kcwh 
+										  inner join g_infos g1 on g1.id=kcwh.info_id and g1.deleted<>-1 and kcwh.jxxs is not null and kcwh.jxxs <>'讲座'
+										  inner join jw_bcgl bc on kcwh.bcid like '%'||bc.info_id||'%'
+													inner join g_infos g2 on g2.id=bc.info_id and g2.deleted<>-1
+													inner join jw_kcfb fb on fb.kwinfo_id=kcwh.info_id
+													inner join jw_kcfbindex indx on indx.id=fb.fid
+													where g1.objclass='KCWH' and bc.info_id='[bcid]' 
+													and exists(select * from jw_appraise ja where ja.bcid=bc.info_id and ja.ispost=-1 and ja.kcid=kcwh.kc_id and ja.kwid=g1.id
+											    and version='[Version]' 
+											    and plan='[edition]' 
+											    and pjtypeid='[itemid]'
+											    and pjtype='[bcorclass]'
+											    AND ja.userid=[userid])
+											and fb.kwedate<SYSDATE) m
+									]]>
+								  </sql>
+								  <columns>
+									  <column dbcolumn="bt" width="40%" align="left">课程名称</column>
+									  <column dbcolumn="zjr" width="40%" align="left">任课老师</column>
+									  <column dbcolumn="pjbtn" displayDBColumn="hasdispaly" width="10%"
+									  link="PJDetail.aspx?Version=[Version]&amp;edition=[edition]&amp;isyjs=[isyjs]&amp;kcid=[kc_id]&amp;kwid=[kwid]&amp;bcid=[bcid]&amp;itemid=[itemid]&amp;bcorclass=[bcorclass]&amp;ispj=[ispj]&amp;role=student&amp;tabid=3"
+									  align="center">评价</column>
+								  </columns>
+							  </list>
+						  </tab>
+					  </tabs>
+					  <tabs role="teacher">
+						  <tab tabid="1" ispj="-1" showcount="false" name="评价概况" url="pjlist.aspx?role=teacher&amp;ispj=-1&amp;tabid=1">
+							  <list>
+								  <sql>
+									  <![CDATA[
+                    
+                    
+										SELECT rownum xh,s.bcrs,nvl(k.yprs,0) yprs,(s.bcrs-nvl(k.yprs,0)) wprs,t.*,'评价' pjbtn FROM (
+											select 
+                      kcwh.zjr,g1.id kwid,g1.bt,kcwh.jxxs,kcwh.kssj,kcwh.jssj,kcwh.kc_id
+                      ,'[Version]' version
+                      ,'[edition]'edition
+                      ,'[isyjs]' isyjs
+                      ,'[bcid]'bcid
+                      ,'[itemid]' itemid
+                      ,'[bcorclass]' bcorclass
+                      ,('1') hasdispaly
+                      ,'[ispj]' ispj
+                      from jw_kcwh kcwh 
+                      inner join g_infos g1 on g1.id=kcwh.info_id and g1.deleted<>-1 and kcwh.jxxs is not null and kcwh.jxxs <>'讲座'
+                          inner join g_infos g2 on g2.id=kcwh.bcid and g2.deleted<>-1
+                          inner join jw_kcfb fb on fb.kwinfo_id=kcwh.info_id
+                          inner join jw_kcfbindex indx on indx.id=fb.fid
+                          where g1.objclass='KCWH' and kcwh.bcid='[bcid]' 
+											and fb.kwedate<SYSDATE  
+										)t
+										LEFT JOIN (
+											SELECT COUNT(*)bcrs , bc.info_id bcid FROM JW_BCGL BC
+											INNER JOIN G_INFOS G ON G.ID = BC.INFO_ID AND G.DELETED <> -1 AND BC.INFO_ID ='[bcid]'
+											INNER JOIN SUB_FILE_RELATION SUB ON SUB.FINFO_ID = BC.INFO_ID 
+											INNER JOIN JW_XYXX XY ON XY.INFO_ID = SUB.INFO_ID 
+											INNER JOIN G_INFOS G2 ON G2.ID = XY.INFO_ID AND G2.DELETED <> -1 
+											WHERE XXZT = 0 and xy.isgbry <> 1
+											GROUP BY bc.info_id
+										) s ON t.bcid=s.bcid
+										LEFT JOIN (
+											 select sum(m.yprs) yprs,m.bcid,m.kcid from (
+                              SELECT count(distinct(ja.bcid||ja.dyid||ja.ispost||ja.userid)) yprs,ja.bcid,ja.userid,ja.dyid,ja.ispost,ja.kcid
+                              FROM jw_appraise ja WHERE ja.bcid='[bcid]' and ja.ispost=1
+                              GROUP BY ja.bcid,ja.userid,ja.dyid,ja.ispost,ja.kcid
+                       ) m group by m.bcid,m.kcid
+										) k ON t.bcid=k.bcid AND k.kcid=t.kc_id 
+									]]>
+                  </sql>
+								  <columns>
+									  <column dbcolumn="bt" width="*" align="left">课程名称</column>
+									  <column dbcolumn="bcrs" script="" displayDBColumn="hasdispaly" link="" width="*" align="center">应评/人</column>
+									  <column dbcolumn="yprs" displayDBColumn="hasdispaly" 
+										script="openwin('../jxzl/StudentNum.aspx?kcinfo_id=[kc_id]&amp;typeName=KCJXPJ&amp;isqz_ban=&amp;version=[Version]&amp;plan=[edition]&amp;pjtypeid=[itemid]&amp;status=1');" 
+                            link="" width="*" align="center">已评/人</column>
+									  <column dbcolumn="wprs" displayDBColumn="hasdispaly"  
+										script="openwin('../jxzl/StudentNum.aspx?kcinfo_id=[kc_id]&amp;typeName=KCJXPJ&amp;isqz_ban=&amp;version=[Version]&amp;plan=[edition]&amp;pjtypeid=[itemid]&amp;isorping=weiping&amp;status=0');" 
+                            link="" width="*" align="center">未评/人</column>
+								  </columns>
+							  </list>
+						  </tab>
+					  </tabs>
+					  <head memo="评估项目" contet="评 分" pj_display_point="评估分值" point="10">
+					  </head>
+					  <pjitem level1id="1" level1title="培训质量"  level2id="11" level2title="针对理论与实践热点难点提出问题，言之有物" hiddenrange="true" range="1-20" type="select" orderidx="0" >
+					  </pjitem>
+					  <pjitem level1id="2" level1title="理论分析有深度有新意，信息量大，资料可靠"  level2id="" level2title="" hiddenrange="true" range="1-25" type="select" orderidx="1" >
+					  </pjitem>
+					  <pjitem level1id="3" level1title="能提供新思路新方法，具有一定的启发性和可操作性"  level2id="" level2title="" hiddenrange="true" range="1-25" type="select"  orderidx="2">
+					  </pjitem>
+					  <pjitem level1id="4" level1title="课堂讨论充分，时间不少于心不少于30分钟"  level2id="" level2title="" hiddenrange="true" range="1-20" type="select"  orderidx="3">
+					  </pjitem>
+					  <pjitem level1id="5" level1title="课件制作精良，参考资料完备"  level2id="" level2title="" hiddenrange="true" range="1-10" type="select"  orderidx="4">
+					  </pjitem>
+					  <pjitem level1id="6" level1title="点评(请用简单的语言对各位教师授课情况进行评议)："  level2id="" level2title="" type="textarea"  orderidx="5">
+					  </pjitem>
+				  </item>
+				  <item order="2" name="培训质量评估" id="2" bcorclass="bc"
+                teacherurl="kcpjTabs.aspx?role=teacher&amp;itemid=[xmlsource.id]&amp;kcid=[request.kcid]&amp;bcorclass=[xmlsource.bcorclass]"
+                targeturl="PJDetail.aspx?role=student&amp;itemid=[xmlsource.id]&amp;bcorclass=[xmlsource.bcorclass]&amp;noframe=1"
+						keycolumn="bcid">
+					  <tabs role="student">
+						  <tab tabid="1" ispj="-1" name="未评" url="pjlist.aspx?ispj=-1&amp;role=student&amp;tabid=1">
+							  <list>
+								  <sql>
+									  <![CDATA[
+										select rownum xh,g.bt
+										,'[version]' version
+										,'[edition]'edition
+										,'[isyjs]' isyjs
+										,'[bcid]'bcid
+										,'[itemid]' itemid
+										,'[bcorclass]' bcorclass
+										from jw_bcgl bc 
+										inner join g_infos g on bc.info_id=g.id and g.deleted>-1 
+										where bc.info_id=[bcid]
+									]]>
+								  </sql>
+								  <columns>
+									  <column dbcolumn="bt" width="30%" align="left" columntype="" istitle="true">班级名称</column>
+								  </columns>
+							  </list>
+						  </tab>
+					  </tabs>
+					<head memo="评估项目" contet="等级" pj_display_point="优秀,良好,一般" point="4,3,2">
+					</head>
+					<pjitem level1id="1" level1title="培训质量"  level2id="11" level2title="培训需求适配度" type="radio" >
+					</pjitem>
+					<pjitem level1id="1" level1title="培训质量"  level2id="12" level2title="课程设计科学性" type="radio" >
+					</pjitem>
+					<pjitem level1id="1" level1title="培训质量"  level2id="13" level2title="师资选配合理性" type="radio" >
+					</pjitem>
+					<pjitem level1id="1" level1title="培训质量"  level2id="14" level2title="教学内容满意度" type="radio" >
+					</pjitem>
+					<pjitem level1id="1" level1title="培训质量"  level2id="15" level2title="教学方法有效性" type="radio" >
+					</pjitem>
+					<pjitem level1id="1" level1title="培训质量"  level2id="16" level2title="教学组织有序性" type="radio" >
+					</pjitem>
+					<pjitem level1id="1" level1title="培训质量"  level2id="17" level2title="学风校风良好度" type="radio"  >
+					</pjitem>
+					<pjitem level1id="1" level1title="培训质量"  level2id="18" level2title="对干部能力素养提高的帮助程度" type="radio">
+					</pjitem>
+					<pjitem level1id="2" level1title="存在问题和建议："  level2id="" level2title="" type="textarea" >
+					</pjitem>					  
+				  </item>
+				  <item order="3" name="干部教育培训综合评议表" id="3" bcorclass="bc"
+						teacherurl="kcpjTabs.aspx?role=teacher&amp;itemid=[xmlsource.id]&amp;kcid=[request.kcid]&amp;bcorclass=[xmlsource.bcorclass]"
+						targeturl="PJDetail.aspx?role=student&amp;itemid=[xmlsource.id]&amp;bcorclass=[xmlsource.bcorclass]&amp;noframe=1"
+					keycolumn="bcid">
+					  <tabs role="student">
+						  <tab tabid="1" ispj="-1" name="未评" url="pjlist.aspx?ispj=-1&amp;role=student&amp;tabid=1">
+							  <list>
+								  <sql>
+									  <![CDATA[
+										select rownum xh,g.bt
+										,'[version]' version
+										,'[edition]'edition
+										,'[isyjs]' isyjs
+										,'[bcid]'bcid
+										,'[itemid]' itemid
+										,'[bcorclass]' bcorclass
+										from jw_bcgl bc 
+										inner join g_infos g on bc.info_id=g.id and g.deleted>-1 
+										where bc.info_id=[bcid]
+									]]>
+								  </sql>
+								  <columns>
+									  <column dbcolumn="bt" width="30%" align="left" columntype="" istitle="true">班级名称</column>
+								  </columns>
+							  </list>
+						  </tab>
+					  </tabs>
+				   <head memo="评估项目" contet="等级" pj_display_point="很满意(5分),满意(4分),一般(3分),不满意(2分),很不满意(1分)" point="5,4,3,2,1">
+					</head>
+					<pjitem level1id="1" level1title="课程设置"  level2id="11" level2title="体现中央新精神新要求；符合委托方实际情况；具有针对性，满足学习需求；课程选择和排列的合理性；教学形式选择等" type="radio" >
+					</pjitem>
+					<pjitem level1id="2" level1title="教学保障"  level2id="11" level2title="教学资料印制和发放；执行教学计划有序、到位等" type="radio" >
+					</pjitem>
+					<pjitem level1id="3" level1title="学员管理"  level2id="11" level2title="执行请假制度与学员出勤率情况；维持课堂纪律情况；学员对教学活动的参与性、互动性；班主任工作等" type="radio" >
+					</pjitem>
+					<pjitem level1id="4" level1title="后勤保障"  level2id="11" level2title="住宿、餐饮等" type="radio" >
+					</pjitem>
+					<pjitem level1id="5" level1title="总体评价"  level2id="71" level2title="培训的整体质量" type="radio" >
+					</pjitem>
+					<pjitem level1id="6" level1title="收获体会："  level2id="" level2title="" type="textarea" >
+					</pjitem>
+					<pjitem level1id="7" level1title="意见和建议："  level2id="" level2title="" type="textarea" >
+					</pjitem>
+				  </item>
+			  </plan>
+		  </plans>
+	  </code>
+  </codes>
+</Root>

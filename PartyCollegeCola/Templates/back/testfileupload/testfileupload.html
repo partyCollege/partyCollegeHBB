@@ -1,0 +1,16 @@
+﻿<div>
+
+    <button class="btn" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="myfiles" multiple ng-click="doclick()">选择文件</button>
+
+        <ul>
+            <li ng-repeat="f in myfiles" style="font:smaller">
+                {{f.name}} {{f.$errorParam}}
+
+            </li>
+        </ul>
+        <img ng-src="{{img}}" />
+    <img-crop image="img1" result-image="myCroppedImage"></img-crop>
+    <div app-date ng-model="mydd"></div>
+        <button class="btn btn-danger" ng-click="doUpload()">上传</button>
+        <button class="btn btn-danger" ng-click="down()">下载</button>
+</div>

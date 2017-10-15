@@ -1,0 +1,49 @@
+﻿{
+    "localSQL": false,
+    "vhallConfig": {
+        "writeToken": "ef555d18-a86c-4033-8ef6-838c27bf3422",
+        "readToken": "a907dfe1-981f-46dd-9857-0e99ffed7919",
+        "uploadPath": "https://upload.polyv.net:1081/files/",
+        "userid": "873c41fa75"
+    },
+	"playVideoPass": "95%",
+	"operationManualImgCount":21,
+    "defaultNoticeUrl": "../Templates/directive/notify.html",
+    "photoPath": "http://222.204.170.113/PartyCollege/",
+    "remoteFileUpload": "http://222.204.170.113/FilesServer/reciveFiles.ashx",
+    "fileServer": {
+       "rootPath": "http://222.204.170.113/FileDownload/",
+		"certificatePath": "http://222.204.170.113/FileDownload/",
+		"userPhoto": "img/userPhoto",
+		"userFile": "files",
+		"teacherPhoto": "img/teacherPhoto",
+		"interflowPhoto": "img/interflowPhoto",
+		"coursewarePhoto": "img/coursewarePhoto",
+		"classAttach": "file/classAttach",
+		"newsPhoto": "img/newsPhoto",
+		"blackboard": "img/blackboard",
+		"livePhoto": "img/livePhoto",
+		"certificate": "img/certificate",
+		"classeventPhoto":"img/classeventPhoto",
+		"authAttach": "file/authAttach",
+		"bookPhoto": "img/bookPhoto",
+		"pushMessagePdf": "file/pushMessagePdf",
+		"operationManual": "img/operationManual",
+		"staticJson": "staticJson",
+		"BloackBoardJson":"staticJson/BloackBoardJson",
+		"classAttachJson":"staticJson/classAttachJson",
+		"coursewareJson":"staticJson/coursewareJson",
+		"pptCourseFile": "file/pptCourseFile",
+		"download": "file/download"
+    },
+    "loginHref": [
+        { "usertype": 0, "href": "html/indexfront.html#/main/mytask" },
+        { "usertype": 1, "href": "html/indexteacher.html#/main/index" },
+	{ "usertype": 2, "href": "html/indexback.html?domain=[domain]" },
+	{ "usertype": 3, "href": "html/IndexAlumnus.html#/main/index" }
+    ],
+    "signalRHub": "http://192.168.1.118/SignalRChart/signalr/hubs",
+    "attachTypes": [ 
+        "doc","docx","xls","xlsx","ppt","pptx","pdf","jpg","png","gif","bmp","txt"
+    ]
+}

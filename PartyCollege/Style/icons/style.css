@@ -1,0 +1,210 @@
+@font-face {
+    font-family: 'xueyuanyongfonts';
+    src:    url('fonts/xueyuanyongfonts.eot?y9uz6e');
+    src:    url('fonts/xueyuanyongfonts.eot?y9uz6e#iefix') format('embedded-opentype'),
+        url('fonts/xueyuanyongfonts.ttf?y9uz6e') format('truetype'),
+        url('fonts/xueyuanyongfonts.woff?y9uz6e') format('woff'),
+        url('fonts/xueyuanyongfonts.svg?y9uz6e#xueyuanyongfonts') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="tubiao"], [class*=" tubiao"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'xueyuanyongfonts' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.tubiaoicon-01:before {
+    content: "\e900";
+}
+.tubiaoicon-02:before {
+    content: "\e901";
+}
+.tubiaoicon-03:before {
+    content: "\e902";
+}
+.tubiaoicon-04:before {
+    content: "\e903";
+}
+.tubiaoicon-05:before {
+    content: "\e904";
+}
+.tubiaoicon-06:before {
+    content: "\e905";
+}
+.tubiaoicon-07:before {
+    content: "\e906";
+}
+.tubiaoicon-08:before {
+    content: "\e907";
+}
+.tubiaoicon-09:before {
+    content: "\e908";
+}
+.tubiaoicon-10:before {
+    content: "\e909";
+}
+.tubiaoicon-17:before {
+    content: "\e90a";
+}
+.tubiaoicon-11:before {
+    content: "\e90b";
+}
+.tubiaoicon-12:before {
+    content: "\e90c";
+}
+.tubiaoicon-13:before {
+    content: "\e90d";
+}
+.tubiaoicon-14:before {
+    content: "\e90e";
+}
+.tubiaoicon-15:before {
+    content: "\e90f";
+}
+.tubiaoicon-18:before {
+    content: "\e910";
+}
+.tubiaoicon-19:before {
+    content: "\e911";
+}
+.tubiaoicon-20:before {
+    content: "\e912";
+}
+.tubiaoicon-21:before {
+    content: "\e913";
+}
+.tubiaoicon-22:before {
+    content: "\e914";
+}
+.tubiaoicon-23:before {
+    content: "\e915";
+}
+.tubiaoicon-24:before {
+    content: "\e916";
+}
+.tubiaoicon-25:before {
+    content: "\e917";
+}
+.tubiaoicon-26:before {
+    content: "\e918";
+}
+.tubiaoicon-27:before {
+    content: "\e919";
+}
+.tubiaoicon-28:before {
+    content: "\e91a";
+}
+.tubiaoicon-29:before {
+    content: "\e91b";
+}
+.tubiaoicon-30:before {
+    content: "\e91c";
+}
+.tubiaoicon-31:before {
+    content: "\e91d";
+}
+.tubiaoicon-32:before {
+    content: "\e91e";
+}
+.tubiaoicon-33:before {
+    content: "\e91f";
+}
+.tubiaoicon-34:before {
+    content: "\e920";
+}
+.tubiaoicon-45:before {
+    content: "\e921";
+}
+.tubiaoicon-35:before {
+    content: "\e922";
+}
+.tubiaoicon-16:before {
+    content: "\e923";
+}
+.tubiaoicon-48:before {
+    content: "\e924";
+}
+.tubiaoicon-46:before {
+    content: "\e925";
+}
+.tubiaoicon-47:before {
+    content: "\e926";
+}
+.tubiaoicon-36:before {
+    content: "\e927";
+}
+.tubiaoicon-37:before {
+    content: "\e928";
+}
+.tubiaoicon-38:before {
+    content: "\e929";
+}
+.tubiaoicon-39:before {
+    content: "\e92a";
+}
+.tubiaoicon-40:before {
+    content: "\e92b";
+}
+.tubiaoicon-41:before {
+    content: "\e92c";
+}
+.tubiaoicon-42:before {
+    content: "\e92d";
+}
+.tubiaoicon-43:before {
+    content: "\e92e";
+}
+.tubiaoicon-44:before {
+    content: "\e92f";
+}
+.tubiaoicon-49:before {
+    content: "\e930";
+}
+.tubiaoicon-50:before {
+    content: "\e931";
+}
+.tubiaoicon-52:before {
+    content: "\e932";
+}
+.tubiaoicon-51:before {
+    content: "\e933";
+}
+.tubiaoicon-53:before {
+    content: "\e934";
+}
+.tubiaoicon-54:before {
+    content: "\e935";
+}
+.tubiaoicon-55:before {
+    content: "\e936";
+}
+.tubiaoicon-56:before {
+    content: "\e937";
+}
+.tubiaoicon-57:before {
+    content: "\e938";
+}
+.tubiaoicon-58:before {
+    content: "\e939";
+}
+.tubiaoicon-59:before {
+    content: "\e93a";
+}
+.tubiaoicon-60:before {
+    content: "\e93b";
+}
+.tubiaoicon-61:before {
+    content: "\e93c";
+}
+

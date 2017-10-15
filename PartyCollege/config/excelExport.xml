@@ -1,0 +1,86 @@
+﻿<root>
+  <exports category="studentlist">
+    <exportitem>
+      <sql classname="PartyCollege.Model.teacher.teacherService" methodname="exportStudentlist">
+        <![CDATA[ ]]>
+      </sql>
+      <expcolumns>
+        <exprow>
+          <expcolumn firstrow="0" lastrow="0" firstcol="0" lastcol="0" dbcolumn="xh" thtitle="序号"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="1" lastcol="1" dbcolumn="name" thtitle="姓名"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="2" lastcol="2" dbcolumn="sex" thtitle="性别"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="3" lastcol="3" dbcolumn="rank" thtitle="职级"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="4" lastcol="4" dbcolumn="company" thtitle="单位"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="5" lastcol="5" dbcolumn="committees" thtitle="班内职务"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="6" lastcol="6" dbcolumn="signstatus" thtitle="报到状态"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="7" lastcol="7" dbcolumn="graduatestatus" thtitle="结业状态"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="8" lastcol="8" dbcolumn="studyrate" thtitle="进度"></expcolumn>
+        </exprow>
+      </expcolumns>
+    </exportitem>
+  </exports>
+  <exports category="importfailedstudentlist">
+    <exportitem>
+      <sql classname="PartyCollege.Model.teacher.teacherService" methodname="exportStudentlist">
+        <![CDATA[ ]]>
+      </sql>
+      <expcolumns>
+        <exprow>
+          <expcolumn firstrow="0" lastrow="0" firstcol="0" lastcol="0" dbcolumn="xh" thtitle="序号"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="1" lastcol="1" dbcolumn="name" thtitle="姓名"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="2" lastcol="2" dbcolumn="sex" thtitle="性别"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="3" lastcol="3" dbcolumn="rank" thtitle="职级"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="4" lastcol="4" dbcolumn="company" thtitle="单位"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="5" lastcol="5" dbcolumn="committees" thtitle="班内职务"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="6" lastcol="6" dbcolumn="signstatus" thtitle="报到状态"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="7" lastcol="7" dbcolumn="graduatestatus" thtitle="结业状态"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="8" lastcol="8" dbcolumn="studyrate" thtitle="进度"></expcolumn>
+        </exprow>
+      </expcolumns>
+    </exportitem>
+  </exports>
+
+  <exports category="studyreportexport">
+    <exportitem>
+      <sql classname="PartyCollege.Model.StudyNote.StatisticsService" methodname="StudyReportExport">
+        <![CDATA[ ]]>
+      </sql>
+      <expcolumns>
+        <exprow>
+          <expcolumn firstrow="0" lastrow="0" firstcol="0" lastcol="0" dbcolumn="rownumber" thtitle="序号"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="1" lastcol="1" dbcolumn="name" thtitle="姓名"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="2" lastcol="2" dbcolumn="company" thtitle="单位"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="3" lastcol="3" dbcolumn="requiredscore" thtitle="必修课(学分)"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="4" lastcol="4" dbcolumn="electivescore" thtitle="选修课(学分)"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="5" lastcol="5" dbcolumn="casescore" thtitle="案例教学(学分)"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="6" lastcol="6" dbcolumn="learningsensecount" thtitle="学后感(篇)"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="7" lastcol="7" dbcolumn="studyingsensescore" thtitle="小结(得分)"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="8" lastcol="8" dbcolumn="graduatestatuscn" thtitle="结业状态"></expcolumn> 
+          <expcolumn firstrow="0" lastrow="0" firstcol="9" lastcol="9" dbcolumn="score" thtitle="积分"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="10" lastcol="10" dbcolumn="durationcn" thtitle="学习时长"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="11" lastcol="11" dbcolumn="learningsenseavg" thtitle="学后感平均分"></expcolumn>
+        </exprow>
+      </expcolumns>
+    </exportitem>
+  </exports>
+  <exports category="workunitreportexport">
+    <exportitem>
+      <sql classname="PartyCollege.Model.StudyNote.StatisticsService" methodname="WorkUnitReportExport">
+        <![CDATA[ ]]>
+      </sql>
+      <expcolumns>
+        <exprow>
+          <expcolumn firstrow="0" lastrow="0" firstcol="0" lastcol="0" dbcolumn="rownumber" thtitle="序号"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="1" lastcol="1" dbcolumn="company" thtitle="单位"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="2" lastcol="2" dbcolumn="allstudentcount" thtitle="学员总数"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="3" lastcol="3" dbcolumn="signcount" thtitle="报到数"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="4" lastcol="4" dbcolumn="nosigncount" thtitle="未报到数"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="5" lastcol="5" dbcolumn="graduatecount" thtitle="结业数"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="6" lastcol="6" dbcolumn="nograduatecount" thtitle="未结业数"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="7" lastcol="7" dbcolumn="graduaterate" thtitle="结业率"></expcolumn>
+          <expcolumn firstrow="0" lastrow="0" firstcol="8" lastcol="8" dbcolumn="learningsensecount" thtitle="学后感"></expcolumn> 
+        </exprow>
+      </expcolumns>
+    </exportitem>
+  </exports>
+</root> 

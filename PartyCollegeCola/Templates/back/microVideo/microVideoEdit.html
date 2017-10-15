@@ -1,0 +1,171 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>微视频维护</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">微视频名称</label>
+                            <div class="col-sm-10"><input type="text" ng-model="microVideo.name" class="form-control"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否可用</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="microVideo.status">
+                                    <option value="0">是</option>
+                                    <option value="-1">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提供者</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="microVideo.provider" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">封面图</label>
+                            <div class="col-sm-10">
+                                <div class="row text-center">
+                                    <img ngf-src="files[0]||nowfile" style="width: 310px;height: 190px;" ngf-resize="{width: 310, height: 190, quality: 0.9}" />
+                                </div>
+                                <div class="row text-center padding-top">
+									<button class="btn btn-danger platformdisabled" ng-model="microVideo.photo_servername" ngf-accept="'image/*'" ngf-max-size="4MB" ngf-select="uploadFiles($files, $invalidFiles)">上传照片</button>
+									请上传图片尺寸高宽比率为0.61的图片。
+								</div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">主讲人</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="microVideo.teacher" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">分类</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" select-source ng-model="microVideo.category" code="微视频分类"></select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否推荐到首页</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="microVideo.ismain">
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">创建者</label>
+                            <div class="col-sm-10">
+                                <span class="form-control">
+                                    {{microVideo.createuser}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">创建时间</label>
+                            <div class="col-sm-10">
+                                <span class="form-control">
+                                    {{microVideo.createtime|date:'yyyy-MM-dd'}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">视频</label>
+
+                            <div class="col-sm-4">
+                                <div class="input-group m-b">
+                                    {{microVideo.videoname}}
+									<button class="btn btn-sm btn-primary platformdisabled" ngf-accept="'video/*'" ngf-select="uploadvideoFiles($files, $invalidFiles)" multiple>选择视频</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-info" ng-click="openVideoPerview()">预览</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                视频状态:{{microVideo.videostatus}}
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2" ng-if="microVideo.videofile.length>0">
+
+                            </div>
+                            <div class="col-sm-10" ng-if="microVideo.videofile.length>0">
+                                <ul>
+                                    <li ng-repeat="f in microVideo.videofile" style="font:smaller">
+                                        {{f.name}}&nbsp;&nbsp;&nbsp;&nbsp;文件大小{{(f.size/1048576).toFixed(2)}}M {{f.$errorParam}}
+										<button class="btn btn-info platformdisabled" ng-click="uploadvideo()">上传</button>
+
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <small class="pull-left">进度<span style="color:red">{{process}}</span>%</small>
+                                        </div>
+                                        <div class="progress progress-small">
+                                            <div style="width: {{process}}%;" class="progress-bar"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center">
+							<button class="btn btn-primary platformdisabled" ng-click="save()" ng-disabled="saveButtonDisabled">保存</button>
+                            <button class="btn btn-default" ng-click="goback()">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="videoPerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row text-center"><h3>{{microVideo.name}}</h3></div>
+        <div class="row">
+            <div id="divVideo"></div>
+        </div>
+    </div>
+
+</script>
+<script>
+    var player1 = {};
+    var player2 = {};
+    var videoNum = 0;
+    function s2j_onPlayerInitOver() {
+
+        videoNum++;
+        if (videoNum == 2) {
+            //console.log(player2);
+            player2.j2s_banUI();
+            player2.j2s_hideRightPanel();
+            player1.j2s_rightpanelBtnSet();
+            player2.j2s_rightpanelBtnSet();
+        }
+    }
+    function s2j_onChapterBtnClick() {
+        //alert("s2j_onChapterBtnClick")
+    }
+</script>

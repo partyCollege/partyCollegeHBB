@@ -1,0 +1,134 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="get" class="form-horizontal">
+                    <div class="form-group" ng-if="courseware.courseEditViewShow">
+                        <div class="text-right">
+                            <button class="btn btn-info" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="deleteST()">删除</button>&nbsp;&nbsp;
+                            <button class="btn btn-info" ng-click="oepnST()">添加</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="grid2" ui-grid="gridSTOptions" ui-grid-auto-resize ui-grid-pagination ui-grid-selection class="grid1"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="ST.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3> 试题维护</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <!--不需要统一配置的显示项-->
+                        <div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label">试题名称</label>
+                                    <div class="col-sm-10"><input type="text" ng-model="st.examtitle" class="form-control"></div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="col-sm-4 control-label">题型</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-change="changeST()" ng-model="st.examcategory">
+                                            <option value="0">单选</option>
+                                            <option value="1">多选</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-sm-4 control-label">是否可用</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-model="st.status">
+                                            <option value="0">是</option>
+                                            <option value="-1">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group text-center">
+                                <div class="col-md-8">
+                                    选项列表配置
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary" ng-click="addExamAnswer()" ng-if="courseware.courseEditViewShow">新增</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row text-center" style="line-height:30px; border:1px solid #cccccc ">
+                                    <div class="col-sm-2 center">序号</div>
+                                    <div class="col-sm-6 center">选项</div>
+                                    <div class="col-sm-2 center">正确答案</div>
+                                    <div class="col-sm-2 center" ng-if="courseware.courseEditViewShow">操作</div>
+                                </div>
+                                <div class="row" ng-repeat="item in answers" style="border:1px solid #cccccc ">
+                                    <div class="col-sm-2 text-center" style="line-height:34px;">{{$index+1}}</div>
+                                    <div class="col-sm-6" style="line-height:34px;">
+                                        <div class="col">
+                                            <input class="form-control" placeholder="答案" ng-model="item.answer" />
+                                        </div>
+                                    </div>
+                                    <div style="line-height:34px; border-right:1px solid #cccccc" class="col-sm-2 text-center">
+                                        <input type="radio" ng-if="st.examcategory==0" name="succcessAnswer" ng-value="item.id" ng-model="checkedAnswer.checkedID" />
+                                        <input ng-if="st.examcategory==1" type="checkbox" ng-model="item.isright">
+                                    </div>
+                                    <div class="col-sm-2 text-center" style="line-height:34px;" ng-if="courseware.courseEditViewShow">
+                                        <button class="btn btn-success" ng-click="deleteAnswer(item)">删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center" ng-if="courseware.courseEditViewShow">
+                            <button class="btn btn-info" ng-click="addST()">保存</button>
+                            <button class="btn btn-default" ng-click="close()">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            //alert('onDeviceReady');
+            
+        }
+        function openSecuritySettings() {
+            alert("openSecuritySettings");
+            var options = {
+            }
+            xsfSecuritySettings.openSecuritySettings(options,
+                    function (result) {
+                             alert("OK");
+                },
+                function (error) {
+                    alert(error);
+                }
+            );
+        }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+  </head>
+  <body>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <div class = "btn bg_1" onclick = "openSecuritySettings();">进入安全设置</div><br/>
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

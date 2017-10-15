@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="components/bootstrap-3.3.5-dist/css/bootstrap.css"/>
+		<link rel="stylesheet" href="css/styles.css" />
+		<link href="css/icons/style.css" rel="stylesheet" />
+	</head>
+	<body class="login">
+        <div class="popup_box">
+            <!--校友身份验证 开始（校友先注册再验证） -->
+            <div class="popup_content register">
+                <div class="content ">
+                    <h2>身份验证<i class="tubiaoicon-17"></i></h2>
+                    <form action="" method="post">
+                        <ul>
+                            <li>
+                                <label><b>*</b>姓&nbsp;&nbsp;名：</label><input type="text" />
+                                <p class="ts">注：请填写真实姓名。</p>
+                            </li>
+                            <li>
+                                <label><b>*</b>身份验证：</label><input readonly type="text" value="510104**********79" />
+                            </li>
+                            <li>
+                                <label><b>*</b>手机号码：</label><input class="phone" type="text" />
+                                <button class="yzm" type="button">获取验证码</button>
+                                <p class="error">手机号格式错误</p>
+                            </li>
+                            <li>
+                                <label><b>*</b>验 证 码：</label><input type="text" />
+                                <p class="error">验证码有误</p>
+                            </li>
+                            <li>
+                            <li class="submit">
+                                <button class="btn" type="submit">完成</button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+		<div class="container clearfix login_top">
+			<div class="pull-left logo">
+				<img src="img/logo.png" alt="" />
+			</div>
+		</div>
+		<div class="login_main">
+			<div class="container">
+				<!--
+                	作者：1350691651@qq.com
+                	时间：2016-10-12
+                	描述：登陆框
+                -->
+				<div class="pull-center content hide">
+					<h3><i class="tubiaoicon-19"></i>用户登陆</h3>
+					<form class="form-group" action="" method="">
+						<ul class="list-unstyled">
+							<li><i class="tubiaoicon-44"></i><input class="form-control" type="text" placeholder="请在此输入账号" /></li>
+							<li><i class="tubiaoicon-43"></i><input class="form-control" type="password" placeholder="请在此输入密码" /></li>
+							<li><img class="pull-right" src="img/yzm_img.jpg" alt="" /><i class="tubiaoicon-02"></i><input class="form-control yzm" type="text" placeholder="请输入验证码" /></li>
+							<li class="orange"><input type="checkbox" />记住用户名<a class="pull-right">找回密码</a></li>
+							<li class="submit"><button class="btn btn-block" type="submit">登录</button></li>
+							<li class="submit"><button class="btn btn-block" type="button">注册</button></li>
+						</ul>
+						<div class="bottom">
+							<span><i class="icon icon_ios"></i>Ios</span>
+							<span><i class="icon icon_android"></i>Android</span>		
+						</div>
+					</form>
+				</div>
+				<!--
+                	作者：1350691651@qq.com
+                	时间：2016-10-12
+                	描述：下载APP
+                -->
+				<div class="pull-center content">
+					<h3><i class="icon icon_ewm"></i>APP下载</h3>
+					<div class="text-center appXZ_box" action="" method="">
+						<img src="img/android_rwm.jpg" alt="" />
+						<img src="img/ios_rwm.jpg" alt="" />
+						<p>
+							<span>安卓版</span>
+							<span>IOS版</span>
+						</p>
+						<div class="bottom text-center">
+							<a href="" class="orange">返回登陆</a>	
+						</div>
+					</div>
+				</div>
+				<!--
+                	作者：1350691651@qq.com
+                	时间：2016-10-12
+                	描述：注册1
+               -->
+				<div class="register hide">
+	                <div class="content ">
+	                    <h2>
+	                    	<span class="active">1 填写验证信息</span>
+		                    <span>2 填写注册信息</span>
+		                    <span>3 完成注册</span>
+	                    </h2>
+	                    <form action="" method="post">
+	                        <ul>
+	                            <li>
+	                                <label><b>*</b>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</label><input type="text" />
+	                                <p class="ts">注：请填写真实姓名。</p>
+	                                <p class="orange error">身份证号与姓名不符。</p>
+	                            </li>
+	                            <li>
+	                                <label><b>*</b>所属机构：</label><input readonly type="text" value="510104**********79" />
+	                                <p class="ts">注：请选择所在部门或单位</p>
+	                                <p class="orange error">单位与姓名不符。</p>
+	                            </li>
+	                            <li>
+	                                <label><b>*</b>同事 (一)：</label><input class="phone" type="text" />
+	                                <p class="ts">注：请本单位任意一位同事姓名</p>
+	                                <p class="orange error">非本单位同事。</p>
+	                            </li>
+	                            <li>
+	                                <label><b>*</b>同事 (二)：</label><input type="text" />
+	                                <p class="ts">注：请本单位任意一位同事姓名</p>
+	                                <p class="orange error">非本单位同事。</p>
+	                            </li>
+	                            <li class="submit">
+	                                <button class="btn" type="submit">完成</button>
+	                            </li>
+	                        </ul>
+	                    </form>
+	                </div>
+	            </div>
+	            <!--
+                	作者：1350691651@qq.com
+                	时间：2016-10-12
+                	描述：注册2
+               -->
+				<div class="register hide">
+	                <div class="content ">
+	                    <h2>
+	                    	<span class="active">1 填写验证信息</span>
+		                    <span class="active">2 填写注册信息</span>
+		                    <span>3 完成注册</span>
+	                    </h2>
+	                    <form action="" method="post">
+	                        <ul>
+	                            <li>
+	                                <label><b>*</b>职务级别：</label><input type="text" />
+	                                <p class="orange error">职务级别与姓名不符。</p>
+	                            </li>
+	                            <li>
+	                                <label><b>*</b>验 证 码：</label><!--
+	                                --><div class="pull-right "><img class="yzmImg" src="img/yzm_img.jpg" alt="" /><span>换一张</span></div>
+	                                <input class="yzm" type="text" value="" />
+	                                <p class="orange error">验证码错误。</p>
+	                            </li>
+	                            <li>
+	                                <label><b>*</b>手机号码：</label><input class="phone" type="text" />
+	                                <p class="ts">注：请填写常用手机号码。</p>
+	                                <p class="orange error">手机号格式错误。</p>
+	                            </li>
+	                            <li>
+	                                <label><b>*</b>短信验证：</label><input class="dxyz" type="text" />
+	                                <button class="dxyz" type="button">获取验证码</button>
+	                                <p class="orange error">验证码错误。</p>
+	                            </li>
+	                            <li class="submit">
+	                                <button class="btn" type="button">上一步</button>
+	                                <button class="btn" type="submit">下一步</button>
+	                            </li>
+	                        </ul>
+	                    </form>
+	                </div>
+	            </div>
+	            <!--
+                	作者：1350691651@qq.com
+                	时间：2016-10-12
+                	描述：注册3
+               -->
+				<div class="register hide">
+	                <div class="content ">
+	                    <h2>
+	                    	<span class="active">1 填写验证信息</span>
+		                    <span class="active">2 填写注册信息</span>
+		                    <span class="active">3 完成注册</span>
+	                    </h2>
+	                    <div class="complete_box">
+	                    	<p>恭喜您成功注册成为中粮可口可乐饮料有限公司网络学院学员！</p>
+	                    	<a href="" class="btn">返回登录</a>
+	                    </div>
+	                </div>
+	            </div>
+			</div>
+		</div>
+		<div class="footer login">
+			<p>中华人民共和国环境保护部<br />
+技术支持电话：010-66556733    邮箱：edu@mep.gov.cn</p>
+		</div>
+	</body>
+</html>

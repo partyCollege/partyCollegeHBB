@@ -1,0 +1,111 @@
+﻿<div class="block">
+    <h2><b>面授培训</b></h2>
+    <form name="baseForm" novalidate>
+        <ul class="form">
+            <li>
+                <label for=""><i>*</i>培训名称：</label>
+                <input type="text"
+                       ng-model="train.title"
+                       name="title"
+                       autocomplete="off"
+                       validator="required"
+                       required-error-message="培训名称不能为空"
+                       ng-disabled="buttonCtrl.enableEdited" />
+            </li>
+            <li>
+                <label for=""><i>*</i>培训类别：</label>
+                <span class="select_box" name="txtcategory">
+                    <i class="shade"></i>
+                    <select ng-model="train.categoryone" required name="categoryone" class="btn-default p-5" ng-disabled="buttonCtrl.enableEdited" >
+                        <option value="组织调训">组织调训</option>
+                        <option value="干部选学">干部选学</option>
+                    </select>
+                    <select ng-model="train.categorytwo" required name="categorytwo" class="btn-default p-5" ng-disabled="buttonCtrl.enableEdited" >
+                        <option value="业务培训">业务培训</option>
+                        <option value="岗位培训">岗位培训</option>
+                        <option value="任职培训">任职培训</option>
+                        <option value="初任培训">初任培训</option>
+                    </select>
+                    <select ng-model="train.categorythree" required name="categorythree" class="btn-default p-5" ng-disabled="buttonCtrl.enableEdited" >
+                        <option value="面授培训">面授培训</option>
+                        <option value="网络培训">网络培训</option>
+                    </select>
+                    <select ng-model="train.categoryfour" required name="categoryfour" class="btn-default p-5" ng-disabled="buttonCtrl.enableEdited" >
+                        <option value="境内培训">境内培训</option>
+                        <option value="境外培训">境外培训</option>
+                    </select>
+                </span>
+            </li>
+            <li>
+                <label for=""><i>*</i>开始时间：</label>
+                <!--<input type="text"
+                       ng-model="train.starttime"
+                       name="starttime"
+                       autocomplete="off"
+                       validator="required"
+                       required-error-message="开始时间是必须的" />-->
+                <div class="dateWidget_box" app-date ng-model="train.starttime" ng-disabled="buttonCtrl.enableEdited"></div>
+            </li>
+            <li>
+                <label for=""><i>*</i>结束时间：</label>
+                <!--<input type="text"
+                       ng-model="train.endtime"
+                       name="endtime"
+                       autocomplete="off"
+                       validator="required"
+                       required-error-message="结束时间是必须的" />-->
+                <div class="dateWidget_box" app-date ng-model="train.endtime" ng-disabled="buttonCtrl.enableEdited"></div>
+            </li>
+
+            <li>
+                <label for=""><i>*</i>拟报学时：</label>
+                <input type="text"
+                       ng-model="train.studytime"
+                       name="studytime"
+                       autocomplete="off"
+                       validator="required,number"
+                       required-error-message="拟报学时是必须的" ng-disabled="buttonCtrl.enableEdited"  />
+            </li>
+            <li>
+                <label for=""><i>*</i>申报年份：</label> 
+                <select class="btn-default p-5" ng-model="train.year" ng-disabled="buttonCtrl.enableEdited" required>
+                    <option ng-repeat="n in yearArr" ng-value="n" value="{{n}}">{{n}}</option>
+                </select>
+            </li>
+            <li>
+                <label for="">培训地点：</label>
+                <input type="text"
+                       ng-model="train.address"
+                       name="address"
+                       autocomplete="off" ng-disabled="buttonCtrl.enableEdited" />
+            </li>
+            <li>
+                <label for="">主办单位：</label>
+                <input type="text"
+                       ng-model="train.company"
+                       name="company"
+                       autocomplete="off" ng-disabled="buttonCtrl.enableEdited" />
+            </li>
+            <li>
+                <label for="">证明人：</label>
+                <input type="text"
+                       ng-model="train.reference"
+                       name="reference"
+                       autocomplete="off" ng-disabled="buttonCtrl.enableEdited" />
+            </li>
+            <li ng-if="train.status==-1 || train.status==2">
+                <label for="">审核状态：</label> 
+                <input type="text" value="{{train.status | trainStatuFilters}}" ng-disabled="buttonCtrl.enableEdited" />
+            </li>
+            <li ng-if="train.status==-1 || train.status==2">
+                <label for="">审核意见：</label> 
+                <input type="text" ng-model="train.remark" ng-disabled="buttonCtrl.enableEdited" /> 
+            </li>
+        </ul>
+        <div class="cz">
+            <button type="submit" class="btn" ng-if="buttonCtrl.btnSaveDisplay" ng-click="submit(0)" ng-disabled="baseForm.$invalid || buttonCtrl.btnSaveStatu">暂 存</button>
+            <button type="submit" class="btn" ng-if="buttonCtrl.btnSubmitDisplay" ng-click="submit(1)" ng-disabled="baseForm.$invalid || buttonCtrl.btnSubmitStatus">提 交</button>
+            <button type="button" class="btn grey" ng-click="cancel()">取 消</button> 
+        </div>
+    </form>
+</div> 

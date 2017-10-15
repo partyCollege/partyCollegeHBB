@@ -1,0 +1,186 @@
+﻿<script src="../bower_components/vhall/jquery.polyv.js"></script>
+<script src='https://player.polyv.net/script/polyvplayer.min.js'></script>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>教材推荐</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal" id="bookForm" name="bookForm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*教材名称:</label>
+                            <div class="col-sm-10">
+                                <input type="text"
+                                       class="form-control"
+                                       ng-model="book.bookname"
+                                       name="bookname"
+                                       autocomplete="off"
+                                       validator="required"
+                                       required-error-message="教材名称是必填的" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*作者:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control"
+                                       ng-model="book.author"
+                                       name="author"
+                                       autocomplete="off"
+                                       validator="required"
+                                       required-error-message="作者是必填的" />
+                            </div>
+                            <label class="col-sm-2 control-label">*教材封面:</label>
+                            <div class="col-sm-4">
+                                <img ngf-src="book.coverObj || book.defaultCover" onerror="this.scr = '../img/defaultcover.jpg'" ngf-multiple="false" ngf-accept="'image/*'" ng-model="book.coverObj" ngf-max-size="3MB" ngf-select="changedCover($files, $invalidFiles)" width="130" height="184" />
+                                <br/>宽度:130px  高度:184px
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*出版社:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control"
+                                       ng-model="book.publishcompany"
+                                       name="publishcompany"
+                                       autocomplete="off"
+                                       validator="required"
+                                       required-error-message="出版社是必填的" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*出版时间:</label>
+                            <div class="col-sm-4">
+                                <!--<input type="text" class="form-control"
+                ng-model="book.publishtime"
+                name="publishtime"
+                autocomplete="off"
+                validator="required"
+                required-error-message="出版时间是必填的" />-->
+
+                                <div app-date ng-model="book.publishtime" name="publishtime" required />
+                            </div>
+                        </div>
+
+
+                        <!--<div class="form-group">
+            <label class="col-sm-2 control-label">前言/序言:</label>
+            <div class="col-sm-10">
+                <div summernote lang="zh-CN" ng-model="book.foreword" required></div>
+            </div>
+        </div>-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*内容简介:</label>
+                            <div class="col-sm-10">
+                                <!--<textarea class="form-control" ng-model="book.comment"
+                name="comment"
+                autocomplete="off"
+                validator="required"
+                required-error-message="内容摘要是必填的" maxlength="1000"></textarea><br />-->
+
+                                <div summernote lang="zh-CN" ng-model="book.comment" required></div>
+
+                                <!--{{book.comment.length}}/1000-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*作者简介</label>
+                            <div class="col-sm-10">
+                                <div summernote lang="zh-CN" ng-model="book.authorcomment" required></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*目录</label>
+                            <div class="col-sm-10">
+                                <div summernote lang="zh-CN" ng-model="book.catalog" required></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否置顶</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" ng-model="book.istop" />
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" ng-if="book.createuser!=null">
+                            <label class="col-sm-2 control-label">创建人</label>
+                            <div class="col-sm-4">
+                                <span>{{book.createuser}}</span>
+                            </div>
+                            <label class="col-sm-2 control-label">创建时间</label>
+                            <div class="col-sm-4">
+                                {{book.createdate | dateFilter:"yyyy-MM-dd hh:mm:ss"}}
+                            </div>
+                        </div>
+                        <!--<div class="form-group" ng-if="book.publishuser!=null">
+            <label class="col-sm-2 control-label">发布人</label>
+            <div class="col-sm-4">
+                {{book.publishuser}}
+            </div>
+            <label class="col-sm-2 control-label">发布时间</label>
+            <div class="col-sm-4">
+                {{book.publishdate | dateFilter:"yyyy-MM-dd hh:mm:ss"}}
+            </div>
+        </div>-->
+
+                        <div class="text-center">
+                            <!--!optstatus.issuccess-->
+                            <button class="btn btn-danger" ng-click="save()" ng-disabled="bookForm.$invalid || saveDisabled">保  存</button>
+                            <!--<button class="btn btn-primary" ng-click="submit()" ng-disabled="!optstatus.issave" ng-if="book.status==0">发  布</button>
+            <button class="btn btn-primary" ng-click="cancelsubmit()" ng-if="book.status==1">取消发布</button>-->
+                            <button class="btn btn-default" ng-click="golist()"> 取  消 </button>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" ng-if="serialShow">
+                            <div id="grid1" ui-grid="gridOptions" class="padding" style="height:210px;"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="videoPerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row text-center"><h3>{{microVideo.name}}</h3></div>
+        <div class="row">
+            <div id="divVideo"></div>
+        </div>
+    </div>
+
+</script>
+<script>
+    var player1 = {};
+    var player2 = {};
+    var videoNum = 0;
+    function s2j_onPlayerInitOver() {
+
+        videoNum++;
+        if (videoNum == 2) {
+            //console.log(player2);
+            player2.j2s_banUI();
+            player2.j2s_hideRightPanel();
+            player1.j2s_rightpanelBtnSet();
+            player2.j2s_rightpanelBtnSet();
+        }
+    }
+    function s2j_onChapterBtnClick() {
+        //alert("s2j_onChapterBtnClick")
+    }
+</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", onDeviceReady, false);
+            //
+            function onDeviceReady() {
+                //alert('onDeviceReady');
+            }
+        
+        function start(){
+            alert("start");
+            xsfRecord.start("record.mav");
+            //
+        }
+        function pause(){
+            alert("pause");
+            xsfRecord.pause();
+            //
+        }
+        function resume(){
+            alert("resume");
+            xsfRecord.stop();
+            //
+        }
+        function stop(){
+            alert("stop");
+            xsfRecord.stop();
+            //
+            //var url = "http://192.168.1.222:8080/ezweb/action?uploadFile=test";
+           // xsfHttp.upload("record.caf",url,
+                           //function (result) {
+                           //alert(result);
+                           //},
+                           //function (error) {
+                           //alert("open failed: " + error);
+                           //}
+                           //);
+                           //
+        }
+        function playRecord()
+        {
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+                                     fs.root.getFile("record.mav", { create: true, exclusive: false }, function (fileEntry) {
+                                                     //播放本地音乐，音乐文件路径获取方法。
+                                                     var src = fileEntry.toInternalURL();
+                                                     alert(src);
+                                                     var playRecord_media = new Media(src,
+                                                                                      // success callback
+                                                                                      function () {
+                                                                                      console.log("playAudio():Audio Success");
+                                                                                      alert("playAudio():Audio Success");
+                                                                                      },
+                                                                                      // error callback
+                                                                                      function (err) {
+                                                                                      console.log("playAudio():Audio Error: " + err);
+                                                                                      alert("playAudio():Audio Error: " + err);
+                                                                                      alert("error" + err.message);
+                                                                                      }
+                                                                                      );
+                                                     // Play audio
+                                                     playRecord_media.play();
+                                                     }, fail);
+                                     
+                                     }, fail);
+        }
+        function fail(error)
+        {
+            alert("ERROR : " + error);
+        }
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+        </script>
+    </head>
+    <body>
+        <br/>
+        <br/>
+        <div class = "btn bg_1" onclick = "start();">start开始录音</div><br/>
+        <div class = "btn bg_2" onclick = "pause();">pause暂停录音</div><br/>
+        <div class = "btn bg_3" onclick = "resume();">resume继续录音</div><br/>
+        <div class = "btn bg_4" onclick = "stop();">stop结束录音</div><br/>
+        <div class = "btn bg_5" onclick = "playRecord();">playRecord播放录音</div><br/>
+        <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+        
+    </body>
+</html>

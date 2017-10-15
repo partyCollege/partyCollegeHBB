@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>navigator.connection.type Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+<script type="text/javascript" charset="utf-8" src="native.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+<script type="text/javascript" charset="utf-8">
+	//debugger;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    ///
+    function onDeviceReady() {
+        //alert('onDeviceReady');
+        
+    }
+
+    function checkConnection() {
+        
+        var networkState = xsfConnection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';//未知连接
+        states[Connection.ETHERNET] = 'Ethernet connection';//以太网
+        states[Connection.WIFI]     = 'WiFi connection';//wifi  
+        states[Connection.CELL_2G]  = 'Cell 2G connection';//2G
+        states[Connection.CELL_3G]  = 'Cell 3G connection';//3G
+        states[Connection.CELL_4G]  = 'Cell 4G connection';//4G
+        states[Connection.CELL]     = 'Cell generic connection';//蜂窝网络
+        states[Connection.NONE]     = 'No network connection';
+
+        alert('Connection type: ' + states[networkState]);
+    }
+document.addEventListener("online", onOnline, false);
+
+function onOnline() {
+   
+}
+
+document.addEventListener("offline", onOffline, false);
+
+function onOffline() {
+    
+}
+function goHome()
+{
+    window.location.href = "index.html";
+}
+    </script>
+  </head>
+  <body>
+<br/>
+<br/>
+    
+    <div class = "btn bg_1" onclick = "checkConnection();">checkConnection获取设备网络状态</div><br/>
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

@@ -1,0 +1,206 @@
+﻿<div class="hbbStudentRight">
+    <div class="popup_box lookImg" ng-if="myConfig.imgShow">
+        <div class="lookImg">
+            <div class="img" ng-style="ImgHeight">
+                <i class="tubiaoicon-17" ng-click="showImg()"></i>
+                <i class="tubiaoicon-46" ng-click="nextImg(1)"></i>
+                <i class="tubiaoicon-47" ng-click="nextImg(2)"></i>
+                <!--<img src="../img/classTj_img8.png" />-->
+                <img ng-src="{{myConfig.imgUrl}}" />
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix courseInfo_box">
+        <ul class="pull-left">
+            <li><h3>{{classInfo.name}}</h3></li>
+            <li class="pull-right"><a class="btn" ng-click="myConfig.showStudentList.select()">通讯录</a></li>
+            <li>班级简介： {{classInfo.comment}}</li>
+            <li>起始时间： {{classInfo.starttime |date:'yyyy-MM-dd'}} </li>
+            <li>结束时间： {{classInfo.endtime |date:'yyyy-MM-dd'}}</li>
+            <li>培训类型： {{classInfo.categoryone}} {{classInfo.categorytwo}} {{classInfo.categorythree}} {{classInfo.categoryfour}}</li>
+            <li>班级人数：{{classInfo.studentnum}}人</li>
+            <li>总 学 时：{{classInfo.studytime}}</li>
+        </ul>
+        <div class="pull-right jdt_box">
+            <span class="ts">
+                学习进度<br />
+                （学时）
+            </span>
+
+            <div class="class_jdt" id="class_indicatorContainer">
+                <div class="my_jdt" id="my_indicatorContainer">
+                    <span class="class">平均进度 {{(classAndMyStudyRate.class_rate * 100).toFixed(0) }}%</span>
+                    <span class="my">我的进度 {{(classAndMyStudyRate.student_rate * 100).toFixed(0) }}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="common">
+        <b>班级必修课</b>
+        <div class="right_btnGroup">
+            <a ng-class="{'active':ordertype == 1}" ng-click="selectOrderType(1)">按最近学习排序</a>
+            <a ng-class="{'active':ordertype == 2}" ng-click="selectOrderType(2)">按学习进度排序</a>
+        </div>
+    </h2>
+    <div class="lookCourseJd_box">
+        <ul class="clearfix lookCourseJd">
+            <li ng-repeat="item in courseList">
+                <div class="img">
+                    <img ng-src="{{item.imagephoto}}" title="{{item.name}}" />
+                </div>
+                <div class="pull-left">
+                    <h4>{{item.name.length > 18 ? item.name.substring(0,17) +"..." : item.name}}</h4>
+                    <p class="time">（年份：{{item.courseyear}}）</p>
+                    <span title="{{item.isplaycompletion == '1' ? item.studytime : 0}}/{{item.studytime}}">学时：<em class="orange">{{item.isplaycompletion == '1' ? item.studytime : 0}}</em>/{{item.studytime}} </span>
+                    <span>我的笔记：{{item.notecount}}</span>
+                    <span>我的提问：{{item.faqcount}}</span>
+                    <div class="courseJdt_box">
+                        <!--<div class="jdt" ng-style="{'width': item.isplaycompletion == '1' ? '100%' : (item.playpercentage * 100).tofixed(0)+'%'}">{{item.isplaycompletion == '1' ? "100%" : item.playpercentage}}</div>-->
+                        <div class="jdt" ng-style="{'width':item.isplaycompletion == '1' ? '100%' : item.playpercentage}">{{item.isplaycompletion == '1' ? "100%" : item.playpercentage}}</div>
+
+                    </div>
+                    <!--<div class="progress">
+                        <div class="finish" ng-style="{width:'{{ item.isplaycompletion=='1' ? '100%' : item.playpercentage }}'}">
+                            {{item.isplaycompletion == '1' ? "100%" : item.playpercentage}}
+                        </div>
+                    </div>-->
+
+                    <p>
+                        <span class="pf">评分：{{item.grade}}</span>
+                        <span class="btn begin" ng-click="ContinueStudy(item.coursewareid)"><i class="tubiaoicon-49"></i>播放</span>
+                        <!--<span class="btn del">删除</span>-->
+                    </p>
+                </div>
+            </li>
+
+        </ul>
+        <!--<div class="more">
+            <a href="" class="btn">更多</a>
+        </div>-->
+
+        <div class="center" ng-show="myConfig.coursemoreShow">
+            <div pagination total-items="totalItems" items-per-page="pageSize" max-size="maxSize" ng-model="currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="right classPhoto_box_right">
+        <h2 class="common"><b>学员进度排行</b></h2>
+        <ul class="list list-unstyled studentPmList">
+            <li ng-repeat="item in studyrateTop4">
+                <p>第{{$index + 1}}名:{{item.name}}</p>
+                <div class="jdt_box">
+                    <div class="jdt" ng-style="{'width':(item.studyrate * 100).toFixed(0)+'%'}"></div>
+                </div>
+                <span>{{ (item.studyrate * 100).toFixed(0) }}%</span>
+            </li>
+        </ul>
+        <h2 class="common"><b>学习资源</b></h2>
+        <ul class="list list-unstyled studentPmList xxzy">
+            <li ng-repeat="item in studyMaterialsData">
+                <span class="font">{{item.attachname}}</span>
+                <span class="pull-right xz" ng-click="downFiles(item.id,item.attachservername, item.attachname, 'classAttach')"><i class="tubiaoicon-27"></i>下载</span>
+            </li>
+        </ul>
+    </div>
+    <div class="left classPhoto_box">
+        <h2 class="common"><b>班级相册</b></h2>
+        <div class="block focus">
+            <!--<img href="../img/myClass_banner.jpg" />
+            <div class="banner_choose">
+                <i class="select"></i>
+                <i></i>
+                <i></i>
+            </div>-->
+
+            <div lunbo imglist="slideblackboard"></div>
+        </div>
+        <div class="block classActivity">
+            <h2 class="text-left"><a class="select" href="">班级交流</a></h2>
+            <div class="exchange">
+                <form action="">
+                    <p>有什么新鲜事想告诉大家？</p>
+                    <textarea ng-model="interflowcontent" id="txtContent"></textarea>
+                    <a class="addBtn" id="aCountenance"><i class="tubiaoicon-29"></i>表情</a>
+                    <a class="addBtn" ng-model="photos" ngf-multiple="true" ngf-max-size="2MB" ngf-accept="'image/*'" ngf-select="selectFiles($files, $invalidFiles)"><i class="uplodeImg tubiaoicon-30"></i>上传图片</a>
+
+                    <button class="btn" type="submit" ng-click="interflow()" ng-disabled="myConfig.interflowBtnShow">发布</button>
+                    <div class="clear"></div>
+                    <ul class="uploadImg_box">
+                        <li ng-repeat="file in files">
+                            <i class="tubiaoicon-12 delete_img" ng-click="deleFile(file)"></i>
+                            <div class="img"><img ngf-src="file" /></div>
+                        </li>
+                    </ul>
+
+
+
+                    <div class="clear"></div>
+                </form>
+                <div class="studentNews">
+                    <div class="news_one" ng-repeat="item in interflowData | orderBy:'createdtime':true">
+                        <div class="top">
+                            <div class="img"><img ng-src="{{item.headimg}}" /></div>
+                            <p>
+                                {{item.studentname}}
+                                <a>
+                                    <span class="del" ng-if="item.isdelete" ng-click="deleteInterflow(item.id)">删除</span>
+                                </a>
+                                <span class="time">{{getDateDiff(item.createdtime)}}</span>
+                            </p>
+                        </div>
+                        <div class="content">
+                            <p ng-bind-html="item.content">
+                            </p>
+                            <ul class="img">
+                                <li ng-repeat="img in item.imglist | orderBy:'uploadtime'"><img ng-src="{{getImg(img.picture_serverthumbname,img.picturename,'interflowPhoto')}}" alt="" ng-click="showImg(item.imglist,img,'interflowPhoto')" /></li>
+                            </ul>
+                        </div>
+                        <div class="bottom">
+                            <div class="comment_title">
+                                <a ng-click="commentShow(item.id)">
+                                    <span class="comment_btn">评论（{{item.commentlist.length}}）</span>
+                                </a>
+                                <a ng-click="clickALike(item.id)">
+                                    <span class="zan" ng-style="{color:item.isclick ? '#ff7200' :'black'}">{{item.isclick ? '已赞':'点赞'}}（{{item.clickcount}}）</span>
+                                </a>
+                            </div>
+                            <div class="comment_issue" ng-show="item.commentshow">
+                                <form action="">
+                                    <div class="img"><img ng-src="{{headImg}}" /></div>
+                                    <textarea ng-model="item.commentcontent"></textarea>
+                                    <a class="addBtn addPadding" id="{{item.id}}"><i class="tubiaoicon-29"></i>表情</a>
+                                    <button class="btn" type="submit" ng-click="comment(item.id)">评论</button>
+                                </form>
+                                <div class="clear"></div>
+                            </div>
+                            <ul class="comment_content">
+                                <li ng-repeat="comment in item.commentlist | orderBy:'createdtime':false">
+                                    <div class="img"><img ng-src="{{comment.headimg}}" /></div>
+                                    <div class="left pl">
+                                        <span class="name">{{comment.commentuser}}：</span>
+                                        <div class="info" ng-bind-html="comment.commentcontent"></div>
+                                        <div>
+                                            <a class="del" ng-if="comment.isdelete" ng-click="deleteComent(comment.id,item.id)">删除</a>
+                                            <span class="time">{{getDateDiff(comment.createdtime)}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="more" ng-show="myConfig.moreShow" ng-click="loadMore()">
+            <span class="btn">显示更多</span>
+            <i class="icon icon_more"></i>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <div student-list my-config="myConfig.showStudentList" ng-if="myConfig.showStudentList.look"></div>
+</div>

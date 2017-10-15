@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        
+        function onDeviceReady() {
+            //alert("deviceready");
+			var DEFAULT_SIZE = 5000000; // max to avoid popup in safari/ios
+            var db = xsfSqlite.open("test.db", "1.0", "Demo", DEFAULT_SIZE);
+            alert("db:" + db);
+            db.transaction(function(tx) {
+                alert("tx",tx);
+                tx.executeSql('DROP TABLE IF EXISTS test_table');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
+                tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100],
+                              function(tx, result) {
+                              alert("insertId: " + result.insertId + "rowsAffected: " + result.rowsAffected);
+                              }
+                              );
+                           },function(e){
+                                alert(e.message);
+                           });
+            db.transaction(function(tx) {
+                           tx.executeSql("SELECT count(id) as cnt from test_table;", [], function(tx, result) {
+                                         alert("res.rows.length: " + result.rows.length + ",res.rows.item(0).cnt: " + result.rows.item(0).cnt);
+                                         });
+                           tx.executeSql("SELECT data_num from test_table;", [], function(tx, result) {
+                                         alert("res.rows.length: " + result.rows.length + ",res.rows.item(0).data_num: " + result.rows.item(0).data_num)
+                                         });
+                           tx.executeSql("UPDATE test_table SET data_num = ? WHERE data_num = 100", [101], function(tx, result) {
+                                         alert("UPDATE rowsAffected: " + result.rowsAffected);
+                                         });
+
+                           tx.executeSql("SELECT data_num from test_table;", [], function(tx, result) {
+                                         alert("res.rows.length: " + result.rows.length + ",res.rows.item(0).data_num: " + result.rows.item(0).data_num)
+                                         });
+
+                           tx.executeSql("DELETE FROM test_table WHERE data LIKE 'tes%'", [], function(tx, result) {
+                                         alert("DELETE rowsAffected: " + result.rowsAffected);
+                                         });
+
+                           tx.executeSql("SELECT data_num from test_table;", [], function(tx, result) {
+                                         alert("length:" + result.rows.length);
+                                         });
+
+                           },function(e){
+                                alert(e.message);
+                           });
+        }
+
+	   document.addEventListener("deviceready", onDeviceReady, false);
+       //onDeviceReady();
+       function goHome()
+       {
+           window.location.href = "index.html";
+       }
+    </script>
+  </head>
+  <body>
+    <p id="deviceProperties">sqlite</p>
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

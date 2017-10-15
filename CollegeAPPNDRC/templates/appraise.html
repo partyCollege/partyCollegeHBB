@@ -1,0 +1,24 @@
+﻿<ion-view style="{{marTop}}" title="评价信息">
+    <go-main-page></go-main-page>
+	<ion-content class="has-footer has-tabs">
+        <div class="has-header selectAppraise">
+            <span class="selectType">请选择评价类型：</span>
+            <span>未评</span>
+            <label class="toggle toggle-balanced">
+                <input type="checkbox" ng-model="query" ng-change="CheckToggle()">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+            <span>已评</span>
+        </div>
+		<div>
+			<div ng-repeat="item in list" ng-click="openModal(item,crrentTab)" class="item item-text-wrap item-icon-right appraiseList">
+				<h2 ng-if="column.istitle&&column.columntype!='hidden'" ng-repeat="column in item.rowListColumnData">{{column|columnDisplayFilter}}</h2>
+				<span ng-if="!column.istitle&&!column.needPlay&&column.columntype!='column'&&column.columntype!='hidden'"
+				   ng-repeat="column in item.rowListColumnData">{{column|columnDisplayFilter}}</span>
+				<i ng-if="!item.noclick" class="icon ion-chevron-right balanced"></i>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Capture Photo</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+
+    var pictureSource;
+    var destinationType;
+    document.addEventListener("deviceready",onDeviceReady,false);
+    function onDeviceReady() {
+        pictureSource=xsfCamera.PictureSourceType;
+        destinationType=xsfCamera.DestinationType;
+    }
+    function onPhotoDataSuccess(imageData) {
+      var smallImage = document.getElementById('smallImage');
+      smallImage.style.display = 'block';
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
+    function onPhotoURISuccess(imageURI) {
+      var largeImage = document.getElementById('largeImage');
+      largeImage.style.display = 'block';
+      largeImage.src = imageURI;
+    }
+    function capturePhoto() {
+      xsfCamera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+      destinationType: destinationType.DATA_URL });
+    }
+    function capturePhotoEdit() {
+      xsfCamera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+      destinationType: destinationType.DATA_URL });
+    }
+    function getPhoto(source) {
+      xsfCamera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+    function onFail(message) {
+      alert('失败: ' + message);
+    }
+    </script>
+  </head>
+  <body>
+      <br>
+      <br>
+      <br>
+      <div class = "btn bg_1" onclick = "capturePhoto();">拍照capturePhoto()</div>
+    <br/>
+    <div class = "btn bg_2" onclick = "getPhoto(pictureSource.PHOTOLIBRARY);">从图片库中获取getPhoto(pictureSource.PHOTOLIBRARY)</div>
+    <br/>
+    <br/>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" /><br/>
+    <div class="btn bg_1" onclick = "goHome();">返回</div>
+    <script type = "text/javascript">
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+    
+    </script>
+  </body>
+</html>

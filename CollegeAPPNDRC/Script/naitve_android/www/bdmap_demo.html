@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>xsfBDMap-demo</title>
+  <script type="text/javascript" charset="utf-8" src="file:///android_asset/www/native.js"></script>
+  <link rel="stylesheet" href="style_box_demo.css" type="text/css" />
+  <script type="text/javascript" charset="utf-8" src="file:///android_asset/www/jquery-1.8.3.min.js"></script>
+  <style>
+  	.btn_container{
+  		max-height:100px;
+		overflow:scroll;
+	}
+	/*.btn{
+		display:inline-block;
+	}*/
+  </style>
+<script type="text/javascript">
+  	document.addEventListener("deviceready",onDeviceReady,false);
+
+	 function onDeviceReady(){
+			/*xsfHttp.get("http://192.168.1.124:8080/box/inspection_points.json","{\"id\":1}",
+	                    function (result) {
+							xsfBDMap.loadMultiRoutePlan(result);
+							alert(result);
+	                    },
+	                    function (error) {
+							alert("open failed: " + error);
+	                    }
+				); */
+		
+	 }
+	 
+	 function loadMultilMap(){
+			$.ajax({
+				type : 'GET',
+				url : "http://192.168.1.124:8080/box/inspection_points.json",
+				data : "",
+				dataType: "text",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success : function (data, status) {
+					//var jsonData = eval(data);
+					//var jsonArray = data.rows;
+					xsfBDMap.loadMultiRoutePlan(data , onSuccess,onError);
+					alert(result);
+			    },
+			    error: function(data , status){
+			    	alert("操作失败:" + data);
+			    }
+			});
+	}
+	
+	function setPoint(){
+			$.ajax({
+				type : 'GET',
+				url : "http://192.168.1.124:8080/box/inspection_points.json",
+				data : "",
+				dataType: "text",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success : function (data, status) {
+					//var jsonData = eval(data);
+					//var jsonArray = data.rows;
+					xsfBDMap.setPoint(data , onSuccess, onError);  
+			    },
+			    error: function(data , status){
+			    	alert("操作失败:" + data);
+			    }
+			});
+	}
+	
+	function loadInspectionPoint(){
+			$.ajax({
+				type : 'GET',
+				url : "http://192.168.1.124:8080/box/inspection_points.json",
+				data : "",
+				dataType: "text",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success : function (data, status) {
+					//var jsonData = eval(data);
+					//var jsonArray = data.rows;
+					xsfBDMap.loadInspectionPoint(data , onSuccess, onError);  
+					
+			    },
+			    error: function(data , status){
+			    	alert("操作失败:" + data);
+			    }
+			});
+	}
+	
+	function routePlan(type, startLat, startLng, endLat, endLng){
+			xsfBDMap.routePlan(type, startLat, startLng, endLat, endLng, onSuccess, onError);  
+		}
+	
+	function getRoutePlan(type, startLat, startLng, endLat, endLng){
+			xsfBDMap.getRoutePlan(type, startLat, startLng, endLat, endLng, onSuccess, onError);  
+	}
+	//位置
+	function getCurrentPosition(){
+			xsfBDMap.getCurrentPosition(onSuccess, onError);    
+	}
+	function loadCurrentPosition(){
+			xsfBDMap.loadCurrentPosition(onSuccess, onError);  
+	}
+	
+	//根据坐标获取地址信息
+	function loadAddressByPosition(lat, lng){
+			xsfBDMap.loadAddressByPosition(lat, lng, onSuccess, onError);  
+	}
+	function getAddressByPosition(lat, lng){
+			xsfBDMap.getAddressByPosition(lat, lng, onSuccess, onError);    
+	}
+	
+	//根据地址信息获取坐标
+	function loadPositionByAddress(address){
+			xsfBDMap.loadPositionByAddress(address, onSuccess, onError);  
+	}
+	function getPositionByAddress(address){
+			xsfBDMap.getPositionByAddress(address, onSuccess, onError);   
+	}
+	
+	//同城市搜索
+	function getSearchPOI(){
+			xsfBDMap.getSearchPOI(onSuccess, onError);    
+	}
+	function searchPOI(){
+			xsfBDMap.searchPOI(onSuccess, onError);  
+	}
+	
+	//周边搜索
+	function aroundPOI(){
+			xsfBDMap.aroundPOI(onSuccess, onError);  
+	}
+	function getAroundPOI(){
+			xsfBDMap.getAroundPOI(onSuccess, onError);  
+	}
+	
+	//离线地图
+	function openOfflineMap(){
+			xsfBDMap.openOfflineMap(onSuccess, onError);  
+	}
+	
+	//地图设置
+	function openSetting(){
+			xsfBDMap.openSetting(onSuccess, onError);  
+	}
+	
+	//导航
+	function openNavigator() {
+		var data2 = {
+				"start" : {
+					"lat" : "31.283457",
+					"lng" : "121.521065"
+				},
+				"end" : {
+					"lat" : "31.201207",
+					"lng" : "121.326995"
+				},
+				"middle" : [ {
+					"lat" : "31.234313",
+					"lng" : "121.482366"
+				}, {
+					"lat" : "31.221653",
+					"lng" : "121.453548"
+				}, {
+					"lat" : "31.256805",
+					"lng" : "121.462415"
+				}, {
+					"lat" : "31.231365",
+					"lng" : "121.407798"
+				} ]
+			};
+		xsfBDMap.openNavigator(data2, onSuccess, onError);
+	}
+	
+	function setOptions(type,state) {
+		xsfBDMap.setOptions(type,state, onSuccess, onError);
+	}
+
+	function onSuccess(data) {
+		console.log("-------: " + data.message + " - " + data.data);
+	}
+
+	function onError(data) {
+		console.log("-------: " + data.message + " - " + data.data);
+	}
+</script>
+ </head>
+ <body>
+ <div class="btn_container">
+	  <div class="btn bg_1" onclick="loadCurrentPosition()">01.loadCurrentPosition()</div>
+	  <div class="btn bg_2" onclick="getCurrentPosition()">02.getCurrentPosition()</div>
+	  <div class="btn bg_3"	onclick="loadAddressByPosition(31.283598,121.521143)">03.loadAddressByPosition(lat,lng)</div>
+	  <div class="btn bg_4"	onclick="getAddressByPosition(31.283598,121.521143)">04.getAddressByPosition(lat,lng)</div>
+	  <div class="btn bg_5"	onclick="loadPositionByAddress('同叶大厦')">05.loadPositionByAddress()</div>
+	  <div class="btn bg_6"	onclick="getPositionByAddress('同叶大厦')">06.getPositionByAddress()</div>
+
+	  <div class="btn bg_1" onclick="setPoint()">07.setPoint()</div>
+	  <div class="btn bg_2" onclick="searchPOI()">08.searchPOI()</div>
+	  <div class="btn bg_3" onclick="getSearchPOI()">09.getSearchPOI()</div>
+	  <div class="btn bg_4" onclick="aroundPOI()">10.aroundPOI()</div>
+	  <div class="btn bg_5" onclick="getAroundPOI()">11.getAroundPOI()</div>
+	  <div class="btn bg_6" onclick="openSetting()">12.openSetting()</div>
+	  
+	  <div class="btn bg_1" onclick="openOfflineMap()">13.openOfflineMap()</div>
+	  <div class="btn bg_2" onclick="routePlan('driving',31.283598,121.521143, 31.299158, 121.508926)">14.routePlan()</div>
+	  <div class="btn bg_3" onclick="getRoutePlan('driving',31.283598,121.521143, 31.299158, 121.508926)">15.getRoutePlan()</div>
+	  <div class="btn bg_4" onclick="loadInspectionPoint()">16.loadInspectionPoint()</div>
+	  <div class="btn bg_5" onclick="openNavigator()">17.openNavigator()</div>
+	  <div class="btn bg_6" onclick="setOptions('scale',false)">18.setOptions()</div>
+  </div>
+ </body>
+</html>

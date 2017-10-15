@@ -1,0 +1,120 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+
+     .mycenter{
+        text-align:center;
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row form-horizontal">
+        <div class="col-md-9 form-group">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="col-sm-3 control-label">课程名称</label>
+                    <div class="col-sm-9 text-left">
+                        <input type="text" class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search.name" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-sm-4 control-label">授课人</label>
+                    <div class="col-sm-7 text-left">
+                        <input type="text" class="form-control" search-dbcolumn="teachersname" search-handle="like" search-dbtype="string" ng-model="search.teachersname" />
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="col-sm-3 control-label">授课时间</label>
+                    <div class="col-sm-4 text-left">
+                        <div app-date ng-model="search.beginteachtime" search-dbcolumn="teachtime" search-dbtype="int" search-handle="lt"></div>
+                    </div>
+                    <div class="col-sm-1 control-label">
+                        至
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <div app-date ng-model="search.endteachtime" search-dbcolumn="teachtime" search-dbtype="int" search-handle="gt"></div>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="courseware.mainStatusShow">
+                    <label class="col-sm-4 control-label">状态</label>
+                    <div class="col-sm-7 text-left">
+                        <select class="form-control" search-dbcolumn="mainstatus" search-handle="equal" search-dbtype="string" ng-model="search.mainstatus">
+                            <option value="0">未提交</option>
+                            <option value="1">待分配</option>
+                            <option value="2">待审核</option>
+                            <option value="3">待授权</option>
+                            <option value="4">待编辑</option>
+                            <option value="5">待完善</option>
+                            <option value="6">待分类</option>
+                            <option value="7">已入库</option>
+                            <option value="-2">已删除</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 text-right">
+			<button class="btn btn-danger" ng-click="goSearch()">检索</button>
+			<button class="btn btn-danger" ng-if="courseware.uploadShow" ui-sref="index.courseEdit({type:'{{type}}',id:''})">新增</button>
+			<button class="btn btn-danger" ng-if="courseware.uploadShow" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="commitCourseInfo()">提交</button>
+			<button class="btn btn-danger" ng-if="courseware.uploadShow" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="delete()">删除</button>
+			<button class="btn btn-danger" ng-if="courseware.distributionShow" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="OpenUserInfo()">分配</button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-pagination class="grid1" ui-grid-selection></div>
+    </div>
+
+</div>
+<script type="text/ng-template" id="examinePerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>审核小组</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div id="grid1" ui-grid="gridExamineOptions" ui-grid-selection style="height:300px;"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-info" ng-disabled="gridExamineApi.selection.getSelectedRows().length==0" ng-click="distributionCourseware()">保存</button>
+                            <button class="btn btn-default" ng-click="close()">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

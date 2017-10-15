@@ -1,0 +1,38 @@
+﻿<ion-view title="双百分">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-content delegate-handle="myScroll" class="has-footer">
+        <ion-list class="list" ng-repeat="rowStyle in dataStyle">
+            <div class="item sbf_hd">
+                <span> {{rowStyle.mdname}} </span>
+            </div>
+            <ion-item class="item-nomargin-nopadding sbf_bd_container">
+                <div class="sbf_bd" ng-repeat="dataRepeat in dataItem" ng-if="rowStyle.mdname==dataRepeat.mdname">
+                    <ion-item class="item-icon-left item-icon-right">
+                        <h2>
+                            <i class="icon ion-clipboard icon-left sbf_icon"></i>
+                            <span ng-bind="dataRepeat.itemname"></span>
+                            <span class="grey" ng-bind="dataRepeat.totalscore"></span>
+                        </h2>
+                    </ion-item>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list class="list" style="margin:0;padding:0;" ng-show="dataScoreDt.length>0">
+            <div class="item item-button-right agreement-title-red" style="text-align:center;">
+                <span>明细</span>
+            </div>
+            <ion-item class="item-nomargin-nopadding">
+                <div ng-repeat="dataRepeat in dataScoreDt">
+                    <ion-item class="item-icon-left item-icon-right">
+                        <h2>
+                            <i class="icon ion-document icon-left" style="font-size:25px;"></i>
+                            <span ng-bind="dataRepeat.jjf"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span ng-bind="dataRepeat.realscore"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="grey" ng-bind="dataRepeat.reason"></span>
+                        </h2>
+                    </ion-item>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

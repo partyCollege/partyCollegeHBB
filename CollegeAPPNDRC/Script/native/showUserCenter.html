@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+            <script type="text/javascript" charset="utf-8" src="external/jquery.js"></script>
+            <script type="text/javascript" charset="utf-8" src="native.js"></script>
+            <script type="text/javascript" charset="utf-8">
+                document.addEventListener("deviceready", onDeviceReady, false);
+                function onDeviceReady() {
+                    <!--                    alert('onDeviceReady');-->
+                }
+            function getDataAction(){
+                
+                var parameter = {"company" : "上海梦创","company_address" : "市北新区", "deptId" : "" ,"email" : "123@dreamsoft.com","family_address" : "上海市","userId" : "110","name" : "用户","fixed_telephone" : "11011011","phone" : "15911111111","sex" : "男","shortNumber" : "110110","icon" : "http://dingyue.nosdn.127.net/N6Bho0xmqM4QhSYuOR1kXhvOdeOD71zPgt7Qsz5j08uUD1475318714249.jpg","signature" : "我的签名，测试。","department" : "研发部"};
+                var jParameter = JSON.stringify(parameter);
+                showUserCenter(jParameter);
+            }
+            function showUserCenter(parameter)
+            {
+                xsfUserCenter.showUserCenter(parameter);
+            }
+            
+            function goHome()
+            {
+                window.location.href = "index.html";
+            }
+            </script>
+            </head>
+    <body>
+        <br/>
+        <br/>
+        
+        <div class = "btn bg_1" onclick = "getDataAction();">展示个人中心</div><br/>
+        <div class = "btn bg_4" onclick = "goHome();">返回</div><br/>
+    </body>
+</html>

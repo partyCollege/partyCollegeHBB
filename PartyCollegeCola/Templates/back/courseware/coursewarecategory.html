@@ -1,0 +1,175 @@
+﻿<style>
+    .grid1 {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row">
+        <div class="col-md-4" style="height:100%;">
+            <div class="b-a bg-light dk r r-2x" style="border:0px solid red; height:560px; overflow:auto;">
+                <span ng-if="doing_async">...loading...</span>
+                <abn-tree tree-data="my_data"
+                          tree-control="my_tree"
+                          on-select="my_tree_handler(branch)"
+                          expand-level="2"
+                          initial-selection="Granny Smith"
+                          icon-leaf="fa fa-file-o"
+                          icon-expand="fa fa-plus"
+                          icon-collapse="fa fa-minus">
+                </abn-tree>
+            </div>
+        </div>
+        <div class="col-md-8">
+            
+            <form method="get" name="categoryform" id="categoryform" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">新增分类</label>
+                    <div class="col-sm-10">
+                        <button class="btn btn-primary" ng-click="OpenNewForm();">
+                            新增
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">上级分类</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="fid" ng-model="categoryForm.fid" ng-disabled="parentDisabled">
+                            <option ng-selected="categoryForm.fid==opt.id"
+                                    ng-repeat="opt in parentCategory" value="{{opt.id}}">
+                                {{opt.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">分类名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="name" class="form-control"
+                               ng-disabled="nameDisabled"
+                               ng-model="categoryForm.name" message-id="name_message">
+                        <p id="name_message" class="error"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">排序</label>
+                    <div class="col-sm-10">
+						<input type="text" name="sortnum" class="form-control" ng-disabled="sortsDisabled"
+							   ng-model="categoryForm.sortnum" message-id="sortnum_message">
+                        <p id="sortnum_message" class="error"></p>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label">子分类名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="childname" class="form-control"
+                               validator="required"
+                               valid-method="watch"
+                               required-error-message="子分类名称不能为空"
+                               ng-disabled="childnameDisabled"
+                               ng-model="categoryForm.childname" message-id="childname_message">
+                        <p id="childname_message" class="error"></p>
+                    </div>
+                </div>-->
+                <div class="text-center">
+                    <!--<button class="btn btn-primary" ng-click="test();">
+                        test
+                    </button>-->
+                    <button class="btn btn-primary" ng-click="saveCurrentCourseCategory();"
+                            ng-disabled="saveCurrentButtonDisabled">
+                        保存
+                    </button>
+                    <button class="btn btn-primary" ng-click="deleteCourseCategory();"
+                            ng-disabled="deleteDisabled">
+                        删除
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/ng-template" id="confirm.html">
+        <div class="modal-header text-right">
+            <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+                <i class="fa fa-times tubiaoicon-17"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <h3>确定要删除该分类吗？</h3>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+            <button class="btn btn-warning" type="button" ng-click="isAccept=false;close()">取消</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="newcategory.html">
+        <div class="modal-header text-right">
+            <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+                <i class="fa fa-times tubiaoicon-17"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="row">
+                <div class="ibox float-e-margins">
+                    <div class="widget style1 badge-primary">
+                        <div class="row vertical-align">
+                            <div class="col-md-12 text-center">
+                                <h3>新增课程分类</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">上级分类</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="fid" ng-model="categoryForm.fid" ng-disabled="parentDisabled">
+                                        <option ng-selected="categoryForm.fid==opt.id"
+                                                ng-repeat="opt in parentCategory" value="{{opt.id}}">
+                                            {{opt.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">分类名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="childname" class="form-control"
+                                           validator="required"
+                                           valid-method="watch"
+                                           required-error-message="子分类名称不能为空"
+                                           ng-model="categoryForm.childname" message-id="childname_message">
+                                    <p id="childname_message" class="error"></p>
+                                </div>
+                            </div>
+                            <!--<div class="form-group">
+                                <label class="col-sm-2 control-label">分类名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" class="form-control"
+                                           ng-disabled="nameDisabled"
+                                           ng-model="categoryForm.name" message-id="name_message">
+                                    <p id="name_message" class="error"></p>
+                                </div>
+                            </div>-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="sortnum" class="form-control"
+                                           ng-model="categoryForm.sortnum" message-id="sortnum_message">
+                                    <p id="sortnum_message" class="error"></p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-primary" ng-click="saveCourseCategory();">
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>

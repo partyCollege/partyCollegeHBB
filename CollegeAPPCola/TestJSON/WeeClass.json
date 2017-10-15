@@ -1,0 +1,197 @@
+﻿[
+    {
+        "bcname": "班次1",
+        "infoid": 123,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 1234,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 12345,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 222,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 3333,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 44444,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 55555,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 12335,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 666666,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 777777,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 88888,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 99999,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    },
+    {
+        "bcname": "班次2",
+        "infoid": 12123335,
+        "dayclass": [
+            { "dayOfWeek": "星期一", "kcname": "班次课程1", "teacher": "老师1", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期一", "kcname": "班次课程2", "teacher": "老师2", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期二", "kcname": "班次课程3", "teacher": "老师21", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程4", "teacher": "老师22", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期三", "kcname": "班次课程5", "teacher": "老师23", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期四", "kcname": "班次课程6", "teacher": "老师24", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程7", "teacher": "老师25", "address": "教室101", "kssj": "09:00", "jssj": "19:00" },
+            { "dayOfWeek": "星期五", "kcname": "班次课程8", "teacher": "老师26", "address": "教室101", "kssj": "09:00", "jssj": "19:00" }
+
+        ]
+    }
+]

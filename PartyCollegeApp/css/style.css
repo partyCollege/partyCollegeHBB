@@ -1,0 +1,17 @@
+/*浅灰色背景，示例加到content上了*/
+.bg-gray{background: #f1f1f1;}
+
+/*顶部搜索条兼容修改*/
+.bar-header .item-input-wrapper input[type="search"]{background: transparent;}
+
+.red {
+    color:red;
+    font-weight:600;
+}
+.background_gray {
+    background-color:#ddd
+}
+.background_white {
+    background-color:#fff
+}
+

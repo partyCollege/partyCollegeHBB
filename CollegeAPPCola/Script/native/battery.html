@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>电池</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" charset="utf-8" src="native.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+<script type="text/javascript" charset="utf-8">
+	//debugger;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        //alert('onDeviceReady');
+        //wpk---修改，原来注册监听的位置不对，导致监听无法注册成功，以下三个事件应在“deviceready”监听注册成功后添加。
+        window.addEventListener("batterystatus", onBatteryStatus, false);
+        window.addEventListener("batterycritical", onBatteryCritical, false);
+        window.addEventListener("batterylow", onBatteryLow, false);
+    }
+
+function onBatteryStatus(status) {
+    //console.log("Level: " + status.level + " isPlugged: " + status.isPlugged);
+    alert("Level: " + status.level + " isPlugged: " + status.isPlugged);
+}
+
+function onBatteryCritical(status) {
+    alert("Battery Level Critical " + status.level + "%\nRecharge Soon!");
+}
+
+function onBatteryLow(status) {
+    alert("Battery Level Low " + status.level + "%");
+}
+    </script>
+
+  </head>
+  <body>
+<br><br>
+    <p>此事件为注册监听事件，当电池电量有1个百分点变化或者插拔插头会有弹窗告知电池电量。当电池电量低时触发低电量事件，弹窗告知。当充电量达到阈值时，触发监听事件，弹窗显示。</p>
+    <br><br>
+    <div class="btn bg_1" onclick = "goHome();">返回</div><br/><br/>
+    <script type = "text/javascript">
+    
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    
+    </script>
+  </body>
+</html>

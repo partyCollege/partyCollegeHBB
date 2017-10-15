@@ -1,0 +1,927 @@
+.header .top div.courseName
+,.header .top div.courseName div{
+	font-size: 16px;
+	line-height: 44px;
+	color: #fff;
+	text-align: center;
+}
+.courseFile{
+    background: #000;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+.courseFile .main{
+    position: relative;
+    text-align: center;
+}
+.courseFile .video-f{
+    width: 810px;
+    height: 455px;
+    float: right;
+}
+.courseFile .video-f.video_only{
+    /*width: 100%;
+    height: 880px;*/
+    float: none;
+    margin: 0px auto;
+    display: inline-block;
+}
+.courseFile .video-s{
+    width: 204px;
+    height: 115px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 8;
+}
+.courseFile .video-f.change{
+    width: 204px;
+    height: 115px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 8;
+}
+.courseFile .video-s.change{
+    width: 810px;
+    height: 455px;
+    position: static;
+    float: right;
+    margin: 0px;
+}
+.courseFile .exchange{
+    width: 205px;
+    height: 115px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 9;
+}
+.courseFile .chat_box{
+    float: right;
+    height: 455px;
+    width: 0px;
+    background: #262626;
+    position: relative;
+    border-top: 1px solid #000;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    overflow: hidden;
+    transition:width 0.5s;
+    -moz-transition:width 0.5s; /* Firefox 4 */
+    -webkit-transition:width 0.5s; /* Safari and Chrome */
+    -o-transition:width 0.5s; /* Opera */
+}
+.courseFile .chat_box.show{
+    width: 210px;
+}
+.courseFile .chat_box *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}
+.courseFile .chat_box #chartDiv{
+    padding: 8px 8px 0px 8px;
+    height: 454px;
+    overflow-y: auto;
+}
+.courseFile .chat_box #chartDiv li{
+    padding-bottom: 5px;
+    text-align: left;
+}
+.courseFile .chat_box #chartDiv strong{
+    display: block;
+    color: #a8a8a8;
+}
+.courseFile .chat_box #chartDiv .time{
+    display: none;
+}
+.courseFile .chat_box .srk_box{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: #626262;
+    height: 40px;
+    width: 100%;
+}
+.courseFile .chat_box .srk_box input{
+    background: none;
+    color: #c9c9c9;
+    font-size: 14px;
+    width: 140px;
+    height: 40px;
+    border: 0px;
+    padding-left: 35px;
+}
+.courseFile .chat_box .srk_box button{
+    width: 20%;
+    text-align: center;
+    border-color: #626262;
+    color: #c9c9c9;
+    background: none;
+    padding: 0px;
+    height: 40px;
+    width: 35px;
+}
+.courseFile .chat_box .srk_box button#emotion{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 18px;
+}
+.courseFile #mainVideo
+,.courseFile #smallVideo{
+    width: 100%;
+    height: 100%;
+}
+.videoCoures_box{
+	background: #fff;
+	padding: 16px;
+    min-height: 400px;
+}
+.videoCoures_box.book{
+    min-height: auto;
+    padding-top: 0px;
+}
+.videoCoures_box.book .col-md-4
+,.videoCoures_box.book .col-md-5{
+    padding: 5px 15px;
+}
+.videoCoures_box>.left{
+	width: 920px;
+}
+.videoCoures_box ul.title{
+	border-bottom: 1px solid #EBEBEB;
+    margin-bottom: 20px;
+}
+.videoCoures_box ul.title li{
+	font-size: 14px;
+	font-weight: bold;
+	float: left;
+	padding-bottom: 8px;
+	width: 60px;
+	text-align: center;
+	margin-left: 78px;
+
+}
+.videoCoures_box ul.title li.noMargin{
+	margin: 0px;
+}
+.videoCoures_box ul.title li.select{
+	color: #CE0E08;
+	border-bottom: 2px solid #CE0E08;
+}
+.videoCoures_box ul.title li.select{
+    color: #558b2f;
+    border-bottom: 2px solid #558b2f;
+}
+.videoCoures_box div.title{
+	background: #eaf4e3;
+	padding: 6px 14px;
+	margin: 0px 0px 16px;
+    line-height: 20px;
+}
+.videoCoures_box ul.title li a{
+    color: #626262;
+}
+/*课程详情*/
+.videoCoures_box .courseInfo{
+}
+.videoCoures_box .courseInfo hr{
+    border-color: #ebebeb;
+    background: #ebebeb;
+    margin-bottom: 20px;
+}
+.videoCoures_box.book .courseInfo{
+    padding-top: 0px;
+}
+.videoCoures_box .courseInfo .title p{
+	font-size: 14px;
+	font-weight: bold;
+    color: #558b2f;
+}
+.videoCoures_box .courseInfo .title p .time{
+	font-size: 14px;
+    color: #558b2f;
+}
+.videoCoures_box .courseInfo .title p .time i{
+    color: #558b2f;
+    margin-right: 3px;
+}
+.videoCoures_box .courseInfo h3{
+	font-size: 14px;
+	font-weight: bold;
+}
+.videoCoures_box .courseInfo .text{
+	padding: 10px 0px 20px;
+	line-height: 24px;
+	text-indent: 2em;
+}
+.videoCoures_box.book .courseInfo .text{
+    padding: 0px;
+}
+.videoCoures_box .courseInfo .text p{
+}
+/*问答*/
+.QA .title{
+    position: relative;
+}
+.QA .title span{
+    display: inline-block;
+    cursor: pointer;
+}
+.QA .title .left{
+    height: 23px;
+}
+.QA .title .left span
+,.xhg_box .title .left span{
+	font-size: 14px;
+	font-weight: bold;
+	padding-right: 20px;
+	color: #A8A8A8;
+}
+.QA .title .left span.select
+,.xhg_box .title .left span.select{
+	color: #626262;
+}
+.QA .title .right{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.QA .title .right span
+,.xhg_box .title .right span{
+	padding: 0px 12px;
+    height: 35px;
+    line-height: 35px;
+}
+.QA .title .right span.select
+,.xhg_box .title .right span.select{
+    background: #c9c9c9;
+}
+.QA .title .right span i
+,.xhg_box .title .right span i{
+    vertical-align: middle;
+    margin-right: 3px;
+}
+.question_one .content{
+	font-size: 14px;
+	font-weight: bold;
+	border-bottom: 1px solid #DEDEDE;
+	padding: 8px 0px 16px;
+    overflow: hidden;
+}
+.question_one .content .cz{
+	overflow:  auto;
+    margin: 0px 0px 0px 0px;
+}
+.question_one .content .cz span{
+	border-left: 0px solid #ccc;
+	float: left;
+	padding: 0px 7px;
+	font-size: 13px;
+	color: #626262;
+    cursor: pointer;
+}
+.question_one .red i{
+    color: #CE0E08 !important;
+}
+.question_one .content .cz span i
+,.answer_one .zan i
+,.answer_one .del i{
+    font-size: 16px;
+    vertical-align: middle;
+    margin-right: 3px;
+    color: #626262;
+}
+.question_one .content .cz span.noborder{
+	border: none;
+}
+.question_one .content p{
+	padding-top: 5px;
+}
+.question_one .content p span{
+	color: #a8a8a8;
+    margin-right: 10px;
+}
+.answer form{
+	padding: 8px 0px;
+}
+.answer form p{
+	padding-bottom: 8px;
+}
+.answer form textarea{
+	border: 1px solid #ff7200;
+	width: 738px;
+	resize: none;
+	padding: 5px;
+	height: 100px;
+	margin-bottom: 8px;
+}
+.videoCoures_box .answer form textarea{
+    width: 825px;
+}
+.answer form .btn{
+	background: #ff7200;
+	color: #fff;
+	font-size: 14px;
+	padding: 5px 20px;
+	float: right;
+}
+.answer_one{
+	position: relative;
+	padding: 8px 0px;
+	border-bottom: 1px solid #DEDEDE;
+}
+.answer_one p{
+	line-height: 24px;
+	padding-bottom: 5px;
+	width: 710px;
+}
+.videoCoures_box .answer_one p{
+    width: 880px;
+}
+.answer_one span{
+	display: block;
+	padding-bottom: 5px;
+	line-height: 24px;
+	padding-left: 39px;
+}
+.answer_one span.left{
+	padding-left: 0px;
+}
+.answer_one .time{
+	color: #A8A8A8;
+}
+.answer_one .zan{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+.answer_one .zan i{
+    vertical-align: bottom;
+}
+.answer_one .del{
+    cursor: pointer;
+}
+/*学后感*/
+.xhg_box input[type="text"]
+,.xhg_box textarea{
+	padding: 8px 5px;
+	border: 1px solid #DEDEDE;
+	width: 696px;
+	margin-bottom: 16px;
+}
+.videoCoures_box .xhg_box input[type="text"]
+,.videoCoures_box .xhg_box textarea{
+    width: 868px;
+}
+.xhg_box textarea{
+	resize: none;
+	vertical-align: top;
+	height: 200px;
+}
+.xhg_box h4{
+    font-size: 14px;
+    font-family: "微软雅黑";
+    padding-bottom: 8px;
+    text-align: center;
+}
+.xhg_box label{
+    margin-bottom: 3px;
+}
+.xhg_box .xhg_text{
+    text-align: left;
+    padding-bottom: 20px;
+}
+.xhg_box .xhg_text p{
+    font-family: initial;
+}
+.xhg_box .xhg_text img{
+    max-width: 100%;
+}
+.xhg_box p .left{
+	margin-left: 43px;
+}
+.xhg_box .btn{
+	padding: 5px 20px;
+	margin: 0px 10px;
+	font-size: 14px;
+	border-color: #A8A8A8;
+	color: #A8A8A8;
+	background: #fff;
+}
+.xhg_box button[type="submit"].btn{
+	background: #ff7200;
+	color: #fff;
+	border-color:#ff7200 ;
+}
+.xhg_list li {
+    border-bottom: 1px solid #DEDEDE;
+    padding: 18px 0px 50px;
+    position: relative
+}
+.xhg_list li h3{
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 8px;
+    width: 640px;
+    height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+.xhg_list li p{
+	text-align: left;
+	line-height: 24px;
+    height: 48px;
+    width: 660px;
+    overflow: hidden;
+}
+.xhg_list li p.auto{
+    height: auto;
+}
+.xhg_list li .cz{
+	float: right;
+}
+.xhg_list li .cz span{
+	display: block;
+	padding: 0px 0px 8px;
+	text-align: right;
+}
+.xhg_list li .cz span.time{
+	color: #C9C9C9;
+}
+.xhg_list li .more_xhg{
+    width: 738px;
+    height: 34px;
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    cursor: pointer;
+    background: url('../img/xhg_more.png') 0px 0px no-repeat;
+    text-align: center;
+    padding: 6px 0px 0px;
+}
+.xhg_list .btn_box{
+    text-align: center;
+    margin-top: 20px;
+}
+.examination{
+    padding-top: 20px;
+    position: relative;
+}
+.examination .pass
+,.examination .noPass{
+    display: none;
+    margin: 40px auto;
+    width: 380px;
+    height: 181px;
+}
+.examination .pass{
+    background: url('../img/pass.png') no-repeat;
+}
+.examination .noPass {
+    background: url('../img/onpass.png') no-repeat;
+}
+.examination ul li{
+    border-bottom: 1px solid #ededed;
+    padding: 15px;
+}
+.examination ul li span{
+    padding: 10px 18px 0px 3px;
+    display: inline-block;
+}
+.examination ul li span input{
+    margin-right: 5px;
+    vertical-align: top;
+}
+.examination .submit_box{
+    padding: 20px 0px;
+    text-align: center;
+}
+.examination .submit_box .btn{
+    padding: 6px 26px;
+    background: #ff7200;
+    color: #fff;
+    font-size: 16px;
+    display: inline-block;
+}
+.teacher_py{
+    border: 1px solid #ebebeb;
+    height: 40px;
+    padding: 8px;
+    text-indent: 2em;
+}
+.submit_box{
+    text-align: center;
+}
+.xhg_box p.red{
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+
+/*笔记列表*/
+.note_list li .img{
+    padding-top: 8px;
+}
+.note_list li .img img{
+    width: 200px;
+    height: 120px;
+}
+.note_list li{
+    border-bottom: 1px solid #ededed;
+    padding: 15px 0px;
+}
+.note_list li p{
+    width: 710px;
+}
+.videoCoures_box>.right{
+	width: 220px;
+}
+.videoCoures_box>.right .block{
+	border-left: 1px solid #ebebeb;
+	border-right: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+	padding: 16px;
+}
+.videoCoures_box>.right .block.top{
+	border-top: 1px solid #ebebeb;
+}
+.videoCoures_box>.right .block h2{
+	color: #558b2f;
+	border-bottom: 2px solid #558b2f;
+	font-size: 14px;
+	font-weight: bold;
+	padding-bottom: 5px;
+	margin-bottom: 8px;
+	float: left;
+}
+.videoCoures_box>.right .block .fen i.fen_num{
+	font-size: 50px;
+	font-family: "微软雅黑";
+	font-style: normal;
+    display: block;
+}
+.videoCoures_box>.right .block .fen .btn{
+	background: #ff7200;
+	color: #fff;
+	padding: 5px 15px;
+}
+.videoCoures_box>.right .block .fen b{
+	color: #A8A8A8;
+}
+.videoCoures_box .block .courseFen
+,.videoCoures_box .block .courseFen_wc{
+	width: 101px;
+	height: 16px;
+	background: url(../img/courseFen_bg1.png) no-repeat 0px 0px;
+}
+.videoCoures_box .block .courseFen_wc{
+	background: url(../img/courseFen_bg.png) no-repeat 0px 0px;
+}
+.videoCoures_box>.right .block table{
+	border-collapse: collapse;
+}
+.videoCoures_box>.right .block table td{
+	padding: 12px 10px 0px 0px;
+}
+.videoCoures_box>.right .block table td.noPadding{
+	padding: 12px 0px 0px 0px;
+}
+.videoCoures_box>.right .block ul li{
+	padding: 8px 0px;
+}
+.videoCoures_box > .right .block ul li a{
+    display: inline-block;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.popup_content .evaluateList li{
+    padding-bottom: 10px !important;
+}
+.popup_content .evaluateList li.submit{
+    padding-bottom: 0px;
+}
+.popup_content .evaluateList li.submit .btn{
+    padding: 5px 16px;
+}
+.popup_content .evaluateList li span{
+    padding: 5px 0px;
+}
+.popup_content .evaluateList li span.label{
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+    display: inline-block;
+    padding: 0px;
+    position: absolute;
+    top: 10px;
+    right: 200px;
+}
+.popup_content .evaluateList li i{
+    font-size: 24px;
+    padding: 0px 8px;
+    top: 8px;
+    color: #ce0e08;
+    cursor: pointer;
+}
+.popup_content .evaluateList li textarea {
+    height: 80px;
+    width: 400px;
+}
+/*学习任务*/
+.studyCommon .block.sj table td{
+	padding: 16px;
+	font-size: 14px;
+}
+.studyCommon .block.sj table td.c{
+	font-weight: bold;
+}
+.studyCommon .block.sj table td b{
+	font-size: 14px;
+	color: #CE0E08;
+	font-weight: bold;
+	font-family: "微软雅黑";
+	padding: 0px 5px;
+}
+.studyCommon .block.sj .fen{
+	float: right;
+	background: url(../img/xline.png) no-repeat 40px 0px;
+	width: 170px;
+	height: 170px;
+	margin-top: 53px;
+
+}
+.studyCommon .block.sj .fen .get span{
+	display: block;
+}
+.studyCommon .block.sj .fen .get b{
+	color: #CE0E08;
+	font-size: 60px;
+	font-family: "微软雅黑";
+	vertical-align: top;
+	padding-right: 5px;
+}
+.studyCommon .block.sj .fen .total{
+	text-align: right;
+}
+.studyCommon .block.sj .fen .total b{
+	font-size: 20px;
+	padding: 0px 3px;
+	font-family: "微软雅黑";
+	color: #CE0E08;
+}
+.studyCommon .block.jd ul{
+}
+.studyCommon .block.jd ul li{
+	float: left;
+    margin:16px 68px 16px 0px;
+    min-height: 187px;
+}
+.studyCommon .block.jd ul li.noMargin{
+    margin: 16px 0px 0px 0px !important;
+    float: right;
+}
+.studyCommon .block.jd .jdCircle_big{
+    width: 160px;
+    height: 160px;
+    background:none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+.studyCommon .block.jd .jdCircle_small{
+    width: 120px;
+    height: 120px;
+    background: none;
+    margin: 20px 20px;
+    position: relative;
+}
+.studyCommon .block.jd .jdCircle_small.green{
+    background: url('../img/green_jd.png') 0px 0px;
+}
+.studyCommon .block.jd .jdCircle_small.green .my
+,.studyCommon .block.jd .jdCircle_small.green .my b{
+    color: #85d157;
+}
+.studyCommon .block.jd .jdCircle_big .jdCircle_big_bg
+,.studyCommon .block.jd .jdCircle_small .jdCircle_small_bg{
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+.studyCommon .block.jd .jdCircle_big .jdCircle_big_bg{
+    background: url('../img/gray_jd_bg.png') 0px 0px;
+}
+.studyCommon .block.jd .jdCircle_small .jdCircle_small_bg{
+    background: url('../img/red_jd_bg.png') 0px 0px;
+}
+.studyCommon .block.jd ul li span{
+	display: block;
+	text-align: center;
+	margin-top: 8px;
+}
+.studyCommon .block.jd ul li span b{
+    font-weight: bold;
+}
+.studyCommon .block.jd ul li span.mean{
+    padding-top: 36px;
+}
+.studyCommon .block.jd ul li span.my
+,.studyCommon .block.jd ul li span.my b{
+    color: #CE0E08;
+}
+.studyCommon .block.jd ul li .yt{
+	color: #626262;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: "微软雅黑";
+	margin: 0px 0px 40px;
+}
+.studyCommon .block.jd ul li .yt b{
+    font-size: 16px;
+	font-weight: bold;
+	font-family: "微软雅黑";
+    color: #CE0E08;
+    margin-right: 2px;
+}
+.studyCommon .block.jd ul li .btn{
+	padding: 8px 16px;
+}
+.studyCommon .block.jd ul li .btn.noBorder{
+    border: 0px;
+}
+.studyCommon .block.jd ul li .btn.grey{
+    border-color: #A8A8A8;
+    color: #A8A8A8;
+}
+.studyCommon .block.fx p{
+	padding: 8px 0px;
+}
+#container{
+    min-width: 350px;
+    max-width: 500px;
+    height: 250px;
+    float: left;
+    margin: 0px auto;
+    padding-top: 10px;
+}
+#container_ico{
+    min-width: 350px;
+    max-width: 500px;
+    height: 250px;
+    position: absolute;
+}
+#stuNumcontainer{
+    width: 100%;
+    height: 840px;
+    float: left;
+}
+.studyCommon .block.fx .right ul{
+    margin-top: 10px;
+}
+.studyCommon .block.fx .right li{
+    padding: 7px 0px 0px;
+}
+.studyCommon .block.fx i{
+    width: 35px;
+    height: 35px;
+    position: relative;
+    border: 1px solid #A8A8A8;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+#container_ico i{
+    border: 0px;
+    float: left;
+}
+#container_ico i.hy{
+    
+    margin: 167px 0px 0px -2px;
+}
+#container_ico i.wc{
+    margin: 167px 0px 0px 38px;
+}
+#container_ico i.xx{
+    margin: 64px 0px 0px 0px;
+}
+#container_ico i.gx{
+    margin: 64px 0px 0px 52px;
+}
+#container_ico i.cy{
+    margin: 0px 0px 0px 35px;
+}
+.studyCommon .block.fx i.hy{
+    background: url('../img/study_ico.png') 5px 1px no-repeat;
+}
+.studyCommon .block.fx i.wc{
+    background: url('../img/study_ico.png') 5px -41px  no-repeat;
+
+}
+.studyCommon .block.fx i.xx{
+    background: url('../img/study_ico.png') 5px -84px no-repeat;
+
+}
+.studyCommon .block.fx  i.gx{
+    background: url('../img/study_ico.png') 4px -126px no-repeat;
+
+}
+.studyCommon .block.fx i.cy{
+    background: url('../img/study_ico.png') 5px -173px no-repeat;
+
+}
+/*个人中心 我的提问*/
+.timeShaft .search_box{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.timeShaft .search_box input[type="text"]{
+	padding: 5px;
+	width: 300px;
+	border: 1px solid #DEDEDE;
+}
+.timeShaft .search_box button[type="submit"]{
+	background: #CE0E08;
+	color: #fff;
+	padding: 4px 12px;
+	border: 1px solid #CE0E08;
+}
+.question_one.myProblem .content{
+	padding: 16px 0px;
+}
+.question_one.myProblem .content p span{
+	float: right;
+	margin: 0px 0px 0px 24px;
+}
+.myProblem .answer_one p{
+	width: 807px;
+}
+/*个人中心 我的订单*/
+.order table{
+	width: 100%;
+}
+.order table th{
+	padding: 12px 8px;
+	background: #F2F2F2;
+}
+.order table td{
+	padding: 15px 8px;
+	border-bottom: 1px solid #DEDEDE;
+	text-align: center;
+}
+.order table td:nth-child(1)
+,.order table td:nth-child(2){
+	text-align: left;
+}
+.order table td.textLeft{
+	text-align: left;
+}
+.order table td span{
+	display: block;
+	margin-bottom: 5px;
+}
+.order table td span.red{
+	color: #CE0E08;
+
+}
+.order table td span a.btn{
+	background: #f2f2f2;
+	border: 1px solid #A8A8A8;
+	padding: 2px 4px;
+	border-radius: 2px;
+    position: relative;
+    z-index: 10;
+	color: #000;
+}
+/*个人中心 历史记录*/
+.timeShaft_list.history li table{
+	width: 100%;
+}
+.timeShaft_list.history li td{
+	padding: 16px 8px 0px 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

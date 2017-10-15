@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D0152E1-5198-4449-A632-210C69DFDB94}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PartyCollegeUtil</RootNamespace>
+    <AssemblyName>PartyCollegeUtil</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Slides, Version=14.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Aspose.Slides.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Words, Version=13.3.0.1, Culture=neutral, PublicKeyToken=c7423cb9b6e073f7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Aspose.Words.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zlib, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Ionic.Zlib.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="QRCoder, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PartyCollege\PartyCollege\bin\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PartyCollege\PartyCollege\bin\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\DataConfig.cs" />
+    <Compile Include="Config\DBConfig.cs" />
+    <Compile Include="Config\SessionObj.cs" />
+    <Compile Include="DB_ORM\DBClass.cs" />
+    <Compile Include="DB_ORM\DBHelp.cs" />
+    <Compile Include="DB_ORM\myAttribute.cs" />
+    <Compile Include="DB_ORM\otherColumn.cs" />
+    <Compile Include="DB_ORM\SQLmember.cs" />
+    <Compile Include="DB_ORM\SQLQuery.cs" />
+    <Compile Include="Model\Filter\CompressionHelper.cs" />
+    <Compile Include="Model\Filter\DeflateCompressionAttribute.cs" />
+    <Compile Include="Model\Filter\SessionFilterAttribute.cs" />
+    <Compile Include="Model\MakerApi\MakerApi.cs" />
+    <Compile Include="Model\OnlineUser.cs" />
+    <Compile Include="Model\outdoc\ExcelHelper.cs" />
+    <Compile Include="Model\outdoc\ExportDocHelper.cs" />
+    <Compile Include="Model\outdoc\ExportHelper.cs" />
+    <Compile Include="Service\back\newsService.cs" />
+    <Compile Include="Service\Class\classService.cs" />
+    <Compile Include="Service\CommonSql\CommonSqlService.cs" />
+    <Compile Include="Service\courseware\coursewareService.cs" />
+    <Compile Include="Service\courseware\videoPlayService.cs" />
+    <Compile Include="Service\Department\DepartmentService.cs" />
+    <Compile Include="Service\Exception\ExceptionService.cs" />
+    <Compile Include="Service\Export\ExportService.cs" />
+    <Compile Include="Service\Login\AccountService.cs" />
+    <Compile Include="Service\Login\LoginService.cs" />
+    <Compile Include="Model\AccountInfo.cs" />
+    <Compile Include="Model\AccountRole.cs" />
+    <Compile Include="Service\SmsCode\VerifyCodeService.cs" />
+    <Compile Include="Service\SmsCode\SmsService.cs" />
+    <Compile Include="Service\Total\TotalService.cs" />
+    <Compile Include="Service\uploadFile\uploadfileService.cs" />
+    <Compile Include="Tools\Brack.cs" />
+    <Compile Include="Model\Cache\CacheLog.cs" />
+    <Compile Include="Model\Cache\CacheSmsTemplet.cs" />
+    <Compile Include="Model\Cache\SySmsTemplate.cs" />
+    <Compile Include="Model\Cache\SystemConfig.cs" />
+    <Compile Include="Model\CommonSQL.cs" />
+    <Compile Include="Model\PermissionInfo.cs" />
+    <Compile Include="Model\RoleInfo.cs" />
+    <Compile Include="Model\RolePermission.cs" />
+    <Compile Include="Model\SyStudent.cs" />
+    <Compile Include="Model\SyUser.cs" />
+    <Compile Include="Model\ViewPermission.cs" />
+    <Compile Include="Model\YearPlan.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Login\PermissionService.cs" />
+    <Compile Include="Service\Student\StudentService.cs" />
+    <Compile Include="Service\SysCode\SyCodeService.cs" />
+    <Compile Include="Service\YearPlan\YearPlanService.cs" />
+    <Compile Include="Tools\DES.cs" />
+    <Compile Include="Tools\discuz\api_uc_php.cs" />
+    <Compile Include="Tools\discuz\client_php.cs" />
+    <Compile Include="Tools\discuz\Func.cs" />
+    <Compile Include="Tools\discuz\lib\XmlFunc.cs" />
+    <Compile Include="Tools\discuz\RetrunClass.cs" />
+    <Compile Include="Tools\Encrypt.cs" />
+    <Compile Include="Tools\ErrLog.cs" />
+    <Compile Include="Tools\getConfig.cs" />
+    <Compile Include="Tools\GetFilePathAndUpload.cs" />
+    <Compile Include="Tools\HttpRequestHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tools\MyStopWatch.cs" />
+    <Compile Include="Tools\Thumbnail.cs" />
+    <Compile Include="Tools\UpperConvert.cs" />
+    <Compile Include="Tools\UtilDataTableToList.cs" />
+    <Compile Include="Tools\UtilHttpRequest.cs" />
+    <Compile Include="Tools\UtilTools.cs" />
+    <Compile Include="Tools\ValidateCodeType.cs" />
+    <Compile Include="Tools\ValidateCode_Style10.cs" />
+    <Compile Include="Tools\XmlSerializerData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Aspose.Slides.dll" />
+    <Content Include="bin\Aspose.Words.dll" />
+    <Content Include="bin\Ionic.Zlib.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\NPOI.dll" />
+    <Content Include="bin\QRCoder.dll" />
+    <Content Include="bin\SmsLib.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

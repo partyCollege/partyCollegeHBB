@@ -1,0 +1,51 @@
+﻿<ion-view title="评价">
+    <go-main-page></go-main-page>
+    <ion-content class="padding-top bg-gray" ng-controller="zjloginController">
+        <div class="list">
+            <label class="item item-input item-text-wrap">
+                <span class="input-label">课程名称</span>
+                <p>{{kcwh.bt}}</p>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">上课时间</span>
+                <p>{{kcwh.kssj|date:'yyyy-MM-dd HH:mm'}}<br />{{kcwh.jssj|date:'yyyy-MM-dd HH:mm'}}</p>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">上课老师</span>
+                <p>{{kcwh.zjr}}</p>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">上课地点</span>
+                <p>{{kcwh.kcdd}}</p>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">评价内容</span>
+                <p>总分：</p><span class="pull-right">{{totalScore}}</span>
+            </label>
+            <!--<label class="item item-input item-text-wrap">
+                <p style="color:red;">权重说明：政治方向评分范围1-25、框架结构评分范围1-15、专业深度评分范围1-45、联系实际评分范围1-15 </p>
+            </label>-->
+            <label class="item item-input">
+                <span class="input-label">评价维度</span>
+                <p>专家评分</p>
+            </label>
+            <label class="item item-input" ng-repeat="pj in pjFormList">
+                <!--<span class="input-label">{{pj.title}}</span>
+                <input type="text" class="form-control" ng-model="pj.val" ng-change="changeRow();"> -->
+                <div ng-if="pj.inputtype=='text'">
+                    <span class="input-label">{{pj.title}}</span>
+                    <div class="item range range-positive">
+                        {{pj.minval}}<input type="range" ng-model="pj.val" ng-change="changeRow();" name="volume" min="{{pj.minval}}" max="{{pj.maxval}}" value="">{{pj.maxval}}分值：{{pj.val}}
+                    </div>
+                </div>
+                <div ng-if="pj.inputtype=='textarea'">
+                    <span class="item-text-wrap">{{pj.title}}</span>
+                    <textarea ng-model="pj.valtext" cols="25" rows="12" style="width:96%; border:1px solid #d5d5d5;"></textarea>
+                </div>
+            </label>
+            <button class="button button-full button-balanced" ng-click="saveData();">
+                提 交
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

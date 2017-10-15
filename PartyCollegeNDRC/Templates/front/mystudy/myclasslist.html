@@ -1,0 +1,25 @@
+﻿<div class="clearfix"></div>
+<div class="hbbStudentRight">
+    <h2 class="common many"><b ng-class="{'select':config.type== 0}" ng-click="selecttype(0)">我的班级({{classStatistics.classcount}})</b>
+    <b ng-class="{'select':config.type== 1}" ng-click="selecttype(1)">历史班级({{classStatistics.historyclasscount}})</b></h2>
+    <ul class="list list-unstyled myStudy_myClassList">
+        <li ng-repeat="item in myClasslist[config.type]">
+            <a ng-click="goClass(item.id)" class="pull-right btn">进入班级</a>
+            <h3>{{item.name}}</h3>
+            <p>
+                <span>{{item.starttime | date :'yyyy.MM.dd'}}到{{item.endtime | date :'yyyy.MM.dd'}}</span>
+                <span>班级人数：{{item.studentnum}}</span>
+                <span>总学时：<em class="orange">{{item.stustudytime}}</em>/{{item.clstudytime}}</span>
+                <span>{{item.categoryone}}</span>
+                <span>{{item.categorytwo}}</span>
+                <span>{{item.categorythree}}</span>
+                <span>{{item.categoryfour}}</span>
+            </p>
+        </li>
+    </ul>
+    <div class="more" ng-if="config.moreShow[config.type]">
+        <span class="btn" ng-click="more()">显示更多</span>
+        <i class="icon icon_more"></i>
+    </div>
+    <div class="clear"></div>
+</div>

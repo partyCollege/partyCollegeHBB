@@ -1,0 +1,74 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+
+    .mycenter{
+        text-align:center;
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row form-horizontal">
+        <div class="col-md-8 form-group">
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">教师姓名</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search.name" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">性别</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" ng-model="search.sex" search-dbcolumn="sex" search-handle="equal">
+                            <option value=""></option>
+                            <option value="0">女</option>
+                            <option value="1">男</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">专业方向</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" search-dbcolumn="subject" search-handle="like" search-dbtype="string" ng-model="search.zy" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">最高学历</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" select-source code="学历" ng-model="search.education" search-dbcolumn="education" search-handle="equal"></select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4 text-right">
+			<button class="btn btn-info" ng-click="goSearch()">检索</button>
+			<button class="btn btn-info" ui-sref="index.teacherEdit">新增</button>
+			<button class="btn btn-danger" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="delete()">删除</button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection class="grid1"></div>
+    </div>
+</div>

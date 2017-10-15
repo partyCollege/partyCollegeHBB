@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+ <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+        alert('onDeviceReady');
+    }
+
+    function start(){
+      alert("start");
+      xsfRecord.start("record.acc");
+      //
+    }
+    function pause(){
+      alert("pause");
+      xsfRecord.pause();
+      //
+    }
+    function resume(){
+      alert("resume");
+      xsfRecord.stop();
+      //
+    }
+    function stop(){
+      alert("stop");
+      xsfRecord.stop();
+      //
+    }
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+    </script>
+  </head>
+  <body>
+      <a href="#" onclick="start()">start</a><br />
+      <a href="#" onclick="pause()">pause</a><br />
+      <a href="#" onclick="resume()">resume</a><br />
+      <a href="#" onclick="stop()">stop</a><br />
+      <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+ <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+
+    //
+    var ref;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+        //alert('onDeviceReady');
+        
+    }
+        var ref;
+        function openURL(url){
+            //alert(url);toolbar=no
+            var target = "_blank";
+             var options = "titleBar=yes,title=部门邮件，enableviewportscale=yes";
+        
+            ref = window.open(url, target, options);
+            //ref = xsfWindow.open(url,"title");
+            ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
+            ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
+            ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
+<!--            ref.addEventListener('exit', function(event) { alert(event.type); });-->
+<!--            -->
+<!--            setTimeout(function() {-->
+<!--                       ref.close();-->
+<!--                       }, 5000);-->
+        }
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "openURL('mqqapi://');">openAPP（比如打开QQ）</div><br/>
+      <div class = "btn bg_2" onclick = "openURL('http://113.106.111.50:8088/IPadsfb/formbuilder/downloadfile_yd.aspx?mid=984361&info_id=947725');">（打开网页）</div><br/>
+      <div class = "btn bg_3" onclick = "openURL('http://www.baidu.com');">openBaidu（打开普通网页比如百度）</div><br/>
+      <div class = "btn bg_1" onclick= "goHome();">返回</div><br/>
+  </body>
+</html>

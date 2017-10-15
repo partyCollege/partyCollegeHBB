@@ -1,0 +1,229 @@
+﻿<style>
+    #textRight {
+        float: right;
+        color: #558a2e;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .textCenter {
+        text-align: center;
+    }
+</style>
+<div class="right hbbStudentRight ">
+    <h2 class="common many">
+        <!--<b>总体情况统计</b><b class="select">在线选学</b><b>学习班</b><b>面授培训</b>-->
+        <b ng-repeat="n in tabs" ng-if="n.isshow" ng-class="{true:'select'}[n.selected]" ng-click="changetab(n)">{{n.title}}</b>
+        <!--<b ng-click="goarchives()" id="textRight">返回学习档案</b>-->
+        <!--<b ng-click="goCompute()" id="textRight">重新生成学习档案</b>-->
+    </h2>
+    <div ng-if="tabs[3].selected">
+        <div class="m-b-lg">
+            <span class="m-r font-size-14">
+                年度：
+                <select class="btn-default p-5" ng-model="searchfilter.year" ng-change="selectchanged(3)" ng-options="y for y in yearArr"></select><span class="m-r font-size-14">
+                    合计：{{searchfilter.totalscore}} 学时
+                </span>
+                <a class="btn bg-turtle" ng-click="gotrain()">申报</a>
+            </span>
+        </div>
+        <table class="table table-bordered font-size-14 another">
+            <tr>
+                <td class="text-center">培训名称</td>
+                <td class="text-center">一级分类</td>
+                <td class="text-center">二级分类</td>
+                <td class="text-center">三级分类</td>
+                <td class="text-center">四级分类</td>
+                <td class="text-center">拟报学时</td>
+                <td class="text-center">审核状态</td>
+                <td class="text-center">操作</td>
+            </tr>
+            <tr ng-repeat="n in datalist">
+                <td class="text-center"><a href="javascript:void(0)" ng-click="edittrain(n)">{{n.title}}</a></td>
+                <td class="text-center">{{n.categoryone}}</td>
+                <td class="text-center">{{n.categorytwo}}</td>
+                <td class="text-center">{{n.categorythree}}</td>
+                <td class="text-center">{{n.categoryfour}}</td>
+                <td class="text-center">{{n.studytime}}</td>
+                <td class="text-center">{{n.status | trainStatuFilters}}</td>
+                <td class="text-center">
+                    <a href="javascript:void(0)" ng-if="n.status==0" ng-click="submittrain(n,1)">提交</a>&nbsp;
+                    <a href="javascript:void(0)" ng-if="n.status==1" ng-click="submittrain(n,0)">取消</a>&nbsp;
+                    <a href="javascript:void(0)" ng-if="n.status==0 || n.status==1|| n.status==-1" ng-click="deletetrain(n)">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div ng-if="tabs[2].selected">
+        <div ng-if="!ClassAttr.isclassattr">
+            <div class="m-b-lg">
+                <span class="m-r font-size-14">
+                    年度：
+                    <select class="btn-default p-5" ng-model="searchfilter.year" ng-change="selectchanged(2)" ng-options="y for y in yearArr"></select>
+                </span>
+                <span class="m-r font-size-14">
+                    合计：{{searchfilter.totalscore}} 学时
+                </span>
+            </div>
+            <table class="table table-bordered font-size-14">
+                <tr>
+                    <th class="font-bold">学习班名称</th>
+                    <th class="font-bold text-center" style="width: 300px;">培训类型</th>
+                    <th class="font-bold text-center" style="width: 100px;">开始时间</th>
+                    <th class="font-bold text-center" style="width: 100px;">结束时间</th>
+                    <th class="font-bold text-center" style="width: 100px;">总计课程学时</th>
+                    <th class="font-bold text-center" style="width: 100px;">总计完成学时</th>
+                </tr>
+                <tr ng-repeat="n in datalist">
+                    <td><a href="javascript:void(0)" ng-click="goClassAttr(n)">{{n.classname}}</a></td>
+                    <td class="text-center">{{n.categoryone+"、"+n.categorytwo+"、"+n.categorythree+"、"+n.categoryfour}}</td>
+                    <td class="text-center">{{n.starttime}}</td>
+                    <td class="text-center">{{n.endtime}}</td>
+                    <td class="text-center">{{n.allstudytime}}</td>
+                    <td class="text-center">{{n.studytime}}</td>
+                </tr>
+            </table>
+        </div>
+        <div ng-if="ClassAttr.isclassattr">
+            <div class="m-b-lg">
+                <span class="m-r font-size-14">
+                    班级名称：{{ClassAttr.classname}}    &nbsp;&nbsp;&nbsp;&nbsp;合计：{{searchfilter.totalscore}}学时
+                </span>
+            </div>
+            <table class="table table-bordered font-size-14">
+                <tr>
+                    <th class="font-bold">课程名称</th>
+                    <!--<th class="font-bold text-center" style="width: 100px;">选课时间</th>-->
+                    <th class="font-bold text-center" style="width: 100px;">完成时间</th>
+                    <th class="font-bold text-center" style="width: 100px;">课程学时</th>
+                    <th class="font-bold text-center" style="width: 100px;">完成学时</th>
+                </tr>
+                <tr ng-repeat="n in datalist">
+                    <td>{{n.coursewarename}}</td>
+                    <!--<td class="text-center">{{n.createtime}}</td>-->
+                    <td class="text-center">{{n.endtime}}</td>
+                    <td class="text-center">{{n.score}}</td>
+                    <td class="text-center">{{n.isfinished>0 ? n.score : "0"}}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <div ng-if="tabs[1].selected">
+        <div class="m-b-lg">
+            <span class="m-r font-size-14">
+                年度：
+                <select class="btn-default p-5" ng-model="searchfilter.year" ng-change="selectchanged(1)" ng-options="y for y in yearArr"></select>
+            </span>
+            <span class="m-r font-size-14">
+                合计：{{searchfilter.totalscore}} 学时
+            </span>
+        </div>
+        <table class="table table-bordered font-size-14">
+            <tr>
+                <th class="font-bold">课程名称</th>
+                <th class="font-bold text-center" style="width: 100px;">选课时间</th>
+                <th class="font-bold text-center" style="width: 100px;">完成时间</th>
+                <th class="font-bold text-center" style="width: 100px;">课程学时</th>
+                <th class="font-bold text-center" style="width: 100px;">完成学时</th>
+            </tr>
+            <tr ng-repeat="n in datalist">
+                <td>{{n.coursewarename}}</td>
+                <td class="text-center">{{n.createtime}}</td>
+                <td class="text-center">{{n.endtime}}</td>
+                <td class="text-center">{{n.score}}</td>
+                <td class="text-center">{{n.isfinished>0 ? n.score : "0"}}</td>
+            </tr>
+        </table>
+    </div>
+    <div ng-if="tabs[0].selected">
+        <div class="m-b-lg">
+            <span class="m-r font-size-14">
+                年度：
+                <select class="btn-default p-5" ng-model="searchfilter.year" ng-change="selectchanged(0)" ng-options="y for y in yearArr"></select>
+            </span>
+        </div>
+        <div class="stu-file studyFile_box">
+            <div class="section" ng-repeat="n in datalist">
+                <div class="tit"><a href="" class="flod"><img ng-src="{{n.src}}" alt="open" ng-click="onExpand(n)" /></a><i class="year">{{n.year}}</i>总共完成 <b class="c01">{{n.total_studytime}}</b> 学时，学习课件累计 <b class="c01">{{n.total_time_cn}}</b> 个小时。</div>
+                <div class="text" ng-if="n.expand">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tabs">
+                        <tr>
+                            <th width="320" align="center" bgcolor="#f5f5f5" scope="col">&nbsp;</th>
+                            <th align="center" bgcolor="#f5f5f5" scope="col" class="textCenter">课程</th>
+                            <th align="center" bgcolor="#f5f5f5" scope="col" class="textCenter">共计</th>
+                            <th align="center" bgcolor="#f5f5f5" scope="col" class="textCenter">已完成</th>
+                            <th align="center" bgcolor="#f5f5f5" scope="col" class="textCenter">完成率</th>
+                        </tr>
+                        <tr>
+                            <th align="center" bgcolor="#f5f5f5" scope="row"><b class="f14 c01" ng-click="goTrain(0)">年度计划</b></th>
+                            <td align="center">学时</td>
+                            <!--<td align="center" ng-if="parseFloat(n.yearplan_total)">{{n.yearplan_total}} 学时</td>
+                            <td align="center" ng-if="parseFloat(n.yearplan_total)">{{n.yearplan_finished}} 学时</td>
+                            <td align="center" ng-if="!parseFloat(n.yearplan_total)" colspan="2">无</td>
+                            <td align="center"><b class="c02 f14">{{ parseFloat(n.yearplan_total) ? n.yearplan_progess : "-" }}</b></td>-->
+                            <td align="center" ng-if="n.yearplan_total>0">{{n.yearplan_total}}学时</td>
+                            <td align="center" ng-if="n.yearplan_total>0">{{n.yearplan_finished}}学时</td>
+                            <td align="center" ng-if="n.yearplan_total==0" colspan="2">无</td>
+                            <td align="center"><b class="c02 f14">{{ n.yearplan_total>0 ? n.yearplan_progess : "-" }}</b></td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2" align="center" bgcolor="#f5f5f5" class="f14 c01" scope="row"><b class="f14 c01">参加{{n.class_classcount}}个学习班</b></th>
+                            <td align="center">课程</td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(2,n.year)">{{n.class_courseallcount}}门</b></td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(2,n.year)">{{n.class_coursefinishedcount}}门</b></td>
+                            <td rowspan="2" align="center"><b class="c01 f14">{{n.class_progess}}</b></td>
+                        </tr>
+                        <tr>
+                            <td align="center">学时</td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(2,n.year)">{{n.class_allstudytime}}学时</b></td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(2,n.year)">{{n.class_finishedstudytime}}学时</b></td>
+                        </tr>
+                        <tr>
+                            <th align="center" bgcolor="#f5f5f5" class="f14 c01" scope="row"><b class="f14 c01">面授培训</b></th>
+                            <td align="center">学时</td>
+                            <td colspan="3" align="center"><b class="f14 c01" ng-click="goChange(3,n.year)">{{n.train_studytime}}学时</b></td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2" align="center" bgcolor="#f5f5f5" class="f14" scope="row"><b class="f14 c01">选修学时</b></th>
+                            <td align="center">课程</td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(1,n.year,0)">{{n.choose_courseallcount}}门</b></td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(1,n.year,1)">{{n.choose_coursefinishedcount}}门</b></td>
+                            <td rowspan="2" align="center"><b class="c01 f14">{{n.choose_progess }}</b></td>
+                        </tr>
+                        <tr>
+                            <td align="center">学时</td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(1,n.year,0)">{{n.choose_allstudytime}}学时</b></td>
+                            <td align="center"><b class="f14 c01" ng-click="goChange(1,n.year,1)">{{n.choose_finishedstutytime}}学时</b></td>
+                        </tr>
+                    </table>
+                    <dl>
+                        <dt>学习关键字</dt>
+                        <dd><a href="" title="" class="but01" ng-repeat="k in n.keywordsArr">{{k}}</a></dd>
+                    </dl>
+                    <dl>
+                        <dt>学习时间</dt>
+                        <dd><a href="" title="" class="but01">上午 {{n.time_morning}} </a> <a href="" title="" class="but01">下午 {{n.time_noon}}</a> <a href="" title="" class="but01">晚上 {{n.time_night}}</a> </dd>
+                    </dl>
+                    <dl>
+                        <dt>学习频度</dt>
+                        <dd>您共登录了 <b class="c01 ">{{n.time_logincount}}</b> 次，{{n.year}}年第一次登录是 <b class=" c01">{{n.time_firstlogintime}}</b> ，最后一次登录是 <b class=" c01">{{n.time_lastlogintime}}</b> 。</dd>
+                    </dl>
+                    <dl>
+                        <dt>评价与交流</dt>
+                        <dd>评价了 <b class="c01">{{n.appraise_appraisecount}}</b> 课程，提出了 <b class="c01">{{n.appraise_coursecount}}</b> 问题，共记录了 <b class="c01">{{n.appraise_notecount}}</b> 笔记。</dd>
+                    </dl>
+
+                </div>
+
+            </div>
+            <div class="section" ng-if="total.isshow">
+                <div class="tit"><i class="year">合计</i>总共完成 <b class="c01">{{total.totalstutytime}}</b> 学时，学习课件累计 <b class="c01">{{total.totaltimecn}}</b> 个小时。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right" ng-if="pIndex>0 && !ClassAttr.isclassattr">
+        <div pagination total-items="pagefilter.totalItems" items-per-page="pagefilter.pageSize" max-size="pagefilter.maxSize" ng-model="pagefilter.currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页"></div>
+    </div>
+</div>

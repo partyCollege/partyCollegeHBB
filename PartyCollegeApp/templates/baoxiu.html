@@ -1,0 +1,43 @@
+﻿<ion-view title="报修">
+    <go-main-page></go-main-page>
+    <ion-content class="has-header" overflow-scroll="true">
+        <div class="bx_container">
+            <div class="bx_list">
+                <div class="item bx_list_hd" ng-click="changeDisplay(1)">
+                    电话报修<i style="float:right;" id="i1" class="ion-arrow-up-b"></i>
+                </div>
+                <div class="padding" id="1" style="display: block;">
+                    <div class="bx_list_bd">
+                        <p>报修联系方式：</p>
+                        <p>内线：80220</p>
+                        <p>外线：2288-0220</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bx_list">
+                <div class="item bx_list_hd" ng-click="changeDisplay(2)">
+                    有线电视<i style="float:right;" id="i2" class="ion-arrow-up-b"></i>
+                </div>
+                <div class="padding" id="2" style="display: none;">
+                    <div class="bx_list_bd">
+                        <p>报修联系方式：</p>
+                        <p>内线：80221</p>
+                        <p>外线：2288-0221</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bx_list">
+                <div class="item bx_list_hd" ng-click="changeDisplay(3)">
+                    网络及应用<i style="float:right;" id="i3" class="ion-arrow-up-b"></i>
+                </div>
+                <div class="padding" id="3" style="display:none;">
+                    <div class="bx_list_bd">
+                        <p>报修联系方式：</p>
+                        <p>内线：80222</p>
+                        <p>外线：2288-0222</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

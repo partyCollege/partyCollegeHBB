@@ -1,0 +1,95 @@
+﻿<ion-view  title="课程">
+    <div class="hbb-course-header-container">
+        <div class="hbb-course-header-user">
+            <img class="hbb-course-header-usericon" ng-src="{{getUserImageUrl(userInfoObject.icon)}}"  err-src="../img/default_img.png"/>
+            <span class="hbb-course-header-username">{{userInfoObject.name}}</span>
+        </div>
+        <div class="hbb-course-header-detail-bg"></div>
+        <div class="row hbb-course-header-detail">
+            <div class="col col-50 hbb-course-header-statistics b-r"><div class="hbb-course-header-hour">&nbsp;{{userInfoObject.planTime}}&nbsp;</div><div>本年度计划学时</div></div>
+            <div class="col col-50 hbb-course-header-statistics"><div class="hbb-course-header-hour">&nbsp;{{userInfoObject.finishTime}}&nbsp;</div><div>本年度已获学时</div></div>
+        </div>
+    </div>
+    <div class="hbb-course-content">
+        <ion-tabs class="tabs-positive tabs-striped tabs-top hbb-content-tab" delegate-handle="maincourse-tab-handle">
+            <ion-tab title="选修课" ng-click="onTabClick(0)" >
+                <ion-view class="hbb-content-tab-view" cache-view="false"  >
+                    <ion-content class="hbb-content-tab-view-content">
+                        <ion-refresher class="text-center" on-refresh="getOptionalCourseList('new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	                            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+                        </ion-refresher>
+                        <ion-list class="list selectCourst-list">
+                            <ion-item class="item item-thumbnail-left" ng-repeat="item in optionalCourseItems" ng-click="goCourseDetail(item)">
+                                <img ng-src="{{getImageUrl(item.imagephoto)}}" err-src="../img/course_img.jpg" />
+                                <h2>{{item.name}}</h2>
+                                <p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+                                <p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+                                <button class="button button-default" ng-click="cancelCourse(item , $event)">取消选课</button>
+                            </ion-item>
+                        </ion-list>
+                        <div ng-if="!optionalCourseMoreDataCanBeLoaded && optionalCourseItems.length <= 0" class="hbb-course-empty-selectcourse">
+                            <div class="hbb-course-empty-selectcourse-inner">
+                                <div class="hbb-course-empty-selectcourse-tip">您还未选课，请进入“选课”菜单进行选课</div>
+                                <div class="m-t">
+                                    <button class="button button-positive " ng-click="goSelectCourse()">点击跳转</button>
+                                </div>
+                            </div>
+                        </div>
+                        <ion-infinite-scroll ng-if="optionalCourseMoreDataCanBeLoaded" on-infinite="getOptionalCourseList('more')" distance="3%" icon="ion-loading-c">
+                        </ion-infinite-scroll>
+                    </ion-content>
+                </ion-view>
+            </ion-tab>
+
+            <ion-tab title="必修课"   ng-click="onTabClick(1)">
+                <ion-view class="hbb-content-tab-view" cache-view="false">
+                    <ion-content class="hbb-content-tab-view-content">
+                        <ion-refresher on-refresh="getRequiredCourseList('new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	                            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+                        </ion-refresher>
+                        <ion-list class="list selectCourst-list">
+                            <ion-item class="item item-thumbnail-left" ng-repeat="item in requiredCourseItems" ng-click="goCourseDetail(item)">
+                                <img ng-src="{{getImageUrl(item.imagephoto)}}"  err-src="../img/course_img.jpg" />
+                                <h2>{{item.name}}</h2>
+                                <p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+                                <p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+                                <!--<button class="button button-positive" ng-click="cancelCourse(item , $event)">取消选课</button>-->
+                            </ion-item>
+                        </ion-list>
+                        <div ng-if="!requiredCourseMoreDataCanBeLoaded && requiredCourseItems.length<=0" class="hbb-course-empty-placeholder">
+                            <i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+                            <div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+                        </div>
+                        <ion-infinite-scroll ng-if="requiredCourseMoreDataCanBeLoaded" on-infinite="getRequiredCourseList('more')" distance="3%" icon="ion-loading-c">
+                        </ion-infinite-scroll>
+                    </ion-content>
+                </ion-view>
+            </ion-tab>
+            <ion-tab title="已完成"   ng-click="onTabClick(2)">
+                <ion-view class="hbb-content-tab-view" cache-view="false">
+                    <ion-content class="hbb-content-tab-view-content">
+                        <ion-refresher on-refresh="getFinishedCourseList('new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	                            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+                        </ion-refresher>
+                        <ion-list class="list selectCourst-list">
+                            <ion-item class="item item-thumbnail-left" ng-repeat="item in finishedCourseItems" ng-click="goCourseDetail(item)">
+                                <img ng-src="{{getImageUrl(item.imagephoto)}}"  err-src="../img/course_img.jpg" />
+                                <h2 >{{item.name}}</h2>
+                                <p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+                                <p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+                                <button class="button button-positive disabled">已完成</button>
+                            </ion-item>
+                        </ion-list>
+                        <div ng-if="!finishedCourseMoreDataCanBeLoaded && finishedCourseItems.length<=0" class="hbb-course-empty-placeholder">
+                            <i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+                            <div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+                        </div>
+                        <ion-infinite-scroll ng-if="finishedCourseMoreDataCanBeLoaded" on-infinite="getFinishedCourseList('more')" distance="3%" icon="ion-loading-c">
+                        </ion-infinite-scroll>
+                    </ion-content>
+                </ion-view>
+            </ion-tab>
+        </ion-tabs>
+    </div>
+
+</ion-view>

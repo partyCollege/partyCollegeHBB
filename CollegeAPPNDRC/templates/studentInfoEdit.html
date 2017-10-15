@@ -1,0 +1,40 @@
+﻿<ion-view title="个人信息">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios7-arrow-left" style="font-size:12px" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios7-unlocked-outline" style="font-size:12px" ng-click="showPopup()"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">编号</span>
+                <input type="text" readonly placeholder="John" ng-model="returnJson.onecard">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">姓名</span>
+                <input type="text" readonly placeholder="Suhr" ng-model="returnJson.uname">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">性别</span>
+                <input type="text" readonly placeholder="Suhr" ng-model="returnJson.xb">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">手机号</span>
+                <input type="text" readonly placeholder="Suhr" ng-model="returnJson.phone">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">班级</span>
+                <input type="text" readonly placeholder="Suhr" ng-model="returnJson.bcname">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">班主任</span>
+                <input type="text" readonly placeholder="Suhr" ng-model="returnJson.bzr">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">单位</span>
+                <input type="text" readonly placeholder="Suhr" ng-model="returnJson.szdw">
+            </label>
+        </div>
+    </ion-content>
+</ion-view>

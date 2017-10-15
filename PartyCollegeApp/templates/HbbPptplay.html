@@ -1,0 +1,12 @@
+﻿<ion-view title="{{title}}">
+    <div class="hbb_pptPlay_paging">
+        <div class="paging_box video">
+            <button class="btn" ng-click="gouppage();">上一页</button>
+            <button class="btn" ng-click="godownpage();" ng-if="!enableGoDownpage">下一页</button>
+            <button class="btn disable" ng-if="enableGoDownpage">{{goDownpageText}}</button>
+            当前第<span>{{pageindex}}</span>页   共<span>{{course.realduration}}</span>页
+        </div>
+    </div>
+	<!--http://222.204.170.113/FileDownload/file/pptCourseFile/80e4fecc-94e4-486c-aa20-957d2134a9a9/80e4fecc-94e4-486c-aa20-957d2134a9a9_001.jpg-->
+    <img class="hbb_pptPlay_img" src="{{pptimgfileobj.pptimgfilepath}}">
+</ion-view>

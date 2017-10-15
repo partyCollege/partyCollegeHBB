@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        //document.addEventListener("deviceready", onDeviceReady, false);
+        var cordovaRef = window.PhoneGap || window.Cordova || window.cordova;
+        function success (result) {
+            alert(result);
+        }
+        function fail (result) {
+            alert(result);
+        }
+		function onDeviceReady() {
+            alert('onDeviceReady');
+            /*window.echo("echome", function(echoValue) {
+                        alert(echoValue == "echome"); // should alert true.
+                        });
+          
+            */
+
+        }
+        var test = {
+            map: function(success, fail, str) {
+                cordova.exec(success, fail, "test", "map", [str]);
+            }
+            
+        };
+        function test1(str){
+            alert(str);
+            test.map(function(echoValue){
+                            alert(echoValue == "home");
+                            alert(echoValue);
+                         },
+                         function(err) {
+                            alert(err);
+                         },str);
+        }
+        function test2(){
+            alert("test2");
+            cordova.exec(success, fail, "Test", "abc", ['ok111']);
+        }
+    function test3(){
+        alert(str);
+        cordova.exec(success, fail, "HelloPlugin", "setFileContents", ['ok']);
+        //cordova.exec(success, fail, "HelloPlugin", "getFileContents", []);
+    }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+</head>
+<body>
+    <br/>
+    <br/>
+<p id="geolocation">test</p>
+<div class = "btn bg_1" onclick = "test2();">测试</div><br/>
+    
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+</body>
+</html>

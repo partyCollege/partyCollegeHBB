@@ -1,0 +1,182 @@
+﻿[
+	{
+		"id": "1",
+		"name": "资源库管理",
+		"parameter": "",
+		"icon": "",
+		"order": 1,
+		"submenus": [
+			{
+				"id": "11",
+				"name": "课程分类",
+				"state": "index.coursewarecategory",
+				"parameter": "",
+				"icon": "",
+				"permission": "课程分类",
+				"order": 1
+			},
+			{
+				"id": "11",
+				"name": "课程库",
+				"state": "index.courseware",
+				"parameter": "",
+				"icon": "",
+				"permission": "课程库",
+				"order": 1
+			},
+			{
+				"id": "13",
+				"name": "师资库",
+				"state": "index.teacherList",
+				"parameter": "",
+				"icon": "",
+				"permission": "师资库",
+				"order": 3
+			},
+			{
+				"id": "14",
+				"name": "推荐课程",
+				"state": "index.recommendcourse",
+				"parameter": "",
+				"icon": "",
+				"permission": "推荐课程",
+				"order": 3
+			},
+            {
+                "id": "15",
+                "name": "教材推荐",
+                "state": "index.booklist",
+                "parameter": "",
+                "icon": "",
+                "permission": "教材推荐",
+                "order": 4
+            },
+            {
+                "id": "17",
+                "name": "常用下载",
+                "state": "index.download",
+                "parameter": "",
+                "permission": "常用下载",
+                "icon": "",
+                "order": 6
+            }
+		]
+	},
+    {
+        "id": "2",
+        "name": "栏目管理",
+        "parameter": "",
+        "icon": "",
+        "order": 2,
+        "submenus": [
+            {
+                "id": "21",
+                "name": "新闻与通知公告",
+                "state": "index.news",
+                "group": "栏目管理",
+                "parameter": "",
+                "icon": "",
+                "permission": "新闻与通知公告",
+                "order": 1
+            }
+        ]
+    },
+    {
+			"id": "3",
+			"name": "教学管理",
+			"parameter": "",
+			"icon": "",
+			"order": 3,
+			"submenus": [
+				{
+					"id": "41",
+					"name": "班级管理",
+					"state": "index.classlist",
+					"group": "教学管理",
+					"parameter": "",
+					"icon": "",
+					"permission": "班级管理",
+					"order": 1
+				},
+				{
+					"id": "43",
+					"name": "问题管理",
+					"state": "index.question.noanswered",
+					"group": "教学管理",
+					"parameter": "",
+					"icon": "",
+					"permission": "问题管理",
+					"order": 3
+				},
+				{
+					"id": "44",
+					"name": "年度计划",
+					"state": "index.planlist",
+					"group": "教学管理",
+					"parameter": "",
+					"icon": "",
+					"permission": "年度计划",
+					"order": 4
+				},
+				{
+					"id": "45",
+					"name": "面授审核",
+					"state": "index.trainlist",
+					"group": "教学管理",
+					"parameter": "",
+					"icon": "",
+					"permission": "面授审核",
+					"order": 4
+				}
+			]
+		},
+    {
+			"id": "5",
+			"name": "平台管理",
+			"parameter": "",
+			"icon": "",
+			"order": 5,
+			"submenus": [
+				{
+					"id": "31",
+					"name": "学员管理",
+					"state": "index.account",
+					"group": "平台管理",
+					"parameter": "",
+					"icon": "",
+					"permission": "学员管理",
+					"order": 1
+				},
+				{
+					"id": "32",
+					"name": "角色维护",
+					"state": "index.role",
+					"group": "平台管理",
+					"parameter": "",
+					"icon": "",
+					"permission": "角色维护",
+					"order": 2
+				},
+				{
+					"id": "33",
+					"name": "权限维护",
+					"state": "index.permission",
+					"group": "平台管理",
+					"parameter": "",
+					"permission": "权限维护",
+					"icon": "",
+					"order": 3
+				},
+				{
+					"id": "34",
+					"name": "分级管理员",
+					"state": "index.manager",
+					"group": "平台管理",
+					"parameter": "",
+					"permission": "分级管理员",
+					"icon": "",
+					"order": 4
+				}
+			]
+		}
+]

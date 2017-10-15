@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> 日期控件 </title>
+	<link rel="stylesheet" href="style_box_demo.css" type="text/css" />  
+ 	<script type="text/javascript" charset="utf-8" src="native.js"></script>
+ 	<script type="text/javascript" charset="utf-8">
+		 document.addEventListener("deviceready", onDeviceReady, false);
+		    
+		 function onDeviceReady() {
+		   	xsfSplashscreen.hide();
+		 }
+		 function onSucceed(data){
+			document.getElementById('result').innerHTML = "<p>"+data+"</p>";
+		 }
+		 function onError(data){
+			document.getElementById('result').innerHTML = "<p>"+data+"</p>";
+		 }
+		 function defaultDate(){
+		 	xsfDateTimePicker.pick("","","","",onSucceed,onError);
+		 }
+		 function yearDate(){
+		 	xsfDateTimePicker.pick("Y","2015","2000","2050",onSucceed,onError);
+		 }
+		 function yearMonthDate(){
+		 	xsfDateTimePicker.pick("YM","2015-01-01","2000-08-02","2050-01-01",onSucceed,onError);
+		 }
+		 function dateDate(){
+			xsfDateTimePicker.pick("YMD","2015-01-01","2000-08-02","2050-01-01",onSucceed,onError);
+		 }
+		 function dateHour(){
+			xsfDateTimePicker.pick("YMDH","2015-01-01 13","2000-08-02 13","2050-01-01 13",onSucceed,onError);
+		 }
+		 function dateHourMin(){
+			xsfDateTimePicker.pick("YMDHM","2015-01-01 13:33","2010-08-02 13:33","2050-01-01 13:33",onSucceed,onError);
+		 }
+		 function dateTime(){
+			xsfDateTimePicker.pick("YMDHMS","2015-01-01 13:34:56","2000-08-02 13:34:56","2050-01-01 13:34:56",onSucceed,onError);
+		 }
+		 function dateParagraph(){
+			xsfDateTimePicker.pick("YMDP","2015-01-01 12","2000-08-02 13","2050-01-01 23",onSucceed,onError);
+		 }
+		 function timeDate(){
+			xsfDateTimePicker.pick("HMS","13:34:56","","",onSucceed,onError);
+		 }
+		 function hourMinDate(){
+			xsfDateTimePicker.pick("HM","13:34","","",onSucceed,onError);
+		 }
+		 function errorDate(){
+			xsfDateTimePicker.pick("","12345678900","12457","124578",onSucceed,onError);
+		 }
+	</script>  
+</head>
+<body >
+	<div class="center">xsfDataTimePicker.pick(datetimeType,startDate,endDate,defaultDate, onSucceed,onError);</div>
+	<div class="btn_container">
+		<div class="btn bg_1" onclick="defaultDate()">默认<br/>pick("","","","",onSucceed,onError)</div>
+		<div class="btn bg_2" onclick="yearDate()"> 年<br/>pick("Y","2015","2000","2050",onSucceed,onError)</div>
+		<div class="btn bg_3" onclick="yearMonthDate()">年月 <br/>pick("YM","2015-01-01","2000-08-02","2050-01-01",onSucceed,onError);</div>
+		<div class="btn bg_4" onclick="dateDate()">年月日 <br/>pick("YMD","2015-01-01","2000-08-02","2050-01-01",onSucceed,onError);</div>
+		<div class="btn bg_5" onclick="dateHour()">年月日时<br/>pick("YMDH","2015-01-01 13","2000-08-02 13","2050-01-01 13",onSucceed,onError);</div>
+		<div class="btn bg_6" onclick="dateHourMin()">年月日时分<br/>pick("YMDHM","2015-01-01 13:33","2010-08-02 13:33","2050-01-01 13:33",onSucceed,onError);</div>
+		<div class="btn bg_1" onclick="dateTime()">年月日时分秒<br/>pick("YMDHMS","2015-01-01 13:34:56","2000-08-02 13:34:56","2050-01-01 13:34:56",onSucceed,onError);</div>
+		<div class="btn bg_2" onclick="dateParagraph()">年月日时间段<br/>pick("YMDP","2015-01-01 12","2000-08-02 12","2050-01-01 12",onSucceed,onError);</div>
+		<div class="btn bg_3" onclick="timeDate()">时分秒<br/>pick("HMS","13:34:56","","",onSucceed,onError);</div>
+		<div class="btn bg_4" onclick="hourMinDate()">时分<br/>pick("HM","13:34","","",onSucceed,onError);</div>
+		<div class="btn bg_5" onclick="errorDate()">错误<br/>pick("","12345678900","12457","124578",onSucceed,onError);</div>
+		<div id="result"></div>
+	</div>
+</body>
+</html>

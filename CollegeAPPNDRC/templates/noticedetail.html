@@ -1,0 +1,35 @@
+﻿<ion-view title="详情">
+    <go-main-page></go-main-page>
+    <ion-content class="scroll-content bg-gray has-header has-tabs">
+        <div class="line-h-24">
+            <div class="size-22 black line-h-24 text-left" style="margin:5px 10px;">
+                {{dataSource.noticetitle}}
+            </div>
+            <div class=" gray size-22 text-left" ng-show="{{dataSource.subtitle==''?'false':'true'}}" style="margin:5px 10px;">
+                {{dataSource.subtitle}}
+            </div>
+        </div>
+        <div class="size-16 gray" style=" padding:5px 10px;border-bottom:1px solid #ddd;">
+            <div class="col" style="text-align:left;">
+                <i class="ion-person" ng-if="dataSource.releaseperson!=null">&nbsp;<span>{{dataSource.releaseperson}}&nbsp;&nbsp;&nbsp;&nbsp;</span></i>
+                <i class="ion-clock">&nbsp;<span>{{dataSource.releasetime|date:'MM-dd HH:mm'}}</span></i>
+            </div>
+        </div>
+        <div class="size-18  line-h-20" style="padding-top:5px;">
+            <div class="padding" ng-bind-html="dataSource.ggnr"></div>
+        </div>
+        <div class="item" ng-if="getAttach.length>0" style="background-color:#f1f1f1;border-width:0px">
+            <span class="input-label" style="margin-right:10px;">附件</span>
+            <p>
+                <div ng-repeat="item in getAttach">
+                    <a ng-click="downfile('{{item.filepath}}','{{item.filename}}')">{{item.filename}}</a>
+                    <div style="margin-bottom:20px"></div>
+                </div>
+            </p>
+        </div>
+        <div class="text-center" ng-if="fromweixin&&AppConfig.showQingJiaPic==true">
+            <img id="qingjiaIMG" style="width:100%;" src="../img/tzgg/{{dataSource.noticeid}}.jpg" />
+        </div>
+
+    </ion-content>
+</ion-view>

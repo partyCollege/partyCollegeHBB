@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "name": "com.simonmacdonald.telephonenumber",
+    "cordova_name": "TelephoneNumber",
+    "description": "This plugin allows your to get hold of the telephone number from an android device",
+    "license": "MIT",
+    "keywords": [
+        "android",
+        " phone number"
+    ],
+    "engines": [
+        {
+            "name": "cordova-android",
+            "version": ">=3.0.0"
+        }
+    ]
+}

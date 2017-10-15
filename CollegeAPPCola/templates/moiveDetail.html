@@ -1,0 +1,34 @@
+﻿<ion-view title="视频信息">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-content>
+        <div class="list" ng-repeat="item in moivedetail">
+            <div class="item item-input padding-right" style="white-space:normal;">
+                <span class="input-label">视频标题</span>
+                <div style="overflow:hidden; word-break:break-all; width:65%;font-size:13px;">{{item.bt}}</div>
+            </div>
+            <div class="item item-input padding-right" style="white-space:normal;">
+                <span class="input-label">视频简介</span>
+                <div style="overflow:hidden; word-break:break-all; width:65%">{{item.nr}}</div>
+            </div>
+            <div class="item item-input padding-right" style="white-space:normal;">
+                <span class="input-label">发布时间</span>
+                <div style="overflow:hidden; word-break:break-all; width:65%">{{item.ngdate|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+            </div>
+            <div class="item item-input padding-right" style="white-space:normal;">
+                <span class="input-label">发布者</span>
+                <div style="overflow:hidden; word-break:break-all; width:65%">{{item.ngr}}</div>
+            </div>
+            <div class="item item-input padding-right" style="white-space:normal;">
+                <span class="input-label">发布部门</span>
+                <div style="overflow:hidden; word-break:break-all; width:65%">{{item.ngdw}}</div>
+            </div>
+            <div class="item">
+                <span class="input-label">视频列表</span>
+                <a style="width:500px; float:left" ng-click="downfile(attach)" ng-repeat="attach in attachlist">
+                    {{attach.nrbt}}
+                </a>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

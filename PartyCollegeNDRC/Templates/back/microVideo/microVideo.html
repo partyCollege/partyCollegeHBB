@@ -1,0 +1,74 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 700px;
+        }
+    }
+    .mycenter{
+        text-align:center;
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row form-horizontal">
+        <div class="col-md-8 form-group">
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">课程名称</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search.name" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">主讲人</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" search-dbcolumn="teacher" search-handle="like" search-dbtype="string" ng-model="search.teacher" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">分类</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" select-source code="微视频分类" ng-model="search.category" search-dbcolumn="category" search-handle="equal"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">状态</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" ng-model="search.status" search-dbcolumn="status" search-handle="equal">
+                            <option value=""></option>
+                            <option value="0">正常</option>
+                            <option value="-1">不可用</option>
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md-4 text-right">
+			<button class="btn btn-info" ng-click="goSearch()">检索</button>
+			<button class="btn btn-info" ui-sref="index.microVideoEdit">新增</button>
+            <button class="btn btn-danger" ng-click="delete()" ng-disabled="gridApi.selection.getSelectedRows().length==0">删除</button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="grid1" class="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection></div>
+    </div>
+
+</div>

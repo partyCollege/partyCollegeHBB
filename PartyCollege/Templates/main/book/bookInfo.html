@@ -1,0 +1,25 @@
+﻿
+<div class="main">
+    <div class="course_tj">
+        <h2 class="common"><b>教材详情</b><b class="pull-right" ng-click="tobooklist()">返回教材推荐</b></h2>
+        <ul class="clearfix bookList page bookInfo">
+            <li>
+                <img ng-src="{{bookinfo.cover_servername}}" onerror="this.scr = '../img/defaultcover.jpg'" />
+            </li>
+            <div class="pull-left">
+                <h3 class="title">
+                    {{bookinfo.bookname}}<br />
+                </h3>
+                <p>作者：{{bookinfo.author}}</p>
+                <p>出版社：{{bookinfo.publishcompany}}</p>
+                <p>出版时间：{{bookinfo.publishdate | date:'yyyy-MM-dd'}}</p>
+
+            </div>
+        </ul>
+    </div>
+    <div class="bookInfo_text">
+        <p ng-bind-html="bookinfo.comment">
+            
+        </p>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿<div class="course-evaluation hbb-courseInfo hbb-comment">
+	<div>
+		<div class="comment" ng-repeat="scitem in scoreConfig">
+			<div>{{scitem.itemname}}：</div>
+			<ul class="com_ul">
+				<li ng-repeat="rate in scitem.starRateList" class="icon " ng-click="onStarClick(scitem,rate)"
+					ng-class="{true: 'icon-evaluation', false: 'icon-active'}[rate.isActive]"></li>
+			</ul>
+		</div>
+		<div class="comment-content">
+			<div style="padding-left:10px;">评论内容：</div>
+			<textarea rows="6" cols="20" class="textare-val" ng-model="commentInfo.content" ng-disabled="sumbitDisabled"></textarea>
+			<!--<button class="button button-full button-positive" ng-click="evaluation($event)" ng-disabled="sumbitDisabled">提交</button>-->
+		</div>
+	</div>
+</div>

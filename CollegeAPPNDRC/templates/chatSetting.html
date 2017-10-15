@@ -1,0 +1,29 @@
+﻿<ion-view title="聊天设置">
+    <div class="bar bar-header bar-positive">
+        <button class='button button-icon icon ion-ios7-arrow-left' style='font-size:16px' ng-click='goBack()'>返回</button>
+        <h1 class="title">聊天设置</h1>
+    </div>
+    <ion-content class="has-header">
+        <div class="row text-center">
+            <h3 style="width:100%;font-size:20px" ng-if="!canEditChatName">{{chatName}}</h3>
+            <input style="border: 1px solid #ccc; padding: 8px; width: 70%;margin-left:30px" type="text" ng-if="canEditChatName" ng-model="chat.chatName" />
+            <button class="button button-assertive button-small" style="margin-left:20px" ng-if="canEditChatName" ng-click="saveName()">保存</button>
+        </div>
+        <div>
+            <div style="float:left;width:24%;height:140px;text-align:center" ng-repeat="item in userList" ng-click="goInfo(item)">
+                <img ng-src="{{item.avatar}}" style="width:100px;height:100px;padding-top:10px;padding-left:10px;padding-right:10px;">
+                <div style="    line-height: 25px;
+    text-align: center;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+    display: block;">
+                    <b style="color:gray">{{item.name}}</b>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,125 @@
+﻿
+<div class="main">
+    <div class="row clearfix indexSortList">
+		<div class="col-md-4" ng-click="HrefAllcourse();"><div class="courseSum"><i class="icon courseSum_icon"></i><span>课程总数<b>{{platformData.coursecount}}</b></span></div></div>
+		<div class="col-md-4" ng-click="HrefAllcourse();"><div class="courseTime"><i class="icon courseTime_icon"></i><span>课时总数<b>{{platformData.sumduration}}</b></span></div></div>
+        <div class="col-md-4"><div class="sutdentSum"><i class="icon sutdentSum_icon"></i><span>学员总数<b>{{platformData.studentcount}}</b></span></div></div>
+        <!--<div class="col-md-3"><div class="sutdentTime"><i class="icon sutdentTime_icon"></i><span>年度计划<b>{{yearplanstudytime}}</b></span></div></div>-->
+    </div>
+    <div class="news_box hide">
+        <div class="left">
+            <div class="index_ac">
+                <div carousel interval="myInterval">
+                    <div slide ng-repeat="item in newlist[0]">
+                        <a ng-href="{{newsdetail(item.id)}}" target="_blank"><img ng-src="{{item.file_serverthumbname}}" style="margin:auto;"><span>{{item.title}}</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <h2 class="common"><b>通知公告</b><a class="more"  href="index.html#/main/newslist/2">更多</a></h2>
+            <ul class="list list-unstyled">
+                <li ng-repeat="item in newlist[1]" ng-click="openNewsdetail(item.id,2)">{{item.title}}<span class="time">{{item.publishtime |date:'yyyy.MM.dd'}}</span></li>
+            </ul>
+            <h2 class="common many"><b ng-class="{'select':newtype == 3}" ng-click="selectnews(3)">最新动态</b><b ng-class="{'select':newtype == 4}" ng-click="selectnews(4)">政策法规</b><a class="more" href="index.html#/main/newslist/{{newtype}}">更多</a></h2>
+            <ul class="list list-unstyled noMargin">
+                <li ng-repeat="item in newlist[newtype - 1]" ng-click="openNewsdetail(item.id,newtype)">{{item.title}}<span class="time">{{item.publishtime |date:'yyyy.MM.dd'}}</span></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="course_tj">
+        <h2 class="common"><b>最新课程</b><a class="more"  href="indexfront.html#/main/allcourse/1">更多</a></h2>
+        <ul class="course_list">
+            <li ng-repeat="item in coursewarelist[0]" ng-click="openCoursedetail(item.id)">
+                <img ng-src="{{item.imagephoto}}" onerror="this.src='../img/course_img.jpg'" />
+                <div class="info">
+                    <p>{{item.name}}</p>
+                    <span>主讲人：<b>{{item.teachersname}}</b></span>
+                    <span>选课人次：<b>{{item.choosecount}}</b></span>
+                </div>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_ph m-b-md">
+        <h2 class="common"><b>课程排行（选修课的选修次数排名）</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
+        <ul class="left top">
+            <li ng-repeat="item in coursewarelist[1][0]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 1}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
+        </ul>
+        <ul class="right">
+            <li ng-repeat="item in coursewarelist[1][1]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 6}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_ph m-b-md">
+        <h2 class="common"><b>学员学时累计排名（top10）所有学员的学时倒序排名</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
+        <ul class="left top haveLine">
+            <li><i class="icon">1</i><span class="className">张楚楚</span><span class="pull-right">78学时</span></li>
+            <li><i class="icon">2</i><span class="className">杨文轩</span><span class="pull-right">77学时</span></li>
+            <li><i class="icon">3</i><span class="className">王琼</span><span class="pull-right">73学时</span></li>
+            <li><i class="icon">4</i><span class="className">周晓</span><span class="pull-right">71学时</span></li>
+            <li><i class="icon">5</i><span class="className">顾政</span><span class="pull-right">70学时</span></li>
+        </ul>
+        <ul class="right haveLine">
+            <li><i class="icon">6</i><span class="className">肖承尧</span><span class="pull-right">68学时</span></li>
+            <li><i class="icon">7</i><span class="className">史圆圆</span><span class="pull-right">65学时</span></li>
+            <li><i class="icon">8</i><span class="className">商安</span><span class="pull-right">64学时</span></li>
+            <li><i class="icon">9</i><span class="className">戴象龙</span><span class="pull-right">59学时</span></li>
+            <li><i class="icon">10</i><span class="className">张文朗</span><span class="pull-right">56学时</span></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_ph">
+        <h2 class="common"><b>装瓶厂人均学时数（top5）装瓶厂所有学员总学时平均值倒序排名</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
+        <ul class="top haveLine">
+            <li><i class="icon">1</i><span class="className">杨洪祥</span><span class="pull-right">68学时</span></li>
+            <li><i class="icon">2</i><span class="className">沿海</span><span class="pull-right">66学时</span></li>
+            <li><i class="icon">3</i><span class="className">尚文斌</span><span class="pull-right">65学时</span></li>
+            <li><i class="icon">4</i><span class="className">冯玲</span><span class="pull-right">60学时</span></li>
+            <li><i class="icon">5</i><span class="className">王文忠</span><span class="pull-right">55学时</span></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_tj">
+        <h2 class="common"><b>精品课程</b><a class="more" href="indexfront.html#/main/allcourse/2">更多</a></h2>
+        <ul class="course_list">
+            <li ng-repeat="item in coursewarelist[2]" ng-click="openCoursedetail(item.id)">
+				<img ng-src="{{item.imagephoto}}" onerror="this.src='../img/course_img.jpg'" />
+                <div class="info">
+                    <p>{{item.name}}</p>
+                    <span>主讲人：<b>{{item.teachersname}}</b></span>
+                    <span>选课人次：<b>{{item.choosecount}}</b></span>
+                </div>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_tj">
+        <h2 class="common"><b>推荐课程</b><a class="more" href="indexfront.html#/main/allcourse/3">更多</a></h2>
+        <ul class="course_list">
+            <li ng-repeat="item in coursewarelist[3]" ng-click="openCoursedetail(item.id)">
+				<img ng-src="{{item.imagephoto}}" onerror="this.src='../img/course_img.jpg'" />
+                <div class="info">
+                    <p>{{item.name}}</p>
+                    <span>主讲人：<b>{{item.teachersname}}</b></span>
+                    <span>选课人次：<b>{{item.choosecount}}</b></span>
+                </div>
+            </li>
+            <div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="course_tj">
+        <h2 class="common"><b>教材推荐</b><a class="more" href="../html/index.html#/main/booklist">更多</a></h2>
+        <ul class="clearfix bookList">
+            <li ng-repeat="item in booklist" ng-click="openBookinfo(item.id)">
+                <!--<img src="{{item.cover_servername}}" />-->
+                <div class="img" style="background:url('{{item.cover_servername}}') center center;"></div>
+                <span>{{item.bookname}}</span>
+            </li>
+        </ul>
+    </div>
+</div>

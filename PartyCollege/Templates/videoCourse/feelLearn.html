@@ -1,0 +1,61 @@
+﻿<div class="title">
+    <div class="left">
+        <a ng-click="spanClick('myfeelLearnView')">
+            <span ng-class="{'select':videoConfig.feelLearnConfig[0].select}">我的学后感</span>
+        </a>
+        <a ng-click="spanClick('feelLearnsView')">
+            <span ng-class="{'select':videoConfig.feelLearnConfig[1].select}">全部学后感</span>
+        </a>
+    </div>
+    <div class="right" ng-if="myConfig.orderShow">
+        <span ng-click="feellearnDataOrder(1)" ng-class="{'select':myConfig.feellearnTimeSelect}"><i ng-class="myConfig.feellearnTime"></i>时间</span>
+        <span ng-click="feellearnDataOrder(2)" ng-class="{'select':myConfig.feellearnPopularitySelect}"><i ng-class="myConfig.feellearnPopularity"></i>人气</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div ng-if="videoConfig.feelLearnConfig[0].show">
+    <form action="" ng-if="myFeelLearn.issubmit == 0 && feelLearnEditdisable">
+        <label>标题：</label>
+        <input type="text" placeholder="请输入标题" ng-model="myFeelLearn.fltitle" ng-class="{'noBoder':myFeelLearn.issubmit}" />
+        <label>正文：</label>
+        <!--<textarea ng-model="myFeelLearn.flcontent" ng-readonly="myFeelLearn.issubmit"></textarea>-->
+        <!--<div summernote lang="zh-CN" ng-model="myFeelLearn.flcontent" ng-readonly="myFeelLearn.issubmit"></div>-->
+
+        <div style="margin-bottom:1.25rem;height:300px;" class="ueditor" config="ueditorConfig" ng-model="myFeelLearn.flcontent"></div>
+
+        <p class="submit_box">
+            <span class="left">{{ myFeelLearn.issubmit > 1 ? "评分:"+ myFeelLearn.score :"满分:100" }}</span>
+            <button class="btn" type="button" ng-if='myFeelLearn.issubmit == 0' ng-click="save('save',0)">暂存</button>
+            <button class="btn" type="submit" ng-disabled="submitdisabled" ng-if='myFeelLearn.issubmit == 0' ng-click="submit('submit',1)">提交</button>
+        </p>
+    </form>
+    <div ng-if="myFeelLearn.issubmit > 0">
+        <h4>{{myFeelLearn.fltitle}}</h4>
+        <div class="xhg_text" ng-bind-html="myFeelLearn.flcontent"></div>
+
+        <p class="red" ng-if="myFeelLearn.rejectreason.length > 0">评语:<!--或者是（驳回原因）--></p>
+        <div class="teacher_py" ng-if="myFeelLearn.rejectreason.length > 0">
+            {{myFeelLearn.rejectreason}}
+        </div>
+        <span>{{ myFeelLearn.issubmit > 1 ? "评分:"+ myFeelLearn.score :"满分:100" }}</span>
+    </div>
+    <span ng-if="!feelLearnEditdisable">学后感需要在您学习完本课程方可撰写</span>
+</div>
+
+
+<ul class="xhg_list" ng-if="videoConfig.feelLearnConfig[1].show">
+    <li ng-repeat="item in feelLearns">
+        <div class="cz">
+            <a ng-click="clickALike(item.id,item.accountid,item.studentid,item.classid)">
+                <span class="zan" ng-style="{color:item.isclick ? 'red' :'black'}"><i></i>{{item.isclick ? '已赞':'点赞'}}（{{item.clickcount}}）</span>
+            </a>
+            <span>{{item.studentname}}</span>
+            <span class="time">{{item.createdtime}}</span>
+        </div>
+        <h3 unselectable="on" onselectstart="return false;" style="-moz-user-select:none;">{{item.fltitle}}</h3><!--ng-click="openfeelLearn(item.id)"-->
+        <p ng-class="{'auto':item.isdetail}" ng-bind-html="item.flcontent" unselectable="on" onselectstart="return false;" style="-moz-user-select:none;">
+        </p>
+        <div class="more_xhg" ng-if="getLen(item.flcontent) > 110" ng-click="openDetail(item.id)">{{item.isdetail == 0 ? '展开':'收起'}}</div>
+    </li>
+    <div class="btn_box" ng-if="false"><a class="btn">更多</a></div>
+</ul>

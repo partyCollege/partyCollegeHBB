@@ -1,0 +1,22 @@
+﻿<ion-view title="密码修改">
+    <go-main-page></go-main-page>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">旧密码</span>
+                <input type="password" ng-model="user.oldPassword" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">新密码</span>
+                <input type="password" ng-model="user.newPassword1" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">再次输入新密码</span>
+                <input type="password" ng-model="user.newPassword2" />
+            </label>
+        </div>
+        <div class="button-bar">
+            <a class="button button-assertive" ng-click="save()">保存</a>
+        </div>
+    </ion-content>
+</ion-view>

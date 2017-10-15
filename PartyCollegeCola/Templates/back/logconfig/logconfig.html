@@ -1,0 +1,50 @@
+﻿<style>
+	@media all (max-height:769px) {
+		.grid1 {
+			width: 100%;
+			height: 400px;
+		}
+	}
+
+	@media all and (min-height:770px) and (max-height:900px) {
+		.grid1 {
+			width: 100%;
+			height: 465px;
+		}
+	}
+
+	@media all and (min-height:901px) and (max-height:1080px) {
+		.grid1 {
+			width: 100%;
+			height: 700px;
+		}
+	}
+</style>
+<div class="wrapper-content wrapper">
+	<div class="row form-horizontal">
+		<div class="col-md-8 form-group">
+			<div class="row form-group">
+				<div class="col-md-6">
+					<label class="col-sm-4 control-label">编码</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" search-dbcolumn="username" search-handle="equal" search-dbtype="string" ng-model="search.username" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-sm-4 control-label">名称</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" search-dbcolumn="classname" search-handle="like" search-dbtype="string" ng-model="search.classname" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 text-right">
+			<button class="btn btn-info" ng-click="goSearch()">检索</button>
+			<button class="btn btn-info" ui-sref="index.logconfigEdit">新增</button>
+			<button class="btn btn-danger" ng-click="delete()" ng-disabled="gridApi.selection.getSelectedRows().length==0">删除</button>
+		</div>
+	</div>
+	<div class="row">
+		<div id="grid1" ui-grid="gridOptions" ui-grid-pagination class="grid1"></div>
+	</div>
+</div>

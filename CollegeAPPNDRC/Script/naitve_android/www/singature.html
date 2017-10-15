@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            alert('onDeviceReady');
+        }
+        function show1() {
+        	alert('show');
+            xsfSignature.show(function(result){
+            	alert(result.path);
+            	img1.src = result.path;
+            	alert("x:" + result.points[0].x + "," + result.points[0].y);
+            },function(result){
+            	alert("error:" + result.message);
+            });                  
+    	}
+    </script>
+  </head>
+  <body>
+  	<p><img id="img1" src="#"></img></p>
+    <p><a href="#" onclick="show1()">show</a></p>
+    <p><a href="index.html">index</a></p>
+  </body>
+</html>

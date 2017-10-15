@@ -1,0 +1,199 @@
+﻿<ion-content>
+	<div class="container-fluid" style="background-color:#fff; padding-top:2px; padding:0px;">
+		<div class="item item-divider bg-primary" >
+			<span style="font-size:20px;">
+                <i class="button button-icon icon ion-ios7-arrow-left" style='font-size:16px' ng-click="SavePJData(false)">&nbsp;&nbsp;</i>&nbsp;&nbsp;{{pjitem.bt}}
+				<br /><span style="float:right;font-size:14px;">{{pjitem.subtitle}}</span>
+			</span>
+		</div>
+		<div class="item item-body" style=" padding:0px; border:0px; height:{{(documentHeight-350-21)+'px' }}">
+			<div class="item item-text-wrap" style="min-height:100px;margin:0px;">
+				<!--<i ng-if="pjitem.selectValue!=null&&pjitem.selectValue!=''" class="icon ion-checkmark" style="color:green;"></i>-->
+				<span ng-if="pjitem.level2Title!=null&&pjitem.level2Title!=''">【</span>
+				<span ng-if="pjitem.level1Title!=null">{{pjitem.level1Title}}</span>
+				<span ng-if="pjitem.level2Title!=null&&pjitem.level2Title!=''">】</span>
+				<span ng-if="pjitem.level2Title!=null&&pjitem.level2Title!=''">{{pjitem.level2Title}}</span>
+			</div>
+			<div class="list" ng-if="pjitem.type=='select'" style="min-height:100px;">
+				<label class="item item-input item-select" style="border-bottom:0px solid #d1cece;border-top:0px solid #d1cece;">
+					<div class="input-label">
+						得分
+					</div>
+					<select ng-model="pjitem.selectValue" ng-if="pjitem.selectValue==null||pjitem.selectValue==''" ng-change="ChangeVal(pjitem)" style="color:red; font-size:16px;" ng-options="rgval for rgval in rangeArr">
+						<option value="">- 请打分 -</option>
+					</select>
+					<select ng-model="pjitem.selectValue" ng-if="pjitem.selectValue!=null&&pjitem.selectValue!=''" ng-change="ChangeVal(pjitem)" style="color:green;font-size:16px;" ng-options="rgval for rgval in rangeArr">
+						<option value="">- 请打分 -</option>
+					</select>
+				</label>
+			</div>
+			<div class="list" ng-if="pjitem.type=='textarea'">
+				<label class="item item-input" style="border-bottom:1px solid #d1cece;border-top:0px solid #d1cece;">
+					<textarea ng-model="pjitem.selectValue" rows="3" ng-change="ChangeVal(rangeobj)" placeholder="请输入内容"></textarea>
+				</label>
+			</div>
+			<div class="list" ng-if="pjitem.type=='radio'">
+				<label class="item item-input item-radio" style="border:1px;" ng-checked="">
+					<label class="item item-input item-radio" style="border:1px;" ng-checked="">
+						<div class="input-label">
+							请选择
+						</div>
+
+						<label class="item item-radio" ng-repeat="radio in pjitem.displayPoint">
+							<input ng-model="pjitem.selectValue" type="radio" ng-value="pjitem.point[$index]" name="group">
+							<div class="item-content" style="width:150px;">
+								{{radio}}
+							</div>
+							<i class="radio-icon ion-checkmark"></i>
+						</label>
+					</label>
+				</label>
+			</div>
+		</div>
+		<div class="progress" style="height:5px; margin:0px;">
+			<div class="progress-bar progress-bar-success progress-bar-striped active"
+				 role="progressbar"
+				 aria-valuenow="{{pjitem.orderIdx+1}}"
+				 aria-valuemin="1"
+				 aria-valuemax="{{jumpItemCount}}"
+				 ng-style="{'width':((pjitem.orderIdx+1)/jumpItemCount)*100+'%'}">
+				<span class="sr-only"></span>
+			</div>
+		</div>
+		<div class="item item-divider" style="padding:5px;">
+			<ul style="list-style:none;border:0px solid red;">
+				<li style="float:left; border:0px solid red;width:15%;text-align:center;  margin-left:2px;">
+					<button class="btn btn-default btn-group-sm" type="button" ng-click="PrePJItem(pjitem)">
+						<i class="icon ion-arrow-left-a"></i>
+					</button>
+				</li>
+				<li style="float:left; border:0px solid red;width:65%; text-align:center; margin-left:2px;">
+					<button class="btn btn-default btn-group-sm"><span>{{pjitem.orderIdx+1}}/{{jumpItemCount}}</span></button>
+				</li>
+				<li style="float:right; border:0px solid red;width:15%;text-align:center; margin-left:2px;">
+					<button class="btn btn-default btn-group-sm" type="button" ng-click="NextPJItem(pjitem)">
+						<i class="icon ion-arrow-right-a"></i>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<ion-scroll zooming="true" direction="y" style="height:212px;background-color:#eee;">
+			<div class="list" style="height:100px;padding:0px 4px 0px 1px; margin-left:10px;">
+				<ul style="list-style:none;">
+					<li ng-repeat="kc in detaillist" style="float:left; border:0px solid red; margin:1px;">
+						<span style="border:1px dashed #fff; padding:7px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="!kc.isfinshed&&kc.keyData!=pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:red; font-size:22px;"></i>
+						</span>
+						<span style="border:1px dashed #808080; padding:7px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="!kc.isfinshed&&kc.keyData==pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:red; font-size:22px;"></i>
+						</span>
+
+						<span style="border:1px dashed #fff;  padding:7px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="kc.isfinshed&&kc.keyData!=pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:green; font-size:22px;"></i>
+						</span>
+						<span style="border:1px dashed #808080; padding:7px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="kc.isfinshed&&kc.keyData==pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:green; font-size:22px;"></i>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</ion-scroll>
+		<div class="item item-divider" style="padding:1px;">
+			<button class="btn btn-warning btn-lg btn-block" ng-if="ispj==-1" type="button" ng-click="SavePJData(true)">提交</button>
+		</div>
+	</div>
+	<!--<div class="container-fluid" style="border:2px solid #333;">
+		<div class="item item-divider" style="height:45px;">
+			<span style="font-size:20px;">{{pjitem.bt}}</span>
+		</div>
+		<div class="item item-body" style="height:{{(documentHeight-235)+'px' }}">
+			<div>
+				<div class="item item-text-wrap" style="min-height:150px;">
+					<i ng-if="pjitem.selectValue!=null&&pjitem.selectValue!=''" class="icon ion-checkmark" style="color:green;"></i>
+					<span ng-if="pjitem.level1Title!=null">{{pjitem.level1Title}}</span>
+					<span ng-if="pjitem.level2Title!=null&&pjitem.level2Title!=''">╱</span>
+					<span ng-if="pjitem.level2Title!=null&&pjitem.level2Title!=''">{{pjitem.level2Title}}</span>
+				</div>
+				<div class="list" ng-if="pjitem.type=='select'" style="min-height:100px;">
+					<label class="item item-input item-select">
+						<div class="input-label">
+							得分
+						</div>
+						<select ng-model="pjitem.selectValue" ng-if="pjitem.selectValue==null||pjitem.selectValue==''" ng-change="ChangeVal(pjitem)" style="color:red; font-size:16px;" ng-options="rgval for rgval in rangeArr">
+							<option value="">-- 请打分 --</option>
+						</select>
+						<select ng-model="pjitem.selectValue" ng-if="pjitem.selectValue!=null&&pjitem.selectValue!=''" ng-change="ChangeVal(pjitem)" style="color:green;font-size:16px;" ng-options="rgval for rgval in rangeArr">
+							<option value="">-- 请打分 --</option>
+						</select>
+					</label>
+				</div>
+				<div class="list" ng-if="pjitem.type=='textarea'">
+					<label class="item item-input">
+						<textarea ng-model="pjitem.selectValue" rows="6" ng-change="ChangeVal(rangeobj)" placeholder="请输入内容"></textarea>
+					</label>
+				</div>
+				<div class="list" ng-if="pjitem.type=='radio'">
+					<label class="item item-input item-radio" ng-checked="">
+						<input type="radio" ng-model="color" value="red">
+						<input type="radio" ng-model="color" value="red">
+						<input type="radio" ng-model="color" value="red">
+						<input type="radio" ng-model="color" value="red">
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="progress" style="height:5px; margin:0px;">
+			<div class="progress-bar progress-bar-success progress-bar-striped active"
+				 role="progressbar"
+				 aria-valuenow="{{pjitem.orderIdx}}"
+				 aria-valuemin="1"
+				 aria-valuemax="{{jumpItemCount}}"
+				 ng-style="{'width':(pjitem.orderIdx/jumpItemCount)*100+'%'}">
+				<span class="sr-only"></span>
+			</div>
+		</div>
+		<div class="item item-divider">
+			<div class="row">
+				<div class="col">
+					<button class="button button-clear" ng-click="PrePJItem(pjitem)">
+						<i class="icon ion-arrow-left-a"></i>
+					</button>
+					<button class="button button-clear" ng-click="NextPJItem(pjitem)">
+						<i class="icon ion-arrow-right-a"></i>
+					</button>
+					<button class="button button-clear"><span>{{pjitem.orderIdx}}/{{jumpItemCount}}</span></button>
+				</div>
+				<div class="col">
+				</div>
+				<div class="col">
+
+					<button class="button button-balanced" ng-click="SavePJData(true)">提交</button>
+					<button class="button button-energized" ng-click="SavePJData(false)">取消</button>
+				</div>
+			</div>
+
+		</div>
+		<ion-scroll zooming="true" direction="y" style="height: 100px">
+			<div class="list" style="height:100px;padding:0px 4px 0px 1px;">
+				<ul style="list-style:none;">
+					<li ng-repeat="kc in list" style="float:left; border:0px solid red; margin:1px;">
+						<span style="border:1px dashed #f5f5f5; padding:0px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="!kc.isfinshed&&kc.keyData!=pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:red;"></i>
+						</span>
+						<span style="border:1px dashed #808080; padding:0px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="!kc.isfinshed&&kc.keyData==pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:red;"></i>
+						</span>
+
+						<span style="border:1px dashed #f5f5f5;  padding:0px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="kc.isfinshed&&kc.keyData!=pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:green;"></i>
+						</span>
+						<span style="border:1px dashed #808080; padding:0px 3px 0px 3px;" ng-click="JumpPJItem(kc)" ng-if="kc.isfinshed&&kc.keyData==pjitem.kwid">
+							<i class="icon ion-ios7-circle-filled" style="color:green;"></i>
+						</span>
+
+					</li>
+				</ul>
+			</div>
+		</ion-scroll>
+	</div>-->
+</ion-content>

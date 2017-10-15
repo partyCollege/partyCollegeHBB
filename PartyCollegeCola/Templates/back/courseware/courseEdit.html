@@ -1,0 +1,135 @@
+﻿<script src="../bower_components/vhall/jquery.polyv.js"></script>
+<script src="https://player.polyv.net/script/polyvplayer.min.js"></script>>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <tabset>
+        <tab heading="基本信息" class="tab-item-balanced">
+            <div ng-controller="courseInforController" ng-include="'../Templates/back/courseware/courseInfor.html'"></div>
+        </tab>
+        <tab heading="审核" ng-if="courseware.courseEditShow">
+            <div ng-controller="courseUeidtController" ng-include="'../Templates/back/courseware/courseUeidt.html'"></div>
+        </tab>
+        <tab heading="评价" ng-if="courseware.courseEditShow">
+            <div ng-controller="courseExamineController" ng-include="'../Templates/back/courseware/courseExamine.html'"></div>
+        </tab>
+        <tab heading="试题" ng-if="courseware.courseEditShow">
+            <div ng-controller="courseExamController" ng-include="'../Templates/back/courseware/courseExam.html'"></div>
+        </tab>
+        <tab heading="授权" ng-if="courseware.courseAuthorizationEditShow||courseware.courseAuthorizationViewShow">
+            <div ng-controller="courseAuthorizationController" ng-include="'../Templates/back/courseware/courseAuthorization.html'"></div>
+        </tab>
+        <tab heading="编辑" ng-if="courseware.courseEdShow||courseware.courseEdViewShow">
+            <div ng-controller="courseUploadController" ng-include="'../Templates/back/courseware/courseUpload.html'"></div>
+        </tab>
+        <tab heading="完善部分" ng-if="courseware.coursePerfectEditShow||courseware.coursePerfectViewShow">
+            <div ng-controller="coursePerfectsController" ng-include="'../Templates/back/courseware/coursePerfect.html'"></div>
+        </tab>
+        <tab heading="资料" ng-if="courseware.coursePerfectEditShow||courseware.coursePerfectViewShow">
+            <div ng-controller="classAttachController" ng-include="'../Templates/back/classmanager/attach.html'"></div>
+        </tab>
+        <tab heading="微视频" ng-if="courseware.coursePerfectEditShow||courseware.coursePerfectViewShow">
+            <div ng-controller="courseMicroVideoController" ng-include="'../Templates/back/courseware/courseMicroVideo.html'"></div>
+        </tab>
+        <tab heading="分类" ng-if="courseware.courseStorageEditShow||courseware.courseStorageViewShow">
+            <div ng-controller="courseStorageController" ng-include="'../Templates/back/courseware/courseStorage.html'"></div>
+        </tab>
+    </tabset>
+
+</div>
+
+<script type="text/ng-template" id="videoPerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div id="divVideo">
+            </div>
+        </div>
+    </div>
+
+</script>
+<script type="text/ng-template" id="messagepeview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>提示信息</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-12 control-label" style="text-align:center;">
+                                {{courseware.tipMessage}}
+                                <textarea ng-model="course.deleteContent" ng-if="textareashow" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-info" ng-click="saveRecommendCourse()">保存</button>
+                        <button class="btn btn-default" ng-click="close()">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>
+
+<script type="text/ng-template" id="doubluevideoPerview.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="video-box video-f">
+                <div id="doubleTeacher" class=".doubleTeacher">
+                </div>
+            </div>
+            <div id="doublePPT">
+            </div>
+        </div>
+
+    </div>
+    <div class="exchange">
+    </div>
+    <style>
+    </style>
+</script>
+<script>
+    var player1 = {};
+    var player2 = {};
+    var videoNum = 0;
+    function s2j_onPlayerInitOver() {
+
+        videoNum++;
+        if (videoNum == 2) {
+            //console.log(player2);
+            player2.j2s_banUI();
+            player2.j2s_hideRightPanel();
+            player1.j2s_rightpanelBtnSet();
+            player2.j2s_rightpanelBtnSet();
+        }
+    }
+    function s2j_onChapterBtnClick() {
+        alert("");
+        //alert("s2j_onChapterBtnClick")
+    }
+</script>

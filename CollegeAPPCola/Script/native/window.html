@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            alert('onDeviceReady');
+        }
+    function showTab(){
+        alert("open showTab");
+        xsfWindow.showTab("{\"title\": \"title\",\"align\": \"bottom\",\"tabItems\": [{\"type\": \"webview\",\"url\": \"http://www.baidu.com\",\"title\": \"baidu1\"},{\"type\": \"webview\",\"url\": \"http://www.baidu.com\",\"title\": \"baidu2\"}],\"actions\": [{\"id\": \"3331\",\"icon\": \"xform_send.png\",\"action\": \"javascript:alert('send')\"},{\"id\": \"3330\",\"title\": \"save\",\"icon\": \"xform_send.png\",\"action\": \"javascript:alert('save')\"}]}",
+                       function (result) {
+                       alert("open seccess");
+                       },
+                       function (error) {
+                       alert("open failed: " + error);
+                       }
+                       );
+    }
+        function openw(url,title){
+            alert("open window");
+            xsfWindow.open(url,"title",
+                function (result) {
+                    alert("open seccess");
+                },
+                function (error) {
+                    alert("open failed: " + error);
+                }
+            );
+        }
+        function closew(){
+            alert("close window");
+            xsfWindow.close(1);
+        }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+  </head>
+  <body>
+    <br/>
+    <br/>
+    
+    <div class = "btn bg_1" onclick = "openw('http://app.hzswdx.gov.cn:81/CollegeAPPIOS/api/getAttach/action/getAttach/');">打开百度</div><br/>
+    <div class = "btn bg_2" onclick = "openw('window.html');">打开window.html</div><br/>
+    <div class = "btn bg_3" onclick = "xsfWindow.rotation();">旋转屏幕</div><br/>
+    <div class = "btn bg_4" onclick = "xsfWindow.resetRotation();">重置屏幕</div><br/>
+    <div class = "btn bg_5" onclick = "closew();">关闭</div><br/>
+    <div class = "btn bg_6" onclick = "showTab();">展示列表</div><br/>
+    <input type="text" value="11" />
+    1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

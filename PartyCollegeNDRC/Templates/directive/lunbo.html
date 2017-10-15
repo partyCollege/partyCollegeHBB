@@ -1,0 +1,14 @@
+﻿<div >
+	<!--ng-mouseleave="start()"-->
+	<ul ng-switch="pic">
+		<li ng-if="pic==$index" ng-repeat="img in imglist" class="fade-in "><a><img ng-src="{{img.src}}" alt="" /></a></li>
+		<!--<li ng-switch-when="0" ng-repeat="img in imglist" class="fade-in "><a>{{pic}}<img ng-src="{{img.src}}" alt="" /></a></li>-->
+		<!--<li ng-switch-when="1" class="fade-in "><a><img src="{{img2.src}}" alt="" /></a></li>
+		<li ng-switch-when="2" class="fade-in "><a><img src="{{img3.src}}" alt="" /></a></li>
+		<li ng-switch-when="3" class="fade-in "><a><img src="{{img4.src}}" alt="" /></a></li>
+		<li ng-switch-when="4" class="fade-in "><a><img src="{{img5.src}}" alt="" /></a></li>-->
+	</ul>
+	<ul class="listContent">
+		<li class="list" ng-repeat="img in imglist" ng-click="clickEvent($index)"></li>
+	</ul>
+</div>

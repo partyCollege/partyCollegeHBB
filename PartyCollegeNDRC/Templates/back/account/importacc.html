@@ -1,0 +1,30 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="row text-right">
+					<div class="widget style1 badge-primary">
+						<div class="row vertical-align">
+							<div class="col-md-12 text-center">
+								<h3>导入账号</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div>导入格式："姓名	账号	密码	身份证号	手机号",中间用制表符间隔。</div>
+					<textarea ng-model="textareastr" rows="20" cols="150"></textarea>
+					<button class="btn btn-primary" btn-loading-text="导入中..." trigger-loading="beginLoading" ng-click="importAccount();" ng-disabled="disableBtn">开始导入</button>
+					<div>
+						错误信息：
+					</div>
+					<div style="color:red;">
+						<div ng-repeat="item in errorlist">{{item}}</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

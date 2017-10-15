@@ -1,0 +1,58 @@
+﻿
+<div class="main">
+    <div class="course_tj">
+        <h2 class="common many">
+			<b ng-class="{'select':mainSearchConfig[0].select}" ng-click="aClick('news')">新闻</b>
+			<b ng-class="{'select':mainSearchConfig[1].select}" ng-click="aClick('courseware')">课程</b>
+			<b ng-class="{'select':mainSearchConfig[2].select}" ng-click="aClick('book')">图书</b>
+        </h2>
+		<div ng-if="mainSearchConfig[0].select">
+			<span ng-if="config.newslist.length == 0">未搜索到相关信息...</span>
+			<ul class="list list-unstyled informList">
+				<li ng-repeat="item in config.newslist" ng-click="openNewsDetail(item.id)">
+					{{item.title}}
+					<span class="pull-right time">{{item.publishtime | date:'yyyy.MM.dd'}}</span>
+					<span class="time" style="margin-right:50px;" ng-click="toNewsBycategory(item.category)">{{item.category | newsCategoryFilter}}</span>
+				</li>
+			</ul>
+			<div class="more" ng-show="config.moreShow" ng-click="loadMore()">
+				<span class="btn">显示更多</span>
+				<i class="icon icon_more"></i>
+			</div>
+		</div>
+
+		<div ng-if="mainSearchConfig[2].select">
+			<span ng-if="bookconfig.newslist.length == 0">未搜索到相关信息...</span>
+			<ul class="clearfix bookList">
+				<li ng-repeat="book in bookconfig.newslist track by book.id" ng-click="openBookinfo(book.id)">
+					<img ng-src="{{getImg(book.cover_servername,book.cover_servername,'bookPhoto')}}" onerror="this.scr = '../img/defaultcover.jpg'" />
+					<span>{{book.bookname}}</span>
+				</li>
+			</ul>
+			<div class="more" ng-show="bookconfig.moreShow" ng-click="loadBookMore()">
+				<span class="btn">显示更多</span>
+				<i class="icon icon_more"></i>
+			</div>
+		</div>
+
+		<div ng-if="mainSearchConfig[1].select">
+			<span ng-if="courseconfig.newslist.length == 0">未搜索到相关信息...</span>
+			<ul class="course_list">
+				<li ng-repeat="course in courseconfig.newslist" ng-click="selectCourse(course)">
+					<img ng-src="{{course.photo}}" onerror="this.src='../img/course_img.jpg'" />
+					<div class="info">
+						<p>{{course.coursewarename}}</p>
+						<span>主讲人：<b>{{course.teachersname}}</b></span>
+						<span>学时：<b>{{course.studytime}}</b></span>
+					</div>
+				</li>
+				<div class="clear"></div>
+			</ul>
+
+			<div class="more" ng-show="courseconfig.moreShow" ng-click="loadCoursewareMore()">
+				<span class="btn">显示更多</span>
+				<i class="icon icon_more"></i>
+			</div>
+		</div>
+	</div>
+</div>

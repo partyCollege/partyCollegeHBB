@@ -1,0 +1,120 @@
+﻿<style>
+    .row-div {
+        width: 33.3%;
+        text-align: center;
+        border-right: 1px solid #f6f6f6;
+        padding: 10px 0px;
+        border-bottom: 1px solid #f6f6f6;
+    }
+
+        .row-div:last-child {
+            border-right: none;
+        }
+
+        .row-div p {
+            margin-top: 5px;
+        }
+
+    .slider-pager {
+        font-size: 8px;
+        bottom: 0px;
+        display: block;
+    }
+
+    .ion-record:before {
+        color: #C00000;
+    }
+
+    a:link {
+        text-decoration: none;
+    }
+
+    a:visited {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a:active {
+        text-decoration: none;
+    }
+</style>
+<ion-view cache-view="false" title="首页" hide-nav-bar="true" style="background:url(../content/bg.jpg)  no-repeat;background-size:100% 240px;">
+    <ion-header-bar style='background:rgba(0,0,0,0);border:none;'>
+        <!--<ion-buttons side="right">
+            <button ng-click='goMain()' class='button button-icon icon ion-navicon' style='font-size:12px'></button>
+        </ion-buttons>-->
+        <!--
+        <h1 class="title" style="left:96px;" ng-show="showbcname">{{title}}</h1>
+        -->
+
+        <div class="bcContainer">
+            <h1 class="bcName" id="indextitle">
+                <marquee direction="left" behavior="scroll" scrollamount="2" scrolldelay="0" loop="-1"><label>{{title}}</label></marquee>
+            </h1>
+            <i class="selectBc icon ion-chevron-down" ng-if="bclist.length>1" ng-click="selectbc()"></i>
+        </div>
+        <ion-buttons side="right">
+            <!--<button class="button button-clear" ng-click="exitApp()">{{uname}}</button>-->
+            <button class="button button-icon icon ion-log-out" ng-click="exit()"></button>
+        </ion-buttons>
+    </ion-header-bar>
+    <div class="size-18" ng-bind="uname" style="{{personIdentity}}"></div>
+
+    <ion-content style="background-color:#fff;z-index:21" ng-style="myStyle" class="has-tabs">
+        <ion-refresher on-refresh="flash()" style="top:-55px;z-index:20"
+                       pulling-text="拖动刷新"
+                       refreshing-text="加载中"
+                       refreshing-icon="ion-loading-c"
+                       disable-pulling-rotation="true">
+        </ion-refresher>
+        <!--<ion-refresher class="has-header h"></ion-refresher>-->
+        <div style=" background-color:#fff; padding-left:0.5%;padding-top:10px">
+
+            <!--<ion-scroll direction="y" style="height:230px">-->
+            <!--<ul id="rb-grid" class="rb-grid clearfix">
+                <li ng-repeat="item in forDisplayItem" class="icon-clima-2" ng-click="goNowMenu(item)">
+                    <a>
+
+                        <h3>
+                            <img ng-src="{{item.img}}" width="50" height="50" />
+                            <span class="badge badge-assertive" style="  position:absolute;top: 20px;">{{item.badgeNum}}</span>
+                        </h3>
+                        <span class="rb-temp">{{item.title}}</span>
+                    </a>
+                </li>
+            </ul>-->
+
+
+            <ion-slide-box show-pager="true" auto-play="false" style="">
+                <ion-slide ng-repeat="dataPage in datameSource">
+                    <div class="row" style="padding:0;margin:0;height:110px;" ng-repeat="dataRows in dataPage.data">
+                        <div class="row-div" ng-if="dataRow.icontype=='all'||dataRow.icontype==user.type" ng-repeat="dataRow in dataRows.data" ng-click="goNowMenu(dataRow)">
+                            <div style="position:relative;display:inline-block;">
+                                <img class="img-50" ng-src="{{dataRow.img}}">
+                                <div class="elective-number danru" ng-if="dataRow.badgeNum>0">{{dataRow.badgeNum}}</div>
+                            </div>
+                            <p class="size-14">{{dataRow.title}}</p>
+                        </div>
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+            <!--</ion-scroll>-->
+            <div ng-show="mainModule.tzgg">
+                <tzgg></tzgg>
+            </div>
+            <a href="{{mainModule.jrkc.link}}" ng-show="mainModule.jrkc">
+                <jrkc ng-show="mainModule.jrkc"></jrkc>
+            </a>
+            <div ng-show="mainModule.teachertzgg">
+                <teachertzgg ng-show="mainModule.teachertzgg"></teachertzgg>
+            </div>
+            <div ng-show="mainModule.teacherxxts">
+                <teacherxxts ng-show="mainModule.teacherxxts"></teacherxxts>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+

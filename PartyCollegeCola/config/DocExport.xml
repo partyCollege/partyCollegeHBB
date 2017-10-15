@@ -1,0 +1,119 @@
+<!--配置规则
+	若存在多行表头，只需在最后一行表头里配置 dbcolumn=字段名称
+	vertical表示垂直合并，cellmerge开始列配置为first，临近的单元格需合并的话需配置为previous，若为独立单元格配置为none；
+	horizontal表示水平合并，cellmerge开始列配置为first，临近的单元格需合并的话需配置为previous，若为独立单元格配置为none；
+	fontcolor 的取值范围
+-->
+
+<root>
+	<exports category="coursecategory">
+		<exportitem>
+			<sql>
+				<![CDATA[
+					select @rownum:=@rownum+1 as rownum,t.* from (
+						select  @rownum:=0,kc.name,kc.teachersname,DATE_FORMAT(kc.teachtime,'%Y-%m-%d') as teachtime from sy_courseware kc 
+						INNER JOIN sy_courseware_category_relatiion sccr on kc.id=sccr.coursewareid
+						inner join sy_courseware_category scc on sccr.categoryid=scc.id
+						where scc.id=[categoryid] and kc.mainstatus>=7 order by kc.teachtime desc
+					) t
+				]]>
+			</sql>
+			<expcolumns>
+				<exprow>
+					<expcolumn mergetype="vertical" cellmerge="first" dbcolumn="rownum" width="50" textalign="center" fontfamily="" fontsize="" fontcolor="" thtitle="序号"></expcolumn>
+					<expcolumn mergetype="horizontal" cellmerge="first" dbcolumn="name" width="400" textalign="left" fontfamily="" fontsize="" fontcolor="" thtitle="课程名称"></expcolumn>
+					<expcolumn mergetype="horizontal" cellmerge="first" dbcolumn="teachersname" width="80" textalign="center" fontfamily="" fontsize="" fontcolor="" thtitle="授课人"></expcolumn>
+					<expcolumn mergetype="horizontal" cellmerge="first" dbcolumn="teachtime" width="80" textalign="center" fontfamily="" fontsize="" fontcolor="" thtitle="授课时间"></expcolumn>
+				</exprow>
+			</expcolumns>
+		</exportitem>
+	</exports>
+	<exports category="studysense" downfilename="学习心得.doc">
+		<exportitem  templetdoc="templet_studysense.doc">
+			<listextrasql>
+				<extrasql>
+					<![CDATA[
+						select sc.name as bcname from sy_class sc where id=[bcid]
+					]]>
+				</extrasql>
+			</listextrasql>
+			<sql>
+				<![CDATA[
+				select @rownum:=@rownum+1 as rownum,t.* from (
+					select  @rownum:=0,b.name,ss.title,strip_tags(ss.content) as html_content,ss.score,ss.rejectreason,b.company from sy_studyingsense ss 
+					inner join sy_student b on ss.studentid=b.id
+					where 1>0 and ss.status>=1 
+					{and ss.classid=[bcid]}
+					{and ss.title like concat('%',[title],'%')}
+					{and b.name like concat([stuname],'%')}
+					{and ss.status=[status]}
+					{and ss.recommendstatus=[recommend]}
+					order by ss.createdtime desc
+				) t
+				]]>
+			</sql>
+		</exportitem>
+	</exports>
+	<exports category="learnsense"  downfilename="学后感.doc">
+		<exportitem templetdoc="templet_learnsense.doc">
+			<listextrasql>
+				<extrasql>
+					<![CDATA[
+						select bc.name as bcname,kc.name as kcname from sy_classcourse sc 
+						inner join sy_class bc on sc.classid=bc.id 
+						inner join sy_courseware kc on sc.coursewareid=kc.id 
+						where sc.id=[classcourseid]
+					]]>
+				</extrasql>
+			</listextrasql>
+			<sql>
+				<![CDATA[
+				select @rownum:=@rownum+1 as rownum,t.* from (
+					select  @rownum:=0,b.name,ss.title,strip_tags(ss.content) as html_content,ss.score,ss.rejectreason,b.company
+					from sy_classcourse_learningsense ss
+					inner join sy_classcourse sc on ss.classcourseid=sc.id
+					inner join sy_class bc on sc.classid=bc.id 
+					inner join sy_courseware kc on sc.coursewareid=kc.id 
+					inner join sy_student b on ss.studentid=b.id
+					where 1>0 and ss.status>=1 
+					{and ss.classcourseid=[classcourseid]}
+					{and ss.title like concat('%',[title],'%')}
+					{and b.name like concat([stuname],'%')}
+					{and ss.status=[status]}
+					{and ss.recommendstatus=[recommend]}
+					order by ss.createdtime desc
+				) t
+				]]>
+			</sql>
+		</exportitem>
+	</exports>
+	<exports category="bclearnsense"  downfilename="班级学后感.doc">
+		<exportitem templetdoc="templet_bclearnsense.doc">
+			<listextrasql>
+				<extrasql>
+					<![CDATA[
+						select bc.name as bcname from sy_class bc where bc.id=[classid]
+					]]>
+				</extrasql>
+			</listextrasql>
+			<sql>
+				<![CDATA[
+				select @rownum:=@rownum+1 as rownum,t.* from (
+					select  @rownum:=0,b.name,ss.title,strip_tags(ss.content) as html_content,ss.score,ss.rejectreason,b.company,ss.classcourseid
+					from sy_classcourse_learningsense ss
+					inner join sy_classcourse sc on ss.classcourseid=sc.id
+					inner join sy_class bc on sc.classid=bc.id 
+					inner join sy_courseware kc on sc.coursewareid=kc.id 
+					inner join sy_student b on ss.studentid=b.id
+					where 1>0 and ss.status>=1 and bc.id=[classid]
+					{and ss.title like concat('%',[title],'%')}
+					{and b.name like concat([stuname],'%')}
+					{and ss.status=[status]}
+					{and ss.recommendstatus=[recommend]}
+					order by ss.createdtime desc
+				) t
+				]]>
+			</sql>
+		</exportitem>
+	</exports>
+</root>

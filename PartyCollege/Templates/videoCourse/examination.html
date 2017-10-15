@@ -1,0 +1,18 @@
+﻿<div class="noPass" ng-style="nopassStyle"></div>
+<div class="pass" ng-style="passStyle"></div>
+<div ng-if="examShow && examList.length > 0">
+    <p class="red">已考试次数：{{examcount}}</p>
+    <ul>
+        <li ng-repeat="item in examList">
+            <p>题目{{$index + 1}}：{{item.examtitle}}</p>
+            <span ng-repeat="as in item.answerList">
+                <input type="radio" name="{{item.id}}" ng-disabled="!submitShow" ng-value="as.answerid" ng-if="item.examcategory == 0" ng-model="item.selectid" />
+                <input type="checkbox" name="ckbExam" ng-disabled="!submitShow" ng-if="item.examcategory == 1" ng-model="as.isselect" />
+                {{itemNoList[$index]}}. {{as.answer}}
+            </span>
+        </li>
+
+        <div class="submit_box" ng-if="submitShow"><a class="btn" ng-click="submitExam()">交卷</a></div>
+        <div class="submit_box" ng-if="!submitShow"><a class="btn" ng-click="retakeExam()">重考</a></div>
+    </ul>
+</div>

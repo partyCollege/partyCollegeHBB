@@ -1,0 +1,37 @@
+﻿<ion-view title="一卡通查询">
+    <go-main-page ng-if="canserch"></go-main-page>
+    <ion-header-bar align-title="center" class="bar bar-subheader search_container">
+        <label class="item item-input searchStyle" ng-if="!canserch">
+            <i class="icon ion-search placeholder-icon searchIcon"></i>
+            <input class="searchInput" type="text" placeholder="搜索" ng-model="query">
+        </label>
+        <div class="item item-input searchStyle" ng-if="canserch">
+            <i class="icon ion-search placeholder-icon searchIcon"></i>
+            <input class="searchInput" type="text" placeholder="卡号" id="txt_onecard">
+            <button ng-click="sea()" class="btn btn-primary btn-sm">检索</button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="has-tabs" delegate-handle="mainScroll" style="top:108px">
+        <div>
+            <h4 class="text-center">消费数据以服务窗口提供的数据为准</h4>
+        </div>
+        <ion-list type="card" class="default_list_container">
+            <ion-item ng-if="list.length==0">
+                <h2>暂无数据</h2>
+            </ion-item>
+            <ion-item class="default_list_style" ng-repeat="item in list|filterQueryOneCard:query">
+                <h2>
+                    {{item.TypeName}}
+                </h2>
+                <div class="row">
+                    <p class="col">{{item.UseDate|date:'MM月dd日 hh:mm'}}</p>
+                    <p class="col">{{item.address}}</p>
+                </div>
+                <div class="row">
+                    <p class="col">金额：{{item.UseAmount}}元</p>
+                    <p class="col">余额：{{item.NowAmount}}元</p>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

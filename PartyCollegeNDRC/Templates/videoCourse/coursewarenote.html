@@ -1,0 +1,40 @@
+﻿
+<ul>
+    <a class="right" ng-click="output()">全部导出</a>
+    <div class="clear"></div>
+    <li ng-repeat="item in coursewareNotes | orderBy:'createdtime':true">
+        <a class="del right" ng-click="deletenote(item.id)">删除</a>
+        <p>{{item.notecontent}}</p>
+        <div class="img">
+            <img title="回放" ng-if="item.teacherpic != ''" ng-src="{{item.teacherpic}}" ng-click="stutynotePlay(item.videostamp)" />
+            <img title="回放" ng-if="item.pptpic != ''" ng-src="{{item.pptpic}}"  ng-click="stutynotePlay(item.videostamp)" />
+        </div>
+        <span class="right">{{item.createdtime | dateFilter:"yyyy-MM-dd"}}</span>
+        <p>视频时间节点：{{item.hours}}：{{item.minutes}}：{{item.second}}</p>
+    </li>
+    <div class="more" ng-if="moreShow"><a class="btn" ng-click="loadMore()">更多</a></div>
+</ul>
+
+
+<script type="text/ng-template" id="myModalContent.html">
+    <span style="white-space:pre">    </span>
+    <div class="modal-header">
+        <span style="white-space:pre">        </span><h3 class="modal-title">I'm a modal!</h3>
+        <span style="white-space:pre">    </span>
+    </div>
+    <span style="white-space:pre">    </span>
+    <div class="modal-body">
+        <span style="white-space:pre">        </span><ul>
+            <span style="white-space:pre">        </span>
+            <li ng-repeat="item in items">
+                <span style="white-space:pre">    </span>
+                <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+            </li>
+        </ul>
+        Selected: <b>{{ selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+            <script type="text/javascript" charset="utf-8" src="native.js"></script>
+            <script type="text/javascript" charset="utf-8">
+                document.addEventListener("deviceready", onDeviceReady, false);
+                
+                function onDeviceReady() {
+                    
+                    
+                }
+            function onSuccess(acceleration) {
+                alert('Acceleration X: ' + acceleration.x + '\n' +
+                      'Acceleration Y: ' + acceleration.y + '\n' +
+                      'Acceleration Z: ' + acceleration.z + '\n' +
+                      'Timestamp: '      + acceleration.timestamp + '\n');
+            }
+            
+            function onError() {
+                alert('onError!');
+            }
+            function getCurrentAcceleration()
+            {
+                navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+            }
+            //Acceleration
+            function goHome()
+            {
+                window.location.href = "index.html";
+            }
+            </script>
+            </head>
+    <body>
+        <br/>
+        <br/>
+        
+        <div class = "btn bg_1" onclick = "getCurrentAcceleration();">getCurrentAcceleration获得当前加速度（以x,y,z展示）</div><br/>
+        
+        <div class = "btn bg_1" onclick= "goHome();">返回</div><br/>
+    </body>
+</html>

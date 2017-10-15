@@ -1,0 +1,57 @@
+﻿<style>
+    .tjrcTime span { display:inline-block;margin-bottom:10px;}
+.tjrcTime span:nth-child(odd){ float:left;width:48%; }
+.tjrcTime span:nth-child(even){ float:right;width:48%; }
+.tjrcTime span input { width:100%;border:1px solid #e4e4e4;background:none;padding:5px; }
+</style>
+<ion-view title="请假">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon" ng-click="newQingjia()">请假记录</button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="list qingjia_container">
+            <label class="item item-input item-stacked-label qingjia_reason">
+                <span class="input-label title">请假事由：</span>
+                <!--<input type="text" ng-model="qingjia.CONTENT" placeholder="事由" />-->
+                <textarea ng-model="qingjia.CONTENT" placeholder="事由" columns="5" maxlength="150"></textarea>
+            </label> 
+            <div class="qingjia_time">
+                <p class="tjrcTime clearfix">
+                    <span class="demo-wrapper demo-wrapper-datetimeDate">
+                        <input id="s-date" placeholder="请选择开始日期" />
+                    </span>
+                    <span class="demo-wrapper demo-wrapper-datetimeDate">
+                        <input id="s-time" placeholder="请选择开始时间" />
+                    </span>
+                </p>
+                <p class="tjrcTime clearfix">
+                    <span class="demo-wrapper demo-wrapper-datetimeDate">
+                        <input id="e-date" placeholder="请选择结束日期" />
+                    </span>
+                    <span class="demo-wrapper demo-wrapper-datetimeDate">
+                        <input id="e-time" placeholder="请选择结束时间" />
+                    </span>
+                </p>
+            </div>
+            
+            <label class="item item-input item-stacked-label qingjia_type">
+                <span class="input-label title">请假类型：</span>
+                <select ng-model="qingjia.QJLX">
+                    <option value="公假">公假</option>
+                    <option value="事假">事假</option>
+                    <option value="病假">病假</option>
+                </select>
+            </label>
+            <div class="text-center">
+                <button class="button button-small button-positive" ng-if="fromweixin&&AppConfig.showQingJiaPic==true" ng-click="uploadPic()">上传图片</button>
+            </div>
+            <div class="text-center">
+                <img id="qingjiaIMG" ng-if="fromweixin&&AppConfig.showQingJiaPic==true" style="width:100%;" />
+            </div>
+        </div>
+    </ion-content>
+    <div align-title="left" id="btnSave" class="bar bar-footer bar-positive qingjia_btn">
+        <h1 class="title" ng-click="save()"> 提交 </h1>
+    </div>
+</ion-view>

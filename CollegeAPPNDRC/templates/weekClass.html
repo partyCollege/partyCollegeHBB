@@ -1,0 +1,70 @@
+﻿<style>
+    .nowred {
+        color: red;
+    }
+
+    .nowgreen {
+        color: green;
+    }
+
+    .nowblue {
+        color: blue;
+    }
+</style>
+<ion-view title="课程信息">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-head-bar align-title="center" class="bar bar-subheader weekClass_hd">
+        <div class="buttons">
+            <button class="button" ng-click="goprev()">上一周</button>
+        </div>
+        <span class="title">
+            {{nowWeekStart|date:'MM月dd日'}} 至 {{nowWeekEnd|date:'MM月dd日'}}
+        </span>
+        <div class="buttons">
+            <button class="button" ng-click="gonext()">下一周</button>
+        </div>
+    </ion-head-bar>
+    <div class="weekClass_topBox" style="{{marTop}}">
+        <h1 class="title noMargin">
+            <a class="button button-clear" style="color:black; min-height: 32px; line-height: 42px;" ng-click="showPopup($event)">
+                {{nowbc.bcname}}&nbsp;&nbsp;<i class="ion-chevron-down" ng-if="usertype!=student"></i>
+            </a>
+        </h1>
+        <div ng-if="is_stu">
+            <div class="item item-divider weekClass_state">
+                <i class="green"></i>出勤
+                <i class="black"></i>未上
+                <i class="red"></i>请假
+                <i class="blue"></i>其他状态
+            </div>
+        </div>
+    </div>
+    <ion-content class="has-footer has-header has-subheader weekClass_bd" style="{{marConTop}}">
+        <div class="list card weekClass_list" ng-repeat="weekday in  weekDayClass">
+            <div class="item item-divider list_hd" istitle="true">
+                <i class="icon ion-arrow-right-b"></i>{{weekday[0].dayOfWeek}}
+                <label>{{weekday[0].kssj | date:'MM月dd日'}}</label>
+            </div>
+            <div class="item list_bd" ng-click="dobz(onedayClass)" ng-repeat="onedayClass in weekday">
+                <h2 ng-class="{'nowgreen':onedayClass.chuqin=='出勤','nowred':onedayClass.chuqin=='事假'||onedayClass.chuqin=='病假'||onedayClass.chuqin=='公假','nowblue':onedayClass.chuqin=='未签'||onedayClass.chuqin=='早退'||onedayClass.chuqin=='迟到','':onedayClass.chuqin}">{{onedayClass.kcname}}</h2>
+                <div class="row">
+                    <div class="col item-icon-left"><p><i class="ion-ios7-time-outline"></i>{{onedayClass.kssj|date:'HH:mm'}}至{{onedayClass.jssj|date:'HH:mm'}} </p></div>
+                    <div class="col item-icon-left"><p><i class="ion-ios7-person"></i>{{onedayClass.teacher}} </p></div>
+                </div>
+                <div class="row">
+                    <div class="col  item-icon-left"><p><i class="ion-ios7-home-outline"></i> {{onedayClass.address}} </p></div>
+                </div>
+                <div class="row" ng-if="onedayClass.bz2&&onedayClass.bz2.length!=0">
+                    <div class="col  item-icon-left"><p><i class="ion-ios7-copy-outline"></i> {{onedayClass.bz2}} </p></div>
+                </div>
+                <div class="row" ng-if="onedayClass.classFile&&onedayClass.classFile.length!=0&&AppConfig.showFileButton" ng-repeat="file in onedayClass.classFile">
+                    <div class="col  item-icon-left" ng-click="DownFile(file)"><a><i class="ion-paperclip"></i> {{file.nrbt}} </a></div>
+                </div>
+            </div>            
+        </div>
+        <div class="list card" ng-if="!showNull">
+            <div class="item item-divider" style="text-align:center;"> 本周暂无课程 </div>
+        </div>
+    </ion-content>
+</ion-view>
+

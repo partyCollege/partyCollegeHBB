@@ -1,0 +1,42 @@
+﻿<div>
+	<p>课程分类</p><div class="courseSort_popupBox" style="height:auto">
+
+		<div ng-repeat="x in categoryList" style="height:auto">
+
+			<button data="0" class="btn btn-default" id="bbn" ng-click="selectCategory(this)" ng-class={true:"active"}[x.checked]>{{x.name}}</button>
+
+		</div> <div style="clear:both;"></div>
+
+	</div>
+	<div ng-if="categorySecondLevelList.length" class="reclassify">
+		<i><img src="../img/Hbb/t-arrow.png" /></i>
+		<p></p><p>二级分类</p><div class="courseSort_popupBox" style="height:auto">
+
+			<div ng-repeat="x in categorySecondLevelList" style="height:auto">
+
+				<button data="0" class="btn btn-default" id="bbn" ng-click="selectSecondLevelCategory(this)" ng-class={true:"active"}[x.checked]>{{x.name}}</button>
+
+			</div><div style="clear:both;"></div>
+
+		</div>
+
+	</div>
+	<p style="margin-top: 10px;">所属年份</p><div class="courseSort_popupBox" style="height:auto">
+
+		<div ng-repeat="x in categoryYearList" style="height:auto">
+
+			<button data="0" class="btn btn-default" id="bbn" ng-click="selectCategoryYear(this)" ng-class={true:"active"}[x.checked]>{{x.year}}</button>
+
+		</div><div style="clear:both;"></div>
+
+	</div>
+	<p>课程类型</p><div class="courseSort_popupBox" style="height:auto">
+
+		<div ng-repeat="x in categoryTypeList" style="height:auto">
+
+			<button data="0" class="btn btn-default" id="bbn" ng-click="selectCategoryType(this)" ng-class={true:"active"}[x.checked]>{{x.title}}</button>
+
+		</div><div style="clear:both;"></div>
+
+	</div>
+</div>

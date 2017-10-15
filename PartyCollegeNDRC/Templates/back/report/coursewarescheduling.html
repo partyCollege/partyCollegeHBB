@@ -1,0 +1,73 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+
+    .mycenter {
+        text-align: center;
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row form-horizontal">
+        <div class="col-md-9 form-group">
+            <div class="row form-group">
+                <div class="col-md-5">
+                    <label class="col-sm-5 control-label">年份</label>
+                    <div class="col-sm-7">
+                        <select class="form-control" ng-model="search.year">
+                            <option ng-repeat="item in yearlist" ng-value="item.year">{{item.year}}</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <label class="col-sm-5 control-label">月份</label>
+                    <div class="col-sm-7">
+                        <select class="form-control" ng-model="search.month">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 text-right">
+            <button class="btn btn-info" ng-click="goSearch()">检索</button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="container" style="min-width:300px;height:250px;"></div>
+    </div>
+    <div class="row">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-pagination class="grid1" ui-grid-selection></div>
+    </div>
+
+</div>

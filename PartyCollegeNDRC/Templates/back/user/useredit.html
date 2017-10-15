@@ -1,0 +1,111 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="row text-right">
+					<div class="widget style1 badge-primary">
+						<div class="row vertical-align">
+							<div class="col-md-12 text-center">
+								<h3>平台用户维护</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ibox-content">
+					<form name="userForm" id="userForm" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">身份证</label>
+							<div class="col-sm-4">
+								<input type="text" name="idcard" class="form-control"
+									   validator="idcard"
+									   valid-method="watch"
+									   required-error-message="身份证号必须的。"
+									   idcard-error-message="身份证号输入不正确"
+									   valid-callback="remoteCheckIdCard(userForm.idcard.$pristine);"
+									   invalid-callback="idcardInvalidClearMsg();"
+									   ng-disabled="accForm.idcardDisabled"
+									   ng-model="accForm.idcard"
+									   message-id="idcard_message">
+								<p id="idcard_message" class="error">{{inValidIdCardMessage}}</p>
+							</div>
+
+							<label class="col-sm-2 control-label">姓名</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="name"
+									   validator="inputzh"
+									   required-error-message="姓名是必须的。"
+									   valid-method="watch"
+									   placeholder="输入中文"
+									   ng-disabled="accForm.nameDisabled"
+									   ng-model="accForm.name" id="name_message">
+								<p id="name_message" class="error"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">登录名</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="logname"
+									   maxlength="18"
+									   validator="logname"
+									   valid-method="watch"
+									   required-error-message="登录名是必须的。"
+									   cellphone-error-message="登录名格式不正确。"
+									   valid-callback="remoteCheckLogname(userForm.logname.$pristine);"
+									   invalid-callback="lognameInvalidMsgClear();"
+									   message-id="logname_message"
+									   ng-disabled="accForm.lognameDisabled"
+									   ng-model="accForm.logname">
+								<p id="logname_message" class="error">{{lognameInvalidMsg}}</p>
+							</div>
+							<label class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-4">
+								<input type="password" class="form-control" required name="pwd" ng-disabled="accForm.pwdDisabled" ng-model="pwd">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">性别</label>
+							<div class="col-sm-4">
+								<input type="radio" name="sex" ng-disabled="false" ng-model="accForm.sex" value="1" ng-checked="accForm.sex==1">男
+								<input type="radio" name="sex" ng-disabled="false" ng-model="accForm.sex" value="0" ng-checked="accForm.sex==0">女
+							</div>
+							<label class="col-sm-2 control-label">联系方式</label>
+							<div class="col-sm-4">
+								<input type="text" name="cellphone" class="form-control" required cellphone-validator ng-model="accForm.cellphone" ng-disabled="false">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">账号角色</label>
+							<div class="col-sm-10">
+								<ui-select name="rolelist" id="rolelist" ng-model="accForm.rolelist" valid-method="watch" multiple theme="bootstrap" ng-disabled="false">
+									<ui-select-match placeholder="请选择角色">{{$item.name}}</ui-select-match>
+									<ui-select-choices repeat="{id:item.id,name:item.name,platformid:item.platformid} as item in roles | filter: $select.search">
+										<div ng-bind-html="item.name | highlight: $select.search"></div>
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">默认中心</label>
+							<div class="col-sm-4">
+								<select ng-model="accForm.defaultusertype" class="form-control" select-source code="默认中心"></select>
+							</div>
+							<label class="col-sm-2 control-label">工作单位</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" required ng-disabled="false" ng-model="accForm.company">
+							</div>
+							<label class="col-sm-2 control-label">是否锁定</label>
+							<div class="col-sm-4"><input type="checkbox" ng-model="accForm.checkstatus" ng-checked="accForm.checkstatus" /></div>
+						</div>
+
+						<div class="text-center">
+							<button class="btn btn-primary" ng-click="saveSyUser()" ng-disabled="userForm.$pristine||userForm.$invalid||saveButtonDisabled">保存</button>
+							<button class="btn btn-default" ng-click="goToList();">取消</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

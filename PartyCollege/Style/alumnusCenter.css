@@ -1,0 +1,224 @@
+﻿.header.alumnus {
+    background: url('../img/alumnusCenter/alumnus_header.jpg') repeat-x center 60px;
+}
+.header.alumnus>.main{
+    height: 140px;
+}
+.alumnus_top span{
+    color: #a8a8a8;
+    padding: 0px 8px;
+    position: relative;
+}
+.alumnus_top span i{
+    font-size: 18px;
+    vertical-align: middle;
+    margin-right: 6px;
+    color: #a8a8a8;
+}
+.alumnus_top span i.tubiaoicon-48{
+    font-size: 14px;
+    margin-left: 5px;
+}
+.alumnus_top span i.tubiaoicon-56{
+    color: #edce01;
+}
+.main .course_tj{
+    background: #fff;
+    border: 0px;
+    padding: 40px 16px 20px;
+}
+.main .course_ul li{
+    position: relative;
+}
+.main .course_ul li img{
+    width: 320px;
+    height: 200px;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+.main .course_ul li span {
+    position: absolute;
+    width: 304px;
+    padding: 8px;
+    bottom: 16px;
+    color: #fff;
+    left: 0px;
+    background-image: url('../img/nav_index_bg2.png');
+    cursor: pointer;
+}
+.main .course_tj li{
+    width: 316px;
+}
+.main .courseText_ul li{
+    border: 0px;
+}
+.main .courseText_ul li a{
+    max-width: 280px;
+    height: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+.courseText_ul li i{
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: #CE0E08;
+    float: left;
+    margin: 5px 8px 0px 0px;
+}
+.more{
+    display: block;
+    margin: 0px auto;
+    border: 1px solid #626262;
+    color: #626262;
+    text-align: center;
+    width: 90px;
+    padding: 8px 0px;
+    font-size: 14px;
+}
+.alumnus_top span .change_box{
+    position: absolute;
+    top: 30px;
+    left: -3px;
+}
+.alumnus_top span .change_box a{
+    margin: 0px !important;
+    padding: 0px 0px 0px 12px !important;
+    line-height: 34px !important;
+    color: #ededed;
+    background: #262626;
+    display: block;
+    width: 80px;
+}
+.alumnus_top span .change_box a:hover{
+    background: #CE0E08;
+    color: #fff;
+    text-decoration: none !important;
+}
+/*学习记录*/
+.studentSay_box{
+    background: url('../img/alumnusCenter/studyRecord_box.jpg') 0px center repeat-x;
+    margin: 40px 0px 0px;
+}
+.studentSay_box .main {
+    height: 400px;
+    background: url('../img/bai_bg.png');
+}
+.studentSay_box ul{
+    width: 42%;
+    position: relative;
+}
+.studentSay_box ul.right{
+    width: 56%;
+}
+.studentSay_box .switchover_box{
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 10;
+}
+.studentSay_box .switchover_box span{
+    padding: 3px 5px;
+    border: 1px solid #7cb5ec;
+    color: #7cb5ec;
+    cursor: pointer;
+}
+.studentSay_box .switchover_box span.select{
+    background: #7cb5ec;
+    color: #fff;
+}
+.studentSay_box ul li{
+    padding: 16px 0px 0px 16px;
+}
+.studentSay_box ul li h2 b{
+    font-size: 14px;
+    font-family: "微软雅黑";
+    border-bottom: 2px solid #CE0E08;
+    padding-bottom: 2px;
+}
+.studentSay_box ul li h2 span{
+    float: right;
+}
+.studentSay_box ul.left li p{
+    width: 366px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.studentSay_box ul.left li .time{
+    float: right;
+}
+/*课程分类*/
+.main .course_sort{
+    position: relative;
+    margin-top: 40px;
+    background: #fff;
+    padding: 40px 16px 20px;
+}
+.searchT_box{
+    text-align: right;
+}
+.searchT_box input{
+    padding: 8px;
+    width: 200px;
+}
+.searchT_box button{
+    background: #626262;
+    color: #fff;
+    margin-left: 8px;
+    padding: 8px;
+}
+.search_box table{
+}
+.search_box table tr{
+    border-bottom: 1px solid #ededed;
+}
+.search_box table tr td{
+    padding: 8px 0px;
+}
+.search_box table tr .short{
+    font-weight: bold;
+    font-size: 14px;
+    width: 45px;
+}
+.search_box table tr .short.allSelect{
+    font-size: 12px;
+    font-weight: normal;
+}
+.search_box table tr .short.allSelect span{
+    padding: 0px;
+    width: auto;
+}
+.search_box table tr span{
+    padding-right: 8px;
+    display: inline-block;
+    width: 138px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.search_box table tr span em{
+    width: 120px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.search_box table tr span input[type="checkbox"]{
+    vertical-align: top;
+    margin-right: 5px;
+    border: 1px solid #ededed;
+}
+.course_ul{
+    height: auto !important;
+    border-bottom: 0px !important;
+}
+
+
+
+
+
+

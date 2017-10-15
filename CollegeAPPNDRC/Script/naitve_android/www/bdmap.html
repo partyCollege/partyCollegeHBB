@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>xsfBDMap</title>
+	<link rel="stylesheet" href="style_box_demo.css" type="text/css" />  
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    var ref;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    
+    function onDeviceReady() {
+    	xsfSplashscreen.hide();
+    }
+    
+    function openBaseMap(isWebViewVisible){
+    	var url = "file:///android_asset/www/bdmap_demo.html";
+    	xsfBDMap.openBaseMap(url , isWebViewVisible ,onSuccess, onError);
+    }
+    
+    function openInspectionPoint(isWebViewVisible){
+    	var url = "http://192.168.1.124:8080/box/demo_bdmap_inspection_points.html";
+    	xsfBDMap.openBaseMap(url , isWebViewVisible ,onSuccess, onError);
+    }
+    
+    function onSuccess(data){
+    	console.log(data.message + " - " + data.data);
+    }
+    
+    function onError(e){
+    	console.log(e.message + " - " + data.data);
+    }
+    
+    </script>
+  </head>
+<body>
+	<div class="btn_container">
+		<div class="btn bg_1" onclick="openBaseMap(true)">openBaseMap(url, true)</div>
+		<div class="btn bg_2" onclick="openInspectionPoint(false)">openInspectionPoint(false)</div>
+	</div>
+</body>
+</html>

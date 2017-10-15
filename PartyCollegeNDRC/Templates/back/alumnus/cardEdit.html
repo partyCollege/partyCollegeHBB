@@ -1,0 +1,105 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 200px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 325px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 410px;
+        }
+    }
+</style>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>自动序列号</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">批次名称:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" ng-model="card.name" />
+                            </div>
+                            <label class="col-sm-2 control-label">有效时长</label>
+                            <div class="col-sm-2">
+                                <select class="form-control" ng-disabled="cardid" ng-model="card.effectivetime">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" ng-disabled="cardid" ng-model="card.effectiveunit">
+                                    <option value="0">年</option>
+                                    <option value="1">月</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课程数</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" maxlength="5" ng-model="card.courselength" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                            </div>
+                            <label class="col-sm-2 control-label">价格</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" ng-model="card.price" maxlength="5" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">序列号数</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" ng-disabled="cardid" ng-model="card.sequencecount" maxlength="5" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                            </div>
+                            <label class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" ng-model="card.statecn" style="border:0px;" readonly="readonly" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="text-center">
+                            <button class="btn btn-default" ng-if="opationConfig.serialCardShow" ng-click="serialCard()" ng-disabled="saveDisabled">生成序列号</button>
+							<button class="btn btn-primary" ng-if="opationConfig.saveCardShow" ng-click="saveCard()" ng-disabled="saveDisabled">  保  存  </button>
+							<button class="btn btn-default" ng-if="opationConfig.useCardShow && !opationConfig.serialCardShow" ng-click="useCard()" ng-disabled=""> 已制卡 </button>
+							<button class="btn btn-default" ng-if="opationConfig.useCardExitShow" ng-click="useCardExit()" ng-disabled=""> 作  废 </button>
+                            <button class="btn btn-default" ng-if="opationConfig.exportCardShow" ng-click="exportCard()">  导  出  </button>
+                            <button class="btn btn-default" ng-click="goToList()"> 取 消 </button>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" ng-if="serialShow">
+                            <div id="grid1" ui-grid="gridOptions" class="grid1" ></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

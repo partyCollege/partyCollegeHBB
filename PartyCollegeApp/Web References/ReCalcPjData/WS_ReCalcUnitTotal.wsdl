@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReCalcUnitTotalPjData">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReCalcUnitTotalPjDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReCalcUnitTotalPjDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollegeReCalcUnitTotalPjData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bcid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollegeReCalcUnitTotalPjDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CollegeReCalcUnitTotalPjDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReCalcUnitTotalPjDataSoapIn">
+    <wsdl:part name="parameters" element="tns:ReCalcUnitTotalPjData" />
+  </wsdl:message>
+  <wsdl:message name="ReCalcUnitTotalPjDataSoapOut">
+    <wsdl:part name="parameters" element="tns:ReCalcUnitTotalPjDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CollegeReCalcUnitTotalPjDataSoapIn">
+    <wsdl:part name="parameters" element="tns:CollegeReCalcUnitTotalPjData" />
+  </wsdl:message>
+  <wsdl:message name="CollegeReCalcUnitTotalPjDataSoapOut">
+    <wsdl:part name="parameters" element="tns:CollegeReCalcUnitTotalPjDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WS_ReCalcUnitTotalSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReCalcUnitTotalPjData">
+      <wsdl:input message="tns:ReCalcUnitTotalPjDataSoapIn" />
+      <wsdl:output message="tns:ReCalcUnitTotalPjDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollegeReCalcUnitTotalPjData">
+      <wsdl:input message="tns:CollegeReCalcUnitTotalPjDataSoapIn" />
+      <wsdl:output message="tns:CollegeReCalcUnitTotalPjDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_ReCalcUnitTotalSoap" type="tns:WS_ReCalcUnitTotalSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReCalcUnitTotalPjData">
+      <soap:operation soapAction="http://tempuri.org/ReCalcUnitTotalPjData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollegeReCalcUnitTotalPjData">
+      <soap:operation soapAction="http://tempuri.org/CollegeReCalcUnitTotalPjData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_ReCalcUnitTotalSoap12" type="tns:WS_ReCalcUnitTotalSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReCalcUnitTotalPjData">
+      <soap12:operation soapAction="http://tempuri.org/ReCalcUnitTotalPjData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollegeReCalcUnitTotalPjData">
+      <soap12:operation soapAction="http://tempuri.org/CollegeReCalcUnitTotalPjData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_ReCalcUnitTotal">
+    <wsdl:port name="WS_ReCalcUnitTotalSoap" binding="tns:WS_ReCalcUnitTotalSoap">
+      <soap:address location="http://localhost/xyzz/KJPJ/WS_ReCalcUnitTotal.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_ReCalcUnitTotalSoap12" binding="tns:WS_ReCalcUnitTotalSoap12">
+      <soap12:address location="http://localhost/xyzz/KJPJ/WS_ReCalcUnitTotal.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

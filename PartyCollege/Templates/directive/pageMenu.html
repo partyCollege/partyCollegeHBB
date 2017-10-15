@@ -1,0 +1,6 @@
+﻿<ul>
+    <li ng-repeat="link in myList" ng-if="link.isShow"><a ng-class="{true:'select'}[link.isSelected]" ui-sref="{{link.sref}}" ng-click="selectMenu(link.id)"><i class="{{link.icon}}"></i>{{link.title}}<i class="tubiaoicon-49"></i></a></li>
+
+    <!--<li ng-repeat="link in myList"><a ui-sref="{{link.sref}}" ng-class=" {'select':link.isselected }" ng-click="selectMenu(link.id)"><i class="icon icon_xxzx">{{link.title}}</i><i class="tubiaoicon-49"></i></a></li>-->
+    
+</ul>

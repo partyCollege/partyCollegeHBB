@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+
+ 	<script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    //
+    var ref;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+        alert('onDeviceReady');
+    }
+        function open1(){
+            ref = xsfWindow.open('open3.html','title');
+            //alert(ref);
+
+            ref.addEventListener('exit', function(event) {
+                                 alert(event.type);
+                                 });
+                    }
+        function close1(){
+            //alert(ref);
+            xsfWindow.close(1,function(){alert('closed2')});
+            
+        }
+    </script>
+  </head>
+  <body>
+      open2
+      <a href="#" onclick="open1()"> open </a>
+      <br/>
+      <a href="#" onclick="close1()"> close </a>
+      <p><a href="index.html">index</a></p>
+  </body>
+</html>

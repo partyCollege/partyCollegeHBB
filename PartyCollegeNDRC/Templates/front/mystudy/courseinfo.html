@@ -1,0 +1,74 @@
+﻿<div class="right hbbStudentRight courseInfo_hbb_box">
+    <div class="clearfix courseInfo_hbb">
+        <img class="left" ng-src="{{courseinfo.photo}}" onerror="this.src='../img/course_img.jpg'" />
+        <p class="title">
+           {{courseinfo.coursewarename}}
+            <span class="pull-right orange">评分：{{courseinfo.grade}}</span>
+        </p>
+        <p class="gray">课程来源：{{courseinfo.source}}</p>
+        <p class="gray">课程类型：{{ courseinfo.coursetype==0 ? "视频课程" :"非视频课程"}}</p> 
+        <p class="gray">
+            主讲人：{{courseinfo.teachersname}}
+            <a class="pull-right btn" ng-if="courseinfo.iselectivechoose>0 || courseinfo.isrequiredchoose >0 " ng-click="playVideo()">播放</a>
+            <a ng-class="{true: 'pull-right btn del', false: 'pull-right btn yx'}[courseinfo.style]" ng-click="chooseCourse()">{{courseinfo.buttontext}}</a>
+        </p>
+        <p class="gray">
+            学时：{{courseinfo.studytime}}
+        
+        </p>
+        <p class="gray">上传时间：{{courseinfo.uploadtime}}<span class="pull-right" ng-if="courseinfo.iselectivechoose>0">选课时间：{{courseinfo.jointime}}</span></p>
+        <div class="clear"></div>
+    </div>
+    <div class="col-md-12 noPadding">
+        <h2 class="common"><b>课程简介</b></h2>
+        <div class="text" ng-bind-html="courseinfo.comment"></div>
+    </div>
+    <div class="col-md-6 noPadding noMargin">
+        <h2 class="common"><b>教师简介</b></h2>
+		<div ng-repeat="teacher in datateacher">
+
+			<div style="font-weight:bold;">{{teacher.name}}</div>
+			<div class="text" ng-bind-html="teacher.comment"></div>
+		</div>
+		
+    </div>
+    <div class="col-md-6 noPadding">
+        <h2 class="common"><b>课程评价</b></h2>
+        <!--<p class="zt_comment">总体评价：<span class="comment_t"><span></span></span></p>
+        <textarea class="pj_textarea"></textarea>
+        <button class="btn submitComment">提交评论</button>
+        <div class="clear"></div>-->
+        <ul class="commentList">
+            <li ng-repeat="n in datalist">
+                <div class="img"> 
+                    <img ng-src="{{n.userphoto}}" onerror="this.src = '../img/commentList_userImg.png'" />
+                </div>
+                <span class="pull-right gray time" ng-bind="n.submittime"></span>
+                <p class="userName" ng-bind="n.name"></p>
+                <p ng-bind="n.comments"></p>
+            </li>  
+            <li ng-if="datalist.length==0">暂无评论</li>
+        </ul> 
+        <div class="more" ng-if="searchparameter.isMore">
+            <a href="" class="btn" ng-click="more()">更多</a>
+            <i class="icon icon_more"></i>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="bxbList" ng-if="courseinfo.isrequiredchoose >0">
+        <h2 class="common"><b>必修班级列表</b></h2>
+        <div>
+            <ul class="list list-unstyled myStudy_myClassList">
+                <li ng-repeat="item in myClasslist">
+                    <a ng-click="goClass(item.id)" class="pull-right btn">进入班级</a>
+                    <h3>{{item.name}}</h3>
+                    <p>
+                        <span>{{item.starttime | date :'yyyy.MM.dd'}}到{{item.endtime | date :'yyyy.MM.dd'}}</span>
+                        <span>班级人数：{{item.studentnum}}</span>
+                        <span>总学时：<em class="orange">{{item.mystudytime}}</em>/{{item.allstudytime}}</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿<ion-view title="" style="font-size: 30px; ">
+    <style type="text/css">
+        .bar.bar-positive {
+            background-color: rgba(231, 000, 018,0);
+            background-image: none;
+        }
+    </style>
+    <div style="background-image: url(../img/loginImg/login.jpg); background-size: cover; position: absolute; bottom: 0px; left: 0px; right: 0px;top:0px;z-index:-1;">
+
+    </div>
+    <div style="position:absolute;left:0px;right:0px;height:{{winHeight75}}px">
+        <div>
+            <img src="../img/loginImg/login_top.png" style="width:100%;"/>
+        </div>
+        <div class="loginBtnStyle">
+            <div class="list padding-top padding-left padding-right">
+                <div style="padding:10px 20px;">
+                    <label class="item item-input" style="border-width: 0px; padding-bottom: 5px; padding-left: 6px; border: 1px solid #f24141;border-radius:3px;">
+                        <span class="input-label icon ion-android-social-user" style="color: #f24141; font-weight: 400; width: auto;font-size:20px;padding-top:0px;padding-bottom:0px;padding-left:5px;"></span>
+                        <input type="text" placeholder="请输入账号" ng-model="logname" required/>
+                    </label>
+                    <label class="item item-input" style="border-width: 0px; margin-top: 15px; padding-top: 5px; padding-bottom: 5px; border-color: #eee; padding-left: 6px; border: 1px solid #f24141; border-radius: 3px; ">
+                        <span class="input-label icon ion-locked" style="color: #f24141; font-weight: 400; width: auto; font-size: 24px; padding-top: 0px; padding-bottom: 0px; padding-right: 13px; padding-left: 5px; "></span>
+                        <input type="password" placeholder="请输入密码" ng-model="password" required/>
+                    </label>
+                    <label class="item item-input" style="border-width: 0px; border-top-width: 1px; padding-top: 10px; border-color: #eee; padding-left: 6px;display:none ">
+                        <span class="input-label" style="color: #999; font-weight: 400">&nbsp;&nbsp;&nbsp;&nbsp;记住密码</span>
+                        <label class="toggle">
+                            <input type="checkbox" ng-init="remberPSD=true;" ng-model="remberPSD">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </label>
+                </div>
+            </div>
+            <div class="padding-left padding-right" style="text-align:center;padding-left:29px;padding-right:30px;">
+
+                <button class="btn btn-warning btn-lg " ng-if="showxyLoginButton" style="width: 100%; background-color: #f24141;border:none" ng-click="StudentLogin()">登录</button>
+                <div class="btn-group btn-group-lg" style="width:100%;display:none">
+                    <button class="btn btn-info btn-lg" ng-if="showjsLoginButton" style="width:50%;display:none" ng-click="login()">教职工</button>
+                    <button class="btn btn-warning btn-lg " ng-disabled="password==''||logname==''" ng-if="showxyLoginButton" style="width: 100%; background-color: #f24141" ng-click="StudentLogin()">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-view>
+

@@ -1,0 +1,27 @@
+﻿<style type="text/css">
+
+    .anchorBL {
+        display: none;
+    }
+
+    #l-map {
+        height: 300px;
+        width: 100%;
+    }
+
+    #r-result, #r-result table {
+        width: 100%;
+    }
+</style>
+<ion-view title="地图导航">
+    <go-main-page></go-main-page>
+    <ion-content>
+        <div id="l-map"></div>
+        <div style="text-align:center;" class="padding-top padding-bottom">
+            <button class="button button-assertive" ng-click="switchMapType('transit')">公交模式</button>
+            <button class="button button-assertive" ng-click="switchMapType('walking')">步行模式</button>
+            <button class="button button-assertive" ng-click="switchMapType('driving')">驾车模式</button>
+        </div>
+        <div id="r-result"></div>
+    </ion-content>
+</ion-view>

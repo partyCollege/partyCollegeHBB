@@ -1,0 +1,46 @@
+﻿
+<div class="header teacher">
+    <div apptop></div>
+    <div class="main">
+        <div class="left teacher">
+            <!--<img class="myAll_jdt" src="../img/myAll_jdt.png" />-->
+            <div class="myAll_jdt">
+                <div class="prg-cont rad-prg" id="indicatorContainer"></div>
+            </div>
+            <!--<script src="../../../bower_components/jquery/dist/jquery.js"></script>-->
+            
+            <div class="img userImg">
+				<img ng-src="{{userHeadphoto || defaultUserPhoto}}" onerror="this.src = '../img/default_img.png'" />
+            </div>
+            <div class="info">
+                <p>欢迎，{{user.name}}<span><i class="tubiaoicon-41"></i>（3）</span></p>
+                {{user.depremark}}<br />
+                {{showYeaplan ? "年度计划完成比例":""}}<span ng-if="showYeaplan"><b>{{yearplanStudytimeRate}}</b></span>
+            </div>
+        </div>
+        <div class="right teacher">
+            <ul class="dataTj list list-inline">
+                <li><b>{{userReportData.classcount}}</b>已完成选修</li>
+                <!--<li><b>{{userReportData.waitcoursecount}}</b>待学课程数</li>-->
+                <li><b>{{userReportData.finishedcoursecount}}</b>已完成必修</li>
+                <li><b>{{userReportData.totalstudytime}}</b>通过考试</li>
+                <li ng-if="showYeaplan"><b>{{user.yearplan.studytime}}</b>本年应获学时</li>
+            </ul>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="main">
+            <ul>
+                <li ng-class="{'select':mainConfig[0].select}" ng-click="aClick('mystudy')"><a ui-sref="main.studycenter">学习中心</a></li>
+                <li ng-class="{'select':mainConfig[1].select}" ng-click="aClick('usercenter')"><a ui-sref="main.usercenter">个人中心</a></li>
+                <li class="right"><a href="../html/index.html#/main/index">返回首页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="clearfix main myClass_box" ui-view name="contentView">
+
+</div>
+<div appfooter></div> 
+<div loading ng-model="loadingOptions"></div>
+<div confirm-dialog ng-model="confirmOptions"></div> 

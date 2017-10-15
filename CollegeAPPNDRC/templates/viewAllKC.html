@@ -1,0 +1,29 @@
+﻿<ion-view style="{{marTop}}" title="课程列表">
+    <!--<gomain></gomain>-->
+    <go-main-page ></go-main-page>
+
+    <ion-content class="has-header has-tabs">
+        <ion-list>
+            <ion-item ng-repeat="item in kcxx" style="padding:10px 10px;padding-bottom:5px" ng-click="gotoViewKaoqin(item)">
+                <div class="line-h-30">
+                    <div class="item-text-wrap black size-18">{{item.kcname}}</div>
+                </div>
+                <div>
+                    <div class="pull-left" style="color:#C6C3C6;margin-top:10px;">
+                        <i class="ion-person"></i>
+                        <span ng-bind="item.teacher"></span>
+                    </div>
+                    <div class="pull-right" style="color:#C6C3C6;margin-top:10px;">
+                        <i class="ion-ios-clock-outline"></i>
+                        <span ng-bind="item.kssj|date:'yyyy-MM-dd HH:mm'"></span>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </ion-item>
+            <div ng-show="kcxx.length==0" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+                暂无课程信息
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

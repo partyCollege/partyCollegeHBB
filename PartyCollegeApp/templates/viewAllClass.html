@@ -1,0 +1,17 @@
+﻿<ion-view style="{{marTop}}" title="带班列表">
+    <!--<gomain></gomain>-->
+    <go-main-page ></go-main-page>
+
+    <ion-content class="has-header">
+        <div>
+            <div ng-repeat="item in bcxx" ng-click="gotoViewKc(item)" style="margin:3px 3px" class="item item-text-wrap item-icon-right">
+                <p style="display:inline; padding-right:40px;padding-left:0px;color:#aaa" class="col">{{item.bt}}</p>
+                <i class="icon ion-chevron-right balanced" style="color:#aaa;font-size:20px;"></i>
+            </div>
+            <div ng-show="bcxx.length==0" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+                暂无班级信息
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

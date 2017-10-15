@@ -1,0 +1,138 @@
+<ion-view  title="选课">
+    <ion-header-bar class="hbb-search-box hbb-bgColor-d">
+        <label class="item item-input">
+            <input type="text" placeholder="在此输入关键字"  ng-model="model.query" />
+            <i class="icon hbb-ion-search placeholder-icon"></i>
+        </label>
+    </ion-header-bar>
+
+    <div class="h_Scourse-content">
+        <ion-tabs class=" tabs-top h-Scontent-tab hbb-top-xkTabs"  delegate-handle="mainselectcourse-tab-handle">
+			<ion-tab title="最新课程" ng-click="onTabClick(0)">
+				<ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+					<ion-content class="h-Scontent-tab-view-content has-tabs">
+						<ion-refresher class="text-center" on-refresh="doGetCourse('1' , 'new')" pulling-text="拖动刷新" refreshing-text="加载中"
+									   refreshing-icon="ion-loading-c" pulling-icon="ion-ios-arrow-down">
+						</ion-refresher>
+						<ion-list class="list selectCourst-list">
+							<ion-item class="item item-thumbnail-left" ng-repeat="item in courseListObject['1'].list" ng-click="goCourseDetail(item)">
+								<img ng-src="{{getImageUrl(item.imagephoto)}}" err-src="../img/course_img.jpg" />
+								<h2>{{item.coursewarename}}</h2>
+								<p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+								<p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+								<button ng-if="!item.iselectivechoose" class="button button-positive" ng-click="chooseCourse(item , $event)">选课</button>
+								<button ng-if="item.iselectivechoose" class="button button-positive disabled">已选择</button>
+							</ion-item>
+						</ion-list>
+						<div ng-if="!courseListObject['1'].moreDataCanBeLoaded && courseListObject['1'].list.length<=0" class="hbb-course-empty-placeholder">
+							<i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+							<div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+						</div>
+						<ion-infinite-scroll ng-if="courseListObject['1'].moreDataCanBeLoaded" on-infinite="doGetCourse('1' , 'more')" distance="3%" icon="ion-loading-c">
+						</ion-infinite-scroll>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+			<ion-tab title="精品课程" ng-click="onTabClick(1)">
+				<ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+					<ion-content class="h-Scontent-tab-view-content has-tabs">
+						<ion-refresher on-refresh="doGetCourse('2' , 'new')" pulling-text="拖动刷新" refreshing-text="加载中"
+									   refreshing-icon="ion-loading-c" pulling-icon="ion-ios-arrow-down">
+						</ion-refresher>
+						<ion-list class="list selectCourst-list">
+							<ion-item class="item item-thumbnail-left" ng-repeat="item in courseListObject['2'].list" ng-click="goCourseDetail(item)">
+								<img ng-src="{{getImageUrl(item.imagephoto)}}" err-src="../img/course_img.jpg" />
+								<h2>{{item.coursewarename}}</h2>
+								<p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+								<p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+								<button ng-if="!item.iselectivechoose" class="button button-positive" ng-click="chooseCourse(item , $event)">选课</button>
+								<button ng-if="item.iselectivechoose" class="button button-positive disabled">已选择</button>
+							</ion-item>
+						</ion-list>
+						<div ng-if="!courseListObject['2'].moreDataCanBeLoaded && courseListObject['2'].list.length<=0" class="hbb-course-empty-placeholder">
+							<i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+							<div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+						</div>
+						<ion-infinite-scroll ng-if="courseListObject['2'].moreDataCanBeLoaded" on-infinite="doGetCourse('2' , 'more')" distance="3%" icon="ion-loading-c">
+						</ion-infinite-scroll>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+            <ion-tab title="推荐课程"   ng-click="onTabClick(2)">
+                <ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+                    <ion-content class="h-Scontent-tab-view-content has-tabs">
+                        <ion-refresher on-refresh="doGetCourse('3' , 'new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	                            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+                        </ion-refresher>
+                        <ion-list class="list selectCourst-list">
+                            <ion-item class="item item-thumbnail-left" ng-repeat="item in courseListObject['3'].list" ng-click="goCourseDetail(item)">
+                                <img ng-src="{{getImageUrl(item.imagephoto)}}"  err-src="../img/course_img.jpg" />
+                                <h2>{{item.coursewarename}}</h2>
+                                <p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+                                <p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+                                <button ng-if="!item.iselectivechoose" class="button button-positive" ng-click="chooseCourse(item , $event)">选课</button>
+                                <button ng-if="item.iselectivechoose" class="button button-positive disabled">已选择</button>
+                            </ion-item>
+                        </ion-list>
+                        <div ng-if="!courseListObject['3'].moreDataCanBeLoaded && courseListObject['3'].list.length<=0" class="hbb-course-empty-placeholder">
+                            <i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+                            <div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+                        </div>
+                        <ion-infinite-scroll ng-if="courseListObject['3'].moreDataCanBeLoaded" on-infinite="doGetCourse('3' , 'more')" distance="3%" icon="ion-loading-c">
+                        </ion-infinite-scroll>
+                    </ion-content>
+                </ion-view>
+            </ion-tab>
+            <ion-tab title="排行课程"   ng-click="onTabClick(3)">
+                <ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+                    <ion-content class="h-Scontent-tab-view-content has-tabs">
+                       <ion-refresher on-refresh="doGetCourse('4' , 'new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	                            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+                        </ion-refresher>
+                        <ion-list class="list selectCourst-list">
+                            <ion-item class="item item-thumbnail-left" ng-repeat="item in courseListObject['4'].list" ng-click="goCourseDetail(item)">
+                                <img ng-src="{{getImageUrl(item.imagephoto)}}"  err-src="../img/course_img.jpg" />
+                                <h2>{{item.coursewarename}}</h2>
+                                <p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+                                <p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+                                <button ng-if="!item.iselectivechoose" class="button button-positive" ng-click="chooseCourse(item , $event)">选课</button>
+                                <button ng-if="item.iselectivechoose" class="button button-positive disabled">已选择</button>
+                            </ion-item>
+                        </ion-list>
+                        <div ng-if="!courseListObject['4'].moreDataCanBeLoaded && courseListObject['4'].list.length<=0" class="hbb-course-empty-placeholder">
+                            <i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+                            <div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+                        </div>
+                        <ion-infinite-scroll ng-if="courseListObject['4'].moreDataCanBeLoaded" on-infinite="doGetCourse('4' , 'more')" distance="3%" icon="ion-loading-c">
+                        </ion-infinite-scroll>
+                    </ion-content>
+                </ion-view>
+            </ion-tab>
+            <ion-tab title="分类筛选" ng-click="onTabClick(4)">
+                <ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+                    <ion-content class="h-Scontent-tab-view-content has-tabs">
+                       <ion-refresher on-refresh="doGetCourse('SEARCH_RESULT' , 'new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	                            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+                        </ion-refresher>
+                        <ion-list class="list selectCourst-list">
+                            <ion-item class="item item-thumbnail-left" ng-repeat="item in courseListObject['SEARCH_RESULT'].list" ng-click="goCourseDetail(item)">
+                                <img ng-src="{{getImageUrl(item.imagephoto)}}"  err-src="../img/course_img.jpg" />
+                                <h2>{{item.coursewarename}}</h2>
+                                <p class="course-p1">主讲人：<span>{{item.teachersname}}</span></p>
+                                <p class="course-p2">学时：<span>{{item.studytime}}</span></p>
+                                <button ng-if="!item.iselectivechoose" class="button button-positive" ng-click="chooseCourse(item , $event)">选课</button>
+                                <button ng-if="item.iselectivechoose" class="button button-positive disabled">已选择</button>
+                            </ion-item>
+                        </ion-list>
+                        <div ng-if="!courseListObject['SEARCH_RESULT'].moreDataCanBeLoaded && courseListObject['SEARCH_RESULT'].list.length<=0" class="hbb-course-empty-placeholder">
+                            <i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+                            <div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+                        </div>
+                        <ion-infinite-scroll ng-if="courseListObject['SEARCH_RESULT'].moreDataCanBeLoaded" on-infinite="doGetCourse('SEARCH_RESULT' , 'more')" distance="3%" icon="ion-loading-c">
+                        </ion-infinite-scroll>
+                    </ion-content>
+                </ion-view>
+            </ion-tab>
+        </ion-tabs>
+    </div>
+</ion-view>

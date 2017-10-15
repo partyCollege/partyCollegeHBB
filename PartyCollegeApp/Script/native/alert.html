@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Notification Example</title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+        <script type="text/javascript" charset="utf-8">
+            
+            // Wait for device API libraries to load
+            //
+            document.addEventListener("deviceready", onDeviceReady, false);
+            
+            // device APIs are available
+            //
+            function onDeviceReady() {
+                
+            }
+        
+        // Show a custom alert
+        //wpk--08-22修改，弹窗加上回调方法，不然调不动弹窗方法。
+        function showAlert() {
+            navigator.notification.alert(
+                                         'You are the winner!',// message
+                                         alertDismissed,//callback
+                                         'Game Over',            // title
+                                         'Done'                  // buttonName
+                                         );
+        }
+        
+        // Beep three times
+        //
+        function playBeep() {
+            navigator.notification.beep(3);
+        }
+        
+        // Vibrate for 2 seconds
+        //
+        function vibrate() {
+            navigator.notification.vibrate(2000);
+        }
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+        function alertDismissed()
+        {
+            
+        }
+        function onConfirm(buttonIndex) {
+            alert('You selected button ' + buttonIndex);
+        }
+        //新增---可以跟踪用户点击哪个按钮。
+        function confirm()
+        {
+            navigator.notification.confirm(
+                                           'You are the winner!', // message
+                                           onConfirm,            // callback to invoke with index of button pressed
+                                           'Game Over',           // title
+                                           ['Restart','Exit']     // buttonLabels
+                                           );
+        }
+        function onPrompt(results) {
+            alert("You selected button number " + results.buttonIndex + " and entered " + results.input1);
+        }
+        //wpk--新增弹出带输入框的弹框，同时跟踪用户输入内容和点击的按钮。
+        function prompt()
+        {
+            navigator.notification.prompt(
+                                          'Please enter your name',  // message
+                                          onPrompt,                  // callback to invoke
+                                          'Registration',            // title
+                                          ['Ok','Exit'],             // buttonLabels
+                                          'Jane Doe'                 //defaultText
+                                          );
+        }
+            </script>
+    </head>
+    <body>
+        <br/>
+        <br/>
+        <div class="btn bg_1" onclick = "showAlert();">showAlert弹窗（有标题，内容）</div><br/>
+        <div class="btn bg_2" onclick = "playBeep();">playBeep让设备发出哔哔的声音</div><br/>
+        <div class="btn bg_3" onclick = "vibrate();">vibrate让设备震动</div><br/>
+        <div class="btn bg_4" onclick = "confirm();">confirm弹窗（有标题，有内容，俩个选择按钮，并跟踪用户点击哪个按钮）</div><br/>
+        <div class="btn bg_5" onclick = "prompt();">prompt弹窗（有标题，有内容，同时加一个输入框，俩选择按钮，可以跟踪用户输入内容，用户选择哪个按钮）</div><br/>
+        <div class="btn bg_1" onclick = "goHome();">返回</div><br/><br/>
+    </body>
+</html>

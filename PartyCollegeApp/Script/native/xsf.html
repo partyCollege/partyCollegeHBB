@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            alert('onDeviceReady');
+		   );
+        }
+    function login()
+    {
+        alert("wpk--login");
+        xsf.login();
+    }
+    function logout()
+    {
+        alert("logOut");
+        xsf.logout();
+    }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+    <p>xsf</p>
+    <div class = "btn bg_2" onclick = "login();">登录设备信息</div><br/>
+    <div class = "btn bg_3" onclick = "logout();">登出设备信息</div><br/>
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

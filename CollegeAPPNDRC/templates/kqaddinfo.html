@@ -1,0 +1,52 @@
+﻿
+<ion-view >
+    <go-back my-title="微信签到"></go-back>
+    <ion-content class="has-header has-footer">
+        <div class="list yddmPage" ng-show="showQdArea">
+            <div>
+                <label style="float:left;width:50%;margin-left:0px;margin-right:0px;" ng-click="changeType()">
+                    <ion-radio name="dm" value="kc" ng-model="formData.dm">课程点名</ion-radio>
+                </label>
+                <label style="float:right;width:50%;margin-left:0px;margin-right:0px;" ng-click="changeType()">
+                    <ion-radio name="dm" value="sj" ng-model="formData.dm">随机点名</ion-radio>
+                </label>
+            </div>
+            <div ng-show="showKcArea">
+                <span class="size-16">课程名称：</span>
+                <select name="data" id="data_select" class="haveMargin commonSelect" ng-show="showddl">
+                    <option ng-repeat="item in kclist" value="{{item.lessonid}}">{{item.bt}}</option>
+                </select>
+                {{bt}}
+                <span class="size-16" style="color:red;" ng-show="showMess">今日无课程</span>   
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />            
+            <div class="center clearfix">
+                <span class="button button-assertive" style="margin-right:20px;" ng-click="AddKq()">发起点名</span>
+                <span class="button button-assertive" style="margin-left:20px;" ng-click="historyDm()">历史点名</span>
+            </div>
+        </div>
+        <div class="list yddmPage" ng-show="!showQdArea">
+            <div class="yddmTitle">
+                <span class="size-18">{{kqdata[0].lessonname}}</span>
+            </div>
+            <div class="clearfix">
+                <span class="wdCount">未到：<a class="red" ng-click="viewStudent(1);">{{kqdata[0].xycount-kqdata[0].yqcount}}</a></span>
+                <span class="ydCount">已到：<a class="red" ng-click="viewStudent(0);">{{kqdata[0].yqcount}}</a></span>
+            </div>
+            <div class="bottom-15">
+                <span>发起人：{{kqdata[0].fqrname}}</span>
+            </div>
+            <div class="bottom-50">
+                <span>发起时间：{{kqdata[0].signbegin|date:'yyyy.MM.dd HH:mm'}}</span>
+            </div>
+            <div class="center clearfix">
+                <span class="btnStyle" ng-click="reflashData()">刷 新</span>
+                <span class="btnStyle" ng-click="closeDm()">结束点名</span>
+                <span class="btnStyle" ng-click="historyDm()">历史点名</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

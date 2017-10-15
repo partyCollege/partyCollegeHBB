@@ -1,0 +1,92 @@
+﻿<style>
+	@media all (max-height:769px) {
+		.grid1 {
+			width: 100%;
+			height: 400px;
+		}
+	}
+
+	@media all and (min-height:770px) and (max-height:900px) {
+		.grid1 {
+			width: 100%;
+			height: 465px;
+		}
+	}
+
+	@media all and (min-height:901px) and (max-height:1080px) {
+		.grid1 {
+			width: 100%;
+			height: 680px;
+		}
+	}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<form method="get" class="form-horizontal">
+		<!--<div class="hr-line-dashed"></div>-->
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">平台管理员</label>
+			<div class="col-sm-4">
+				<ui-select ng-model="platform.adminaccount" theme="bootstrap"
+						   on-select="adminctrl.onSelectCallback($item, $model);" ng-disabled="adminctrl.disabled" title="选择管理员">
+					<ui-select-match placeholder="请选择管理员">{{$select.selected.name}}</ui-select-match>
+					<ui-select-choices repeat="item in admins  | propsFilter: {name: $select.search, company: $select.search}">
+						<div ng-bind-html="item.name | highlight: $select.search"></div>
+						<small ng-bind-html="item.company | highlight: $select.search"></small>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<label class="col-sm-2 control-label">联系方式</label>
+			<div class="col-sm-4"><input type="text" ng-model="platform.cellphone" readonly="readonly" class="form-control"></div>
+		</div>
+		<!--<div class="hr-line-dashed"></div>-->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">账号</label>
+			<div class="col-sm-4"><input type="text" ng-model="platform.logname" readonly="readonly" class="form-control"></div>
+			<label class="col-sm-2 control-label">密码</label>
+			<div class="col-sm-4"><input type="password" ng-model="platform.pwd" readonly="readonly" class="form-control"></div>
+		</div>
+
+		<!--<div class="hr-line-dashed"></div>-->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">选择权限</label>
+			<div class="col-sm-10">
+				<div ng-if="grp.category==2" ng-repeat="grp in platform.permissionGroupList">
+					<div class="form-group" style="background-color:#eeeeee;">
+						<label class="col-sm-2 control-label" style="text-align:left;">
+							{{grp.groupname}}
+						</label>
+						<input type="checkbox" ng-model="grp.checkall" ng-if="false" title="{{per.comment}}" ng-change="CheckedGroupAllItem(grp);" />
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" ng-repeat="per in grp.permissionArray track by per.id">
+							<input type="checkbox" title="{{per.comment}}" ng-model="per.selected" />{{per.name}}
+						</label>
+					</div>
+				</div>
+
+				<div ng-if="grp.category==1" ng-repeat="grp in platform.permissionGroupList">
+					<div class="form-group" style="background-color:#eeeeee;">
+						<label class="col-sm-2 control-label" style="text-align:left;">
+							{{grp.groupname}}
+						</label>
+						<input type="checkbox" ng-model="grp.checkall" ng-if="false" title="{{per.comment}}" ng-change="CheckedGroupAllItem(grp);" />
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" ng-repeat="per in grp.permissionArray track by per.id">
+							<input type="checkbox" title="{{per.comment}}" ng-model="per.selected" />{{per.name}}
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="hr-line-dashed"></div>
+		<div class="text-center">
+			<button class="btn btn-primary" btn-loading-text="保存中..." trigger-loading="beginLoading" ng-click="savePlatformAdmin()" ng-disabled="saveButtonDisabled">保存</button>
+			<button class="btn btn-default" ng-click="goback()">取消</button>
+		</div>
+	</form>
+</div>

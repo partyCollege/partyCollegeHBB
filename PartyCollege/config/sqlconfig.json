@@ -1,0 +1,1063 @@
+﻿[
+    {
+        "key": "getDepartment",
+        "sql": "select id,pid,name,pids  from sy_department where `status`>=0 and concat(',',pids,',') like concat('%,',[pid],',%')  order by sort,id "
+    },
+    {
+        "key": "getAllDepartment",
+        "sql": "select id,pid,name,pids from sy_department where `status`>=0 order by sort,id "
+    },
+    {
+        "key": "getIndexNews",
+        "sql": "select * from (select '1' category,id,title,content,file_serverthumbname,publishtime from sy_news sns where category = 1 and status = 1 and ( ispublic = 1 or exists(select 1 from sy_news_relation snr where snr.newsid = sns.id and snr.type = 0 and snr.sourceid = [departmentid1])) order by istop desc,publishtime desc limit 4) a union select * from (select '2' category,id,title,content,file_servername,publishtime from sy_news sns where category = 2  and status = 1	and ( ispublic = 1 or exists(select 1 from sy_news_relation snr where snr.newsid = sns.id and snr.type = 0 and snr.sourceid = [departmentid2])) order by istop desc,publishtime desc limit 5) a union select * from (select '3' category,id,title,content,file_servername,publishtime from sy_news sns where category = 3  and status = 1	and ( ispublic = 1 or  exists(select 1 from sy_news_relation snr where snr.newsid = sns.id and snr.type = 0 and snr.sourceid = [departmentid3])) order by istop desc,publishtime desc limit 5) a union select * from (select '4' category,id,title,content,file_servername,publishtime from sy_news sns where category = 4  and status = 1	and ( ispublic = 1 or  exists(select 1 from sy_news_relation snr where snr.newsid = sns.id and snr.type = 0 and snr.sourceid = [departmentid4])) order by istop desc,publishtime desc limit 5) a"
+    },
+    {
+        "key": "selectAllNews",
+        "sql": "select n.id,case when n.status=-1 then '已删除' when n.status=0 then '未发布' else '已发布' end as status,n.title,DATE_FORMAT(n.publishtime, '%Y-%m-%d') publishtime ,DATE_FORMAT(n.createtime, '%Y-%m-%d') createtime ,n.file_servername,n.file_serverthumbname,n.abstract,n.createuser,n.source,case when n.istop=0 then '未置顶' when n.istop=1 then '已置顶' end as istop,a.name as createname from sy_news n left join sy_account  a on n.createuser=a.id order by n.istop desc,n.publishtime desc"
+    },
+    {
+        "key": "selectAllNews-listall",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0,n.id,case when n.status=-1 then '已删除' when n.status=0 then '未发布' else '已发布' end as status,n.status statuscode,n.title,DATE_FORMAT(n.publishtime, '%Y-%m-%d') publishtime ,DATE_FORMAT(n.createtime, '%Y-%m-%d') createtime ,n.file_servername,n.file_serverthumbname,n.abstract,n.createuser,n.source,case when n.istop=0 then '未置顶' when n.istop=1 then '已置顶' end as istop,a.name as createname,n.category,sd.name,n.ispublic from sy_news n left join sy_user  a on n.createuser=a.accountid left join sy_department sd on sd.id = n.departmentid where (n.createuser = [accountid] or sd.pids like [departmentid] )) t",
+        "orderby": "order by t.publishtime desc",
+        "tag": "页面访问-网院要闻",
+        "group": "40019"
+    },
+    {
+        "key": "selectNewsById",
+        "sql": "select id,status,title,DATE_FORMAT(publishtime, '%Y-%m-%d') publishtime ,createtime,file_servername,file_serverthumbname,abstract,createuser,content,istop,category,source from sy_news where id=[id] "
+    },
+    {
+        "key": "updateNewsById",
+        "sql": "update sy_news set title=[title],category=[category],content=[content],file_servername=[file_servername],file_serverthumbname=[file_serverthumbname],abstract=[abstract],istop=[istop],status=[status],publishtime=[publishtime] where id=[id]",
+        "tag": "操作-保存网院要闻:[id]",
+        "group": "40019001"
+    },
+    {
+        "key": "updateNewsCancelPublish",
+        "sql": "update sy_news set status=0,ispublic = 0,publishtime= null where id=[id]",
+        "tag": "操作-取消发布网院要闻:[id]",
+        "group": "40019001"
+    },
+    {
+        "key": "updateNewsPublish",
+        "sql": "update sy_news set status=1,publishtime=now() where id=[id]",
+        "tag": "操作-发布网院要闻:[id]",
+        "group": "40019001"
+    },
+    {
+        "key": "updateNewsPublishAlldepartment",
+        "sql": "update sy_news set status=1,publishtime=now(),ispublic=1 where id=[id]",
+        "tag": "操作-发布网院要闻:[id]",
+        "group": "40019001"
+    },
+    {
+        "key": "updateNewsRecommend",
+        "sql": "update sy_news set istop=1 where id=[id]",
+        "tag": "操作-置顶网院要闻:[id]",
+        "group": "40019001"
+    },
+    {
+        "key": "updateNewsCancelRecommend",
+        "sql": "update sy_news set istop=0 where id=[id]",
+        "tag": "操作-取消置顶网院要闻:[id]",
+        "group": "40019001"
+    },
+    {
+        "key": "insertNews",
+        "sql": "insert into sy_news (id,title,category,content,createuser,createtime,status,file_servername,file_serverthumbname,abstract,source,istop,clicknum,departmentid) values ([id],[title],[category],[content],[createuser],now(),[status],[file_servername],[file_serverthumbname],[abstract],[source],[istop],[clicknum],[departmentid])",
+        "tag": "操作-新增网院要闻:[id]",
+        "group": "40019001"
+    },
+    {
+        "key": "deleteNewsById",
+        "sql": "delete from sy_news where id=[id]",
+        "tag": "操作-删除网院要闻",
+        "group": "40019001"
+    },
+
+    {
+        "key": "select_courseCategoryParent",
+        "sql": "select ccate.id,ccate.fid,ccate.name,ccate.fids,ccate.sortnum from sy_courseware_category  ccate  where status>=0 order by sortnum",
+        "tag": "页面访问-课程分类",
+        "group": "40016"
+    },
+    {
+        "key": "select_courseCategoryParent_All",
+        "sql": "select ccate.id,ccate.fid,ccate.name,ccate.fids,ccate.sortnum from sy_courseware_category  ccate where status>=0 order by sortnum"
+    },
+    {
+        "key": "insert_courseCategory",
+        "sql": "insert into sy_courseware_category(id,fid,name,sortnum,status,fids)values([id],[fid],[name],[sortnum],0,[fids])",
+        "tag": "操作-新增课程分类:[name]",
+        "group": "40016001"
+    },
+    {
+        "key": "insert_courseCategory_category",
+        "sql": "insert into sy_courseware_platform_category(id,categoryid,category) VALUES(UUID(),[categoryid],0)"
+    },
+    {
+        "key": "getcourseCategoryById",
+        "sql": "select id,fid,name,platformid,status,fids,sortnum from sy_courseware_category where id=[id]"
+    },
+    {
+        "key": "updateCourseCategoryById",
+        "sql": "update sy_courseware_category set fid=[fid],name=[name],sortnum=[sortnum],fids=[fids] where id=[id]",
+        "tag": "操作-保存课程分类:[name]",
+        "group": "40016001"
+    },
+    {
+        "key": "getServerTime",
+        "sql": "select now() as servertime"
+    },
+    {
+        "key": "selectSyCodeByClass",
+        "sql": "select datavalue,showvalue from sy_code where category=[nowclass] order by orderby"
+    },
+    {
+        "key": "selectAllCourseware",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from (select @rownum:=0,cw.id,cw.name,cw.teachersname,cw.teachtime,cw.duration,cw.source,cw.teachervideo,cw.mainstatus,cw.createuser,cw.createtime,cw.choosecount as cwcount from sy_courseware cw where (cw.mainstatus>=0 or cw.mainstatus=-10)) t",
+        "orderby": "order by createtime desc",
+        "tag": "页面访问-课程库",
+        "group": "40017"
+    },
+    {
+        "key": "selectPlatformAllCourseware",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from (select @rownum:=0,cw.id,cw.name,cw.teachersname,cw.teachtime,cw.duration,cw.source,cw.teachervideo,cw.mainstatus,cw.createuser,cw.createtime,cw.choosecount cwcount from sy_courseware cw  where  cw.mainstatus >= 0) t",
+        "orderby": "order by createtime desc",
+        "tag": "页面访问-课程库",
+        "group": "40017"
+    },
+    {
+        "key": "selectAllTeacher",
+        "sql": "select @rownum:=@rownum+1 as rownum,l.* from  (select @rownum:=0,tl.*,COUNT(r.sourceid) as scount from(select t.id,name,sex,c.showvalue as sexshowvalue,accountid,subject,education,company,c.category,platformid,position from sy_teacher t inner join sy_code c on t.sex=c.datavalue and c.category='性别' and t.status>=0) tl left join sy_courseware_relation r on tl.id=r.sourceid group by tl.id order by tl.name asc ) l",
+        "tag": "页面访问-教师库",
+        "group": "40005"
+    },
+    {
+        "key": "selectTeacherCourseware",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from (select @rownum:=0,cw.id,cw.name,cw.teachersname,cw.teachtime,cw.duration,cw.source,cw.teachervideo,cw.mainstatus,cw.createuser,cw.createtime,(select count(scw.id) from sy_classcourse scw  where scw.id=cw.id) as cwcount from sy_courseware cw  inner join sy_courseware_relation cr on  cr.coursewareid = cw.id where  cw.mainstatus >= 0 and cr.sourceid = [teacherid] and cr.type = 0) t",
+        "orderby": "order by createtime desc"
+    },
+    {
+        "key": "delete_sy_TeacherById",
+        "sql": "update sy_teacher set status=-99 where id=[id]",
+        "tag": "操作-删除教师库:[id]",
+        "group": "40005001"
+    },
+    {
+        "key": "insertTeacher",
+        "sql": "insert into sy_teacher (id,name,accountid,sex,subject,education,comment,company,photo_servername,position,platformid,status) values ([id],[name],[accountid],[sex],[subject],[education],[comment],[company],[photo_servername],[position],[platformid],0)",
+        "tag": "操作-新增教师库:[id]",
+        "group": "40005001"
+    },
+    {
+        "key": "selectTeacherById",
+        "sql": "select id,name,accountid,sex,subject,education,comment,company,photo_servername,position from sy_teacher where id=[id]"
+    },
+    {
+        "key": "updateTeacherById",
+        "sql": "update sy_teacher set name=[name],accountid=[accountid],sex=[sex],subject=[subject],education=[education],comment=[comment],company=[company],photo_servername=[photo_servername],position=[position] where id=[id]",
+        "tag": "操作-保存教师库:[id]",
+        "group": "40005001"
+    },
+    {
+        "key": "select_sy_code_Id_getall",
+        "sql": "SELECT id,category,showvalue,datavalue FROM sy_code WHERE category IN (SELECT showvalue FROM sy_code WHERE category='关键词')  ORDER BY category ASC,orderby ASC"
+    },
+    {
+        "key": "selectCoursewareById",
+        "sql": "select scw.id,scw.name,scw.teachersname,scw.teachtime,scw.duration,scw.realduration,scw.source,scw.teachervideo,scw.videotype,scw.pptvideo,scw.comment,scw.teachervideoname,scw.pptvideoname,scw.imagephoto,scw.rate,scw.tempteachervideo,scw.temppptvideo,scw.tempteachervideofilename,scw.temppptvideofilename,scw.deleteContent,scw.deletestatus,scw.studytime,scw.courseyear,scw.coursetype,scw.grade,scw.pptcoursefile_servername,pptcoursefile_clientname,DATE_FORMAT(scw.createtime,'%Y-%m-%d') createtime from sy_courseware scw where scw.id=[id] and (scw.mainstatus >= 0 or scw.mainstatus=-10)"
+    },
+    {
+        "key": "selectCourseware_teacherRelation",
+        "sql": "select	teacher.id,name,sex,code.showvalue as sexshowvalue,accountid,subject,education,company,teacher.comment from	sy_teacher teacher inner join sy_code code on teacher.sex = code .datavalue and code.category = '性别' inner join sy_courseware_relation r on r.sourceid = teacher.id where r.type=0 and r.coursewareid=[id]"
+    },
+    {
+        "key": "select_sy_courseware_category_root",
+        "sql": "SELECT ccate.id,ccate.name,'' as category from sy_courseware_category  ccate  WHERE ccate.fid='0' AND ccate.STATUS>=0"
+    },
+    {
+        "key": "select_sy_courseware_categorybyfid",
+        "sql": "SELECT id,name FROM sy_courseware_category WHERE STATUS>=0 AND fid=[fid]"
+    },
+    {
+        "key": "getKeywordByCourseId",
+        "sql": "select cd.id,cd.category,cd.showvalue,cd.datavalue from  sy_courseware_relation cr inner join sy_code cd on cr.sourceid = cd.id where cr.type in (4,5) and cr.coursewareid = [coursewareid]"
+    },
+    {
+        "key": "delete_sy_course_relation",
+        "sql": "delete from sy_courseware_relation where coursewareid=[id] and type=[type]"
+    },
+    {
+        "key": "insert_sy_course_relation",
+        "sql": "insert into sy_courseware_relation (id,coursewareid,sourceid,type) values ([id],[coursewareid],[sourceid],[type])"
+    },
+    {
+        "key": "insert_sy_questionnaire",
+        "sql": "insert into sy_questionnaire (id,title,createtime,createuser,status,category) values ([id],[title],[createtime],[createuser],[status],[category])",
+        "tag": "操作-新增问卷调查库:[id]",
+        "group": "40018001"
+    },
+    {
+        "key": "getAllMicroVideoByNotCourse",
+        "sql": "select smv.id,smv.name,smv.provider from sy_microvideo smv  where status>=0 and smv.id not in( select sourceid from sy_courseware_relation cr where cr.coursewareid =[coursewareid] and cr.type = 2)"
+    },
+    {
+        "key": "getCourseMicroVideo",
+        "sql": "select micro.id,micro.provider,micro.name,micro.createtime,micro.videopath from sy_courseware_relation r inner join sy_microvideo micro on r.sourceid=micro.id where r.type=2 and micro.status>=0 and r.coursewareid=[courseid]"
+    },
+    {
+        "key": "deleteCourseMicroVideo",
+        "sql": "update sy_microvideo set `status`=-99 where id=[id]"
+    },
+    {
+        "key": "deleteExam",
+        "sql": "delete from sy_courseware_exam where id=[id]"
+    },
+    {
+        "key": "insertExamAnswer",
+        "sql": "insert into sy_courseware_exam_answer (id,examid,answer,isright) values ([id],[examid],[answer],[isright])"
+    },
+    {
+        "key": "deleteExamAnswer",
+        "sql": "delete from sy_courseware_exam_answer where examid=[examid]"
+    },
+    {
+        "key": "selectExamByCourse",
+        "sql": "select * from sy_courseware_exam where coursewareid=[id]"
+    },
+    {
+        "key": "selectExamAnswerByExam",
+        "sql": "select * from sy_courseware_exam_answer where examid=[examid]"
+    },
+    {
+        "key": "addCourseExam",
+        "sql": "insert into sy_courseware_exam (id,coursewareid,examtitle,examcategory,status) values ([id],[coursewareid],[examtitle],[examcategory],[status])"
+    },
+    {
+        "key": "updateCourseExam",
+        "sql": "update sy_courseware_exam set examtitle=[examtitle],examcategory=[examcategory],status=[status] where id=[id] "
+    },
+    {
+        "key": "selectAttachByCid",
+        "sql": "select a.id,attach_clientname,attach_servername,a.createuser as username,DATE_FORMAT(createtime, '%Y-%m-%d') createtime,case when a.status=-1 then '已删除' when a.status=0 then '未发布' else '已发布' end as status ,orderby from sy_courseware_attach a where coursewareid=[coursewareid] order by orderby asc"
+    },
+    {
+        "key": "selectClassAttachByCid",
+        "sql": "select a.id,attach_clientname,attach_servername,a.createuser as username,DATE_FORMAT(publishtime, '%Y-%m-%d') publishtime ,case when a.status=-1 then '已删除' when a.status=0 then '未发布' else '已发布' end as status from sy_class_attach a where classid=[classid] order by publishtime desc"
+    },
+    {
+        "key": "insertClassCoursewareAttach",
+        "sql": "insert into sy_class_attach (id,attach_clientname,attach_servername,createuser,status,classid) values ([id],[attach_clientname],[attach_servername],[session.name],[status],[classid]) "
+    },
+    {
+        "key": "insertCoursewareAttach",
+        "sql": "insert into sy_courseware_attach (id,attach_clientname,attach_servername,createuser,createtime,status,coursewareid,orderby) values ([id],[attach_clientname],[attach_servername],[session.name],[createtime],[status],[coursewareid],[orderby]) "
+    },
+    {
+        "key": "publishCoursewareAttach",
+        "sql": "update sy_courseware_attach set status=1 where id=[id]"
+    },
+    {
+        "key": "publishClassCoursewareAttach",
+        "sql": "update sy_class_attach set status=1,publishtime =now() where id=[id]"
+    },
+    {
+        "key": "deleteCoursewareAttach",
+        "sql": "delete from sy_courseware_attach where id=[id]"
+    },
+    {
+        "key": "deleteClassCoursewareAttach",
+        "sql": "delete from sy_class_attach where id=[id]"
+    },
+    {
+        "key": "selectAllMicroVideo",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from (select @rownum:=0,smv.id,smv.name,smv.createuser,smv.createtime,smv.category,smv.teacher,smv.clickrate,smv.status,smv.ismain from sy_microvideo smv  where smv.status>=-1 order by createtime desc) t",
+        "orderby": "order by createtime desc",
+        "tag": "页面访问-微视频库",
+        "group": "40004"
+    },
+    {
+        "key": "selectPlatformAllMicroVideo",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from (select @rownum:=0,smv.id,smv.name,smv.createuser,smv.createtime,smv.category,smv.teacher,sppm.clickrate,smv.status,smv.ismain from sy_microvideo smv  where  smv.status>=-1 order by createtime desc) t",
+        "orderby": "order by createtime desc",
+        "tag": "页面访问-微视频库",
+        "group": "40004"
+    },
+    {
+        "key": "insert_sy_microVideo",
+        "sql": "insert into sy_microvideo (id,name,createuser,createtime,status,provider,videoname,videopath,category,ismain,photo_servername,teacher) values ([id],[name],[session.name],[createtime],[status],[provider],[videoname],[videopath],[category],[ismain],[photo_servername],[teacher])",
+        "tag": "新增微视频:[id]",
+        "group": "40004001"
+    },
+    {
+        "key": "update_sy_microVideo",
+        "sql": "update sy_microvideo set name=[name],status=[status],provider=[provider],videoname=[videoname],videopath=[videopath],category=[category],ismain=[ismain],photo_servername=[photo_servername],teacher=[teacher] where id=[id]",
+        "tag": "修改微视频:[id]",
+        "group": "40004001"
+    },
+    {
+        "key": "select_sy_microVideoById",
+        "sql": "select smv.id,smv.name,smv.createuser,smv.createtime,smv.status,smv.provider,smv.videoname,smv.videopath,smv.category,smv.ismain,smv.photo_servername,smv.teacher from sy_microvideo smv where smv.id=[id]"
+    },
+    {
+        "key": "delete_sy_microVideoById",
+        "sql": "update sy_microvideo set status=-99 where id=[id]",
+        "tag": "删除微视频:[id]",
+        "group": "40004001"
+    },
+    {
+        "key": "update_sy_microVideo",
+        "sql": "update sy_microvideo set name=[name],status=[status],provider=[provider],videoname=[videoname],videopath=[videopath],category=[category],ismain=[ismain],photo_servername=[photo_servername],teacher=[teacher] where id=[id]",
+        "tag": "修改微视频:[id]",
+        "group": "40004001"
+    },
+    {
+        "key": "getBookList",
+        "sql": "select id,bookname,author,cover_servername,publishtime,publishcompany from sy_book where status > 0 { and bookname like [keywords]} order by istop desc , publishdate desc limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "back_getbooklist",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0 , b.*	from sy_book b ) t ",
+        "orderby": "order by createdate desc",
+        "tag": "页面访问-教材推荐",
+        "group": "40020"
+    },
+    {
+        "key": "getBookInfo",
+        "sql": "SELECT * FROM sy_book where id=[id]"
+    },
+    {
+        "key": "back_savebook",
+        "sql": "INSERT INTO sy_book (id, cover_servername, cover_serverthumbname, bookname, author, COMMENT, publishtime,publishcompany, clicknum, STATUS, istop, createuser, createdate, publishuser, publishdate,foreword,authorcomment,catalog)VALUES([id], [cover_servername], [cover_serverthumbname], [bookname], [author], [comment], [publishtime], [publishcompany], 0, 1, [istop], [session.name], now(), null, now(),[foreword],[authorcomment],[catalog])",
+        "tag": "操作-新增教材推荐",
+        "group": "40020001"
+    },
+    {
+        "key": "back_updatebook",
+        "sql": "UPDATE sy_book SET cover_servername = [cover_servername] , cover_serverthumbname = [cover_serverthumbname] ,bookname = [bookname] , author = [author] , COMMENT = [comment]  , foreword = [foreword]  , authorcomment = [authorcomment]  , catalog = [catalog] , publishtime = [publishtime] , publishcompany = [publishcompany] ,istop=[istop] WHERE id = [id]",
+        "tag": "操作-保存教材推荐",
+        "group": "40020001"
+    },
+    {
+        "key": "back_deletebook",
+        "sql": "delete from  sy_book where id=[id]",
+        "tag": "操作-删除教材推荐",
+        "group": "40020001"
+    },
+    {
+        "key": "back_submitbook",
+        "sql": "UPDATE sy_book SET STATUS = [status] , publishuser = [publishuser] ,istop=[istop], publishdate = now() WHERE id = [id]",
+        "tag": "操作-发布教材推荐",
+        "group": "40020001"
+    },
+    {
+        "key": "getPlatformData",
+        "sql": "select ifnull(sum(studytime),0) sumduration,count(1) coursecount, (select count(1) from sy_account where signstatus = 1) studentcount from sy_courseware a inner join sy_courseware_category_relatiion b on a.id=b.coursewareid inner join sy_courseware_category c on b.categoryid=c.id where a.mainstatus >= 0"
+    },
+    {
+        "key": "getIndexCoursewarelist",
+        "sql": "select * from (select '1' category,id,name,teachersname,choosecount,imagephoto from sy_courseware where mainstatus >= 0 order by createtime desc limit 8) a union select * from (select '2' category,id,name,teachersname,choosecount,imagephoto from sy_courseware where mainstatus >= 0 order by choosecount desc limit 10) a union select * from (select '3' category,id,name,teachersname,choosecount,imagephoto from sy_courseware where mainstatus >= 0 order by grade desc limit 4) a union select * from (select '4' category,cw.id,cw.name,cw.teachersname,cw.choosecount,cw.imagephoto from sy_courseware cw inner join sy_courseware_recommend cwr on cw.id = cwr.coursewareid where cw.mainstatus >= 0 order by cwr.createtime desc limit 4 ) a"
+    },
+    {
+        "key": "selectSyBook",
+        "sql": "select id,cover_servername,cover_serverthumbname,bookname,author from sy_book where status=1 and istop=1 order by publishdate desc limit 8"
+    },
+    {
+        "key": "getMyClassList",
+        "sql": "select cla.id,cla.name,DATE_FORMAT(cla.starttime,'%Y-%m-%d') as starttime,DATE_FORMAT(cla.endtime,'%Y-%m-%d') as endtime,cla.studentnum,cla.studytime as clstudytime,cu.studytime as stustudytime,DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%s') as nowtime,cla.categoryone,cla.categorytwo,cla.categorythree,cla.categoryfour from sy_class_user cu inner join sy_class cla on cu.classid = cla.id where cu.userid = [session.studentid] and now() >= cla.starttime and cla.endtime >= now() and cla.status>=0 order by cla.starttime desc limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "getMyHistoryClassList",
+        "sql": "select cla.id,cla.name,DATE_FORMAT(cla.starttime,'%Y-%m-%d') as starttime,DATE_FORMAT(cla.endtime,'%Y-%m-%d') as endtime,cla.studentnum,cla.studytime as clstudytime,cu.studytime as  stustudytime,DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%s') as nowtime,cla.categoryone,cla.categorytwo,cla.categorythree,cla.categoryfour from sy_class_user cu inner join sy_class cla on cu.classid = cla.id  and cla.status>=0 where cu.userid =[session.studentid] and cla.endtime < now() order by cla.endtime desc  limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "getMyClassCount",
+        "sql": "select type,count(1) classcount from ( select case when cla.endtime < now() then 1 when now() >= cla.starttime and cla.endtime >= now() then 0 else -1 end as type from sy_class_user cu inner join sy_class cla on cu.classid = cla.id and cla. status >= 0 where cu.userid = [studentid] ) tb group by type"
+    },
+    {
+        "key": "getClassInfoById",
+        "sql": "select id,name,DATE_FORMAT(a.starttime,'%Y-%m-%d') as starttime,DATE_FORMAT(a.endtime,'%Y-%m-%d') as endtime,a.studentnum ,studytime,comment,categoryone,categorytwo,categorythree,categoryfour from sy_class a where id = [id]"
+    },
+    {
+        "key": "getClassBloackBoard",
+        "sql": "select id,boardimg_servername,classid,sortnum from sy_blackboard where classid=[classid] order by sortnum"
+    },
+    {
+        "key": "myclass-interflow",
+        "sql": "select scc.id,scc.accountid,scc.studentid,scc.usertype,us.name studentName,us.photo_serverthumbname headImg,DATE_FORMAT(scc.createtime,'%Y-%m-%d %H:%i:%s') as createdTime,ifnull(scc.content,'') content,'' as commentContent, false as commentShow,(case when scc.accountid =[accountid] then true else false end) AS isDelete,(select count(1) from sy_praise where eventid = scc.id) as clickCount,(select count(1) from sy_praise where eventid = scc.id and accountid = [accountid1]) as isClick from sy_classexchange scc inner join sy_user us on scc.studentid = us.id where ifnull(scc.fid,'')='' and scc.classid = [classid] order by scc.createtime desc limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "myclass-interflow-commentList",
+        "sql": "select scc.id,scc.fid,scc.studentid,scc.usertype,ifnull(scc.content,'') as commentcontent,us.name commentuser,us.photo_serverthumbname headimg,DATE_FORMAT(scc.createtime,'%Y-%m-%d %H:%i:%s') as createdtime,(case when scc.accountid =[accountid] then true else false end) AS isDelete from sy_classexchange scc inner join sy_user us on scc.studentid = us.id where scc.fid in (select id from( select id from sy_classexchange where ifnull(fid,'')='' and classid = [classid1]  order by createtime desc limit [pageindex1],[pagesize1]) a) order by scc.fid desc,scc.createtime desc"
+    },
+    {
+        "key": "myclass-interflow-imgList",
+        "sql": "select id,eventid as fid,picturename,picture_servername pictureservername,picture_serverthumbname,uploadtime from sy_event_picture where eventid in (select id from( select id from sy_classexchange where ifnull(fid,'')='' and classid = [classid2]   order by createtime desc limit [pageindex2],[pagesize2] ) a)"
+    },
+    {
+        "key": "mystudy-allcourse-category",
+        "sql": "select id,name,coursecount from sy_courseware_category where fid=[fid] order by sortnum"
+    },
+    {
+        "key": "mystudy-allcourse-alltwocategory",
+        "sql": "select id,name,coursecount from sy_courseware_category where fid<>'0' order by fid "
+    },
+    {
+        "key": "getClassStudyRateTop4",
+        "sql": "select us.name,clsu.studyrate from sy_class_user clsu inner join sy_user us on us.id = clsu.userid where 1=1 and clsu.classid = [classid]  order by clsu.studyrate desc limit 4"
+    },
+    {
+        "key": "myclass-studyMaterials",
+        "sql": "select id,attach_clientname attachname,attach_servername attachservername,substring_index(attach_servername,'.',-1) type,uploadtime from sy_class_attach where classid = [classid1] and status = 1 order by uploadtime desc"
+    },
+    {
+        "key": "delete_sy_classexchange",
+        "sql": "delete from sy_classexchange where id = [id] or fid =[fid]"
+    },
+    {
+        "key": "delete_sy_classexchange_coment",
+        "sql": "delete from sy_classexchange where id = [id]"
+    },
+    {
+        "key": "delete_sy_classexchange_picture",
+        "sql": "delete from sy_event_picture where eventid = [exchangeid]"
+    },
+    {
+        "key": "delete_sy_classexchange_praise",
+        "sql": "delete from sy_praise where eventid = [eventid]"
+    },
+    {
+        "key": "getUserReportByUserId",
+        "sql": "select class_classcount classcount,(class_coursefinishedcount+choose_coursefinishedcount) finishedcoursecount,yearplan_finished totalstudytime,yearplan_progess from sy_user_totalreport where studentid=[studentid] and year=[year]"
+    },
+    {
+        "key": "getNewsByCategory",
+        "sql": "select id,title,publishtime from sy_news sns where category = [category] and status=1 AND (ispublic = 1 OR EXISTS ( SELECT 1 FROM sy_news_relation snr WHERE snr.newsid = sns.id AND snr.type = 0 AND snr.sourceid = [departmentid1] ) ) order by istop desc,publishtime desc limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "getNewsByKeywords",
+        "sql": "select id,title,publishtime,category from sy_news sns where status=1 and title like [keywords] AND (ispublic = 1 OR EXISTS ( SELECT 1 FROM sy_news_relation snr WHERE snr.newsid = sns.id AND snr.type = 0 AND snr.sourceid = [departmentid1] ) ) order by istop desc,publishtime desc limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "getNewsDetailById",
+        "sql": "select id,title,content,publishtime,source from sy_news where status=1 and id = [newsid]"
+    },
+    {
+        "key": "deletestudyrecord",
+        "sql": "delete from sy_courseware_user WHERE studentid=[studentid] and coursewareid=[coursewareid]"
+    },
+    {
+        "key": "delete_classById",
+        "sql": "update sy_class set status=-99 where id=[id]"
+    },
+    {
+        "key": "updateAccountDefaultClassId",
+        "sql": "update sy_account set defaultclassid='' where defaultclassid=[id]"
+    },
+    {
+        "key": "getClassAndMyStudyRate",
+        "sql": "select ifnull((select studyrate  from sy_class_user where classid = [classid2] and userid = [studentid] limit 1),0) as student_rate,ifnull(( select studyrate from sy_class where id = [classid3] limit 1),0) as class_rate"
+    },
+    {
+        "key": "getCourseInfo_SelectCourse",
+        "sql": "select ware.id coursewareid,ware.`name` coursewarename,ware.teachersname,ware.`comment`,DATE_FORMAT(ware.createtime,'%Y.%m.%d') uploadtime,ware.studytime,ware.coursetype,ware.source,ware.grade,ware.imagephoto,case when wareuser.id is null then 0 else 1 end iselectivechoose,DATE_FORMAT(wareuser.createtime,'%Y.%m.%d') jointime ,IFNULL((select isplaycompletion from sy_video_log where studentid=wareuser.studentid and coursewareid=ware.id),0) isplaycompletion ,(select count(1) from sy_classcourse classcourse where classid in(select classid from sy_class_user cuser where userid=[studentid2]) and coursewareid=ware.id) isrequiredchoose from sy_courseware ware left join sy_courseware_user wareuser on ware.id=wareuser.coursewareid  and wareuser.status>=0 and wareuser.studentid=[studentid] where ware.id=[coursewareid]  and ware.mainstatus >= 0"
+    },
+    {
+        "key": "getCoursewareTeachers",
+        "sql": "select stc.name, stc.comment from sy_teacher stc inner join sy_courseware_relation scr on scr.sourceid=stc.id where scr.coursewareid=[coursewareid]"
+    },
+    {
+        "key": "getCourseInfo_SelectCourse2",
+        "sql": "select count(1) from sy_courseware where mainstatus >= 0"
+    },
+
+    {
+        "key": "getVideolog",
+        "sql": "select vlog.isplaycompletion from sy_video_log vlog where vlog.studentid =[studentid] and vlog.coursewareid = [coursewareid]"
+    },
+    {
+        "key": "geAppraisetFlag",
+        "sql": "select count(1) isappraise from sy_courseware_appraise where coursewareid =[coursewareid31] and accountid = [accountid]"
+    },
+    {
+        "key": "videoCourse-coursewareComment",
+        "sql": "select courseware.id as cwId,courseware.name csName,courseware.comment as csComment,courseware.grade,ifnull(courseware.gradecount,0) gradecount,courseware.teachersname teaName,LPAD(FLOOR(courseware.duration/60),2,'0') hours, LPAD(courseware.duration%60,2,'0') minutes,courseware.videotype from sy_courseware courseware  where courseware.id = [coursewareid20] and courseware.mainstatus >= 0"
+    },
+    {
+        "key": "videoCourse-teachersComment",
+        "sql": "select teacher.name,teacher.comment from sy_courseware_relation relation inner join sy_teacher teacher on relation.sourceid = teacher.id where relation.type = 0 and relation.coursewareid = [coursewareid11]"
+    },
+    {
+        "key": "get_sy_courseware_information",
+        "sql": "select id,attach_clientname attachname,attach_servername attachservername,substring_index(attach_servername,'.',-1) type,createtime uploadtime from sy_courseware_attach where coursewareid =[coursewareid12] and ifnull(status,0) = 0"
+    },
+    {
+        "key": "getAppraiseAvgScorelist",
+        "sql": "select itemid,itemname,itemscore avgscore from sy_courseware_appraiseitem where coursewareid =[coursewareid32] order by itemid"
+    },
+    {
+        "key": "getGradeByCoursewareid",
+        "sql": "select  ROUND(grade,1) grade,gradecount from  sy_courseware where id = [coursewareid1] and mainstatus >= 0;"
+    },
+    {
+        "key": "updateCoursewareClickrate",
+        "sql": "update sy_courseware set clickrate=IFNULL(clickrate,0)+1 where id=[id]"
+    },
+    {
+        "key": "dowdloadFile",
+        "sql": "select [id]",
+        "tag": "操作-下载课件资料",
+        "group": "20037",
+        "enablescore": true,
+        "scoreconfig": {
+            "dimension": "[dimension]",
+            "eventname": "[eventname]",
+            "limitkey": "[id]"
+        }
+    },
+    {
+        "key": "insert_sy_class_faq",
+        "sql": "insert into sy_class_faq(id,accountid,fid,createtime,content,coursewareid,usertype,status,studentid,videostamp) select [id],[accountid],[fid],now(),[content],[coursewareid],[usertype],0,[studentid],[videostamp]",
+        "tag": "操作-[logcontent]",
+        "group": "20032",
+        "enablescore": true,
+        "scoreconfig": {
+            "dimension": "[dimension]",
+            "eventname": "[eventname]",
+            "limitkey": ""
+        }
+    },
+    {
+        "key": "insert_sy_classcourse_note",
+        "sql": "insert into sy_classcourse_note(id,coursewareid,teacherpic,pptpic,videostamp,studentid,notecontent,createdtime) select [id],[coursewareid],[teacherpic],[pptpic],[videostamp],[studentid],[notecontent],NOW()",
+        "tag": "操作-提交笔记",
+        "group": "20034",
+        "enablescore": true,
+        "scoreconfig": {
+            "dimension": "[dimension]",
+            "eventname": "[eventname]",
+            "limitkey": ""
+        }
+    },
+    {
+        "key": "selectStudentPlayDetailCount",
+        "sql": "select count(id) as dtlcount from sy_video_detail where id=[currentID]"
+    },
+    {
+        "key": "selectStudentPlayTime",
+        "sql": "select timespan,isplaycompletion,studytime from sy_video_log where coursewareid=[coursewareid] and studentid=[studentid] order by studytime desc limit 1"
+    },
+    {
+        "key": "getStudytimeByCoursewareId",
+        "sql": "select studytime from sy_courseware where id = [courseid] and mainstatus >= 0"
+    },
+    {
+        "key": "selectClassCourse",
+        "sql": "select category,score,classid,coursewareid from sy_classcourse where id=[classcourseid]"
+    },
+    {
+        "key": "getAnswercountByQuestionId",
+        "sql": "select count(1) answercount from sy_class_faq where fid = [id] and status = 1"
+    },
+    {
+        "key": "delete_sy_class_faq",
+        "sql": "delete from sy_class_faq where id = [id] or fid = [fid]",
+        "tag": "操作-删除1个问题",
+        "group": "20032"
+    },
+    {
+        "key": "delete_sy_class_faq_answer",
+        "sql": "delete from sy_class_faq where id = [id]",
+        "tag": "操作-删除1个问题回答",
+        "group": "20032"
+    },
+    {
+        "key": "getAnswerstatusByAnswerId",
+        "sql": "select status from sy_class_faq where id = [id]"
+    },
+    {
+        "key": "videoCourse-myFeelLearn",
+        "sql": "select cl_lear.id,cl_lear.title fltitle,cl_lear.content flcontent,cl_lear.rejectreason,cl_lear.score,stu.name studentname,DATE_FORMAT( cl_lear.createdtime,'%Y-%m-%d')  createdtime,cl_lear.status issubmit,(select count(1) from sy_praise where eventid = cl_lear.id) as clickcount, (select count(1) from sy_praise where eventid = cl_lear.id and accountid= [accountid]) as isclick from sy_classcourse_learningsense cl_lear inner join sy_user stu on cl_lear.studentid = stu.id where cl_lear.studentid = [studentid] and cl_lear.coursewareid = [coursewareid]"
+    },
+    {
+        "key": "videoCourse-feelLearn",
+        "sql": "select cl_lear.id,cl_lear.title fltitle,cl_lear.content flcontent,cl_lear.score,stu.name studentname,DATE_FORMAT( cl_lear.createdtime,'%Y-%m-%d')  createdtime,cl_lear.status issubmit,(select count(1) from sy_praise where eventid = cl_lear.id) as clickcount, (select count(1) from sy_praise where eventid = cl_lear.id and accountid=[accountid]) as isclick,0 isdetail,cl_lear.classid,cl_lear.studentid,stu.accountid from sy_classcourse_learningsense cl_lear inner join sy_user stu on cl_lear.studentid = stu.id where cl_lear.coursewareid = [coursewareid] and cl_lear.status = 2"
+    },
+    {
+        "key": "getExamnum",
+        "sql": "select examnum from sy_classcourse where id = [classcourseid]"
+    },
+    {
+        "key": "getExamStatusByStudent",
+        "sql": "select status,count(1) examcount from sy_student_exam where classid = [classid] and coursewareid = [coursewareid] and studentid = [studentid] group by status"
+    },
+    {
+        "key": "getStudentLastExamTime",
+        "sql": "select TIMESTAMPDIFF(MINUTE,createdtime,NOW()) timediff  from sy_student_exam where  coursewareid= [coursewareid] and classid = [classid] and studentid = [studentid] order by createdtime desc limit 1"
+    },
+    {
+        "key": "getExaminations",
+        "sql": "select id,examtitle,examcategory,'' selectid from sy_courseware_exam where status >= 0 and coursewareid = [coursewareid]"
+    },
+    {
+        "key": "getExaminationAnswers",
+        "sql": "select exam.id examid,exam.examtitle,exam.examcategory,answer.id answerid,answer.answer,answer.isright,0 isselect from sy_courseware_exam exam inner join sy_courseware_exam_answer answer on exam.id = answer.examid where exam.status >= 0 and exam.coursewareid = [coursewareid1]"
+    },
+    {
+        "key": "getStudentLastExamTime",
+        "sql": "select TIMESTAMPDIFF(MINUTE,createdtime,NOW()) timediff  from sy_student_exam where  coursewareid= [coursewareid] and classid = [classid] and studentid = [studentid] order by createdtime desc limit 1"
+    },
+    {
+        "key": "insert_sy_student_exam",
+        "sql": "insert into sy_student_exam(id,coursewareid,classid,studentid,status,createdtime) select uuid(),[coursewareid],[classid],[studentid],[status],NOW()",
+        "tag": "操作-提交考题",
+        "group": "20035"
+    },
+    {
+        "key": "getCoursewarenotes",
+        "sql": "select id,teacherpic,pptpic,notecontent,DATE_FORMAT(createdtime,'%Y-%m-%d %H:%i:%s') createdtime,LPAD(floor(videostamp/3600),2,'0') hours,LPAD(floor((videostamp - floor(videostamp/3600) * 3600 ) /60),2,'0') minutes ,LPAD((videostamp - floor(videostamp/3600) * 3600 ) %60 ,2,'0') second,videostamp from sy_classcourse_note where coursewareid = [coursewareid] and studentid = [studentid] order by createdtime desc limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "delete_sy_classcourse_note",
+        "sql": "delete from sy_classcourse_note where id =[id]"
+    },
+    {
+        "key": "select_sy_questionnaire_byCoursewareid",
+        "sql": "select re.*,(select count(1) from sy_questionnaire_detail de where de.questionnaireid=re.id) as questnum,(select count(*) from sy_questionnaire_answer an where an.questionnaireid=re.id and an.accountid = [accountid]) as isanswer from sy_questionnaire re inner join sy_courseware_relation relation on re.id=relation.sourceid where relation.coursewareid=[coursewareid]"
+    },
+    {
+        "key": "insert_sy_questionnaire_reply",
+        "sql": "insert into sy_questionnaire_reply (id,questionnaireid,accountid,studentid) values ([id],[questionnaireid],[accountid],[studentid])"
+    },
+    {
+        "key": "insert_sy_questionnaire_answer",
+        "sql": "insert into sy_questionnaire_answer (id,questionnaireid,accountid,studentid,questionnaire_detailid,answer) values ([id],[questionnaireid],[accountid],[studentid],[questionnaire_detailid],[answer])"
+    },
+    {
+        "key": "sibmitQuestionnaireByVideoCourse",
+        "sql": "select 1",
+        "tag": "操作-提交课件问卷调查",
+        "group": "20017001",
+        "enablescore": true,
+        "scoreconfig": {
+            "dimension": "[dimension]",
+            "eventname": "[eventname]"
+        }
+    },
+    {
+        "key": "selectquestionnaireById",
+        "sql": "select * from sy_questionnaire where id=[id]"
+    },
+    {
+        "key": "selectquestionnaire_detailById",
+        "sql": "select * from sy_questionnaire_detail where questionnaireid=[id] order by sort"
+    },
+    {
+        "key": "select_sy_questionnaire_detail_subjectById",
+        "sql": "select * from sy_questionnaire_detail_subject where questionnaireid=[id] order by sort"
+    },
+    {
+        "key": "update_sy_questionnaire",
+        "sql": "update sy_questionnaire set title=[title],status=[status],category=[category] where id=[id]",
+        "tag": "操作-保存问卷调查库:[id]",
+        "group": "40018001"
+    },
+    {
+        "key": "delete_sy_questionnaire_detail",
+        "sql": "delete from sy_questionnaire_detail where questionnaireid=[id]"
+    },
+    {
+        "key": "delete_sy_questionnaire_subject",
+        "sql": "delete from sy_questionnaire_detail_subject where questionnaireid=[id]"
+    },
+    {
+        "key": "insert_sy_questionnaire_detail",
+        "sql": "insert into sy_questionnaire_detail (id,title,category,questionnaireid,sort) values ([id],[title],[category],[questionnaireid],[sort])"
+    },
+    {
+        "key": "insert_sy_questionnaire_subject",
+        "sql": "insert into  sy_questionnaire_detail_subject (id,answer,sort,fid,questionnaireid) values ([id],[answer],[sort],[fid],[questionnaireid])"
+    },
+    {
+        "key": "delete_sy_questById",
+        "sql": "update sy_questionnaire set status=-99 where id=[id]",
+        "tag": "操作-删除问卷调查库:[id]",
+        "group": "40018001"
+    },
+    {
+        "key": "select_sy_questionnaire",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0,re.*,(select count(1) from sy_questionnaire_detail de where de.questionnaireid=re.id) as questnum from sy_questionnaire re where status>=0 ) t",
+        "tag": "页面访问-问卷调查库",
+        "group": "40018"
+    },
+    {
+        "key": "delete_sy_course_relationBysourceId",
+        "sql": "delete from sy_courseware_relation where coursewareid=[coursewareid] and sourceid=[id]"
+    },
+    {
+        "key": "getRequiredClassList_CourseInfo",
+        "sql": "select cla.id,cla.`name`,cla.starttime,cla.endtime,cla.studentnum,cuser.studytime mystudytime,cla.studytime allstudytime from sy_class cla inner join sy_class_user cuser on cuser.classid=cla.id and cuser.userid=[studentid] inner join (select classid from sy_classcourse classcourse where classid in(select classid from sy_class_user cuser where userid=[studentid2]) and coursewareid=[coursewareid]) a on a.classid=cla.id"
+    },
+    {
+        "key": "updateCoursewareById",
+        "sql": "update sy_courseware set name=[name],teachersname=[teachersname],duration=[duration],source=[source],teachervideo=[teachervideo]{,pptvideo=[pptvideo]},videotype=[videotype],teachervideoname=[teachervideoname]{,pptvideoname=[pptvideoname]},comment=[comment],imagephoto=[imagephoto],studytime = [studytime],courseyear = [courseyear],grade=[grade],pptcoursefile_servername=[pptcoursefile_servername],pptcoursefile_clientname=[pptcoursefile_clientname],coursetype=[coursetype],createtime=[createtime] where id=[id]"
+    },
+    {
+        "key": "insertCourseware",
+        "sql": "insert into sy_courseware (id,name,teachersname,duration,source,teachervideo,pptvideo,videotype,teachervideoname,pptvideoname,createplatformid,mainstatus,createuser,createtime,comment,imagephoto,studytime,courseyear,grade,pptcoursefile_servername,pptcoursefile_clientname,coursetype) values ([id],[name],[teachersname],[duration],[source],[teachervideo],[pptvideo],[videotype],[teachervideoname],[pptvideoname],[createplatformid],[mainstatus],[session.name],[createtime],[comment],[imagephoto],[studytime],[courseyear],[grade],[pptcoursefile_servername],[pptcoursefile_clientname],[coursetype])"
+    },
+    {
+        "key": "selectClassList",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0 , c.*,sd.name departmentname from sy_class c inner join sy_department sd on sd.id = c.departmentid where c.status>=0  ) t",
+        "orderby": "order by starttime desc"
+    },
+    {
+        "key": "selectClassListCount",
+        "sql": "select count(*) as classcount from sy_class where status>=0"
+    },
+    {
+        "key": "getUserInfo",
+        "sql": "select stu.accountid,stu.id as studentid,stu.name,stu.cellphone,stu.idcard,stu.sex,stu.nation,stu.political,stu.rank,stu.positions,stu.officetel,stu.provice,stu.city,stu.area,stu.email,stu.company,stu.companyaddress ,stu.photo_servername,stu.photo_serverthumbname,stu.sourcebirth birthday,acc.logname from sy_user stu inner join sy_account acc on acc.id=stu.accountid where stu.id=[studentid]"
+    },
+    {
+        "key": "updateUserInfoBaseInfo",
+        "sql": "update sy_user stu set stu.sex = [sex],stu.nation = [nation],stu.political = [political],stu.rank = [rank],stu.positions = [positions],stu.email = [email],stu.lastupdatetime=now() where stu.id=[studentid]"
+    },
+    {
+        "key": "updateUserInfoCompanyInfo",
+        "sql": "update sy_user stu set stu.provice = [provice],stu.city = [city],stu.area = [area],stu.company = [company],stu.companyaddress = [companyaddress],stu.officetel = [officetel],stu.lastupdatetime=now() where stu.id=[studentid]"
+    },
+    {
+        "key": "usercenter-changetel",
+        "sql": "update sy_account set cellphone=[cellphone1] where id=[accountid];update sy_user set cellphone=[cellphone2] where id=[studentid];"
+    },
+    {
+        "key": "updateUserInfoHeadImage",
+        "sql": "update sy_user set photo_servername = [idphoto],photo_serverthumbname=[thumbname] where id = [studentid]"
+    },
+    {
+        "key": "select_courseCategoryChildren",
+        "sql": "SELECT ccate.id,ccate.name from sy_courseware_category  ccate  WHERE ccate.fid=[fid] AND ccate.STATUS>=0 order by sortnum"
+    },
+    {
+        "key": "deletecourseCategoryById",
+        "sql": "delete from sy_courseware_category WHERE id=[id] AND STATUS>=0",
+        "tag": "操作-删除课程分类:[name]",
+        "group": "40016001"
+    },
+    {
+        "key": "selectClassById",
+        "sql": "select sc.id,sc.name,sc.categoryone,sc.categorytwo,sc.categorythree,sc.categoryfour,sc.studentnum,sc.studentlimit,sc.starttime,sc.endtime ,sc.departmentid,sc.comment,sc.signupstatus,sd.name departmentname from sy_class sc inner join sy_department sd on sc.departmentid = sd.id  where  sc.id= [id] and sc.status>=0"
+    },
+    {
+        "key": "selectClassTeacherByClassid",
+        "sql": "select u.company,u.`name`,u.id,u.accountid,teacher.category from sy_class_teacher teacher inner join sy_user u on teacher.userid=u.id inner join sy_account ac on ac.id=u.accountid where classid=[classid]  and ac.status>=0"
+    },
+    {
+        "key": "selectclassTeacher",
+        "sql": "select u.name, u.company,u.id,ac.id as accountid,-1 as category from sy_user u inner join sy_account ac on ac.id = u.accountid where ac.status>=0"
+    },
+    {
+        "key": "deleteClassTeacher",
+        "sql": "delete from sy_class_teacher where classid=[classid]"
+    },
+    {
+        "key": "insertClassTeacher",
+        "sql": "insert into sy_class_teacher (id,classid,accountid,category,userid) values ([id],[classid],[accountid],[category],[userid])"
+    },
+    {
+        "key": "updateClassById",
+        "sql": "update sy_class set name=[name],categoryone=[categoryone],categorytwo=[categorytwo],categorythree=[categorythree],categoryfour=[categoryfour],starttime=[starttime],endtime=[endtime],departmentid=[departmentid],studentnum=[studentnum],studentlimit=[studentlimit],comment=[comment],signupstatus=[signupstatus] where id=[id]",
+        "tag": "操作-保存班级信息",
+        "group": "40011001"
+    },
+    {
+        "key": "makeClassCode",
+        "sql": "select count(*) as classcount from sy_class where DATE_FORMAT(starttime, '%Y%m%d')=DATE_FORMAT([starttime],'%Y%m%d')"
+    },
+    {
+        "key": "insertClass",
+        "sql": "insert into sy_class (id,name,categoryone,categorytwo,categorythree,categoryfour,studentnum,studentlimit,starttime,endtime,status,departmentid,comment,signupstatus) values ([id],[name],[categoryone],[categorytwo],[categorythree],[categoryfour],[studentnum],[studentlimit],[starttime],[endtime],[status],[departmentid],[comment],[signupstatus])"
+    },
+    {
+        "key": "deleteClassTeacher",
+        "sql": "delete from sy_class_teacher where classid=[classid]"
+    },
+    {
+        "key": "selectClassStudent",
+        "sql": "select usr.id userid,acc.logname,acc.cellphone,usr.name,usr.rank,usr.departmentid,dep.name departmentname,case when acc.status='0' then '启用' else '禁用' end status,case when acc.signstatus='1' then '已注册' else '未注册' end signstatus from sy_user usr inner join sy_account acc on acc.id=usr.accountid inner join sy_department dep on dep.id=usr.departmentid inner join sy_class_user clur on clur.userid=usr.id and clur.classid= [classid]"
+    },
+    {
+        "key": "getAccountList",
+        "sql": "SELECT @rownum :=@rownum + 1 AS rownum,t.* FROM (SELECT @rownum := 0,accs.id,us.NAME,accs.logname,accs.cellphone,accs.createtime,accs.STATUS  FROM sy_account  accs LEFT JOIN sy_user us on us.accountid = accs.id) t",
+        "orderby": "order by createtime desc",
+        "tag": "页面访问-账号列表",
+        "group": "40006"
+    },
+    {
+        "key": "lockAccount",
+        "sql": "update sy_account set status=[status] where id=[id]",
+        "tag": "操作-操作账号:[id],[status]",
+        "group": "40006001"
+    },
+    {
+        "key": "getAccountById",
+        "sql": "select acc.sex,acc.pwd,acc.id,acc.name,acc.logname,acc.idcard,acc.cellphone,acc.defaultusertype,acc.status from sy_account acc where acc.id=[accid]"
+    },
+    {
+        "key": "getAccountRole",
+        "sql": "select sr.name,sr.id,sr.platformid,sr.status,sr.syslevel,sar.accountid,spf.name as platformname from sy_role sr inner join sy_platform spf on sr.platformid=spf.id  inner join sy_account_roles sar on sr.id=sar.roleid where 1>0 and sar.accountid=[accid] and sr.status>-1"
+    },
+    {
+        "key": "getRoleList",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0 , sr.id,sr.name,sr.syslevel from  sy_role sr  where sr.status>-1 ) t",
+        "tag": "页面访问-角色维护",
+        "group": "40007"
+    },
+    {
+        "key": "getSigleRole",
+        "sql": "select sr.id,sr.name,sr.syslevel from sy_role sr where sr.id=[roleid]"
+    },
+    {
+        "key": "getAllPermission",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0 , sp.name,sp.groupname,sp.id,sp.comment,sp.syslevel  from sy_permission sp ) t",
+        "tag": "页面访问-权限维护",
+        "group": "40008"
+    },
+    {
+        "key": "getAllPermissionGroup",
+        "sql": "select DISTINCT sp.groupname,sp.category from sy_permission sp "
+    },
+    {
+        "key": "getRolePermission",
+        "sql": "select roleid,permissionid from sy_role_permission where roleid=[roleid]"
+    },
+    {
+        "key": "getSinglePermission",
+        "sql": "select sp.name,sp.groupname,sp.id,sp.comment,sp.syslevel,sp.category from sy_permission sp where sp.id=[permissionid]"
+    },
+    {
+        "key": "selectCoursewareForClass",
+        "sql": "SELECT	c.`name`,	c.id,	c.teachersname,classcourse.id as hasselect FROM	sy_courseware c left join sy_classcourse classcourse on c.id=classcourse.coursewareid and classcourse.classid=[classid] WHERE classcourse.id is null and c.mainstatus >= 0 "
+    },
+    {
+        "key": "selectClassCourseware",
+        "sql": "select classcourse.id,course.`name`,course.teachersname,course.studytime score,classcourse.learningsense,classcourse.exam,course.mainstatus from  sy_classcourse classcourse inner join sy_courseware course on classcourse.coursewareid=course.id where classcourse.classid=[classid] and classcourse.category=[category] and course.mainstatus >= 0"
+    },
+    {
+        "key": "selectClassCourseById",
+        "sql": "select course.name,classcourse.id,course.teachersname,course.teachtime,classcourse.score,classcourse.learningsense,classcourse.exam,classcourse.examnum,classcourse.passscore from sy_classcourse classcourse inner join sy_courseware course on classcourse.coursewareid=course.id where classcourse.id=[id] and course.mainstatus >= 0"
+    },
+    {
+        "key": "selectCopyClassCourse",
+        "sql": "select syclass.id,syclass.name,syclass.starttime,(select count(*) from sy_classcourse classcourse where classcourse.classid=syclass.id and category=0)bxk,(select count(*) from sy_classcourse classcourse where classcourse.classid=syclass.id and category=1)xxk,(select count(*) from sy_classcourse classcourse where classcourse.classid=syclass.id and category=2)aljx from sy_class syclass where id<>[classid] and status>=0",
+        "orderby": "order by syclass.starttime desc"
+    },
+    {
+        "key": "updateClassCourseById",
+        "sql": "update sy_classcourse set score=[score],learningsense=[learningsense],exam=[exam],examnum=[examnum],passscore=[passscore] where id=[id] ",
+        "tag": "操作-保存案例教学配置,id:[id]",
+        "group": "40011001"
+    },
+    {
+        "key": "deleteClassCourseware",
+        "sql": "delete from  sy_classcourse where id=[id] ",
+        "tag": "操作-删除案例教学配置ID:[id]",
+        "group": "40011001"
+    },
+    {
+        "key": "insertClassCourseware",
+        "sql": "insert into sy_classcourse (id,classid,coursewareid,category) values (uuid(),[classid],[coursewareid],[category])",
+        "tag": "操作-新增案例教学配置ID:[id],category:[category]",
+        "group": "40011001"
+    },
+    {
+        "key": "getNoAnsweredQuestion",
+        "sql": " select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0 , faq.id,faq.content,'' answercontent,faq.coursewareid,DATE_FORMAT(faq.createtime,'%Y-%m-%d %H:%i:%s') createtime,(select count(1) from sy_class_faq cl_faq where cl_faq.fid = faq.id) as answertcount,course.name as coursewarename,course.teachersname,us.name studentname,us.departmentname from sy_class_faq faq inner join sy_courseware course on faq.coursewareid = course.id inner join sy_user us on faq.studentid = us.id where ifnull(faq.fid,'') = '' and faq.shielding = 0   and faq.status = 0) t",
+        "orderby": "order by createtime desc",
+        "tag": "页面访问-问题管理",
+        "group": "40028"
+    },
+    {
+        "key": "getAnsweredQuestion",
+        "sql": "select  faq.id,faq.content,'' answercontent,faq.coursewareid,DATE_FORMAT(faq.createtime,'%Y-%m-%d %H:%i:%s') createtime,(select count(1) from sy_class_faq cl_faq where cl_faq.fid = faq.id) as answertcount,course.name as coursewarename,course.teachersname,us.name studentname,us.departmentname from sy_class_faq faq inner join sy_courseware course on faq.coursewareid = course.id inner join sy_user us on faq.studentid = us.id  where course.mainstatus >= 0 and ifnull(faq.fid,'') = '' and faq.shielding = 0  and faq.status = 1  ",
+        "orderby": "order by createtime desc"
+    },
+    {
+        "key": "getShieldQuestion",
+        "sql": "select  faq.id,faq.content,'' answercontent,faq.coursewareid,DATE_FORMAT(faq.createtime,'%Y-%m-%d %H:%i:%s') createtime,(select count(1) from sy_class_faq cl_faq where cl_faq.fid = faq.id) as answertcount,course.name as coursewarename,course.teachersname,us.name studentname,us.departmentname from sy_class_faq faq inner join sy_courseware course on faq.coursewareid = course.id inner join sy_user us on faq.studentid = us.id  where course.mainstatus >= 0 and ifnull(faq.fid,'') = '' and faq.shielding = 1",
+        "orderby": "order by createtime desc"
+    },
+    {
+        "key": "classmanager-faq-teacheranswer",
+        "sql": "insert into sy_class_faq(id,accountid,fid,createtime,content,coursewareid,usertype,status,shielding,studentid) VALUES([id],[accountid],[fid],now(),[content],[coursewareid],[usertype],1,0,[studentid]);UPDATE sy_class_faq set `status`=1 where id=[faqid]",
+        "tag": "页面访问-问题答疑",
+        "group": "30017"
+    },
+    {
+        "key": "classmanager-faq-shielding-update",
+        "sql": "update sy_class_faq set shielding=[shielding],reason=[reason],shieldingtime=now(),shieldinguser=[accountid] where id=[id]",
+        "tag": "操作-问题答疑,屏蔽问题[id]"
+    },
+    {
+        "key": "backsys_classmanager-faq-teacheranswer",
+        "sql": "insert into sy_class_faq(id,accountid,fid,createtime,content,coursewareid,usertype,status,shielding,studentid) VALUES([id],[accountid],[fid],now(),[content],[coursewareid],[usertype],1,0,[studentid]);UPDATE sy_class_faq set `status`=1 where id=[faqid]",
+        "tag": "操作-问题答疑,回答:[fid]",
+        "group": "40028"
+    },
+    {
+        "key": "getQuestionAnswers",
+        "sql": "select faq.id,faq.content,DATE_FORMAT(faq.createtime,'%Y-%m-%d %H:%i:%s') createtime ,us.name username,faq.usertype,faq.status from  sy_class_faq faq inner join sy_user us on faq.studentid = us.id  where faq.fid =[fid]",
+        "orderby": "order by createtime desc"
+    },
+    {
+        "key": "selectNoOpenCourseware",
+        "sql": "SELECT c.`name`,c.id,c.teachersname FROM sy_courseware c WHERE not exists(select 1 from sy_courseware_recommend where coursewareid = c.id) and c.mainstatus >= 0"
+    },
+    {
+        "key": "selectOpenCourseware",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from (  select  @rownum:=0 ,ccp.coursewareid,ccp.id,cc.imagephoto,cc.name coursewarename,cc.teachersname,cc.teachtime,cc.createuser,ccp.createtime from sy_courseware_recommend ccp inner join sy_courseware cc on ccp.coursewareid = cc.id where 1=1 and cc.mainstatus >= 0) t"
+    },
+    {
+        "key": "insert_sy_courseware_public",
+        "sql": "insert into sy_courseware_recommend(id,coursewareid,createtime) select UUID(),[coursewareid],NOW()"
+    },
+    {
+        "key": "delete_sy_courseware_public",
+        "sql": "delete from sy_courseware_recommend where id = [id] "
+    },
+    {
+        "key": "getAllblackboard",
+        "sql": "select id,boardimg_clientname,boardimg_servername,createuser,DATE_FORMAT(createtime, '%Y-%m-%d %H:%i:%s') createtime from sy_blackboard where classid = [classid] order by createtime desc"
+    },
+    {
+        "key": "insert_sy_blackboard",
+        "sql": "insert into sy_blackboard(id,boardimg_clientname,boardimg_servername,createuser,classid,createtime) select [id],[boardimg_clientname],[boardimg_servername],[session.name],[classid],now()"
+    },
+    {
+        "key": "delete_sy_blackboard",
+        "sql": "delete from sy_blackboard where id=[id]"
+    },
+    {
+        "key": "selectDepartRoot",
+        "sql": "select id,name,pid,pids from sy_department where pid='0' and status>=0 order by sort,id "
+    },
+    {
+        "key": "selectDepartAll",
+        "sql": "select id,name,pid,pids from sy_department where status>=0 and  pid<>'0' order by sort,id "
+    },
+    {
+        "key": "getAllUserByDepartmentId",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0,m.*,acc.logname,acc.accounttype from ( select  su.id,su.name,su.rank,su.departmentname,su.departmentid,su.usertype,su.accountid from sy_user su where su.pids like concat([pids],'%') ) m left join sy_account acc on m.accountid=acc.id  order by m.usertype desc) t"
+    },
+    {
+        "key": "getAdminUserByDepartmentId",
+        "sql": "select @rownum:=@rownum+1 as rownum,t.* from ( select @rownum:=0,su.id,su.name,su.rank,su.departmentname,su.departmentid,su.usertype,su.accountid,acc.logname,acc.accounttype,depadmin.departmentid mdepartmentid,depadmin.departmentname mdepartmentname FROM sy_department_admin depadmin LEFT JOIN sy_account acc ON depadmin.userid=acc.id LEFT JOIN sy_user su ON acc.id=su.accountid where depadmin.departmentid  in (select id from sy_department where `status`>=0 and concat(',',pids,',') like concat('%,',[departmentid],',%'))  order by depadmin.createtime desc) t"
+    },
+    {
+        "key": "delete_sy_account_roles",
+        "sql": "delete from sy_account_roles where accountid = [accountid] and roleid = '22928341-b8f9-41c4-9c0f-114eadcc444d';delete from sy_department_admin where userid=[accountid2] and departmentid=[departmentid];"
+    },
+    {
+        "key": "insert_sy_account_roles",
+        "sql": "insert into sy_account_roles(id,accountid,roleid,createtime,createuser) select uuid(),[accountid],'22928341-b8f9-41c4-9c0f-114eadcc444d',now(),[session.name];insert into sy_department_admin(id,departmentid,departmentname,userid,createtime) values(uuid(),[departmentid],[departmentname],[accountid2],now());"
+    },
+    {
+        "key": "updateUserTypeById",
+        "sql": "update sy_user set usertype = [usertype] where id = [userid]"
+    },
+    {
+        "key": "update_sy_class_studytime",
+        "sql": "update sy_class set studytime = (select sum(cw.studytime) studytime from sy_classcourse cc inner join sy_courseware cw on cc.coursewareid = cw.id where cc.classid = sy_class.id and cw.mainstatus >= 0) where id = [classid]"
+    },
+    {
+        "key": "delete_sy_pptcourseware_queue",
+        "sql": "delete from sy_pptcourseware_queue where coursewareid=[coursewareid]"
+    },
+    {
+        "key": "insert_sy_pptcourseware_queue",
+        "sql": "insert into sy_pptcourseware_queue(id,createtime,coursewareid,pptfoldername,pptcoursefile_servername,status)values(uuid(),now(),[id],[foldername],[pptcoursefile_servername],0)"
+    },
+    {
+        "key": "getMaterial",
+        "sql": "select a.remark, a.id,attach,attach_clientname,attach_servername,a.createuser as username,DATE_FORMAT(publishtime, '%Y-%m-%d') publishtime,publishtime publishtime1 ,case when a.status=-1 then '已删除' when a.status=0 then '未发布' else '已发布' end as status,category,attach_logo,bottomshow,bottomsort from sy_material a  order by publishtime desc"
+    },
+    {
+        "key": "insert_sy_material",
+        "sql": "insert into sy_material (id,attach,attach_clientname,attach_servername,createuser,status,category,attach_logo,bottomshow,bottomsort,remark) values ([id],[attach],[attach_clientname],[attach_servername],[session.name],[status],[category],[attach_logo],[bottomshow],[bottomsort],[remark]) "
+    },
+    {
+        "key": "publishmaterial",
+        "sql": "update sy_material set status=1,publishtime =now() where id=[id]"
+    },
+    {
+        "key": "deletematerial",
+        "sql": "delete from sy_material where id=[id]"
+    },
+    {
+        "key": "getIndexMaterial",
+        "sql": "select a.remark, a.id,attach,attach_clientname,attach_servername,a.createuser as username,publishtime,category,attach_logo,bottomshow,bottomsort from sy_material a where a.status > 0 order by publishtime desc"
+    },
+    {
+        "key": "materialNoshow",
+        "sql": "update sy_material set bottomshow=0,bottomsort ='' where id=[id]"
+    },
+    {
+        "key": "getFooterDownload",
+        "sql": "select a.id,attach,attach_clientname,attach_servername,a.createuser as username,publishtime,category,attach_logo,bottomshow,bottomsort from sy_material a where a.status > 0 and bottomshow = 1 order by bottomsort desc"
+    },
+    {
+        "key": "getAllStudent",
+        "sql": "select us.accountid as id,us.name,us.cellphone,us.createtime,us.rank,us.departmentname,us.logname,us.isactive as signstatus,us.sex from sy_user us where us.pids=[selectedpids] union ALL select us.accountid as id,us.name,us.cellphone,us.createtime,us.rank,us.departmentname,us.logname,us.isactive as signstatus,us.sex from sy_user us where pids like concat([selectedpids2],',%')"
+    },
+    {
+        "key": "getCategoryByCourse",
+        "sql": "select cc.id,cc.fid from sy_courseware_category_relatiion ccr inner join sy_courseware_category cc on ccr.categoryid = cc.id where ccr.coursewareid= [courseid]"
+    },
+    {
+        "key": "submitrain",
+        "sql": "update sy_train set status=[status],remark=[remark] where id=[id]"
+    },
+    {
+        "key": "deletetrain",
+        "sql": "delete from sy_train where id=[id]"
+    },
+    {
+        "key": "gettrain",
+        "sql": "select * from sy_train where id=[id]"
+    },
+    {
+        "key": "back_gettrain",
+        "sql": "select usr.name,usr.departmentname, DATE_FORMAT(tra.createtime, '%Y-%m-%d') ctime,tra.* from sy_train tra inner join sy_user usr on tra.studentid=usr.id where  tra.status <>0  and  tra.year=[year] and  usr.departmentid in (select id from sy_department where `status`>=0 and concat(',',pids,',') like concat('%,',[departmentid],',%') )"
+    },
+    {
+        "key": "getarchives",
+        "sql": "select * from sy_user_totalreport where studentid=[session.studentid] and year<=[startyear] and year>=[endyear] order by year desc"
+    },
+    {
+        "key": "getDepartmentHasAdmin",
+        "sql": "select dep.id,dep.name,dep.pid,dep.pids,case when (select count(1) from sy_department where pid = dep.id) > 0 then true else false end as nocheck ,case when exists(select depadmin.id from sy_department_admin depadmin where depadmin.departmentid=dep.id) then '../img/1_1.png' else '../img/1_0.png' end icon from sy_department dep where dep.`status`>=0  and concat(',',pids,',') like concat('%,',[pid],',%') order by dep.sort,dep.id "
+    },
+    {
+        "key": "getDepartmentHasAdminByPId",
+        "sql": "select id,name,pid,pids,nocheck,icon,nocheck as isParent from( select dep.id,dep.name,dep.pid,dep.pids,case when (select count(1) from sy_department where pid = dep.id) > 0 then true else false end as nocheck ,case when exists(select depadmin.id from sy_department_admin depadmin where depadmin.departmentid=dep.id) then '../img/1_1.png' else '../img/1_0.png' end icon from sy_department dep where dep.`status`>=0  and id = [id] or pid = [pid] order by dep.sort,dep.id ) a "
+    },
+    {
+        "key": "updateClassStudytime",
+        "sql": "update sy_class cls,(select cls.id,sum(ware.studytime) studytime from sy_class cls inner join sy_classcourse cc on cls.id=cc.classid inner join sy_courseware ware on cc.coursewareid=ware.id where cls.id=[classid]  and ware.mainstatus >= 0) tmp set cls.studytime=tmp.studytime where cls.id=tmp.id"
+    },
+    {
+        "key": "insert_sy_news_relation",
+        "sql": "insert into sy_news_relation(id,newsid,sourceid,type) select [id],[newsid],[sourceid],[type]"
+    },
+    {
+        "key": "delete_sy_news_relation",
+        "sql": "delete from sy_news_relation where newsid = [newsid] and type = 0"
+    },
+    {
+        "key": "delete_sy_train",
+        "sql": "delete from sy_train where id = [id]"
+    }
+
+]

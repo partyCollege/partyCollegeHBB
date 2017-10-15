@@ -1,0 +1,119 @@
+﻿<style>
+    @media all (max-height:768px) {
+        .grid1 {
+            width: 100%;
+            height: 200px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 260px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 300px;
+        }
+    }
+</style>
+<div class="row" style="margin-top:5px;">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="get" class="form-horizontal">
+                    <div class="wrapper-content wrapper">
+                        <div class="row text-right" ng-if="courseware.courseEditViewShow">
+                            <button class="btn btn-default" ng-click="openUeidt()">新增</button>
+                            <button class="btn btn-default" ng-click="deleteUeidt()" ng-disabled="gridApi.selection.getSelectedRows().length==0">删除</button>
+                        </div>
+                        <div class="row">
+                            <div id="grid1" ui-grid="gridEditOptions" ui-grid-auto-resize ui-grid-selection ui-grid-pagination class="grid1" style="height:260px;"></div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-12 control-label" style="text-align: center;">课程简介</label>
+                        </div>
+                        <div class="row" ng-if="courseware.courseEditViewShow">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div summernote lang="zh-CN" ng-model="course.comment"></div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="row" ng-if="courseware.courseEditViewShow==false">
+                            <div class="form-group" style="margin-top:5px;">
+                                <div class="col-sm-12" ng-bind-html="course.comment">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" ng-click="saveComment()" ng-if="courseware.courseEditViewShow">保存</button>
+                            <button class="btn btn-primary" ng-click="openRecommendCourse()" ng-if="courseware.courseEditViewShow">推荐</button>
+                            <button class="btn btn-primary" ng-click="openNotRecommendCourse()" ng-if="courseware.courseEditViewShow">不推荐</button>
+                            <button class="btn btn-default" ng-click="goback()" ng-if="courseware.courseEditViewShow">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="eidtInfo.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>编辑信息</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-sm-2 control-label">起始时间</label>
+                                <div class="col-sm-4"><input type="text" ng-model="coursewareedit.starttime" class="form-control inputmask" data-mask="99:99:99"></div>
+                                <label class="col-sm-2 control-label">截止时间</label>
+                                <div class="col-sm-4"><input type="text" ng-model="coursewareedit.endtime" class="form-control inputmask" data-mask="99:99:99"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-sm-2 control-label">起始文字</label>
+                                <div class="col-sm-4"><input type="text" ng-model="coursewareedit.startword" class="form-control"></div>
+                                <label class="col-sm-2 control-label">截止文字</label>
+                                <div class="col-sm-4"><input type="text" ng-model="coursewareedit.endword" class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-sm-2 control-label">意见</label>
+                                <div class="col-sm-10"><input type="text" ng-model="coursewareedit.opinion" class="form-control"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-info" ng-click="saveUeidt()">保存</button>
+                        <button class="btn btn-default" ng-click="close()">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

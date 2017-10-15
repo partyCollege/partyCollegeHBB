@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <link rel="stylesheet" href="style_box_demo.css" type="text/css" />  
+  <script type="text/javascript" charset="utf-8" src="native.js"></script>
+  <title>Hello AppVersion</title>
+</head>
+<body>
+<div class="app">
+  <h1>AppVersion demo</h1>
+  <div id="deviceready" class="blink">
+    <button onclick="getAppVersion()">Test getApp</button>
+  </div>
+</div>
+
+<script type="text/javascript" >
+  function getAppVersion() {
+	  cordova.getAppVersion(onSucceed,onError);
+	  cordova.getAppVersion.getAppName(onSucceed,onError);
+	  cordova.getAppVersion.getPackageName(onSucceed,onError);
+	  cordova.getAppVersion.getVersionNumber(onSucceed,onError);
+	  cordova.getAppVersion.getVersionCode(onSucceed,onError);
+  }
+  function onSucceed(args){
+		alert("succeed:" + args);
+	}
+	
+	function onError(err){
+		alert("error:" + err);
+	}
+
+</script>
+</body>
+</html>

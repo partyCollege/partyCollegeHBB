@@ -1,0 +1,102 @@
+﻿[
+	{
+		"key": "getSyCode",
+		"sql": "select * from sy_code where category=[category] order by orderby"
+	},
+	{
+		"key": "mystudy-allcourse-category",
+		"sql": "select id,name,coursecount from sy_courseware_category where fid=[fid] order by sortnum"
+	},
+    {
+        "key": "getUserInfo",
+        "sql": "select stu.accountid,stu.id as studentid,stu.name,stu.cellphone,stu.idcard,stu.sex,stu.nation,stu.political,stu.rank,stu.positions,stu.officetel,stu.provice,stu.city,stu.area,stu.email,stu.company,stu.companyaddress ,stu.photo_servername,stu.photo_serverthumbname,stu.sourcebirth birthday,acc.logname from sy_user stu inner join sy_account acc on acc.id=stu.accountid where stu.id=[studentid]"
+    },
+    {
+        "key": "getMyClassList",
+        "sql": "select cla.id,cla.name,DATE_FORMAT(cla.starttime,'%Y-%m-%d') as starttime,DATE_FORMAT(cla.endtime,'%Y-%m-%d') as endtime,DATE_FORMAT(cla.studytime,'%Y-%m-%d') clstudytime,DATE_FORMAT(cu.studytime,'%Y-%m-%d') stustudytime,DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%s') as nowtime,cla.categoryone,cla.categorytwo,cla.categorythree,cla.categoryfour from sy_class_user cu inner join sy_class cla on cu.classid = cla.id  and cla.status>=0 where cu.userid = [session.studentid] and now() >= cla.starttime and cla.endtime >= now() order by cla.starttime desc limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "getMyHistoryClassList",
+        "sql": "select cla.id,cla.name,DATE_FORMAT(cla.starttime,'%Y-%m-%d %H:%i:%s') as starttime,DATE_FORMAT(cla.endtime,'%Y-%m-%d') as endtime,cla.studentnum,DATE_FORMAT(cla.studytime,'%Y-%m-%d') clstudytime,DATE_FORMAT(cu.studytime,'%Y-%m-%d') stustudytime,DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%s') as nowtime,cla.categoryone,cla.categorytwo,cla.categorythree,cla.categoryfour from sy_class_user cu inner join sy_class cla on cu.classid = cla.id  and cla.status>=0 where cu.userid =[session.studentid] and cla.endtime < now() order by cla.endtime desc  limit [pageindex],[pagesize]"
+    },
+    {
+        "key": "getMyClassListCount",
+        "sql": "select count(1) as classcount from sy_class_user cu inner join sy_class cla on cu.classid = cla.id   and cla.status>=0   where cu.userid = [session.studentid] and now() >= cla.starttime and cla.endtime >= now() order by cla.starttime desc"
+    },
+    {
+        "key": "getMyHistoryClassListCount",
+        "sql": "select count(1) as classcount from sy_class_user cu inner join sy_class cla on cu.classid = cla.id   and cla.status>=0  where cu.userid =[session.studentid] and cla.endtime < now() order by cla.endtime desc"
+    },
+     {
+        "key": "getClassInfoById",
+        "sql": "select id,name,DATE_FORMAT(starttime,'%Y-%m-%d') as starttime,DATE_FORMAT(endtime,'%Y-%m-%d') as endtime,DATE_FORMAT(studytime,'%Y-%m-%d %H:%i:%s')as studytime,comment,categoryone,categorytwo,categorythree,categoryfour from sy_class a where id = [id]"
+    },
+	{
+		"key": "getUserReportByUserId",
+		"sql": "select yearplan_finished,yearplan_total from sy_user_totalreport where studentid = [session.studentid]  and year=DATE_FORMAT(now(),'%Y')"
+	},
+	{
+		"key": "deletestudyrecord",
+		"sql": "delete from sy_courseware_user WHERE studentid=[session.studentid] and coursewareid=[coursewareid]"
+	},
+	{
+		"key": "getCourseInfo_SelectCourse",
+		"sql": "select ware.teachervideo,ware.pptvideo,ware.pptcoursefile_servername,ware.videotype,ware.id coursewareid,ware.realduration,ware.`name` coursewarename,ware.teachersname,ware.`comment`,DATE_FORMAT(ware.createtime,'%Y.%m.%d') uploadtime,ware.studytime,ware.coursetype,ware.source,ware.grade,ware.imagephoto,case when wareuser.id is null then 0 else 1 end iselectivechoose,DATE_FORMAT(wareuser.createtime,'%Y.%m.%d') jointime ,IFNULL((select isplaycompletion from sy_video_log where studentid=[session.studentid] and coursewareid=ware.id),0) isplaycompletion ,(select count(1) from sy_classcourse classcourse where classid in(select classid from sy_class_user cuser where userid=[session.studentid]) and coursewareid=ware.id) isrequiredchoose,(select count(1)  from sy_courseware_appraise where coursewareid =ware.id and accountid = [session.accountid]) isappraise from sy_courseware ware left join sy_courseware_user wareuser on ware.id=wareuser.coursewareid and wareuser.studentid=[session.studentid] and wareuser.status>=0 where ware.id=[coursewareid]  and ware.mainstatus >= 0"
+	},
+	{
+        "key": "getCoursewareTeachers",
+        "sql": "select stc.name, stc.comment from sy_teacher stc inner join sy_courseware_relation scr on scr.sourceid=stc.id where scr.coursewareid=[coursewareid]"
+    },
+	{
+		"key": "getfinishedcourseware",
+		"sql": "select vlog.id,vlog.coursewareid,ware.imagephoto,ware.name,ware.studytime,ware.teachersname,ware.teachervideo,ware.pptvideo,ware.pptcoursefile_servername,vlog.score  from sy_video_log vlog inner join sy_courseware ware  on vlog.coursewareid=ware.id where vlog.isfinished=1 and vlog.studentid=[session.studentid] limit [pageindex],[pagesize]"
+	},
+	{
+        "key": "submitrain",
+        "sql": "update sy_train set status=[status],remark=[remark] where id=[id]"
+    },
+    {
+        "key": "deletetrain",
+        "sql": "delete from sy_train where id=[id]"
+    },
+	{
+		"key": "gettrain",
+		"sql": "select id,title,categoryone,categorytwo,categorythree,categoryfour,studytime,status,DATE_FORMAT(starttime,'%Y-%m-%d') as starttime,DATE_FORMAT(endtime,'%Y-%m-%d') as endtime,year,address,company,reference,remark from sy_train where id=[id]"
+	},
+	{
+        "key": "usercenter-changetel",
+        "sql": "update sy_account set cellphone=[cellphone1] where id=[accountid];update sy_user set cellphone=[cellphone2] where id=[studentid];"
+    },
+	{
+		"key": "back_gettrain",
+		"sql": "select usr.name,usr.departmentname, DATE_FORMAT(tra.createtime, '%Y-%m-%d') ctime,tra.* from sy_train tra inner join sy_user usr on tra.studentid=usr.id where  tra.status <>0  and  usr.departmentid=[departmentid]"
+	},
+	{
+		"key": "getSumStudytimeTrain",
+		"sql": "select ifnull(sum(studytime),0) studytime  from sy_train where `status`=2 and `year`=[year] and studentid=[session.studentid]"
+	},
+	{
+        "key": "selectStudentPlayDetailCount",
+        "sql": "select count(id) as dtlcount from sy_video_detail where id=[currentID]"
+    },
+    {
+        "key": "selectStudentPlayTime",
+        "sql": "select timespan,isplaycompletion,studytime from sy_video_log where coursewareid=[coursewareid] and studentid=[studentid] order by studytime desc limit 1"
+    },
+	{
+		"key": "getStudytimeByCoursewareId",
+		"sql": "select studytime from sy_courseware where id = [courseid] and mainstatus >= 0"
+	},
+	{
+		"key": "geAppraisetFlag",
+		"sql": "select count(1) isappraise from sy_courseware_appraise where coursewareid =[coursewareid] and accountid = [session.accountid]"
+	},
+	 {
+        "key": "selectCoursewareById",
+        "sql": "select scw.id,scw.name,scw.teachersname,scw.teachtime,scw.duration,scw.realduration,scw.source,scw.teachervideo,scw.videotype,scw.pptvideo,scw.comment,scw.teachervideoname,scw.pptvideoname,scw.imagephoto,scw.rate,scw.tempteachervideo,scw.temppptvideo,scw.tempteachervideofilename,scw.temppptvideofilename,scw.deleteContent,scw.deletestatus,scw.studytime,scw.courseyear,scw.coursetype,scw.grade,scw.pptcoursefile_servername,pptcoursefile_clientname,DATE_FORMAT(scw.createtime,'%Y-%m-%d') createtime from sy_courseware scw where scw.id=[id] and scw.mainstatus >= 0"
+    },
+    {
+        "key": "getarchives",
+        "sql": "select * from sy_user_totalreport where studentid=[session.studentId] and year<=[startyear] and year>=[endyear] order by year desc"
+    }
+]

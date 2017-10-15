@@ -1,0 +1,115 @@
+﻿<div class="row" style="margin-top:5px;">
+    <div class="col-lg-12" ng-if="courseware.courseEdShow">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="get" class="form-horizontal">
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">授课人视频</label>
+                        <div class="col-sm-4 control-label" style="text-align:left">
+                            {{course.teachervideoname}}
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group m-b">
+                                <button class="btn btn-sm btn-primary" ngf-accept="'video/*'" ngf-select="uploadvideoFiles($files, $invalidFiles)" multiple>选择视频</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-info" ng-click="openVideoPerview('videofile',course.teachervideo)">预览</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2" ng-if="course.videofile.length>0">
+
+                        </div>
+                        <div class="col-sm-10" ng-if="course.videofile.length>0">
+                            <ul>
+                                <li ng-repeat="f in course.videofile" style="font:smaller">
+                                    {{f.name}}&nbsp;&nbsp;&nbsp;&nbsp;文件大小{{(f.size/1048576).toFixed(2)}}M {{f.$errorParam}}
+                                    <button class="btn btn-info" ng-click="uploadvideo('videofile')">上传</button>
+
+                                </li>
+                                <li>
+                                    <div>
+                                        <small class="pull-left">进度<span style="color:red">{{process_videofile}}</span>%</small>
+                                    </div>
+                                    <div class="progress progress-small">
+                                        <div style="width: {{process_videofile}}%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed" ng-if="course.videotype=='1'"></div>
+                    <div class="form-group" ng-if="course.videotype=='1'">
+                        <label class="col-sm-2 control-label">PPT视频</label>
+                        <div class="col-sm-4 control-label" style="text-align:left">
+                            {{course.pptvideoname}}
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group m-b">
+
+                                <button class="btn btn-sm btn-primary" ngf-accept="'video/*'" ngf-select="uploadpptFiles($files, $invalidFiles)" ng-model="course.pptfile" multiple>选择视频</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-info" ng-click="openVideoPerview('pptfile',course.pptvideo)">预览</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="course.videotype=='1'">
+                        <div class="col-sm-2" ng-if="course.pptfile.length>0">
+
+                        </div>
+                        <div class="col-sm-10" ng-if="course.pptfile.length>0">
+                            <ul>
+                                <li ng-repeat="f in course.pptfile" style="font:smaller">
+                                    {{f.name}}&nbsp;&nbsp;&nbsp;&nbsp;文件大小{{(f.size/1048576).toFixed(2)}}M {{f.$errorParam}}
+                                    <button class="btn btn-info" ng-click="uploadvideo('pptfile')">上传</button>
+
+                                </li>
+                                <li>
+                                    <div>
+                                        <small class="pull-left">进度<span style="color:red">{{process_pptfile}}</span>%</small>
+                                    </div>
+                                    <div class="progress progress-small">
+                                        <div style="width: {{process_pptfile}}%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="text-center" ng-if="courseware.courseEdShow">
+                        <button class="btn btn-primary" ng-click="saveVideoInfo()">保存</button>
+                        <button class="btn btn-primary" ng-click="commitEditCourse()">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12" ng-if="courseware.courseEdViewShow">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="get" class="form-horizontal">
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">授课人视频</label>
+                        <div class="col-sm-4 control-label" style="text-align:left;">
+                            {{course.teachervideoname}}
+                        </div>
+                        <div class="col-sm-2 control-label" style="text-align:left;">
+                            <button class="btn btn-sm btn-info" ng-click="openVideoPerview('videofile',course.teachervideo)">预览</button>
+                        </div>
+
+                    </div>
+                    <div class="hr-line-dashed" ng-if="course.videotype=='1'"></div>
+                    <div class="form-group" ng-if="course.videotype=='1'">
+                        <label class="col-sm-2 control-label">PPT视频</label>
+                        <div class="col-sm-4 control-label" style="text-align:left;">
+                            {{course.pptvideoname}}
+                        </div>
+                        <div class="col-sm-2 control-label" style="text-align:left;">
+                            <button class="btn btn-sm btn-info" ng-click="openVideoPerview('pptfile',course.pptvideo)">预览</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿<style>
+	@media all (max-height:769px) {
+		.grid1 {
+			width: 100%;
+			height: 400px;
+		}
+	}
+
+	@media all and (min-height:770px) and (max-height:900px) {
+		.grid1 {
+			width: 100%;
+			height: 465px;
+		}
+	}
+
+	@media all and (min-height:901px) and (max-height:1080px) {
+		.grid1 {
+			width: 100%;
+			height: 680px;
+		}
+	}
+</style>
+<div class="wrapper-content wrapper">
+	<div class="row text-right">
+		<div class="col-md-8 text-left">
+			<ui-select ng-model="class.forAddCourse" close-on-select="false" multiple theme="bootstrap">
+				<ui-select-match placeholder="请选择课程">{{$item.name}} &lt;{{$item.company}}&gt;</ui-select-match>
+				<ui-select-choices repeat="item in class.courseList | filter: $select.search">
+					<div style="font-weight:bold" ng-bind-html="item.name | highlight: $select.search"></div>
+					&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">授课人:&nbsp;&nbsp;</span>
+					<small ng-bind-html ="item.teachersname | highlight: $select.search"></small>
+					&nbsp;&nbsp;&nbsp;&nbsp;<span>授课时间:</span><small>{{item.teachtime|filter:"yyyy-MM-dd hh:mm"}}</small>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+		<div class="col-md-4">
+			<button class="btn btn-info" ng-disabled="class.forAddCourse.length==0||addDisabled" ng-click="addCourse()">添加</button>
+			<button class="btn btn-danger" ng-disabled="gridApi.selection.getSelectedRows().length==0" ng-click="delCourseware()">删除</button>
+		</div>
+	</div>
+	<div class="row" style="margin-top:20px">
+		<div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection class="grid1"></div>
+	</div>
+</div>

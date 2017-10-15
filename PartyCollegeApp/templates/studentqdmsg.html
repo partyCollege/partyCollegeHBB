@@ -1,0 +1,24 @@
+﻿<ion-view title="学员签到">
+    <go-main-page></go-main-page>
+    <ion-nav-buttons side='right'>
+        <button class='button button-icon icon ion-qr-scanner icon-right' style='font-size:16px' ng-click='saoma()'>签到</button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-refresher on-refresh="doRefresh()"
+                       pulling-text="拖动刷新"
+                       refreshing-text="加载中"
+                       refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <div class="qdbox">
+            <i class="linebox"></i>
+            <div ng-repeat="qd in qddate" ng-class="{'迟到': 'active', '已签到': ''}[qd.qdstatus]">
+                <label>{{qd.qdtime2}}<br /><font>{{qd.qdtime1}}</font></label>
+                <p class="kcname">{{qd.kwname}}</p>
+                <p class="qdmsg">
+                    <span>{{qd.qdtime}}</span>
+                    <span>{{qd.qdstatus}}</span>
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

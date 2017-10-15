@@ -1,0 +1,97 @@
+﻿<style>
+    .tab-item.active, .tab-item.tab-item-active, .tab-item.activated {
+        margin-top: 0px !important;
+        border-top-width: 0px !important;
+        color: #ef473a;
+        border: 0 solid #ef473a !important;
+        margin-bottom: 2px !important;
+    }
+    .tabs-top > .tabs, .tabs.tabs-top {
+        background: #f8f8f8 !important;
+    }
+    .tabs-striped .tabs {
+        border-bottom: none !important;
+    }
+    .tab-item {
+        color: rgba(239, 71, 58, 0.4) !important;
+    }
+    .nowstyle {
+        font-weight:bold  !important;
+        font-size:1.3em  !important;
+    }
+    .tab-item.tab-item-active {
+        color: #e60000 !important;
+    }
+</style>
+<ion-view title="">
+    <go-back my-title="移动点名"></go-back>
+    <ion-tabs class="tabs-striped tabs-top" style="color:red;border-color:red;">
+        <ion-tab class="nowstyle" title="待签">
+            <ion-view>
+                <ion-content class="has-header">
+                    <ion-list>
+                        <ion-item ng-repeat="item in nowQd" style="padding:10px 10px;padding-bottom:5px">
+                            <div class="line-h-30">
+                                <div class="item-text-wrap black size-18">{{item.lessonname}}</div>
+                            </div>
+                            <div>
+                                <div class="pull-left" style="color:#C6C3C6;margin-top:10px;">
+                                    <i class="ion-ios-clock-outline"></i>
+                                    <span ng-bind="item.signbegin|date:'yyyy-MM-dd HH:mm'"></span>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="size-16" ng-click="qiandao(item)"><span class="notice_btn">签到</span> </span>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                    <div ng-show="nowQd.length==0" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                        <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+                        暂无发起点名
+                    </div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+        <ion-tab class="nowstyle" title="历史签到">
+            <ion-view>
+                <ion-content class="has-header">
+                    <ion-list>
+                        <ion-refresher on-refresh="doRefresh()"
+                                       pulling-text="拖动刷新"
+                                       refreshing-text="加载中"
+                                       refreshing-icon="ion-loading-c">
+                        </ion-refresher>
+                        <ion-item ng-repeat="item in qdlist" style="padding:10px 10px;padding-bottom:5px">
+                            <div class="line-h-30">
+                                <div class="item-text-wrap black size-18">{{item.bt}}</div>
+                            </div>
+                            <div>
+                                <div style="color:#C6C3C6;margin-top:10px;">
+                                    <i>发起时间：</i>
+                                    <span ng-bind="item.signbegin|date:'MM-dd HH:mm'"></span>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="pull-left" style="color:#C6C3C6;margin-top:10px;">
+                                        <i>签到时间：</i>
+                                        <span ng-bind="item.signtime|date:'MM-dd HH:mm'"></span>
+                                    </div>
+                                    <div class="pull-right" style="color:#C6C3C6;margin-top:10px;">
+                                        <span ng-show="item.signstatus==0">未签</span>
+                                        <span ng-show="item.signstatus!=0">已签</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                    <div ng-show="qdlist.length==0" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                        <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+                        暂无发起点名
+                    </div>
+                    <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMoreQdList();" distance="1%" icon="ion-loading-d">
+                    </ion-infinite-scroll>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+    </ion-tabs>    
+</ion-view>

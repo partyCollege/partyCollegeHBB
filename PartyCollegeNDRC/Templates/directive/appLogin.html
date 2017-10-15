@@ -1,0 +1,439 @@
+﻿<div>
+	<form id="loginform" name="loginform">
+		<ul class="center" ng-if="!user.isLogin">
+			<li>网站登录{{loginform.$focused}}
+			<li>
+				<i class="tubiaoicon-44"></i>
+				<input type="text"
+					   ng-model="loginobj.logname"
+					   placeholder="请输入登录名" />
+				<div class="errInfo_box" ng-if="login_logname_message!=undefined&&login_logname_message!=''">{{login_logname_message}}</div>
+			</li>
+			<li>
+				<i class="tubiaoicon-43"></i><input type="password" ng-model="pwdobject.hashpwd" placeholder="请输入密码" />
+				<div class="errInfo_box" ng-if="login_pwd_message!=undefined&&login_pwd_message!=''">{{login_pwd_message}}</div>
+			</li>
+			<li>
+				<i class="tubiaoicon-02"></i><input type="text" class="yzm" ng-model="loginobj.code" placeholder="请输入验证码" ng-keyup="loginKeyup($event);" />
+				<img class="right" ng-src="{{currentSrc}}" title="点击换一个" ng-click="changeCode();" />
+				<div class="errInfo_box" ng-if="login_code_message!=undefined&&login_code_message!=''">{{login_code_message}}</div>
+			</li>
+			<li>
+				<div class="left"><a ng-click="register();">注册</a></div>
+				<div class="right"><a ng-click="getPwd();">找回密码</a>|<a ng-click="helpDoc();">帮助</a></div>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<button type="button" ng-click="login();" ng-disabled="clickLoginDisable">登录</button>
+				<div class="errInfo_box" ng-if="login_result_message!=undefined&&login_result_message!=''">{{login_result_message}}</div>
+			</li>
+		</ul>
+	</form>
+	<div class="popup_box" ng-style="registerstyle">
+			<!--校友身份验证 开始（校友先注册再验证） -->
+			<div class="popup_content register" ng-style="matesteparary[2]">
+				<div class="content ">
+					<h2>身份验证<i class="tubiaoicon-17" ng-click="closeRegister();"></i></h2>
+					<form action="" name="mateform" method="post">
+						<ul>
+							<li>
+								<label><b>*</b>姓&nbsp;&nbsp;名：</label>
+								<input type="text" name="name" />
+								<p class="ts">注：请填写真实姓名。</p>
+							</li>
+							<li>
+								<label><b>*</b>身份验证：</label>
+								<input type="text" name="idcard" readonly="readonly" ng-model="loginobj.idcard" />
+							</li>
+							<li>
+								<label><b>*</b>手机号码：</label>
+								<input class="phone" name="cellphone" type="text" />
+								<button class="yzm" type="button" ng-click="getPwdSmsCode();" ng-disabled="sendSmsDisabled">获取验证码({{seconds}})</button>
+								<p class="error">手机号格式不正确</p>
+							</li>
+							<li>
+								<label><b>*</b>验 证 码：</label><input type="text" />
+								<p class="error">验证码有误</p>
+							</li>
+							<li>
+							<li class="submit">
+								<button class="btn" type="button" ng-click="">完成</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<!--校友身份验证 结束-->
+			<!--校友注册 开始 -->
+			<div class="popup_content register" ng-style="matesteparary[1]">
+				<div class="content ">
+					<h2>校友注册<i class="tubiaoicon-17" ng-click="closeRegister();"></i></h2>
+					<form action="" name="materegform" method="post">
+						<ul>
+							<li>
+								<label><b>*</b>身份验证：</label>
+								<input required idcard-validator type="text" ng-model="loginobj.idcard" maxlength="18" name="idcard" placeholder="输入18位身份证" ng-change="checkIdCard();" />
+								<p class="error">
+									<span ng-if="materegform.idcard.$dirty && materegform.idcard.$invalid">
+										<span ng-if="materegform.idcard.$error.required">身份证号必须的。</span>
+										<span ng-if="materegform.idcard.$invalid">身份证号输入不正确。</span>
+										<span ng-if="false">此身份证已注册请直接登陆</span>
+									</span>
+								</p>
+							</li>
+							<li>
+								<label><b>*</b>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+								<input required logname-validator type="text" maxlength="18" name="logname" ng-model="loginobj.logname" ng-change="checkLogname();" />
+								<p class="error">
+									<span ng-if="materegform.logname.$dirty && materegform.logname.$invalid">
+										<span ng-if="materegform.logname.$error.required">登录名必须的。</span>
+										<span ng-if="materegform.logname.$invalid">登录名不符要求。</span>
+									</span>
+									<!--<span ng-if="lognameerrortext.message!=''"></span>-->
+									{{lognameerrortext.message}}
+								</p>
+								<p class="ts">6-18个字符，可使用字母、数字、下划线，需以字母开头。</p>
+							</li>
+							<li>
+								<label><b>*</b>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+								<input required password-validator name="hashpwd" maxlength="16" ng-model="pwdobject.hashpwd" type="password" />
+								<p class="error">
+									<span ng-if="materegform.hashpwd.$dirty && materegform.hashpwd.$invalid">
+										<span ng-if="materegform.hashpwd.$error.required">登录名必须的。</span>
+										<span ng-if="materegform.hashpwd.$invalid">密码不符要求。</span>
+										<span ng-if="false"></span>
+									</span>
+								</p>
+								<p class="ts">6-16个字符，区分大小写。</p>
+							</li>
+							<li>
+								<label><b>*</b>确认密码：</label>
+								<input type="password" required name="confirmhashpwd" confirmpwd-validator hashpwd="{{pwdobject.hashpwd}}"
+									   errormessage="confirmerrormsg.message" maxlength="16" ng-model="pwdobject.confirmhashpwd" />
+								<p class="error">
+									<span ng-if="materegform.confirmhashpwd.$dirty && materegform.confirmhashpwd.$invalid">
+										<span ng-if="materegform.confirmhashpwd.$error.required">登录名必须的。</span>
+										<!--<span ng-if="materegform.confirmhashpwd.$invalid">登录名格式输入不正确。</span>-->
+										<span ng-if="false"></span>
+										{{confirmerrormsg.message}}
+									</span>
+								</p>
+							</li>
+							<li>
+								<label><b>*</b>&nbsp;序&nbsp;列&nbsp;号：</label>
+								<input class="xlh" type="text" required serialno-validator maxlength="4" name="serialno_one" ng-model="loginobj.serialno_one" ng-change="checkSerialNo();" />
+								<input class="xlh" type="text" required serialno-validator maxlength="4" name="serialno_two" ng-model="loginobj.serialno_two" ng-change="checkSerialNo();" />
+								<input class="xlh" type="text" required serialno-validator maxlength="4" name="serialno_three" ng-model="loginobj.serialno_three" ng-change="checkSerialNo();" />
+								<input class="xlh" type="text" required serialno-validator maxlength="4" name="serialno_four" ng-model="loginobj.serialno_four" ng-change="checkSerialNo();" />
+								<p class="error">
+									{{loginobj.serialno}}
+									{{serialerrortext.message}}
+								</p>
+							</li>
+							<li class="submit">
+								<button class="btn" type="button" ng-click="upstep('mate');">上一步</button>
+								<button class="btn" type="button" ng-click="nextstep('mate');" ng-disabled="materegform.$invalid">
+									下一步
+								</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<!--校友注册 结束-->
+			<!--学员身份验证 开始 （学员先验证再注册） -->
+			<div class="popup_content register" ng-style="stusteparary[1]">
+				<div class="content ">
+					<h2>身份验证</h2>
+					<form id="steptwoform" name="steptwoform">
+						<i class="tubiaoicon-17 close_popupDiv" validation-reset="steptwoform" ng-click="closeRegister();"></i>
+						<ul>
+							<li>
+								<label><b>*</b>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+								<input type="text" name="name"
+									   ng-model="loginobj.name"
+									   validator="inputzh"
+									   valid-method="blur"
+									   required-error-message="姓名是必须的。"
+									   valid-callback="remoteCheckIdCard();"
+									   placeholder="输入中文"
+									   message-id="name_message" />
+								<p id="name_message" class="error"></p>
+							</li>
+							<li>
+								<label><b>*</b>身份证号：</label>
+								<input maxlength="18"
+									   ng-model="loginobj.idcard"
+									   validator="idcard"
+									   valid-method="blur"
+									   required-error-message="身份证号必须的。"
+									   idcard-error-message="身份证号输入不正确"
+									   valid-callback="remoteCheckIdCard();"
+									   invalid-callback="idcardInvalidClearMsg();"
+									   type="text"
+									   name="idcard" placeholder="输入18位身份证" message-id="idcard_message" />
+								<p id="idcard_message" class="error">{{inValidIdCardMessage}}</p>
+							</li>
+							<li>
+								<label><b>*</b>手机号码：</label>
+								<input class="phone"
+									   name="cellphone"
+									   maxlength="11"
+									   validator="cellphone"
+									   valid-method="watch"
+									   type="text"
+									   ng-model="loginobj.cellphone"
+									   required-error-message="手机号码必须的。"
+									   cellphone-error-message="手机号码输入不正确"
+									   valid-callback="remoteCheckCellphone();"
+									   invalid-callback="cellphoneInvalidMsgClear();"
+									   message-id="cellphone_message" />
+								<button class="yzm" type="button" ng-click="getRegisterSmsCode();" ng-disabled="steptwoform.cellphone.$pristine|| sendRegisterSmsDisabled">{{registerSecondsString}}</button>
+								<p id="cellphone_message" class="error">{{cellphoneInvalidMsg}}</p>
+								<p class="ts">注：申报时提供的手机号码。</p>
+							</li>
+							<li>
+								<label><b>*</b>&nbsp;验&nbsp;证&nbsp;码：</label>
+								<input required type="text"
+									   maxlength="4"
+									   name="smscode"
+									   valid-method="watch"
+									   validator="required"
+									   ng-model="loginobj.smscode"
+									   required-error-message="验证码是必须的。"
+									   valid-callback="remoteCheckSmsCode();" message-id="smscode_message" />
+								<p id="smscode_message" class="error"></p>
+							</li>
+							<li class="submit">
+								<button class="btn" type="button" ng-click="upstep('stu');">上一步</button>
+								<button class="btn" type="button" ng-click="nextstep('stu');"
+										ng-disabled="steptwoform.$invalid ||BtnNextStepDisable">
+									下一步
+								</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<!--学员身份验证 结束-->
+			<!--学员注册 开始 -->
+			<div class="popup_content register" ng-style="stusteparary[2]">
+				<div class="content ">
+					<h2>学员注册</h2>
+					<form name="accform" method="post">
+						<i class="tubiaoicon-17 close_popupDiv" validation-reset="accform" ng-click="closeRegister();"></i>
+						<ul>
+							<li>
+								<label><b>*</b>登 录 名：</label>
+								<input required
+									   validator="required,logname"
+									   type="text"
+									   name="logname"
+									   ng-model="loginobj.logname"
+									   maxlength="18"
+									   valid-method="blur"
+									   required-error-message="登录名是必须的。"
+									   cellphone-error-message="登录名格式不正确。"
+									   valid-callback="remoteCheckLogname();"
+									   invalid-callback="lognameInvalidMsgClear();"
+									   message-id="logname_message" /><i></i>
+								<p class="ts">6-18个字符，可使用字母、数字、下划线，需以字母开头。</p>
+								<p id="logname_message" class="error">{{lognameInvalidMsg}}</p>
+							</li>
+							<li>
+								<label><b>*</b>密 &nbsp;&nbsp;&nbsp; 码：</label>
+								<input validator="required,password"
+									   type="password"
+									   name="hashpwd"
+									   maxlength="18"
+									   valid-method="blur"
+									   required-error-message="密码是必须的。"
+									   password-error-message="密码格式不正确。"
+									   ng-model="pwdobject.hashpwd" />
+								<p class="error">
+								</p>
+								<p class="ts">6-16个字符，区分大小写。</p>
+							</li>
+							<li>
+								<label><b>*</b>确认密码：</label>
+								<input validator="required,password"
+									   required-error-message="确认密码是必须的。"
+									   confirmhashpwd-error-message="确认密码格式不正确。"
+									   type="password"
+									   maxlength="18"
+									   name="confirmhashpwd"
+									   valid-method="watch"
+									   ng-model="pwdobject.confirmhashpwd"
+									   valid-callback="checkConfirmHashpwd();"
+									   invalid-callback="confirmHashpwdInvalidMsgClear();"
+									   message-id="confirmhashpwd_message" />
+								<p id="confirmhashpwd_message" class="error">{{inValidConfirmHashpwdMessage}}</p>
+							</li>
+							<li class="submit">
+								<button class="btn" type="button" ng-click="saveAccount();"
+										ng-disabled="accform.$invalid||BtnFinishStepDisable">
+									完成
+								</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<!--学员注册 结束-->
+			<!--身份选择 开始 1)-->
+			<div class="popup_content register" ng-style="registerStepPublicStyle">
+				<div class="content ">
+					<h2>身份选择<i class="tubiaoicon-17" ng-click="closeRegister();"></i></h2>
+					<form action="" method="post">
+						<ul>
+							<li></li>
+							<li></li>
+							<li>
+								<button class="btn" type="button" ng-click="stuRegister('stu');">学员注册</button>
+							</li>
+							<li></li>
+							<li>
+								<button class="btn" type="button" ng-click="mateRegister('mate');">校友注册（学习卡注册）</button>
+							</li>
+							<li></li>
+							<li></li>
+							<li>
+								<p class="red">注：1.参加网络学院培训学习的学员请点学员注册。<br />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.持有学习卡的学员请点击校友注册（学习卡注册）。
+								</p>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<!--身份选择 结束-->
+			<!--忘记密码 开始-->
+			<div class="popup_content register" ng-style="pwdsteparary[1]">
+				<div class="content ">
+					<h2>忘记密码</h2>
+					<form id="getpwdform" name="getpwdform">
+						<i class="tubiaoicon-17 close_popupDiv" validation-reset="getpwdform" ng-click="closeRegister();"></i>
+						<ul>
+							<li>
+								<label><b>*</b>登 录 名：</label>
+								<input required
+									   validator="required,logname"
+									   type="text"
+									   name="logname"
+									   maxlength="18"
+									   ng-model="loginobj.logname"
+									   valid-method="blur"
+									   required-error-message="登录名是必须的。"
+									   cellphone-error-message="登录名格式不正确。"
+									   message-id="getpwdform_logname_message" /><i></i>
+								<p id="getpwdform_logname_message" class="error"></p>
+							</li>
+							<li>
+								<label><b>*</b>手机号码：</label>
+								<input class="phone"
+									   name="cellphone"
+									   maxlength="11"
+									   validator="required,cellphone"
+									   valid-method="blur"
+									   type="text"
+									   ng-model="loginobj.cellphone"
+									   required-error-message="手机号码必须的。"
+									   cellphone-error-message="手机号码输入不正确"
+									   message-id="getpwdform_cellphone_message" />
+								<button class="yzm" type="button" ng-click="getPwdSmsCode();"
+										ng-disabled="getpwdform.cellphone.$invalid||getpwdform.logname.$invalid|| sendSmsDisabled">
+									{{forgotpwdSecondsString}}
+								</button>
+								<p id="getpwdform_cellphone_message" class="error"></p>
+								<p class="ts">注：注册时绑定的手机号码。</p>
+							</li>
+							<li>
+								<label><b>*</b>&nbsp;验&nbsp;证&nbsp;码：</label>
+								<input required type="text"
+									   maxlength="4"
+									   name="smscode"
+									   valid-method="watch"
+									   validator="required"
+									   ng-model="loginobj.smscode"
+									   required-error-message="验证码是必须的。"
+									   valid-callback="remoteForgotPwdCheckSmsCode();"
+									   invalid-callback="clearForgotPwdCheckSmsCodeMessage()"
+									   message-id="getpwdform_smscode_message" />
+								<p id="getpwdform_smscode_message" class="error">{{remoteForgotpwdSmscodeMessage}}</p>
+							</li>
+							<li class="submit">
+								<button class="btn" type="button" ng-click="getPwdConfirmInfo();"
+										ng-disabled="getpwdform.$invalid||clickForgotpwdStepDisable">
+									下一步
+								</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<div class="popup_content register" ng-style="pwdsteparary[2]">
+				<div class="content ">
+					<h2>忘记密码</h2>
+					<form id="newpwdform" name="newpwdform">
+						<i class="tubiaoicon-17 close_popupDiv" validation-reset="newpwdform" ng-click="closeRegister();"></i>
+						<ul>
+							<li>
+								<label><b>*</b>密 &nbsp;&nbsp;&nbsp;&nbsp; 码：</label>
+								<input validator="required,password"
+									   type="password"
+									   name="hashpwd"
+									   maxlength="18"
+									   valid-method="blur"
+									   required-error-message="密码是必须的。"
+									   password-error-message="密码格式不正确。"
+									   ng-model="pwdobject.hashpwd" />
+								<p class="error" id="newpwdform_pwdobject.hashpwd"></p>
+								<p class="ts">6-16个字符，区分大小写。</p>
+							</li>
+							<li>
+								<label><b>*</b>确认密码：</label>
+								<input validator="required,password"
+									   required-error-message="确认密码是必须的。"
+									   confirmhashpwd-error-message="确认密码格式不正确。"
+									   type="password"
+									   maxlength="18"
+									   name="confirmhashpwd"
+									   valid-method="watch"
+									   ng-model="pwdobject.confirmhashpwd"
+									   valid-callback="checkConfirmHashpwd();"
+									   invalid-callback="confirmHashpwdInvalidMsgClear();"
+									   message-id="newpwdform_confirmhashpwd_message" />
+								<p id="newpwdform_confirmhashpwd_message" class="error">{{inValidConfirmHashpwdMessage}}</p>
+							</li>
+							<li class="submit">
+								<button class="btn" type="button" ng-click="saveNewPwd();"
+										ng-disabled="newpwdform.$invalid||clickNewpwdFormDisable">
+									完成
+								</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<!--忘记密码 结束-->
+		</div>
+	<div class="popup_box" ng-style="showChooseMultiClass">
+		<div class="popup_content guide">
+			<div class="content ">
+				<h2>请您选择要参与学习的班级<i class="tubiaoicon-17" ng-click="CloseDiv();"></i></h2>
+				<div class="three" ng-style="displayPageArray[2]">
+					<form method="post" name="formmulticlass" id="formmulticlass">
+						<h2 class="common"><b>选择要求</b></h2>
+						<p>最少选择{{multiClassObj.minclassnum}}个专题</p><br />
+						<h2 class="common"><b>专题列表（已选中{{selectedItems.length}}个专题）</b></h2>
+						<div class="gridStyle serialize" style="height:308px;" ng-grid="gridOptions"></div>
+						<div class="btn_box">
+							<a class="btn" ng-click="SaveMultiClass();" ng-disabled="clickMultiClassDisable">开始学习</a>
+						</div>
+					</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <items>
+    <item category="UpdatePJ" zhName="更新评价" ispageing="true" isCal="false">
+      <!--查询的SQL语句，可以为任意，注意不要带排序-->
+      <sql>
+        <![CDATA[select * from dual
+		 ]]>
+      </sql>
+      <!--排序SQL-->
+      <orderbysql>
+      </orderbysql>
+      <!--检索栏，SerchType暂时没用到，不过也必须填写。目前三种类型，文本检索（模糊检索）、时间检索（为2个文本框组合）、下拉框（Source为R_code中的Class）-->
+      <serchFields>
+      </serchFields>
+      <!--fileName是要打印的证书模板文件名称，xyids就是要导出的选中学员ID-->
+     <buttons>
+		<button isfontButton="true" success="$.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: '379297,377286', func: 'updatePJ' },success: function (data) { alert('更新成功');}});">更新</button>
+	 </buttons>
+      <columes needCheckBox="false" >
+      </columes>
+    </item>
+  </items>
+</root>

@@ -1,0 +1,19 @@
+{
+  "name": "videogular-poster",
+  "version": "1.2.6",
+  "main": "./vg-poster.js",
+  "dependencies": {
+    "videogular": "1.2.6"
+  },
+  "homepage": "https://github.com/2fdevs/bower-videogular-poster",
+  "_release": "1.2.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.6",
+    "commit": "52b6a976c1c4f6a24de7fef5e06da4fb8c2aa3b9"
+  },
+  "_source": "git://github.com/2fdevs/bower-videogular-poster.git",
+  "_target": "~1.2.6",
+  "_originalSource": "videogular-poster",
+  "_direct": true
+}

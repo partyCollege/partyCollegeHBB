@@ -1,0 +1,38 @@
+﻿<div class="footer">
+    <div class="clearfix main">
+        <ul class="lx">
+            <li class="title">常用链接</li>
+            <li ng-repeat="n in data.usedlink1" ng-click="linkClick(n)" title="{{n.title}}">{{n.title}}</li>  <!--ng-click="linkClick(n)"-->
+        </ul>
+        <!--<ul class="lx" >
+            <li ng-repeat="n in data.usedlink2" ng-click="linkClick(n)" title="{{n.title}}">{{n.title}}</li>
+        </ul>-->
+        <ul class="lx">
+            <li class="title">常用下载</li>
+            <li ng-repeat="n in downloadData" title="{{n.attach}}" ng-click="downFiles(n)">{{n.attach}}</li>
+        </ul>
+        <ul class="lx">
+            <li class="title">联系方式</li>
+            <li>邮箱：{{data.infomation.email}}</li>
+            <li>技术支持电话：{{data.infomation.telphone}}</li>
+			<!--<li ng-bind="data.infomation.copyright"></li>-->
+        </ul>
+        <ul class="lx">
+            <!--<li class="title jz">微信服务号二维码</li>-->
+            <li class="text-center">
+				<img src="../img/android_rwm.png" width="80" alt=""  style="margin-left:0px;"/>
+				<img src="../img/ios_rwm.png" width="80" alt="" style="margin-left:10px;" /> 
+				<img src="../img/hbb8.png" width="80" style="margin-left:10px;" />
+            </li>
+            <li>
+                <span>安卓端</span>
+                <span>IOS端</span>
+				<span>微信端</span>
+            </li>
+        </ul>
+		<!--<ul class="lx">
+			<li >京ICP备05009132号</li>
+		</ul>-->
+    </div>
+	<p style="margin-top:10px;">京ICP备05009132号 {{data.infomation.copyright}}</p>
+</div>

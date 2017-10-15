@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <items>
+    <item category="BJMM" zhName="调查问卷" ispageing="true" isCal="false">
+      <!--查询的SQL语句，可以为任意，注意不要带排序-->
+      <sql>
+        <![CDATA[ select u.id,u.FJ, u.uname as bt,u2.uname deptname from g_users u  inner join g_dept d on u.id=d.user_id  inner join g_dept d2 on d.fid=d2.id 
+      inner join g_users u2 on u2.id=d2.user_id and u2.status>-1  where u.utype in (0,2,9) and u.status>-1 and u2.uname !='中国浦东干部学院'      
+		 ]]>
+      </sql>
+      <!--排序SQL-->
+      <orderbysql>
+        order by d2.shorder,d.shorder
+      </orderbysql>
+      <!--检索栏，SerchType暂时没用到，不过也必须填写。目前三种类型，文本检索（模糊检索）、时间检索（为2个文本框组合）、下拉框（Source为R_code中的Class）-->
+      <serchFields>
+        <field serchType="模糊检索" type="textBox" dbcolume="u.uname">姓名</field>
+      </serchFields>
+      <!--fileName是要打印的证书模板文件名称，xyids就是要导出的选中学员ID-->
+     <buttons>
+        <button isfontButton="true"  success="if(ids==''){alert('请选择需要重置班级密码的人员')}else{if (confirm('是否确定要重置班级密码？')) {$.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids, func: 'updateBJMM' },success: function (data) {  if (data ==1) {  alert('重置班级密码成功！'); window.location.reload();}else(alert('重置班级密码失败！'))}});}}">重置密码</button>
+	 </buttons>
+      <columes needCheckBox="true" keyColume="id" >
+        <colume dbcolume="bt" align="left" width="*">姓名</colume>
+        <colume dbcolume="deptname" align="center" width="*" >所在部门</colume>
+      </columes>
+    </item>
+  </items>
+</root>

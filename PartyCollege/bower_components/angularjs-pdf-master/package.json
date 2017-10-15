@@ -1,0 +1,43 @@
+{
+  "name": "angular-pdf",
+  "version": "1.4.1",
+  "main": "dist/angular-pdf.js",
+  "author": "Sayanee <sayanee@gmail.com>",
+  "description": "An Angularjs directive <ng-pdf> to display PDF in the browser with PDFJS.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sayanee/angular-pdf.git"
+  },
+  "keywords": [
+    "pdf",
+    "angular",
+    "directive"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "bower": "1.8.0",
+    "grunt": "^1.0.0",
+    "grunt-bump": "0.8.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-jsonlint": "^1.1.0",
+    "grunt-karma": "^2.0.0",
+    "http-server": "^0.8.5",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.3.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-ng-html2js-preprocessor": "^1.0.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "phantomjs-prebuilt": "^2.1.4"
+  },
+  "scripts": {
+    "build": "grunt",
+    "postinstall": "bower install",
+    "start": "http-server ./example -p 8081",
+    "test": "grunt --verbose"
+  }
+}

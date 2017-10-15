@@ -1,0 +1,35 @@
+﻿<ion-view title="{{title}}">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-nav-buttons side="right">
+        <button ng-click='goNew()' ng-show="returnJson.hasButton" class='button button-energized'>{{buttonTitle}}</button>
+    </ion-nav-buttons>
+    <ion-header-bar align-title="center" class="bar bar-subheader search_container">
+        <label class="item item-input searchStyle">
+            <i class="icon ion-search placeholder-icon searchIcon"></i>
+            <input class="searchInput" type="text" placeholder="搜索" ng-model="query">
+        </label>
+    </ion-header-bar>
+    <ion-content class="has-tabs" delegate-handle="mainScroll">
+        <ion-refresher on-refresh="doRefresh()"
+                       pulling-text="拖动刷新"
+                       refreshing-text="加载中"
+                       refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <ion-list type="card" class="default_list_container">
+            <ion-item ng-if="list.length==0">
+                <h2>暂无数据</h2>
+            </ion-item>
+            <ion-item class="default_list_style" ng-repeat="item in list|queryItem:query" ng-click="showDetial(item)" ng-class="{true: 'item item-icon-right', false: 'item'}[listneedPlay]">
+                <h2 ng-if="column.istitle" ng-repeat="column in item.rowListColumnData">
+                    <i class="icon balanced icon-left  ion-ios7-cloudy-night ion-play"></i> {{column|columnDisplayFilter}}
+                </h2>
+                <i class="icon balanced icon-right  ion-ios7-cloudy-night ion-play" ng-click="palyVideo(column)" ng-repeat="column in item.rowListColumnData" ng-init="checkNeedPlay(column)" ng-if="column.needPlay"></i>
+                <div class="row">
+                    <p class="col" ng-if="!column.istitle&&!column.needPlay" ng-repeat="column in item.rowListColumnData">{{column|columnDisplayFilter}}</p>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded" on-infinite="loadMore()" distance="5%" icon="ion-loading-c">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

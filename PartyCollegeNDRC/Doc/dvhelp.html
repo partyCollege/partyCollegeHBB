@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title></title>
+	<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+	<script src="../bower_components/bootstrap/dist/js/respond.src.js"></script>
+	<!--兼容低版本的IE-->
+	<!--<script src="../bower_components/es5-shim/es5v4.5.7-shim.min.js"></script>
+	<script src="../bower_components/json/json3.min.js"></script>-->
+	<style>
+		.itempadding {
+			padding-left:30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" style="width:100%;" ng-controller="AccordionDemoCtrl">
+		<div class="container-fluid text-center">
+			<h3>项目规范</h3>
+		</div>
+		<div>
+			<div accordion>
+				<div accordion-group is-open="status.open">
+					<div accordion-heading>
+						目录说明
+						<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+					</div>
+					<p>文件夹说明：</p>
+					bower_components:存放所有第三方js插件。
+					<div class="item itempadding">
+						<p>
+							template: angular-bootstrap存放自带指令调用的模板文件。
+							<br />es5-shim:存放兼容低版本IE的插件。
+						</p>
+					</div>
+					<div class="item">
+						config:存放json配置文件
+					</div>
+					<div class="item">
+						HtmlDisgn:存放html设计稿
+					</div>
+					<div class="item">
+						Html:存放html入口页面Html目录存放angular-ui-router的引导页，标准入口为index.html
+
+						<div class="item itempadding">
+							<p>
+								Index.html 对外公开含banner的首页;
+							</p>
+							<p>
+								IndexBack.html 后台管理的首页;
+							</p>
+							<p>
+								IndexFront.html 前台用户登录后的主要页面;
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<p>dataBaseDesign:存放数据库设计文档</p>
+					</div>
+					<div class="item">
+						<p>
+							Scripts存放通用JS
+						</p>
+						<div class="item itempadding">
+							<p>
+								app：app文件夹中为angularjs入口js文件
+							</p>
+							<div class="item itempadding">
+								<p>
+									appmain.js 对应Html/Index.html的js启动文件。
+								</p>
+								<p>
+									appfront.js 对应Html/IndexFront.html的js启动文件。
+								</p>
+								<p>
+									appback.js 对应Html/IndexBack.html的js启动文件。
+								</p>
+							</div>
+							<p>
+								directives：存放所有指令文件
+							</p>
+							<p>
+								filters：存放过滤器文件
+							</p>
+							<p>
+								service：存放服务文件
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						Templates存放所有angular的内容页，所有页面相应的Controller也存放在和Html页同一层的文件夹内。
+						<div class="item itempadding">
+							<p>
+								back：管理后台所有的页面
+							</p>
+							<p>
+								directive：指令调用的页面
+							</p>
+							<p>
+								front：前台学员登录后的页面
+							</p>
+							<p>
+								main：对外公开的页面
+							</p>
+							<p>public：公共的页面</p>
+						</div>
+						<p style="color:red">
+							请开发人员自行安装NodeJS，Gulp ，具体内容请查看项目根目录下的gulpfile.js
+						</p>
+					</div>
+				</div>
+				<div accordion-group>
+					<div accordion-heading>
+						填坑说明：angular-bootstrap以下简称ag-ui
+					</div>
+					<div class="item">
+						<p>◆对于ag-ui指令缺少整个template目录和html文件，现已手动添加到bower_components/template,修改了ui-bootstrap.js，ui-bootstrap-tpls.js文件中的templateUrl,适用我们自己的项目。</p>
+						<p>
+							◆IE8使用ag-ui的指令时，写法如下：
+							<textarea cols="100%"><accordion></accordion>改成<div accordion></div></textarea>
+						</p>
+						<p>
+							◆ng-repeat="user in users track by user.id" 因为每次替换数组都会导致 ng-repeat 为每个元素生成一个新 key, 所以根本没办法重用已有的 Dom 元素，那么我们可以使用下边的语法来避免这个问题。
+							这样 ng-repeat 就用将其缓存起来啦，当然可能你的数组元素没有一个标识属性，如果元素数量不多那么可以接受，不然还是建议你手动为其生成一个标识属性
+						</p>
+						<p>
+							◆Session.Abandon() 调用后Session_End 只知道掉了1个session,不知道掉的哪个sessionID.
+						</p>
+						<p>
+							◆
+						</p>
+					</div>
+				</div>
+				<div accordion-group>
+					<div accordion-heading>
+						目前使用的第三方JS类库版本，查看文档时请注意查看相应版本的API
+					</div>
+					<div class="item">
+						<p>◆angularJS v1.2.29(最后一个兼容IE8的Angular)</p>
+						<p>
+							◆angular-bootStrap v0.12.1 (为了配合1.2.X系类的Angular)
+						</p>
+						<p>
+							◆lodash v3.10.1
+						</p>
+						<p>
+							◆jqeury v1.9.1
+						</p>
+						<p>
+							◆JSON3 v3.3.2 (如果是IE8需要引用)
+						</p>
+						<p>
+							◆bindonce v0.3.3
+						</p>
+					</div>
+				</div>
+				<div accordion-group>
+					<div accordion-heading>
+						angularJS注入注意事项
+					</div>
+					<div class="item">
+						<p>◆因为项目会用Gulp的组件gulp-uglify来压缩JS</p>
+						<p>
+							◆安装nodejs. 安装成功后，运行 npm -v,显示版本号。
+						</p>
+						<p>
+							◆安装gulp. 安装命令 npm install -g gulp <br />
+							<!--组件安装:npm install gulp-util gulp-imagemin gulp-ruby-sass gulp-minify-css gulp-jshint gulp-uglify gulp-rename gulp-concat gulp-clean gulp-livereload tiny-lr --save-dev-->
+						</p>
+						<p>
+							◆获取完最新的程序需要手动合并js代码，手动合并js操作如下
+						</p>
+						<p>
+							* cd到本地项目文件目录如图：<br />
+							<img src="images/img_1.png" />
+						</p>
+						<p>
+							* 运行如下指令，出现如下结果正常，就可以开始编写js代码了<br />
+							<img src="images/img_2.png" />
+						</p>
+						<p>
+							* 运行如下指令，出现如下异常，则需要检查项目目录下是否存在如下目录：dist/js，并且把该目录下的文件只读属性去掉。dist目录不能签入到项目里<br />
+							<img src="images/error_1.png" />
+						</p>
+						<p>
+							◆编写js代码，自动合并js操作如下
+						</p>
+						<p><img src="images/img_3.png" /></p>
+						<p>
+							◆说明：在项目目录 tfs外 dist/js 文件夹目录,该目录下的js文件取消只读。在修改templetes目录下的js文件前，运行 gulp js,js文件自动合并到dist/js下的controller.js 同时生成controller.min.js
+						</p>
+						<p>所以请确保注入时需要如下这么写</p>
+						<p>
+							◆angular.module('app',[])
+							.controller("myController",['$http','$scope','myService',function($http,$scope,myService){
+							}])
+						</p>
+					</div>
+				</div>
+				<div accordion-group>
+					<div accordion-heading>
+						指令开发
+					</div>
+					<div class="item">
+						<p>◆app-date指令，日期选择指令，接受三个参数 ng-model min-date max-date 注意后面2个参数请为JS日期对象</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		var myApp = angular.module('myApp', ['ui.bootstrap']);
+		myApp.controller('AccordionDemoCtrl', function ($scope) {
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿<div class="row" style="margin-top:5px;">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="get" class="form-horizontal">
+                    <div class="wrapper-content wrapper">
+                        <div class="row">
+                            <label class="col-sm-12 control-label" style="text-align: center;">主讲人简介</label>
+                        </div>
+                        <div class="row" ng-if="courseware.coursePerfectEditShow">
+                            <div class="form-group">
+                                <div class="col-sm-12" ng-bind-html="course.teachercontent">
+                                    <!--<textarea ng-model="course.teachercontent"  class="form-control" rows="10" maxlength="500"></textarea>-->
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="row" ng-if="courseware.coursePerfectViewShow">
+                            <div class="form-group" style="margin-top:5px;">
+                                <div class="col-sm-12" ng-bind-html="course.teachercontent">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-12" style="color:red;">
+                                    主讲人简介不可编辑，如若要编辑请到主讲人管理中编辑
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="text-center">
+                            <!--<button class="btn btn-primary" ng-click="saveTeacherContent()" ng-if="courseware.coursePerfectEditShow">保存</button>-->
+                            <button class="btn btn-primary" ng-click="commitPerfectCourse()" ng-if="courseware.coursePerfectEditShow">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

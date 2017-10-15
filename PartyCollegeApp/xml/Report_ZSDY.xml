@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <items>
+    <item category="ZSDY" zhName="内容发布" ispageing="true" isCal="false">
+      <!--查询的SQL语句，可以为任意，注意不要带排序-->
+      <sql>
+        <![CDATA[select video.info_id,
+       video.title,
+       video.createtime,
+       video.RELEASETIME,
+       (case status
+         when 1 then
+          '已发布'
+         else
+          '未发布'
+       end) as status,
+       (case videostatus
+         when 0 then
+          '未上传'
+         when 1 then
+          '转码中'
+         else
+          '转码成功'
+       end) as videostatus,
+       decode(video.playcount,null,0,video.playcount,video.playcount) as playcount,
+       (select count(*) from app_faorite where comtype=2 and finfo_id=video.info_id) as goodcount,
+       (select count(*) from app_faorite where comtype=3 and finfo_id=video.info_id) as likecount
+  from app_mobilemenu m
+ inner join app_videostudy video
+    on m.info_id = video.menuid
+where m.info_id=[menuid] and video.status<>-1
+		 ]]>
+      </sql>
+      <!--排序SQL-->
+      <orderbysql>
+        order by istop desc,video.createtime desc
+      </orderbysql>
+      <!--检索栏，SerchType暂时没用到，不过也必须填写。目前三种类型，文本检索（模糊检索）、时间检索（为2个文本框组合）、下拉框（Source为R_code中的Class）-->
+      <serchFields>
+        <field serchType="模糊检索" type="textBox" dbcolume="video.title">标题</field>
+      </serchFields>
+      <!--fileName是要打印的证书模板文件名称，xyids就是要导出的选中学员ID-->
+      <buttons>
+        <button isfontButton="true" success="window.parent.open('videostudy_wx.aspx#?menuid=[menuid]');">新增</button>
+
+        <button isfontButton="true" success="if(ids==''){alert('请选择需要删除的内容')}else{if (confirm('是否确定要删除选中的数据？')) { $.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids, func: 'delInfo' },success: function (data) {  if (data ==1) {  alert('删除成功'); window.location.reload();}}});}}">删除</button>
+        <button isfontButton="true" success="if(ids==''){alert('请选择需要发布的内容')}else{ $.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids, func: 'fbInfo' },success: function (data) {  if (data ==1) {  alert('发布成功'); window.location.reload();}}});}">发布</button>
+        <button isfontButton="true" success="if(ids==''){alert('请选择需要取消发布的内容')}else{ $.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids, func: 'qxfbInfo' },success: function (data) {  if (data ==1) {  alert('取消发布成功'); window.location.reload();}}});}">取消发布</button>
+		    <button isfontButton="true" success="if(ids==''){alert('请选择需要移动的内容')}else{if (confirm('是否确定要移动选中的数据？')) {window.parent.open('selectTree.aspx?idlist='+ids);}}">移动</button>
+        <button isfontButton="true" success="if(ids==''){alert('请选择需要置顶的内容')}else{ $.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids,funType:1, func: 'ZdInfo' },success: function (data) {  if (data ==1) {  alert('置顶成功'); window.location.reload();}}});}">置顶</button>
+        <button isfontButton="true" success="if(ids==''){alert('请选择需要取消置顶的内容')}else{ $.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids,funType:2, func: 'ZdInfo' },success: function (data) {  if (data ==1) {  alert('取消置顶成功'); window.location.reload();}}});}">取消置顶</button>
+      </buttons>
+      <columes needCheckBox="true" keyColume="info_id" >
+        <colume dbcolume="TITLE" wordLength="20" align="left" width="30" link="backHTML/videostudy_wx.aspx#?info_id=[info_id]">标题</colume>
+        <colume dbcolume="createtime" align="center" width="30" orderby="true">创建时间</colume>        
+        <colume dbcolume="STATUS" align="center"  width="10">是否发布</colume>
+        <colume dbcolume="RELEASETIME" align="center" width="10" orderby="true">发布时间</colume>
+        <colume dbcolume="playcount" align="center" orderby="true" width="10">访问</colume>
+        <colume dbcolume="goodcount" align="center" orderby="true" width="10">点赞</colume>
+        <colume dbcolume="likecount" align="center" orderby="true" width="10">收藏</colume>
+        <colume dbcolume="videostatus" align="center" width="10">转码状态</colume>
+      </columes>
+    </item>
+  </items>
+</root>

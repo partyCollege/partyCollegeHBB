@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Example</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8">
+    document.addEventListener("deviceready", onDeviceReady, false);
+   
+	function onError(contactError) {
+        alert('onError:' + contactError);
+    }
+    function onDeviceReady() {
+        
+        xsfContacts.find(["name"], onSuccess, onError, {filter:'',multiple:true});
+    }
+    function create(){
+        var contact = xsfContacts.create();
+        contact.note = "123";
+        contact.displayName = "123";
+        contact.nickname = "123";
+        var name = new ContactName();
+        name.givenName = "Jane";
+        name.familyName = "Doe";
+        name.formatted = "123";
+        contact.name = name;
+        var phoneNumbers = [];
+        phoneNumbers[0] = new ContactField("mobile", "1861", false);
+        phoneNumbers[1] = new ContactField("work", "1862", true);
+        contact.phoneNumbers = phoneNumbers;
+        contact.save(function () {
+                       alert("successCallback");
+                }, function () {
+                    alert("errorCallback");
+                });
+    }
+    function onSuccess(contacts) {
+    	alert(contacts.length);
+<!--        for (var i=0; i<2; i++) {-->
+<!--            alert(contacts[i].name);-->
+<!--        }-->
+    };
+    function newContact()
+    {
+        //navigator.contacts.newContactUI();
+        Contact.display();
+    }
+    function findContact()
+    {
+        var options      = new ContactFindOptions();
+        options.filter   = "陈博";
+        options.multiple = true;
+        options.desiredFields = [navigator.contacts.fieldType.id];
+        options.hasPhoneNumber = true;
+        var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+        navigator.contacts.find(fields, findContactSuccess, onError, options);
+    }
+    function findContactSuccess(contacts) {
+        alert('Found ' + contacts.length + ' contacts.');
+    };
+    </script>
+  </head>
+  <body>
+    <h1>Contacts</h1>
+    <div class="btn bg_1" onclick = "create();">create新建联系人带电话</div><br/>
+    <div class="btn bg_4" onclick = "findContact();">findContact查找联系人弹窗显示找到的个数</div><br/>
+    <div class="btn bg_1" onclick = "goHome();">返回</div>
+    <script type = "text/javascript">
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+    </script>
+  </body>
+</html>

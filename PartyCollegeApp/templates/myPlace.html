@@ -1,0 +1,21 @@
+﻿<ion-view title="我的座位表">
+    <go-main-page></go-main-page>
+    <ion-content>
+        <div class="myPlace_container">
+            <div class="list agreement-title myPlace_hd">
+                您好，{{uname}}！
+            </div>
+            <div class="row myPlace_bd">
+                <div class="col">
+                    <div id="showSeat">
+                        <p>您的座位是{{pai}}排{{zuo}}列</p>
+                        <span>座位排布是按照从左到右顺序排列</span>
+                    </div>
+                    <div id="showNoSeat">
+                        <p>您所在的班暂时未安排座位</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

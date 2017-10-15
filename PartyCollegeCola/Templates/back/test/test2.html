@@ -1,0 +1,51 @@
+﻿<div class="container">
+	<button class="btn-danger" ng-click="HrefTo('test1');">跳test1</button>
+	<button class="btn-danger" ng-click="open1k('1k');">测试1k条数据</button>
+	<button class="btn-danger" ng-click="open1w('1k');">测试1w条数据</button>
+	<button class="btn-danger" ng-click="open1k('Btn1_');">测试Btn1_1k条数据</button>
+	<button class="btn-danger" ng-click="open1k('Btn2_');">测试Btn2_1k条数据</button>
+	<button class="btn-danger" ng-click="open1k('Btn3_');">测试Btn3_1k条数据</button>
+	<button class="btn-danger" ng-click="open1k('Btn4_');">测试Btn4_1k条数据</button>
+	<button class="btn-danger" ng-click="open1k('Btn5_');">测试Btn5_1k条数据</button>
+	<button class="btn-danger" ng-click="open1k('Btn6_');">测试Btn6_1k条数据</button>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>项目1</th>
+				<th>项目2</th>
+				<th>项目3</th>
+				<th>项目1</th>
+				<th>项目2</th>
+				<th>项目3</th>
+				<th>项目1</th>
+				<th>项目2</th>
+				<th>项目3</th>
+				<th>项目1</th>
+				<th>项目2</th>
+				<th>项目3</th>
+				<th>项目1</th>
+				<th>项目2</th>
+				<th>项目3</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr bindonce ng-repeat="p in datalist track by p.id">
+				<td>{{p.name}}</td>
+				<td>{{p.sex}}</td>
+				<td>{{p.age}}</td>
+				<td>{{p.name}}</td>
+				<td>{{p.sex}}</td>
+				<td>{{p.age}}</td>
+				<td>{{p.name}}</td>
+				<td>{{p.sex}}</td>
+				<td>{{p.age}}</td>
+				<td>{{p.name}}</td>
+				<td>{{p.sex}}</td>
+				<td>{{p.age}}</td>
+				<td>{{p.name}}</td>
+				<td>{{p.sex}}</td>
+				<td>{{p.age}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

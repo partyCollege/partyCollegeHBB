@@ -1,0 +1,14 @@
+﻿<ion-view title="视频信息">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-content class="has-footer">
+        <div>
+            <div style="margin:3px 3px" ng-click="openModal(item)" ng-repeat="item in moivelist" class="item item-text-wrap item-icon-right">
+                <h2 style="line-height:1.3">{{item.bt}}</h2>
+                <p style=" padding-right:40px;font-size:12px;color:gray;" class="col">
+                    <span>发布时间:{{item.ngdate|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                </p>
+                <i class="icon ion-chevron-right calm"></i>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

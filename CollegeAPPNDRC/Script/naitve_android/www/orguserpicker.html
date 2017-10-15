@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>xsfOrgUserPicker</title>
+	<link rel="stylesheet" href="style_box_demo.css" type="text/css" />  
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript" charset="utf-8" src="external/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    var ref;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    
+    function onDeviceReady() {
+    	xsfSplashscreen.hide();
+    }
+    
+    function getDataAction(rootIds, pickTpye, jParameter){
+    	var ids = rootIds || "";
+    	var type = pickTpye || "";
+    	//117.184.89.78:7080
+    	$.ajax({
+    		type : 'GET',
+    		url : "http://117.184.89.78:7080/ezweb/action?getPickBaseOU=1&userId=111&rootId="+ids+"&pickType="+type+"&exclude=",
+    		data : "",
+    		dataType: "text",
+    		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+    		success : function (data, status) {
+    			xsfOrgUserPicker.pick(data, jParameter , onSuccess, onError);
+    	    },
+    	    error: function(data , status){
+    	    	alert("操作失败:服务器异常" + data.statusText);
+    	    }
+    	});
+    }
+    /* O：只能选择部门；
+	 * U：只能选择人员；
+	 * P：只能选择岗位；
+	 * G：只能选择群组
+	 * OUPG：组合选择（顺序可以颠倒）；
+	 * */
+    function orgUserPicker(){
+    	var parameter = {"pickType" : "UO", "title" : "选择人员", "isMulti" : "M" , "pickData" : ""};
+    	var jParameter = JSON.stringify(parameter);
+    	getDataAction("","",jParameter);
+    }
+    
+    function orgUserPicker2(){
+    	var parameter = {"pickType" : "UO", "title" : "流程发送",  "isMulti" : "S" , "pickData" : ""};
+    	var jParameter = JSON.stringify(parameter);
+    	getDataAction("","",jParameter);
+    }
+    
+    function orgUserPicker3(){
+    	var parameter = {"pickType" : "UOG", "title" : "选择人员", "isMulti" : "M" , 
+    			"pickData" : {"users" : [{"id": "203645","selected": false,"name": "李幼芳","pid": "831658","type": "U","photo": ""}],
+    						"depts" : [{"id": "831658","selected": false,"name": "工业调查处","pid": "643800","type": "O"}]	}};
+    	jParameter = JSON.stringify(parameter);
+    	getDataAction('','OGU',jParameter);
+    }
+    
+    function orgUserPicker4(){
+    	var parameter = {"pickType" : "UOG", "title" : "选择人员", "isMulti" : "M" , "pickData" : ""};
+    	var jParameter = JSON.stringify(parameter);
+    	var getData = null;
+    	xsfOrgUserPicker.pick(getData, jParameter , onSuccess, onError);
+    }
+    
+    function onSuccess(success){
+    	document.getElementById('successData').innerHTML = "<p>"+success.message + " - " + success.data+"</p>";
+    	console.log(success.message + " - " + success.data);
+    }
+    
+    function onError(e){
+    	console.log(e.message + " - " + e.data);
+    }
+    
+    </script>
+  </head>
+<body>
+	<div class="btn_container">
+	
+		<div class="btn bg_1" onclick="orgUserPicker()">xsfOrgUserPicker.pick(data,Parameter)选择用户和部门</div>
+		<div class="btn bg_2" onclick="orgUserPicker2()">xsfOrgUserPicker.pick(data,Parameter)选择用户和部门，单选</div>
+		<div class="btn bg_3" onclick="orgUserPicker3()">xsfOrgUserPicker.pick(data,Parameter)选择用户、部门、群组</div>
+		<div class="btn bg_4" onclick="orgUserPicker4()">xsfOrgUserPicker.pick(null,Parameter)出错，无数据情况</div>
+		
+		<div class="btn bg_6" id="successData"></div>
+	</div>
+</body>
+</html>

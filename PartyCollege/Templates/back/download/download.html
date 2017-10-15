@@ -1,0 +1,137 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+</style>
+<div style="margin-top:5px;" class="row">
+    <div class="row text-right" style="padding:10px;">
+        <a class="btn btn-primary platformdisabled" ng-click="addmaterial()">新增</a>
+		<a class="btn btn-primary platformdisabled" ng-click="publish()" ng-disabled="gridApi.selection.getSelectedRows().length==0">发布</a>
+		<button class="btn btn-danger platformdisabled" ng-click="delete()" ng-disabled="gridApi.selection.getSelectedRows().length==0">删除</button>
+    </div>
+    <div id="grid1" ui-grid="gridOptions" class="grid1" ui-grid-auto-resize  ui-grid-selection></div>
+</div>
+<script type="text/ng-template" id="AttachDetail.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>常用下载</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <!--不需要统一配置的显示项-->
+                        <div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><b>*</b>资料名称：</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" name="attach" ng-model="downloadInfo.attach" />
+                                    </div>
+
+                                    </div>
+                            </div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<label class="col-sm-2 control-label"><b>*</b>资料说明：</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" name="attach" ng-model="downloadInfo.remark" rows="5"></textarea>
+									</div>
+
+								</div>
+							</div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><b>*</b>资料文件类型：</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" ng-model="downloadInfo.category">
+                                            <option value="1">常用资源</option>
+                                            <option value="2">常用软件</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group" ng-if="downloadInfo.category == 2">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><b>*</b>软件图标：</label>
+                                    <img ngf-src="files[0]" style="width: 50px;height: 50px;" ngf-resize="{width: 50, height: 50, quality: 0.9}" />
+                                    <button class="btn btn-danger" ng-model="downloadInfo.attach_logo" ngf-accept="'image/*'" ngf-max-size="4MB" ngf-select="uploadFiles($files, $invalidFiles)">软件图标</button>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><b>*</b>资料文件上传：</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" name="selectfile" ng-model="selectFile.name" required />
+                                        <input type="button" class="btn btn-info" ng-model="selectfile" ngf-multiple="true" ngf-select="selectFiles($files, $invalidFiles)" value="浏览" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><b>*</b>首页是否显示：</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" ng-model="downloadInfo.bottomshow">
+                                            <option value="0">不显示</option>
+                                            <option value="1">显示</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-if="downloadInfo.bottomshow == 1">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><b>*</b>首页显示顺序：</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="number" name="bottomsort" ng-model="downloadInfo.bottomsort" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            </div>
+                        <div class="form-group text-center" >
+                            <button class="btn btn-info" ng-click="Addattach()" ng-disabled="saveAttachDisabled">保存</button>
+                            <button class="btn btn-default" ng-click="close()">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

@@ -1,0 +1,68 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>积分维护</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">维度名称</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="score.dimension">
+                                    <option value="完成度">完成度</option>
+                                    <option value="参与度">参与度</option>
+                                    <option value="学习度">学习度</option>
+                                    <option value="活跃度">活跃度</option>
+                                    <option value="贡献度">贡献度</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">加分项</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="score.eventname" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">分值</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="score.score" ng-keydown="inputKeyDown()" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">限制类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="score.limittype">
+                                    <option value="-1">无限制</option>
+                                    <option value="0">日期</option>
+                                    <option value="1">事件ID</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">最高得分</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="score.maxscore" class="form-control" ng-keydown="inputKeyDown()">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" ng-click="save()" ng-disabled="addDisabled">保存</button>
+                            <button class="btn btn-default" ng-click="goToList()">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

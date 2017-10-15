@@ -1,0 +1,84 @@
+﻿<style>
+    .tab-item span {
+        font-size: 12px;
+        color:#ef473a;
+    }
+</style>
+<ion-view title="选修课" style="font-size:30px; ">
+    <go-main-page ng-show="returnJson.hasGoBack"></go-main-page>
+    <ion-tabs class="tabs-striped tabs-top" style="color:red;border-color:red;">
+        <ion-tab title="待选">
+            <ion-view>
+                <ion-content class="has-header" delegate-handle="mainScroll">
+                    <div class="card" ng-repeat="dataxxk in notchoosexxk" ng-show="dataxxk.xxkdata.length>0">
+                        <div class="bar  title item item-divider" style="font-size:12px;">
+                            {{dataxxk.bt}}&nbsp;&nbsp;
+                            <div style="float:right;">
+                                <button class="button button-positive" ng-disabled="dataxxk.checked!=true" ng-click="subchoose(dataxxk)">
+                                    提交
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="item item-text-wrap" ng-repeat="dataRow in dataxxk.xxkdata" style="padding:0; ">
+                            <ion-checkbox ng-model="dataRow.checked" ng-change="changeCheck(dataxxk,dataRow)" ng-disabled="dataRow.disabled">
+                                <div class="timetable-title">{{dataRow.kcname}}</div>
+                                <div class="pull-right" ng-if="dataRow.kcdd">
+                                    <span style="height:35px;display:inline-table;line-height:35px;margin-right:10px;color: #e60000" ng-bind="dataRow.kcdd"></span>
+                                </div>
+                                <div class="pull-right" ng-if="dataRow.mark">
+                                    <span style="height:35px;display:inline-table;line-height:35px;margin-right:10px;color: #e60000" ng-bind="dataRow.mark"></span>
+                                </div>
+                                <div class="pull-left">
+                                    <i class="ion-person" style="font-size:22px;color:#C0C3C5;"></i>
+                                </div>
+                                <div class="pull-left">
+                                    <span class="course-info-name" style="height:35px;display:inline-table;line-height:35px;margin-left:10px;">{{dataRow.jsmc}}</span>
+                                </div>
+                                <div style="clear:both;">
+                                </div>
+                            </ion-checkbox>
+                        </div>
+                    </div>
+                    <div ng-show="notchoosexxk.length==0" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                        <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+                        暂无需要选择的选修课
+                    </div>
+                </ion-content>
+                <!--<ion-footer-bar align-title="left" class="bar-assertive button-my" ng-show="dataCount!=dataSource.length">
+                    <h1 class="title" ng-click="subchoose()">提交报名</h1>
+                </ion-footer-bar>-->
+            </ion-view>
+        </ion-tab>
+        <ion-tab title="已选">
+            <ion-view>
+                <ion-content class="has-header">
+                    <div class="card" ng-repeat="dataxxk in haschoosexxk" ng-show="dataxxk.xxkdata.length>0">
+                        <div class="bar title item item-divider">
+                            {{dataxxk.bt}}&nbsp;&nbsp;<!--{{dataxxk.time}}-->
+                        </div>
+                        <div class="item item-text-wrap" ng-repeat="dataRow in dataxxk.xxkdata" style="padding:0; ">
+                            <ion-checkbox ng-model="dataRow.checked"  ng-disabled="true">
+                                <div class="timetable-title">{{dataRow.kcname}}</div>
+                                <div class="pull-right" ng-if="dataRow.kcdd">
+                                    <span style="height:35px;display:inline-table;line-height:35px;margin-right:10px;color: #e60000" ng-bind="dataRow.kcdd"></span>
+                                </div>
+                                <div class="pull-right" ng-if="dataRow.mark">
+                                    <span style="height:35px;display:inline-table;line-height:35px;margin-right:10px;color: #e60000" ng-bind="dataRow.mark"></span>
+                                </div>
+                                <div class="pull-left">
+                                    <i class="ion-person" style="font-size:22px;color:#C0C3C5;"></i>
+                                </div>
+                                <div class="pull-left">
+                                    <span class="course-info-name" style="height:35px;display:inline-table;line-height:35px;margin-left:10px;">{{dataRow.jsmc}}</span>
+                                </div>
+                                <div style="clear:both;">
+                                </div>
+                            </ion-checkbox>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>

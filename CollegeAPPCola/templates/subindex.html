@@ -1,0 +1,89 @@
+﻿<ion-view title="">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios7-arrow-left" style="font-size:16px" ng-click="goBack()">返回</button>
+    </ion-nav-buttons>
+    <ion-content style="background-color:#eee;">
+        <ion-refresher on-refresh="flash()" style="top:-55px;z-index:20"
+                       pulling-text="拖动刷新"
+                       refreshing-text="加载中"
+                       refreshing-icon="ion-loading-c"
+                       disable-pulling-rotation="true">
+        </ion-refresher>
+        <style>
+            .rb-grid {
+                list-style: none;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+                .rb-grid li {
+                    width: 32.8%;
+                    height: 8em;
+                    margin: 0.18%;
+                    background: #fff;
+                    color: #333;
+                    display: block;
+                    float: left;
+                    padding: 1.6em;
+                    cursor: pointer;
+                    position: relative;
+                }
+
+                    .rb-grid li a {
+                        color: #333;
+                    }
+
+                        .rb-grid li a:hover {
+                            text-decoration: none;
+                            color: #ff6a00;
+                        }
+
+                    .rb-grid li.rb-span-2 {
+                        width: 49%;
+                    }
+
+                    .rb-grid li.rb-span-4 {
+                        width: 99%;
+                    }
+
+                    .rb-grid li h3 {
+                        font-size: 2.6em;
+                        font-weight: 100;
+                    }
+
+                    .rb-grid li[class^="icon-"]:before,
+                    .rb-grid li[class*=" icon-"]:before {
+                        font-size: 10em;
+                        position: absolute;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        line-height: 3;
+                        opacity: 0.4;
+                        text-align: right;
+                        pointer-events: none;
+                    }
+        </style>
+        <div style=" background-color:#eee; padding-left:0.5%;">
+            <ul id="rb-grid" class="rb-grid clearfix">
+                <li class="icon-clima-2" ng-click="gomenu('{{title}}','{{menu.title}}')" ng-repeat="menu in subMenus">
+                    <a>                        
+                        <div style="position:relative;display:inline-block;">
+                            <img class="img-50" ng-src="{{menu.img}}">
+                            <div class="elective-number danru" ng-if="menu.badgeNum>0">{{menu.badgeNum}}</div>
+                        </div>
+                        <p class="size-14">{{menu.title}}</p>
+                    </a>
+                </li>
+                <li class="icon-clima-2" ng-repeat="item in items">
+                    <a>
+                        <h3></h3>
+                        <span class="rb-temp"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>

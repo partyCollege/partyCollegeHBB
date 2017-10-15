@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="../css/ionic.css" rel="stylesheet" />
+    <link href="../css/ionicIcon/css/ionicons.css" rel="stylesheet" />
+    <script src="../Script/ionic/ionic.bundle.js"></script>
+    <script src="../Script/angular/lodash.js"></script>
+    <script src="../Script/angular/restangular.js"></script>
+    <!--<script src="../Script/APPScript/APP.js"></script>-->
+    <script>
+        var app = angular.module("app", ["ionic"]);
+        app.config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
+            $stateProvider
+              .state('list', {
+                  url: "/list",
+                  templateUrl: "placardinfolist.html"
+              })
+            .state("list/info", {
+                url: "/list/info",
+                templateUrl: "placardinfo.html"
+            });
+            $urlRouterProvider.otherwise("list");
+            RestangularProvider.setRestangularFields({
+                id: "REPORTID"
+            });
+        });
+        app.controller("placardinfoController", function ($scope, $timeout, $ionicListDelegate, Restangular, $location, getUser, $ionicScrollDelegate) {
+            var userid = getUser();
+            window.localStorage["userid"] = userid;
+            $scope.userid = userid;
+            Restangular.setDefaultRequestParams(['remove', 'post', "put", "get"], { formAPP: true });
+            var baseAccounts = Restangular.all('placardinfo');
+            $scope.placardinfoList = new Array();
+            $scope.nowpageIndex = 0;
+            $scope.doRefresh = function () {
+                $scope.placardinfoList = new Array();
+                $scope.nowpageIndex = 0;
+                $scope.loadMore();
+                $scope.$broadcast('scroll.refreshComplete');
+            };
+            $scope.loadMore = function () {
+                $scope.nowpageIndex++;
+                var getmoreData = Restangular.one('placardinfo/action/getmore/'+userid+'/' + $scope.nowpageIndex + '/50');
+                getmoreData.getList().then(function (data) {
+                    $scope.placardinfoList = $scope.placardinfoList.concat(data);
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                });
+            };
+            $scope.$on('$stateChangeSuccess', function () {
+
+            });
+        });
+        //app.controller("detialController", function ($scope, $location) {
+        //    alert(window.localStorage["userid"]);
+        //    var info_id = $location.search().info_id;
+        //    $scope.nowitem = _.find($scope.placardinfoList, { 'REPORTID': info_id });
+        //});
+    </script>
+</head>
+<body>
+    <div class="padding-horizontal" ng-controller="placardinfoController">
+        <ion-nav-view animation="slide-left-right"></ion-nav-view>
+        <script id="placardinfolist.html" type="text/ng-template">
+            <ion-view title="list">
+                <ion-header-bar class="bar bar-header bar-dark">
+                    <input type="text" ng-model="query" />
+                </ion-header-bar>
+                <ion-content>
+                    <ion-refresher on-refresh="doRefresh()"
+                                   pulling-text="拖动刷新"
+                                   refreshing-text="加载中"
+                                   refreshing-icon="ion-loading-c">
+                    </ion-refresher>
+                    <div class="list fade-in-not-out" ng-repeat="item in placardinfoList|filter:query">
+                        <a class="item item-button-right" href="#list/info?info_id={{item.REPORTID}}">
+                            <h2>{{item.TITLE}}</h2>
+                            <p>{{item.ONDATE|date:"yyyy-MM-dd"}}</p>
+
+                        </a>
+                    </div>
+                    <ion-infinite-scroll on-infinite="loadMore()" icon="ion-loading-c" distance="1%">
+                    </ion-infinite-scroll>
+                </ion-content>
+            </ion-view>
+        </script>
+        <script id="placardinfo.html" type="text/ng-template">
+            <ion-view title="'placardinfo'">
+                <ion-header-bar class="bar bar-header bar-dark">
+                    <a class="button icon-left" href="#/list">返回</a>
+                    <h1 class="title">通知公告</h1>
+                    <a class="button icon-right  button-calm">保存</a>
+                </ion-header-bar>
+                <ion-content ng-controller="detialController">
+                    <div>
+                        <label class="item item-input">
+                            <span class="input-label">标题</span>
+                            <span>{{nowitem.TITLE}}</span>
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">发布时间</span>
+                            <span>{{nowitem.ONDATE|date:'yyyy-mm-dd'}}</span>
+                        </label>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+    </div>
+</body>
+</html>

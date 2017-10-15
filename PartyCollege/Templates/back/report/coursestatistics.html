@@ -1,0 +1,79 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+
+    .mycenter {
+        text-align: center;
+    }
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row form-horizontal">
+        <div class="col-md-9 form-group">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="col-sm-3 control-label">课程名称</label>
+                    <div class="col-sm-9 text-left">
+                        <input type="text" class="form-control" search-dbcolumn="coursewarename" search-handle="like" search-dbtype="string" ng-model="search.coursewarename" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-sm-5 control-label">一级分类</label>
+                    <div class="col-sm-7">
+                        <select class="form-control" ng-model="search.category" search-dbcolumn="category" search-handle="equal" ng-change="selectCategory()">
+                            <option value=""></option>
+                            <option ng-repeat="item in maincategorylist" ng-value="item.name">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="col-sm-3 control-label">授课时间</label>
+                    <div class="col-sm-4 text-left">
+                        <div app-date ng-model="search.beginteachtime" search-dbcolumn="teachtime" search-handle="gte"></div>
+                    </div>
+                    <div class="col-sm-1 control-label">
+                        至
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <div app-date ng-model="search.endteachtime" search-dbcolumn="teachtime" search-handle="lte"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-sm-5 control-label">二级分类</label>
+                    <div class="col-sm-7">
+                        <select class="form-control" ng-model="search.subcategory" search-dbcolumn="subcategory" search-handle="equal">
+                            <option value=""></option>
+                            <option ng-repeat="item in subcategorylist" ng-value="item.name">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 text-right">
+            <button class="btn btn-info" ng-click="goSearch()">检索</button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-pagination class="grid1" ui-grid-selection></div>
+    </div>
+
+</div>

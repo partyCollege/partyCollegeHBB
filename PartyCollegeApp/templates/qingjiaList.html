@@ -1,0 +1,26 @@
+﻿<ion-view title="请假">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios7-arrow-left" ng-click="goBack()">返回</button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="qingjiaList_container">
+            <div class="list">
+                <div class="item" ng-repeat="item in qingjiaData">
+                    <h2>{{item.CONTENT}}</h2>
+                    <div class="row">
+                        <div class="col"> 开始时间：{{item.SDATE|date:'MM-dd HH:mm'}} </div>
+                        <div class="col"> 结束时间：{{item.EDATE|date:'MM-dd HH:mm'}} </div>
+                    </div>
+                    <div class="row">
+                        <div class="col qingjiaState"> {{item.SPZT|SPZTFilter}} </div>
+                        <div class="col qingjiaNo">
+                            <button class="button button-small has-same-question" ng-click="YesNo(chexiao,no,item)" ng-show="item.SQCX!=1">
+                                <label>撤销</label>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

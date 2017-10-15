@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="../css/ionic.css" rel="stylesheet" />
+    <link href="../css/ionicIcon/css/ionicons.css" rel="stylesheet" />
+
+    <script src="../Script/ionic/ionic.bundle.js"></script>
+    <script src="../Script/angular/lodash.js"></script>
+    <script>
+        var app = angular.module('myapp', ['ionic']);
+        app.controller('myctrl', function () {
+
+        });
+    </script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="myctrl">
+        <ion-list>
+            <ion-radio ng-model="choice" icon="ion-ios-circle-outline" ng-value="'A'">Choose A</ion-radio>
+            <ion-radio ng-model="choice" icon="ion-ios-circle-outline" ng-value="'B'">Choose B</ion-radio>
+        </ion-list>
+    </div>
+</body>
+</html>

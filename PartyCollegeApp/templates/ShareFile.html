@@ -1,0 +1,23 @@
+﻿<ion-view title="">
+    <go-main-page></go-main-page>
+    <ion-content class="has-header">
+        <!--<ion-list>
+            <div ng-repeat="hotItem in dataZpywSource" style="padding:1px 10px 1px 10px;">
+                <ion-item class="item item-thumbnail-left" style="border-top:0px; border-left:0px; border-right:0px; padding-left:80px;" ng-click="loadData(hotItem)">
+                    <div style="margin-top:30px;">
+                        <h2 style="width:95%; float:left;">{{hotItem.filename}}</h2>
+                        <i class="icon ion-ios-arrow-right" style="float:right;"></i>
+                    </div>
+                </ion-item>
+            </div>
+        </ion-list>-->
+        <div class="shareFile_container">
+            <div class="item item-text-wrap item-icon-right" ng-repeat="hotItem in dataZpywSource" ng-click="loadData(hotItem)">
+                <h2>{{hotItem.filename}}</h2>
+                <p class="col">{{hotItem.provideuser}}</p>
+                <p class="col">{{hotItem.uploadtime|date:"yyyy-MM-dd"}}</p>
+                <i class="icon ion-chevron-right balanced"></i>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

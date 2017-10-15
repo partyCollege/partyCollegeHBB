@@ -1,0 +1,157 @@
+﻿<style>
+    /*CSS源代码*/
+    body {
+        background: #FFF; /*改成白的了*/
+    }
+
+    #menu {
+        position: relative;
+    }
+
+        #menu a {
+            position: absolute;
+            text-decoration: none;
+            display: inline-block;
+            /*动画持续时间*/
+            transition-duration: .3s;
+            -moz-transition-duration: .3s;
+            -webkit-transition-duration: .3s;
+            -o-transition-duration: .3s;
+            -webkit-transition-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+            #menu a.more {
+                font-family: 'microsoft yahei',Arial,sans-serif;
+                width: 80px;
+                height: 30px;
+                cursor: pointer;
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                background-color: #e42112;
+                color: #fff;
+                border-radius: 5px;
+            }
+
+            #menu a:hover {
+                background-color: #e42112;
+            }
+
+           #menu a.bds_add {
+                font-family: 'microsoft yahei',Arial,sans-serif;
+                width: 80px;
+                height: 30px;
+                cursor: pointer;
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                background-color: #33cd5f;
+                color: #fff;
+                border-radius: 5px;
+            }
+            #menu a.bds_delete {
+                font-family: 'microsoft yahei',Arial,sans-serif;
+                width: 80px;
+                height: 30px;
+                cursor: pointer;
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                background-color: #e42112;
+                color: #fff;
+                border-radius: 5px;
+            }
+            #menu a.bds_cansel {
+                font-family: 'microsoft yahei',Arial,sans-serif;
+                width: 80px;
+                height: 30px;
+                cursor: pointer;
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                background-color: #ddd;
+                color: #fff;
+                border-radius: 5px;
+            }
+</style>
+<ion-view title="">
+    <go-back my-title="">
+        <ion-nav-buttons side='right'>
+            <button class='button button-info' ng-if="dataSource.needPicture==true" style='font-size:12px' ng-click='doPicture()'>拍照</button>
+        </ion-nav-buttons>
+    </go-back>
+    <ion-tabs class="tabs-striped tabs-top" style="color:red;border-color:red;">        
+        <ion-tab class="nowstyle" title="表单">
+            <ion-view>
+                <ion-content>
+                    <div class="list">
+                        <label class="item item-input" ng-repeat="item in dataSource.items">
+                            <span class="input-label">{{item.showName}}</span>
+                            <input type="number" placeholder="{{item.placeholder}}" min="item.min" max="item.max" ng-model="formdata[item.column]" ng-if="item.inputType=='number'">
+                            <input type="text" style="word-wrap: break-word;" placeholder="{{item.placeholder}}" ng-model="formdata[item.column]" ng-if="item.inputType=='input'" ng-disabled="item.canEdit" required>
+                            <input type="{{item.inputType}}" ng-model="formdata[item.column]" ng-if="item.inputType=='date'||item.inputType=='time'">
+                            <select ng-if=" item.inputType=='drp'" ng-model="formdata[item.column]" ng-options="a.datavalue as a.showvalue for a in item.rcode">
+                                <option value="">请选择</option>
+                            </select>
+                        </label>
+                        <div ng-if="dataSource.isShowName==true" class="row">
+                            <div class="col-md-2"><label style="width:60px; padding:10px; font-size:16px;" class="control-label">{{dataSource.ShowName}}</label></div>
+                            <div class="col-md-8" style="width:100%">
+                                <ui-select ng-model="class.zdArray" multiple theme="bootstrap">
+                                    <ui-select-match placeholder="请输入学员学号或名称">{{$item.bt}} &lt;{{$item.logname}}&gt;</ui-select-match>
+                                    <ui-select-choices repeat="item in allUser | filter: $select.search">
+                                        <div style="font-weight:bold" ng-bind-html="item.bt "></div>
+                                        <small ng-bind-html="item.logname"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="dataSource.needPicture==true&&formdata.imgpath.length>1">
+                        <img ng-src="../formImg/{{formdata.imgpath}}" ng-click="goPic(this)" style="width: 100%; height: auto;max-width: 100%; display: block;" />
+                    </div>
+                    <!--<button class="button button-full button-positive" ng-click="save()">
+            提交
+        </button>-->
+                    
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+        <ion-tab class="nowstyle" title="附件（{{fileCount}}）">
+            <ion-view>
+                <ion-content class="has-header">
+                    <ion-list>
+                        <ion-item ng-repeat="item in fileData" style="padding:10px 10px;padding-bottom:5px">
+                            <div class="line-h-30" ng-click="downfile(item.url,item.title)">
+                                <div class="item-text-wrap black size-18">{{item.title}}</div>
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                    <div ng-show="fileData.length==0" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+                        <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+                        暂无附件
+                    </div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+    </ion-tabs>
+    <ion-footer-bar>
+        <div id="menu" style="left:70%">
+            <a class="bds_add" ng-click="save('doSaveAfter')" ng-if="showButtons.tj">提 交</a>
+            <a class="bds_cansel" ng-click="goback()">取 消</a>
+            <a class="bds_delete" ng-click="delete()" ng-if="!isnew&&(showButtons.sc)">删 除</a>
+            <!-- 把 href 干掉 防止改url重新定位 -->
+            <a class="more">操 作</a>
+        </div>
+        <!--<div class="button-bar" ng-show="hasData">
+            <a class="button button-royal" ng-click="save()" ng-if="showButtons.zc">暂存</a>
+            <a class="button btn-primary" ng-click="save('doReader')" ng-if="!isnew&&(showButtons.yy)">已阅</a>
+            <a class="button button-balanced" ng-click="save('doSaveAfter')" >提交</a>
+            <a class="button button-stable" ng-click="goback()">取消</a>
+            <a class="button button-positive"  ng-click="delete()">删除</a>
+        </div>
+        <div class="button-bar">
+            <a class="button btn-primary" ng-click="save('doReader')" ng-if="!isnew&&(showButtons.yy)">已阅</a>
+        </div>-->
+    </ion-footer-bar>
+</ion-view>

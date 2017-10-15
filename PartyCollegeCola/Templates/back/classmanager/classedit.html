@@ -1,0 +1,140 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+    <tabset>
+        <tab heading="班级基本信息" select="goCourse()" class="tab-item-balanced">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+						<div class="widget style1 badge-primary">
+							<div class="row vertical-align">
+								<div class="col-md-12 text-center">
+									<h3>班级维护</h3>
+								</div>
+							</div>
+						</div>
+                        <div class="ibox-content">
+                            <form method="get" id="classForm" name="classForm" class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">*所属机构</label>
+									<div class="col-sm-10">
+										<!--<ztree selectnodeid="class.departmentid" selectnode="class.selectNode"></ztree>-->
+                                        <div tree-dialog ng-id="class.departmentid" search-flag="!isedit"></div>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">*班级名称</label>
+                                    <div class="col-sm-10"><input type="text" ng-model="class.name" required class="form-control"></div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">*培训类型</label>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" ng-model="class.categoryone" required name="categoryone">
+                                            <option value="组织调训">组织调训</option>
+                                            <option value="干部选学">干部选学</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" ng-model="class.categorytwo" required name="categorytwo">
+                                            <option value="业务培训">业务培训</option>
+                                            <option value="岗位培训">岗位培训</option>
+                                            <option value="任职培训">任职培训</option>
+                                            <option value="初任培训">初任培训</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" ng-model="class.categorythree" required name="categorythree">
+                                            <option value="面授培训">面授培训</option>
+                                            <option value="网络培训">网络培训</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select class="form-control" ng-model="class.categoryfour" required name="categoryfour">
+                                            <option value="境内培训">境内培训</option>
+                                            <option value="境外培训">境外培训</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-sm-4 control-label">*起始时间</label>
+                                        <div class="col-sm-8">
+                                            <div app-date ng-model="class.starttime" required max-date="class.endtime" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-sm-4 control-label">*终止时间</label>
+                                        <div class="col-sm-8">
+                                            <div app-date min-date="class.starttime" required ng-model="class.endtime" />
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="hr-line-dashed"></div>
+								<div class="row  form-group">
+                                    <div class="col-md-6">
+                                        <label class="col-sm-4 control-label">报名状态</label>
+                                        <div class="col-sm-2">
+                                            <input type="radio" value="0" name="signupstatus" required ng-model="class.signupstatus" />未结束
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="radio" value="1" name="signupstatus" required ng-model="class.signupstatus" />已结束
+                                        </div>
+                                    </div>
+									<div class="col-md-6">
+										<label class="col-sm-4 control-label">人数上限</label>
+										<div class="col-sm-8">
+											<input type="number" class="form-control" required ng-model="class.studentlimit" />
+										</div>
+									</div>
+								</div>
+
+								<div class="hr-line-dashed"></div>
+								<div class="row  form-group">
+									<div class="col-md-6">
+										<label class="col-sm-4 control-label">班级人数</label>
+										<div class="col-sm-8">
+											<input type="number" readonly class="form-control" required ng-model="class.studentnum" />
+										</div>
+									</div>
+								</div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">班级简介</label>
+                                    <div class="col-sm-10">
+                                        <div summernote lang="zh-CN" ng-model="class.comment"></div>
+                                    </div>
+                                </div>
+     
+                                <div class="hr-line-dashed"></div>
+                                <div class="text-center">
+									<button class="btn btn-primary" ng-click="save()" ng-disabled="classForm.$invalid || saveButtonDisabled">保存</button>
+                                    <button class="btn btn-default" ng-click="goback()">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab heading="必修课配置" ng-if="nowid" select="goCourseList(0)">
+        </tab>
+        <!--<tab heading="选修课配置" ng-if="nowid" select="goCourseList(1)">
+        </tab>
+        <tab heading="案例教学配置" ng-if="nowid" select="goCourseList(2)">
+        </tab>
+        <tab heading="考核机制配置" ng-if="nowid" select="goCourseList(3)">
+        </tab>-->
+        <tab heading="学员名单配置" ng-if="nowid" select="goCourseList(4)">
+        </tab>
+
+        <tab heading="班级资料" ng-if="nowid" select="goCourseList(5)">
+        </tab>
+
+        <tab heading="班级相册" ng-if="nowid" select="goCourseList(6)">
+        </tab>
+    </tabset>
+    <div ui-view></div>
+</div>

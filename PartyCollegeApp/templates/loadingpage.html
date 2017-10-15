@@ -1,0 +1,35 @@
+﻿<style>
+    .slider{
+        width:100%;
+        height:100%;
+    } 
+    .btn-start {
+        top: initial;
+        bottom: 10px;
+        width: 100px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .slider-pager .slider-pager-page.active {
+        color: #c00000;
+    }
+
+    .slider-pager .slider-pager-page {
+        color: #c00000;
+    }
+</style>
+<ion-nav-view>
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="true">
+        <ion-slide ng-repeat="img in loadimgs">
+            <div class="center-block text-center" style="height:100%;">
+                <img style="width:100%; height:100%;" src="{{img.imgsrc}}">
+            </div>
+        </ion-slide>
+    </ion-slide-box>
+    <div class="center" ng-if="ishow">
+        <button class="button btn-start button-positive button-block" ng-click="goMain()" style="display:flexbox; position:absolute;">
+            立即体验
+        </button>
+    </div>
+</ion-nav-view>

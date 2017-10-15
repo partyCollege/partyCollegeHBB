@@ -1,0 +1,51 @@
+﻿<style>
+	 @media all (max-height:769px){
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+    @media all and (min-height:770px) and (max-height:900px){
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+    @media all and (min-height:901px) and (max-height:1080px){
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+
+     .mycenter{
+        text-align:center;
+    }
+</style>
+<div class="wrapper-content wrapper">
+	<div class="tabs-container">
+		<tabset>
+			<tab heading="待审核">
+				<div class="panel-body">
+					<div class="row">
+						<div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection class="grid1"></div>
+					</div>
+				</div>
+			</tab>
+			<tab heading="已审核">
+				<div class="panel-body">
+					<div class="row">
+						<div ui-grid="gridOptionsRecommend" ui-grid-pagination ui-grid-selection class="grid1"></div>
+					</div>
+				</div>
+			</tab>
+            <tab heading="分平台推荐审核" ng-if="user.platformcategory==1">
+                <div class="panel-body">
+                    <div class="row">
+                        <div ui-grid="gridOptionsSubplatform" ui-grid-pagination ui-grid-selection class="grid1"></div>
+                    </div>
+                </div>
+            </tab>
+		</tabset>
+	</div>
+</div>

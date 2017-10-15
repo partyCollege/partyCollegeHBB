@@ -1,0 +1,79 @@
+﻿<style>
+    @media all (max-height:769px) {
+        .grid1 {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    @media all and (min-height:770px) and (max-height:900px) {
+        .grid1 {
+            width: 100%;
+            height: 465px;
+        }
+    }
+
+    @media all and (min-height:901px) and (max-height:1080px) {
+        .grid1 {
+            width: 100%;
+            height: 680px;
+        }
+    }
+</style>
+<div style="margin-top:5px;" class="row">
+    <div class="row text-right" style="padding:10px;">
+		<a class="btn btn-primary platformdisabled" ng-click="oepnAD()">新增</a>
+		<a class="btn btn-primary platformdisabled" ng-click="publish()" ng-disabled="gridApi.selection.getSelectedRows().length==0">发布</a>
+        <!--<a class="btn btn-primary" ng-click="recommend()" ng-disabled="gridApi.selection.getSelectedRows().length==0">置顶</a>
+        <a class="btn btn-default" ng-click="unpublish()" ng-disabled="gridApi.selection.getSelectedRows().length==0">撤销发布</a>
+        <a class="btn btn-default" ng-click="unrecommend()" ng-disabled="gridApi.selection.getSelectedRows().length==0">撤销置顶</a>-->
+		<button class="btn btn-danger platformdisabled" ng-click="delete()" ng-disabled="gridApi.selection.getSelectedRows().length==0">删除</button>
+    </div>
+    <div id="grid1" ui-grid="gridOptions" class="grid1" ui-grid-auto-resize ui-grid-pagination ui-grid-selection></div>
+</div>
+<script type="text/ng-template" id="AttachDetail.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>班级资料</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <!--不需要统一配置的显示项-->
+                        <div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><b>*</b>资料文件上传：</label>
+                                    <!--<div class="col-sm-10"><input type="text" ng-model="st.examtitle" class="form-control"></div>-->
+                                   
+                                    <input class="form-control" type="text" name="selectfile" ng-model="selectFile.name" required />
+                                    <input type="button" class="btn btn-info" ng-model="files" ngf-multiple="true" ngf-select="selectFiles($files, $invalidFiles)" value="浏览" />
+                                    <!--<p class="error" ng-if="attachform.selectfile.$dirty && attachform.selectfile.$invalid">
+                                        <span ng-if="attachform.selectfile.$error.required">请选择要上传的文件</span>
+                                    </p>-->
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>                              
+                        </div>
+                        <div class="form-group text-center" >
+                            <button class="btn btn-info" ng-click="Addattach()" ng-disabled="saveAttachDisabled">保存</button>
+                            <button class="btn btn-default" ng-click="close()">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>

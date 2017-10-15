@@ -1,0 +1,24 @@
+﻿        <!--今日课程-->
+<ion-list style="border:none">
+    <div class="item item-button-right agreement-title item-padding-10 " >
+        <i class="icon ion-calendar size-20" style="color:#f00;"></i>&nbsp;&nbsp;<span class="size-18" style="font-weight:bolder">今日课程</span><span class="more"><i class="icon ion-ios-arrow-forward"></i></span>
+    </div>
+    <ion-item style="padding:13px 10px;color:#999" ng-if="KCList.length<=0">
+        暂无课程
+    </ion-item>
+    <div class="item " style="padding:0px;border-bottom:none;" ng-repeat="kc in KCList" >
+        <div style="margin-left:0px; margin-right:0px; padding:0px;">
+            <div class="course-info">
+                <div class="course-info-description size-18"><div class="course-info-time size-22">{{kc.kssj|date:'HH:mm'}}&nbsp;</div>{{kc.kcname}}</div>
+                <div class="col-20-name course-info-name2 size-16" style="width:180px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><i class="ion-ios-person-outline size-22">&nbsp;</i>{{kc.teacher}}</div>
+                <div class=" course-info-address" style="width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:16px;"><i ng-show="kc.address" class="ion-ios-location-outline size-20">&nbsp;</i>{{kc.address}}</div>
+            </div>
+        </div>
+        <div style="margin:0px 0px;" ng-if="!kc.remark==''">
+            <span class="beizhu"><i class="icon ion-flag " style="color:#f00;display:inline-block;margin-right:3px;"></i>{{kc.remark}}</span>
+            <!--<span><i class="icon-study" style="height:30px;line-height:30px;" ng-if="kc.jxzlnum>0">教学资料</i></span>
+            <span><i class="icon-problem" style="height:30px;line-height:30px;" ng-if="kc.questionnum>0">问题区</i></span>-->
+        </div>
+
+    </div>
+</ion-list>

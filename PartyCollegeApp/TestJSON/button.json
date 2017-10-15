@@ -1,0 +1,72 @@
+﻿{
+	"Success": true,
+	"Data": {
+		"neww": [
+			{
+				"id": "02276584-6840-11e6-bdf8-00fffab6298f",
+				"name": "党史党建",
+				"coursecount": 73,
+				"time":"今年",
+				"two":[{"two_classify":"党史建设发展"}]
+			
+			
+			}, {
+				"id": "0fdbd818-3139-11e6-a6e0-00fffab6298f",
+				"name": "城乡统筹发展",
+				"coursecount": 54,		
+				"two":[{"two_classify":"城乡的规划和发展"}]
+				
+			}, {
+				"id": "44ceba39-3137-11e6-a6e0-00fffab6298f",
+				"name": "党史党建",
+				"coursecount": 53,		
+				"two":[{"two_classify":"建设"},{"two_classify":"建设党建党建"}]
+			
+			}, {
+				"id": "a30f8601-3139-11e6-a6e0-00fffab6298f",
+				"name": "城市现代化",
+				"coursecount": 42,
+				"two":[{"two_classify":"现代化城市建设"}]
+			
+			}, {
+				"id": "ae2cfece-63e0-41c1-adda-d6986384747d",
+				"name": "低碳",
+				"coursecount": 15,
+				"two":[{"two_classify":"低碳政策的实施"}]
+				
+			}, {
+				"id": "b47560cd-3139-11e6-a6e0-00fffab6298f",
+				"name": "开放",
+				"coursecount": 15,
+				"two":[{"two_classify":"开放政策"}]
+				
+			}, {
+				"id": "bb5ecc81-3137-11e6-a6e0-00fffab6298f",
+				"name": "创新",
+				"coursecount": 0,
+				"two":[{"two_classify":"创新创业"}]
+				
+			}
+		],
+		"videos":[
+		{"id":"1",
+		"video":"视频"},
+		{"id":"2",
+		"video":"非视频"}
+		],
+		"times":[
+		{"id":"1","time":"今年"},
+		{"id":"2","time":"明年"},
+		{"id":"3","time":"2014年"},
+		{"id":"4","time":"2016年"},
+		{"id":"5","time":"2012年"},
+		{"id":"6","time":"2012年以前"}
+		
+		],
+		"selects":[
+		{"name":"总体情况","id":"1"},
+        {"name":"学习统计","id":"2"},
+        {"name":"面授申请","id":"3"}
+		]
+	}
+}

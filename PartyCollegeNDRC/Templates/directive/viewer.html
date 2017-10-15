@@ -1,0 +1,21 @@
+﻿<nav ng-class="getNavStyle(scroll)">
+	<button class="btn" ng-click="goPrevious()">上一页</button>
+	<button class="btn" ng-click="goNext()" ng-disabled="sleepFive">下一页</button>
+
+	<button class="btn" ng-click="zoomIn()">放大</button>
+	<button class ="btn" ng-click="fit()">适合屏幕</button>
+	<button class="btn" ng-click="zoomOut()">缩小</button>
+
+	<!--<button class="btn" ng-click="rotate()"><span>90</span></button>-->
+	当前第{{pageNum}}页<span> / 共{{pageCount}}页</span>
+	<!--<input type="text" min=1 ng-model="pageNum" style="width:20px"><span> / {{pageCount}}</span>-->
+
+	<!--&nbsp;&nbsp;
+	<span>Document URL: </span>
+	<input type="text" ng-model="pdfUrl">-->
+</nav>
+
+<hr>
+
+{{loading}}
+<canvas id="pdf" class="rotate0"></canvas>

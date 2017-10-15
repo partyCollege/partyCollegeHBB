@@ -1,0 +1,76 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="row text-right">
+					<div class="widget style1 badge-primary">
+						<div class="row vertical-align">
+							<div class="col-md-12 text-center">
+								<h3>账号维护</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<form method="get" name="accform" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">登录名</label>
+							<div class="col-sm-4"><input type="text" class="form-control" ng-disabled="formInput.lognameDisabled" ng-model="accForm.logname"></div>
+							<label class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-4">
+								<input type="password" class="form-control" ng-disabled="formInput.pwdDisabled" ng-model="accForm.pwd">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">姓名</label>
+							<div class="col-sm-4"><input type="text" class="form-control" ng-disabled="formInput.nameDisabled" ng-model="accForm.name"></div>
+							<label class="col-sm-2 control-label">性别</label>
+							<div class="col-sm-4">
+								<input type="radio" name="sex" ng-disabled="false" ng-model="accForm.sex" ng-checked="accForm.sex==1" value="1">男
+								<input type="radio" name="sex" ng-disabled="false" ng-model="accForm.sex" ng-checked="accForm.sex==0" value="0">女
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">身份证</label>
+							<div class="col-sm-4"><input type="text" class="form-control" ng-disabled="formInput.idcardDisabled" ng-model="accForm.idcard"></div>
+							<label class="col-sm-2 control-label">联系方式</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model="accForm.cellphone" ng-disabled="formInput.cellphoneDisabled">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">账号角色</label>
+							<div class="col-sm-10">
+								<ui-select ng-model="accForm.rolelist" multiple theme="bootstrap" ng-disabled="false">
+									<ui-select-match placeholder="请选择角色">{{$item.name}}&lt;{{$item.platformname}}&gt;</ui-select-match>
+									<ui-select-choices repeat="item in roles | filter: $select.search">
+										<div ng-bind-html="item.name | highlight: $select.search"></div>
+										<small ng-bind-html="item.platformname | highlight: $select.search"></small>
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">默认中心</label>
+							<div class="col-sm-4">
+								<select ng-model="accForm.defaultusertype" select-source code="默认中心"></select>
+							</div>
+							<label class="col-sm-2 control-label">是否可用</label>
+							<div class="col-sm-4"><input type="checkbox" ng-model="accForm.status" ng-checked="accForm.status==1" /></div>
+						</div>
+
+						<div class="text-center">
+							<button class="btn btn-primary" ng-click="saveAccount();" ng-disabled="saveButtonDisabled">保存</button>
+							<button class="btn btn-default" ng-click="goToList();">取消</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

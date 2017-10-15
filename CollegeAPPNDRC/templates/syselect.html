@@ -1,0 +1,23 @@
+﻿
+<div style="margin:7px 2px;border:1px solid #ddd;">
+	<div class="list agreement-title" style="padding:10px;margin-bottom:10px;">
+		<!--style="height:20px;font-size:18px;padding:0px 10px;"-->
+		{{assignobj.orderIdx}}、{{assignobj.name}}
+	</div>
+	<div class="row" style="margin:0;">
+		<div class="col">
+			<div ng-show="assignobj.yp" style="font-size:18px;color:#888;">
+				<select ng-disabled="assignobj.yp" ng-model="assignobj.selectValue" ng-options="rgval for rgval in assignobj.range">
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div ng-show="!assignobj.yp">
+				<label class="item item-input textarea">
+					<select ng-model="assignobj.selectValue" ng-options="rgval for rgval in assignobj.range">
+						<option value="">请选择</option>
+					</select>
+				</label>
+			</div>
+		</div>
+	</div>
+</div>

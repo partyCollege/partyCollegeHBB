@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <items>
+    <item category="selectVideo" zhName="内容发布" ispageing="true" isCal="false">
+      <!--查询的SQL语句，可以为任意，注意不要带排序-->
+      <sql>
+        <![CDATA[select video.info_id,video.title,video.createtime,video.RELEASETIME,(case status when 1 then '已发布' else '未发布' end) as status  from app_mobilemenu m
+inner join app_videostudy video
+on m.info_id=video.menuid
+where m.info_id=[menuid] and video.status<>-1
+		 ]]>
+      </sql>
+      <!--排序SQL-->
+      <orderbysql>
+        order by video.createtime desc
+      </orderbysql>
+      <!--检索栏，SerchType暂时没用到，不过也必须填写。目前三种类型，文本检索（模糊检索）、时间检索（为2个文本框组合）、下拉框（Source为R_code中的Class）-->
+      <serchFields>
+        <field serchType="模糊检索" type="textBox" dbcolume="video.title">标题</field>
+      </serchFields>
+      <!--fileName是要打印的证书模板文件名称，xyids就是要导出的选中学员ID-->
+      <buttons>
+
+		<button isfontButton="true" success="if(ids==''){alert('请选择需要删除的内容')}else{$.ajax({ type: 'post', url: 'backHtmlHelp.ashx', data: { ids: ids, func: 'selectInfo',subInfo_id:'[info_id]' },success: function (data) {  window.opener.getGroup(data); window.close();}});}">选择</button>
+
+	 </buttons>
+      <columes needCheckBox="true" keyColume="info_id" >
+        <colume dbcolume="TITLE" align="left" width="*" link="backHTML/videostudy.aspx#?info_id=[info_id]">标题</colume>
+		<colume dbcolume="createtime" align="center" width="100" orderby="true">创建时间</colume>
+		<colume dbcolume="RELEASETIME" align="center" width="100" orderby="true">发布时间</colume>
+		<colume dbcolume="STATUS" align="center" width="100">是否发布</colume>
+      </columes>
+    </item>
+  </items>
+</root>

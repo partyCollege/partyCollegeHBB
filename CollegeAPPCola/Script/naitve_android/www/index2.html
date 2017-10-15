@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>  
+<head>   
+  <title>Notification Example</title> 
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>    
+  <script type="text/javascript" charset="utf-8">    
+   // Wait for device API libraries to load    
+   //    
+   document.addEventListener("deviceready", onDeviceReady, false);    
+   // device APIs are available    
+   //    
+   function onDeviceReady() {        
+   	 // Empty    
+  	}    
+    // Show a custom alert    
+    
+    //    native鐨� Dialog 瀵硅瘽妗�
+    function showAlert() {        navigator.notification.alert(            'You are the winner!',  // message            
+      'Game Over',            
+    // title            
+    'Done'                  
+    // buttonName        
+    );    }    
+    // Beep three times    
+    //    鍝嶉搩3澹�
+    function playBeep() {
+    	navigator.notification.beep(3);
+    }    
+    // Vibrate for 2 seconds    
+    //    鎸姩
+    function vibrate() {
+		navigator.notification.vibrate(100000);
+	}    
+	//	     璺宠浆
+    function intent() {
+    	box.getDeviceId();
+    } 
+
+    </script>  
+    </head>  
+    <body>    
+    <p><a href="#" onclick="showAlert(); return false;">Show Alert</a></p>    
+    <p><a href="#" onclick="playBeep(); return false;">Play Beep</a></p>    
+    <p><a href="#" onclick="vibrate(); return false;">Vibrate</a></p>  
+    <p><a href="#" onclick="intent(); return false;">Upload Image</a></p>  
+    </body>
+    </html>

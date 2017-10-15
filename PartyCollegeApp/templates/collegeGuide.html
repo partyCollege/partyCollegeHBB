@@ -1,0 +1,40 @@
+﻿<style type="text/css">
+    .tab-item.active, .tab-item.tab-item-active, .tab-item.activated {
+        margin-top: 0px !important;
+        border-top-width: 0px !important;
+        color: #ef473a;
+        border: 0 solid #ef473a !important;
+        border-bottom-width: 2px !important;
+        margin-bottom: 2px !important;
+    }
+
+    .anchorBL {
+        display: none;
+    }
+
+    #l-map {
+        height: 600px;
+        width: 100%;
+    }
+
+    #r-result, #r-result table {
+        width: 100%;
+    }
+</style>
+<ion-view title="校院指南">
+    <ion-nav-buttons side='left'>
+        <button class='button button-icon icon ion-ios7-arrow-left' style='font-size:16px' ng-click='goBack()'>返回</button>
+    </ion-nav-buttons>
+    <ion-content overflow-scroll="false" class="has-header" data-ng-init="load()">
+        <div direction="y" style="width:100%;">
+            <div id="l-map"></div>
+            <div style="text-align:center;" ng-show="false" class="padding-top padding-bottom">
+                <button class="button button-assertive" ng-click="switchMapType('transit')">公交模式</button>
+                <button class="button button-assertive" ng-click="switchMapType('walking')">步行模式</button>
+                <button class="button button-assertive" ng-click="switchMapType('driving')">驾车模式</button>
+            </div>
+            <div id="r-result" ng-show="false"></div>
+        </div>
+
+    </ion-content>
+</ion-view>

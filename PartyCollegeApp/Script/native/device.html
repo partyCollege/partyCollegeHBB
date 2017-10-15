@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+<script type="text/javascript" charset="utf-8">
+	//debugger;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    ///
+    function onDeviceReady() {
+        
+
+    }
+function getDeviceInfo()
+{
+    //alert('onDeviceReady');
+    //alert('platform:' + device.platform);
+    //alert('version:' + device.version);
+    //alert('uuid:' + device.uuid);
+    //alert('model:' + device.model);
+    var element = document.getElementById('device');
+    element.innerHTML = 'platform: ' + device.platform  + '<br />' +
+    'version: '  + device.version  + '<br />' +
+    'uuid: '     + device.uuid     + '<br />' +
+    'model: '    + device.model    + '<br />';
+}
+</script>
+  </head>
+  <body>
+
+    <br/>
+    <br/>
+    <p id="device">设备信息...</p>
+    <div class="btn bg_1" onclick = "getDeviceInfo();">getDeviceInfo获得设备信息</div>
+    <div class="btn bg_1" onclick = "goHome();">返回</div>
+    <script type = "text/javascript">
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+    </script>
+  </body>
+</html>

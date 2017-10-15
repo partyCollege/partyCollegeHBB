@@ -1,0 +1,51 @@
+﻿
+
+<div style="margin:7px 2px;border:1px solid #ddd;">
+	<div class="list agreement-title" style="padding:10px;margin-bottom:10px;">
+		{{assignobj.orderIdx}}、{{assignobj.name}}
+	</div>
+	<div class="row" style="">
+		<div class="col" ng-if="$index<5" ng-repeat="lvl in assignobj.PJLevelList" style="padding-left:5px;">
+			<button class="md-raised sy-md-btn md-button btn_disabled"
+					ng-show="assignobj.yp"
+					ng-class="{true:'btn_active',false:''}[assignobj.selectValue==lvl.point]"
+					ng-click="tipshow(lvl.tip)">
+				<span style="font-size:16px;padding:2px 2px;display:block">{{lvl.discription}}</span>
+			</button>
+
+			<button ng-if="$index<5" class="md-raised sy-md-btn md-button"
+					ng-show="!assignobj.yp"
+					ng-class="{true:'btn_active',false:''}[assignobj.selectValue==lvl.point]"
+					showtext="{{lvl.discription}}"
+					ng-click="optionChecked(assignobj.elementid,lvl.discription,lvl.point,lvl.discription)"
+					value="{{lvl.point}}">
+				<span style="font-size: 16px; padding: 2px 2px; display: block; ">{{lvl.discription}}</span>
+			</button>
+
+			<input type="hidden" class="hide-ngmode-val" ng-model="assignobj.selectValue" />
+			<input type="hidden" class="hide-ngmode-text" ng-model="assignobj.selectValue" />
+		</div>
+	</div>
+	<div ng-if="assignobj.PJLevelList.length>5" class="row" style="">
+		<div class="col" ng-if="$index>=5" ng-repeat="lvl in assignobj.PJLevelList" style="padding-left:5px;">
+			<button class="md-raised sy-md-btn md-button btn_disabled"
+					ng-show="assignobj.yp"
+					ng-class="{true:'btn_active',false:''}[assignobj.selectValue==lvl.point]"
+					ng-click="tipshow(lvl.tip)">
+				<span style="font-size: 16px; padding: 2px 2px; display: block; ">{{lvl.discription}}</span>
+			</button>
+
+			<button class="md-raised sy-md-btn md-button"
+					ng-show="!assignobj.yp"
+					ng-class="{true:'btn_active',false:''}[assignobj.selectValue==lvl.point]"
+					showtext="{{lvl.discription}}"
+					ng-click="optionChecked(assignobj.elementid,lvl.discription,lvl.point,lvl.discription)"
+					value="{{lvl.point}}">
+				<span style="font-size: 16px; padding: 2px 2px; display: block; ">{{lvl.discription}}</span>
+			</button>
+
+			<input type="hidden" class="hide-ngmode-val" ng-model="assignobj.selectValue" />
+			<input type="hidden" class="hide-ngmode-text" ng-model="assignobj.selectValue" />
+		</div>
+	</div>
+</div>

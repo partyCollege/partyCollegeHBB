@@ -1,0 +1,14 @@
+﻿<div class="title">
+    <p>{{coursewareCommentData.csname}}<span class="right time"><i></i>{{coursewareCommentData.hours}}:{{coursewareCommentData.minutes}}:00</span></p>
+</div>
+<h3>教师简介</h3>
+<div class="text">
+	<div ng-repeat="item in teachersComment">
+		<h3>{{item.name}}</h3>
+		<p ng-bind-html="item.comment">
+		</p>
+	</div>
+</div>
+<h3>课程简介</h3>
+<div class="text" ng-bind-html="coursewareCommentData.cscomment">
+</div>

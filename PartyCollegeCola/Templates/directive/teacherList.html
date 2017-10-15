@@ -1,0 +1,24 @@
+﻿
+<div class="popup_box">
+    <div class="popup_content">
+        <!--老师通讯录 开始-->
+        <div class="content teacherList">
+            <h2>老师<a ng-click="myConfig.contanctsType[2].select()"><i class="tubiaoicon-17"></i></a></h2>
+            <ul>
+                <li ng-repeat="item in teacherContactsData">
+                    <img ng-src="{{item.headimg}}" />
+                    <div class="info">
+                        <span>姓&nbsp;名：{{item.teachername}}</span>
+                        <span>职&nbsp;务：{{item.job}}</span>
+                        <span>
+                            手机号：<span ng-style="{display:item.phonenumshow ? 'inline':'none'}">{{item.phonenum}}</span>
+                            <a ng-click="phoneClick(item.id)"><em ng-style="{display:item.phonenumshow ? 'none':'inline'}">查看</em></a>
+                        </span>
+                        <span title="{{item.workunit}}">单&nbsp;位：{{item.workunit}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--老师通讯录 结束-->
+    </div>
+</div>

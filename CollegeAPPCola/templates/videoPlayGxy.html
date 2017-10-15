@@ -1,0 +1,78 @@
+﻿<style>
+    .videogular-container {
+        width: 100%;
+        height: 300px;
+        margin: 0;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .videogular-container_audio_wx {
+        width: 100%;
+        height: 0px;
+        vertical-align: top;
+    }
+
+    .videogular-container_audio {
+        width: 100%;
+        height: 50px;
+        margin: auto;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .videoPadding_wx {
+        padding-top: 50px;
+    }
+</style>
+
+<ion-view id="videoHead">
+    <ion-header-bar align-title="center" class="bar-assertive">
+        <div class="buttons">
+            <button class='button button-icon icon ion-ios-arrow-back' style='font-size:12px' ng-click='goBack()'></button>
+        </div>
+        <h3 class='title'>播放视频</h3>
+    </ion-header-bar>
+    <ion-content class="has-header">
+        <div id="myplayer" class="videogular-container" ng-click="changeTop()">
+            <videogular vg-theme="config.theme" vg-auto-play="true">
+                <vg-media vg-src="config.sources" vg-type="video">
+                </vg-media>
+                <vg-controls>
+                    <vg-play-pause-button></vg-play-pause-button>
+                    <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                    <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    </vg-scrub-bar>
+                    <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                    <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                    </vg-volume>
+                    <vg-fullscreen-button></vg-fullscreen-button>
+                </vg-controls>
+                <vg-overlay-play ng-if="isvideo"></vg-overlay-play>
+                <vg-poster vg-url='config.plugins.poster'></vg-poster>
+            </videogular>
+        </div>
+
+        <div class="row" style="padding-top:10px">
+            <div class="col text-right" style="margin-right:10px;" ng-click="changeTab('简介')">
+                <span style="border:1px solid red;padding:5px;width:100px">简介</span>
+            </div>
+            <div class="col text-left" style="margin-left:10px;" ng-click="changeTab('分集')">
+                <span style="border:1px solid red;padding:5px;width:100px">分集</span>
+            </div>
+        </div>
+        <div ng-if="nowtab=='简介'">
+            测试内容简介
+        </div>
+        <div ng-if="nowtab=='分集'">
+            <div>
+                <div style="float:left;width:200px;margin:5px" ng-repeat="item in videos">
+                    <div style="border:1px solid red;padding:5px;">{{item.name}}</div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

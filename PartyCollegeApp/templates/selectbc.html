@@ -1,0 +1,17 @@
+﻿<ion-view title="">
+    <ion-header-bar align-title="center" class="bar  bar-head bar-positive">
+        <h1 class="title">选择班次</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <div class="item" ng-repeat="item in bclist" ng-click="selectOne({{item.info_id}})">
+                {{item.bcname}}
+            </div>
+        </div>
+    </ion-content>
+    <ion-nav-footer align-title="center" class="bar bar-footer bar-positive">
+        <span class="title">
+            <button class="button button-clear" ng-click="displayProp()">取消</button>
+        </span>
+    </ion-nav-footer>
+</ion-view>

@@ -1,0 +1,89 @@
+<ion-view  title="{{title}}">
+	<ion-header-bar align-title='center' class='hbb-bg'>
+        <a class='button button-icon icon ion-ios-arrow-back' ng-click='goBack()'></a>
+        <h3 class='title'>{{title}} </h3>
+    </ion-header-bar>
+	<div class="has-header"> 
+        <div id="mainVideo" class="hbb-course-video">
+            <img ng-src="{{getImageUrl(courseInfo.imagephoto)}}"  err-src="../img/course_img.jpg" class="hbb-courseview-img"/>
+        </div>
+    </div> 	
+    <div class="hbb-course-content hbb-course" >
+        <ion-tabs class="tabs-positive tabs-striped tabs-top hbb-content-tab" >
+            <ion-tab title="课程简介" >
+                <ion-view class="hbb-courseview-containerview" cache-view="false"    >
+                    <ion-content class="has-footer hbb-content-tab-view-content" >
+                         <div class="course-introduction hbb-courseview-intro-container">
+                            <div class="course-top block b-b">
+                                <p class="course-title">{{courseInfo.coursewarename}}</p>
+                                <p class="course-teacher">主讲人：<span>{{courseInfo.teachersname}}</span></p>
+                                <p class="course-hours">学时：<span>{{courseInfo.studytime}}</span></p>
+                                <p class="course-time">
+                                    上传时间：<span>{{courseInfo.uploadtime}}</span>
+                                    <button ng-if="!courseInfo.iselectivechoose" class="btn" ng-click="chooseCourse(item , $event)">选课</button>
+                                    <button ng-if="courseInfo.iselectivechoose" class="btn" ng-click="goCourseDetail();">播放</button>
+                                </p>
+                                <label><b>{{formatNumber(courseInfo.grade) || 0}}</b>分</label>
+                            </div>
+                            <div class="block">
+                                <p class="block-p hbb-courseview-intro-title">简介：</p>
+                                <div class="block-content" ng-bind-html="courseInfo.commentShow"></div>
+                            </div>
+                            <div class="block" style="border-top: 1px solid silver;">
+                                <p class="block-p hbb-courseview-intro-title" >教师简介：</p>
+                                <div  ng-if="teacherList.length > 0"  class="hbb-courseview-teacher-list">
+                                    <div  ng-repeat="item in teacherList">
+								        <h4>{{item.name}}</h4>
+										<p class="hbb-courseview-teacher-appraise" ng-bind-html="item.comment"></p>
+                                    </div> 
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </ion-content>
+                </ion-view>
+            </ion-tab>
+
+            <ion-tab title="评价" >
+                <ion-view class="hbb-courseview-containerview" cache-view="false"  >
+					<ion-content class="hbb-content-tab-view-content has-footer">
+						<ion-refresher class="text-center" on-refresh="getComments('new')" pulling-text="拖动刷新" refreshing-text="加载中"
+									   refreshing-icon="ion-loading-c" pulling-icon="ion-ios-arrow-down">
+						</ion-refresher>
+						<ion-list class="list hbb-courseview-comment-list" ng-if="commentInfoList.length > 0">
+							<ion-item class="item item-thumbnail-left" ng-repeat="item in commentInfoList">
+								<img ng-src="{{getUserImageUrl(item.photo_serverthumbname)}}" style="width: 60px; height: 60px; border-radius:30px;">
+								<h2>{{item.name}}</h2>
+								<p>{{item.comments}}</p>
+							</ion-item>
+						</ion-list>
+						<div ng-if="!commentListMoreDataCanBeLoaded && commentInfoList.length<=0" class="hbb-course-empty-placeholder" style="margin-bottom:200px;">
+							<i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+							<div class="hbb-course-empty-placeholder-tip">暂无评论</div>
+						</div>
+						<ion-infinite-scroll ng-if="commentListMoreDataCanBeLoaded" on-infinite="getComments('more')" distance="3%" icon="ion-loading-c">
+						</ion-infinite-scroll>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+
+		</ion-tabs>
+	</div>
+
+</ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

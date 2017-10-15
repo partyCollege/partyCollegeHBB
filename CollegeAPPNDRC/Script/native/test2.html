@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        var cordovaRef = window.PhoneGap || window.Cordova || window.cordova;
+        function success () {
+            //Generic callback provided if the Cordova call to the native Objective-C should be successful
+            //Note: Probably don’t want to do anything here… but provided nevertheless
+        }
+        function fail () {
+            //Generic callback provided if the Cordova call to the native Objective-C should fail
+        }
+        window.echo = function(str, callback) {
+            alert("call echo")
+            cordova.exec(callback, function(err) {
+                         callback('Nothing to echo.');
+                         }, "test", "echo", [str]);
+        };
+		function onDeviceReady() {
+            alert("in...");
+            /*window.echo("echome", function(echoValue) {
+                        alert(echoValue == "echome"); // should alert true.
+                        });
+          
+            */
+
+        }
+        var test = {
+            map: function(success, fail, str) {
+                cordova.exec(success, fail, "test", "map", [str]);
+            }
+            
+        };
+        function test1(str){
+            alert(str);
+            test.map(function(echoValue){
+                            alert(echoValue == "home");
+                            alert(echoValue);
+                         },
+                         function(err) {
+                            alert(err);
+                         },str);
+        }
+    // alert dialog dismissed
+    function alertDismissed() {
+        alert("alertDismissed");
+    }
+    
+    // Show a custom alertDismissed
+    //
+    function showAlert() {
+        navigator.notification.alert(
+                                     'You are the winner!',  // message
+                                     alertDismissed,         // callback
+                                     'Game Over',            // title
+                                     'Done'                  // buttonName
+                                     );
+    }
+    function goHome()
+    {
+        window.location.href = "index.html";
+    }
+
+    </script>
+</head>
+<body>
+    <br/>
+    <br/>
+<p id="geolocation">test</p>
+<div class = "btn bg_1" onclick = "test1('hi');">返回</div><br/>
+<div class = "btn bg_2" onclick = "onDeviceReady();">返回</div><br/>
+<div class = "btn bg_3" onclick = "showAlert();">返回</div><br/>
+<div class = "btn bg_4" onclick = "showAlert(); return false;">返回</div><br/>
+    
+    <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+</body>
+</html>

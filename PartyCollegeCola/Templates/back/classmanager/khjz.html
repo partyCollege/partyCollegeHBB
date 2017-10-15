@@ -1,0 +1,92 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3> 考核机制维护</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">考核维度</label>
+                            <div class="col-sm-10">
+                                <ui-select ng-model="class.dimensions" multiple theme="bootstrap">
+                                    <ui-select-match>{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in dimensions | filter: $select.search">
+                                        <div style="font-weight:bold" ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">必修课</label>
+                            <div class="col-sm-5">
+                                <label class="control-label">合格线：（总共{{requiredpassmark}}学分）</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="form-control text-right" ng-model="class.requiredpassmark" type="number" min="0" ng-change="checkMax('class.requiredpassmark',requiredpassmark)" />
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="control-label">学分</label>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选修课</label>
+                            <div class="col-sm-5">
+                                <label class="control-label">合格线：（总共{{electivepassmark}}学分）</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="form-control text-right" ng-model="class.electivepassmark" type="number" min="0" ng-change="checkMax('class.electivepassmark',electivepassmark)" />
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="control-label">学分</label>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">案例教学</label>
+                            <div class="col-sm-5">
+                                <label class="control-label">合格线：（总共{{casepassmark}}学分）</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="form-control text-right" ng-model="class.casepassmark" type="number" min="0" ng-change="checkMax('class.casepassmark',casepassmark)" />
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="control-label">学分</label>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">小结</label>
+                                    <label class="col-sm-2 control-label">总分</label>
+                                    <div class="col-sm-3">
+
+                                        <input type="number" class="form-control" min="0" ng-model="class.summaryscore" />
+                                    </div>
+                                    <label class="col-sm-2 control-label">合格线</label>
+                                    <div class="col-sm-3">
+                                        <input type="number" class="form-control" min="0" ng-model="class.summarypassscore" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" ng-click="save()" ng-disabled="saveButtonDisabled">保存</button>
+                            <button class="btn btn-default" ng-click="goback()">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

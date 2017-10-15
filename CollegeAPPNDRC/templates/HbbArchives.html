@@ -1,0 +1,95 @@
+﻿<ion-content>
+    <div class="wrap stu-file">
+		<div class="section" ng-repeat="item in datalist">
+			<div class="tit">
+				<a href="" class="flod">
+					<!--<img src="../img/student_file/arrow03.png" alt="open" />-->
+					<img src="{{item.src}}" alt="open" ng-click="onExpand(item);" />
+				</a>
+				<i class="year">{{item.year}}</i>
+				总共完成 <b class="c01">{{item.total_studytime}}</b> 学时，<br>
+				学习课件累计 <b class="c01">{{item.total_time_cn}}</b> 个小时。
+			</div>
+			<div class="text" ng-if="item.expand">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tables">
+					<tr>
+						<th width="25%" height="41px" align="center" bgcolor="#f5f5f5" scope="col">&nbsp;</th>
+						<th align="center" bgcolor="#f5f5f5" scope="col">课程/学时</th>
+						<th align="center" bgcolor="#f5f5f5" scope="col">共计</th>
+						<th align="center" bgcolor="#f5f5f5" scope="col">已完成</th>
+						<th align="center" bgcolor="#f5f5f5" scope="col">完成率</th>
+					</tr>
+					<tr>
+						<th align="center" height="41px" bgcolor="#f5f5f5" class="c01" scope="row">年度计划</th>
+						<td align="center">学时</td>
+						<td align="center">{{item.yearplan_total}}</td>
+						<td align="center">{{item.yearplan_finished}}</td>
+						<td align="center"><b class="c02 ">{{item.yearplan_progess}}</b></td>
+					</tr>
+					<tr>
+						<th rowspan="2" align="center" bgcolor="#f5f5f5" class="c01" scope="row">参加{{item.class_classcount}}个培训班</th>
+						<td align="center" height="41px">课程</td>
+						<td align="center">{{item.class_courseallcount}}门</td>
+						<td align="center">{{item.class_coursefinishedcount}}门</td>
+						<td rowspan="2" align="center"><b class="c02 ">{{item.class_progess}}</b></td>
+					</tr>
+					<tr>
+						<td align="center" height="41px">学时</td>
+						<td align="center">{{item.class_allstudytime}}</td>
+						<td align="center">{{item.class_finishedstudytime}}</td>
+					</tr>
+					<tr>
+						<th align="center" height="41px" bgcolor="#f5f5f5" class="c01" scope="row">面授培训</th>
+						<td align="center">学时</td>
+						<td colspan="3" align="center"><a ng-click="goToTrain();" class="but01">{{item.train_studytime}}</a></td>
+					</tr>
+					<tr>
+						<th rowspan="2" align="center" bgcolor="#f5f5f5" class="c01" scope="row">选修学时</th>
+						<td align="center" height="41px">课程</td>
+						<td align="center">{{item.choose_courseallcount}}门</td>
+						<td align="center">{{item.choose_coursefinishedcount}}门</td>
+						<td rowspan="2" align="center"><b class="c01 ">{{item.choose_progess}}</b></td>
+					</tr>
+					<tr>
+						<td align="center" height="41px">学时</td>
+						<td align="center">{{item.choose_allstudytime}}</td>
+						<td align="center">{{item.choose_finishedstutytime}}</td>
+					</tr>
+				</table>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tables">
+					<tr>
+						<th width="25%" bgcolor="#F5F5F5" class="c01" scope="row">学习关键词</th>
+						<td>
+							<a ng-repeat="key in item.keywordsArr" href="javascript:void(0);" title="" class="but01">{{key}}</a>
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#F5F5F5" class="c01" scope="row">
+							学习时间<br>
+							分布
+						</th>
+						<td>
+							<a href="javascript:void(0);" title="" class="but01">上午 {{item.time_morning}} </a>
+							<a href="javascript:void(0);" title="" class="but01">下午 {{item.time_noon}}</a>
+							<a href="javascript:void(0);" title="" class="but01">晚上 {{item.time_night}}</a>
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#F5F5F5" class="c01" scope="row">学习频度</th>
+						<td>
+							您共登录了 <b class="c01 ">{{item.time_logincount}}</b> 次，{{item.year}}年第一次登录是
+							<b class=" c01">{{item.time_firstlogintime}}</b> ，最后一次登录是 <b class=" c01">{{item.time_lastlogintime}}</b> 。
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#F5F5F5" class="c01" scope="row">评价与交流</th>
+						<td>
+							评价了 <b class="c01">{{item.appraise_appraisecount}}</b> 课程，提出了 <b class="c01">{{item.appraise_coursecount}}</b> 问题，共记录了
+							<b class="c01">{{item.appraise_notecount}}</b> 笔记。
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+    </div>
+</ion-content>

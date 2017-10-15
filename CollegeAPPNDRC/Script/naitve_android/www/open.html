@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+ <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+
+    //
+    var ref;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+        //alert('onDeviceReady');
+        
+    }
+        var ref;
+        function openURL(url){
+            //alert(url);a
+            ref = window.open(url, '_blank', 'location=no,enableviewportscale=yes, closebuttoncaption=close');
+            //ref = xsfWindow.open('http://apache.org','title');
+            ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
+            ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
+            ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
+<!--            ref.addEventListener('exit', function(event) { alert(event.type); });-->
+<!--            -->
+<!--            setTimeout(function() {-->
+<!--                       ref.close();-->
+<!--                       }, 5000);-->
+        }
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "openURL('mqqapi://');">openAPP（比如打开QQ）</div><br/>
+      <div class = "btn bg_2" onclick = "openURL('http://app.hzswdx.gov.cn:81/CollegeAPPIOS/api/getAttach/action/getAttach/XFBsYWNhcmRcVFpHR1wyMDE2LTA3XDE4MjY1OWUwNWYxNzQxYTdiYTUwYTYzYjAxMTNhNjFkLmRvY3g=');">（打开网页）</div><br/>
+      <div class = "btn bg_3" onclick = "openURL('http://www.baidu.com');">openBaidu（打开普通网页比如百度）</div><br/>
+      <div class = "btn bg_1" onclick= "goHome();">返回</div><br/>
+  </body>
+</html>

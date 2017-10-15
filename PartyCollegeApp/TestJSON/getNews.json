@@ -1,0 +1,113 @@
+﻿{"Success":true,
+"Data":
+{"news":
+    [
+	 {"news_id":"1",
+	 "icon":"../img/dbtx.png",
+	 "title":"国务院常务会议部署推进公司注册资本登记制度改革",
+	 "teacher":"王老师",
+	 "number":"2.3",
+	 "button":"全部",
+	 "time":"2016.02.04",
+	 "course":"9.6分",
+	 "content":"法制晚报讯(记者 张丽 通讯员 陈紫琪)昨天，智联招聘发布2016年冬季北京雇主需求与白领人才供给报告。报告显示，北京地区2016年冬季求职期的企业平均招聘薪酬为税前9835元，在全国34个主要城市的薪酬水平中排名第一，招聘月薪税前8000元以上的职位占总量的46.2%"
+	 
+	 },
+
+	 {"news_id":"2",
+	 "icon":"../img/grrc.png",
+	 "title":"大黄鸭在北京两个月创收超两亿元 今日离京",
+	"teacher":"刘老师",
+	 "number":"2.36",
+	 "button":"部领导讲坛",
+	  "time":"2016.05.05",
+	 "course":"6.6分",
+	 "content":"具体来看，专业服务/咨询(财会/法律/人力资源等)的平均招聘月薪最高，为14607元;其次为租赁服务，薪酬水平为12976元;再次是跨领域经营，平均月薪为12400元"
+	 
+	 },
+	 
+	 {"news_id":"3",
+	 "icon":"../img/dyxx.png",
+	 "title":"java是一个面向对象的技术",
+	 "teacher":"张老师",
+	 "number":"4.3",
+	 "button":"环境政务管理"
+	 },
+	 
+	 {"news_id":"4",
+	"icon":"../img/dbtx.png",
+	 "title":"LinkedIn创始人：在见风投之前，我希望自己当时懂得这七件事...",
+	"teacher":"孙老师",
+	 "number":"3.43",
+	 "button":"环境规划"
+	 },
+	 
+	 {"news_id":"5",
+	  "icon":"../img/grrc.png",
+	 "title":"美国男子为防妻分家产 将价值50万美元黄金扔垃圾桶",
+	"teacher":"话老师",
+	 "number":"8.02",
+	 "button":"环境法规管理"
+	 },
+
+	 {"news_id":"6",
+	 "icon":"../img/grrc.png",
+	 "title":"日媒:中国首次抢发巡航钓鱼岛消息",
+	 "teacher":"小老师",
+	 "number":"2.73",
+	 "button":"环保人事"
+	 },
+
+	 {"news_id":"7",
+	 "icon":"../img/grrc.png",
+	 "title":"地道的农村婚宴流水席,土锅、大碗喜庆热闹",
+	"teacher":"画老师",
+	 "number":"4.3",
+	 "button":"环境监察"
+	 },
+
+	 {"news_id":"8",
+	"icon":"../img/grrc.png",
+	 "title":"据说暴走这游戏有魔性,好多美女主播都在玩!",
+	 "content":"",
+	"teacher":"王老师",
+	 "number":"2.3",
+	 "button":"生态保护环境"
+	 },
+
+	 {"news_id":"9",
+	"icon":"../img/grrc.png",
+	 "title":"习近平对G20峰会总结表彰做出重要指示!",
+	"teacher":"王老师",
+	 "number":"2.3",
+	 "button":"国际合作"
+	 },
+
+	 {"news_id":"10",
+	 "icon":"../img/grrc.png",
+	 "title":"自毁前程！巅峰时期去欧洲谋大合同，水土不服难回NBA",
+	"teacher":"王老师",
+	 "number":"2.3",
+	 "button":"自然监测"
+	 },
+
+	 {"news_id":"11",
+	"icon":"../img/grrc.png",
+	 "title":"现在的年轻人为什么会越来越穷？",
+	"teacher":"王老师",
+	 "number":"2.3",
+	 "button":"污染防治"
+	 },
+
+	 {"news_id":"12",
+	 "icon":"../img/grrc.png",
+	 "title":"打不好养着你，打好了送走你",
+	"teacher":"王老师",
+	 "number":"2.3",
+	 "button":"其他"
+	 }
+
+	
+	 ],
+	 "total_count":"12"}
+	 }

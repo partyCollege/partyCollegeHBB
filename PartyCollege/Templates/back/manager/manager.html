@@ -1,0 +1,174 @@
+﻿
+
+<style>
+    .grid1 {
+        width: 100%;
+        height: 500px;
+        margin-top: 5px;
+    }
+
+    .setadmin {
+        z-index: 9999;
+        position: absolute;
+        float: left;
+        top: 50px;
+        background: white;
+        width: 500px;
+        left: 200px;
+    }
+
+    .menuContent_admin {
+        width: 100%;
+        height: 350px;
+        overflow-y: scroll;
+    }
+
+    .searchcondation {
+        padding: 10px;
+    }
+    /*.ztree li span.button.icon01_ico_docu {
+        margin-right: 2px;
+        background: url(../img/1_1.png) no-repeat scroll 0 0 transparent;
+        vertical-align: top;
+        *vertical-align: middle;
+    }*/
+    /*.ztree li span.button.ico_docu {
+        background: url(../img/1_1.png) no-repeat scroll 0 0 transparent;
+        vertical-align: top;
+        vertical-align: middle;
+        width:16px;
+        height:16px;
+    }*/
+</style>
+<div class="wrapper-content wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="b-a bg-light dk r r-2x" style="border:0px solid red; height:560px; overflow:auto;">
+                <div department-tree selectnode="departmentnode" haschild="haschild" callback="goSearch"></div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <tabset>
+                    <tab heading="分级管理员列表">
+                        <div class="row form-group searchcondation">
+                            <div class="col-md-4">
+                                <label class="col-sm-4 control-label">姓名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search_admin.name" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-sm-4 control-label">登录名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" search-dbcolumn="logname" search-handle="like" search-dbtype="string" ng-model="search_admin.logname" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-info" ng-click="goSearch(1)">检索</button>
+                                <button class="btn btn-danger platformdisabled" ng-click="cacelAdmin()" ng-disabled="gridApiAdmin.selection.getSelectedRows().length !=1">取消管理员</button>
+                            </div>
+                        </div>
+                        <div id="grid1" ui-grid="gridOptionsAdmin" class="grid1" ui-grid-auto-resize ui-grid-selection></div>
+                    </tab>
+                    <tab heading="当前机构用户">
+                        <div class="row form-group searchcondation">
+                            <div class="col-md-4">
+                                <label class="col-sm-4 control-label">姓名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search.name" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-sm-4 control-label">登录名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" search-dbcolumn="logname" search-handle="like" search-dbtype="string" ng-model="search.logname" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-info" ng-click="goSearch(2)">检索</button>
+                                <a class="btn btn-primary platformdisabled" ng-disabled="gridApi.selection.getSelectedRows().length != 1" ng-click="setAdmin(1)">设为管理员</a>
+                            </div>
+                        </div>
+                        <div id="grid2" ui-grid="gridOptions" class="grid1" ui-grid-auto-resize ui-grid-pagination ui-grid-selection style="padding:10px"></div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="setAdmin" class="setadmin" ng-show="setAdminAttr.isOpen">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="setAdminAttr.change(false)" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <!--<div class="ibox-content">-->
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div id="menuContent_admin" class="menuContent_admin">
+                            <ul id="treeDemo_admin" class="ztree"></ul>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-info" ng-click="saveSetAdmin()" ng-disabled="setAdminAttr.isSaving">保存</button>
+                        <button class="btn btn-default" ng-click="setAdminAttr.change(false)">取消</button>
+                    </div>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="addAdmin.html">
+    <div class="modal-header text-right">
+        <button class="btn btn-warning btn-circle" ng-click="close()" type="button">
+            <i class="fa fa-times tubiaoicon-17"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3> 新增分级管理员</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <form method="get" class="form-horizontal" name="stuInfoForm">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>帐号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="addAdminInfo.logname" class="form-control" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-2 control-label"><span style="color:red;">*</span>密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="addAdminInfo.password" class="form-control" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button class="btn btn-info" ng-click="saveUser()" ng-disabled="stuInfoForm.$invalid">保存</button>
+                                <button class="btn btn-default" ng-click="close()">取消</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

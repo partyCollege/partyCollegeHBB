@@ -1,0 +1,12 @@
+﻿<div class="main">
+    <div class="stuCz_book_box">
+        <h3 class="text-center "><a ng-click="downloadpdf()"><i class="tubiaoicon-27"></i>查看pdf帮助文件</a></h3>
+        <div class="bookContent">
+            <img ng-src="{{helpimg}}" />
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="center">
+    <div pagination total-items="totalItems" items-per-page="pageSize" max-size="maxSize" ng-model="currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页"></div>
+</div>

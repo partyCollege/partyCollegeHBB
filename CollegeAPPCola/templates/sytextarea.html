@@ -1,0 +1,25 @@
+﻿
+
+
+<div style="margin:7px 2px;border:1px solid #ddd;">
+    <div class="list agreement-title" style="padding:10px;margin-bottom:10px;">
+        <!--style="height:20px;font-size:18px;padding:0px 10px;"-->
+		{{assignobj.orderIdx}}、{{assignobj.name}}
+    </div>
+    <div class="row" style="margin:0;">
+        <div class="col">
+            <div ng-show="assignobj.yp" style="font-size:18px;color:#888;">
+                {{assignobj.selectValue}}
+            </div>
+            <div ng-show="!assignobj.yp">
+                <label class="item item-input textarea">
+                    <md-input-container flex>
+                        <!--<label>请输入意见和建议</label>-->
+                        <textarea ng-model="assignobj.selectValue" cols="100%" md-maxlength="150"></textarea>
+                    </md-input-container>
+                </label>
+            </div>
+        </div>
+    </div>
+	
+</div>

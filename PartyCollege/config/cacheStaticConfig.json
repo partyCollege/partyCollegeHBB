@@ -1,0 +1,8 @@
+﻿[
+	{
+		"keyname": "getAllDepartment",
+		"keyarray": [],
+		"apiurl": "api/getAllDepartment",
+		"reqData": {}
+	}
+]

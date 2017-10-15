@@ -1,0 +1,85 @@
+﻿<div class="row" style="margin-top:5px;">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="get" class="form-horizontal">
+                    <div class="wrapper-content wrapper">
+                        <div class="row">
+                            <label class="col-sm-12 control-label" style="text-align: center;">评价等级</label>
+                        </div>
+                        <div class="row" ng-if="courseware.courseEditViewShow">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div ng-repeat="evaluate in coursewareeidt.evaluateData">
+                                    <label class="col-sm-2 control-label" style="margin-top:4px;">{{evaluate.showvalue}}</label>
+                                    <div class="col-sm-2" style="margin-top:4px;">
+                                        <select ng-model="evaluate.datavalue" class="form-control">
+                                            <option value="好">好</option>
+                                            <option value="中">中</option>
+                                            <option value="差">差</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div ng-repeat="keyitem in coursewareeidt.keyData">
+                                    <label class="col-sm-2 control-label">{{keyitem.showvalue}}</label>
+                                    <div class="col-sm-4">
+                                        <select ng-model="keyitem.datavalue" class="form-control">
+                                            <option ng-repeat="item in keyitem.itemData" ng-model="item.datavalue">{{item.showvalue}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="row" ng-if="courseware.courseEditViewShow==false">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div ng-repeat="item in coursewareeidt.evaluateData">
+                                    <label class="col-sm-2 control-label" style="margin-top:4px;">{{item.category}}</label>
+                                    <div class="col-sm-2 control-label" style="margin-top:4px;text-align:left;">
+                                        {{item.rate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div ng-repeat="keyitem in coursewareeidt.keyData">
+                                    <label class="col-sm-2 control-label">{{keyitem.category}}</label>
+                                    <div class="col-sm-4 control-label" style="text-align:left;">
+                                        {{keyitem.rate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-12 control-label" style="text-align: center;">评价</label>
+                        </div>
+                        <div class="row" ng-if="courseware.courseEditViewShow">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div summernote lang="zh-CN" ng-model="course.rate"></div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="row" ng-if="courseware.courseEditViewShow==false">
+                            <div class="form-group" style="margin-top:5px;">
+                                <div class="col-sm-12" ng-bind-html="course.rate">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" ng-click="saveExamine()" ng-if="courseware.courseEditViewShow">保存</button>
+                            <button class="btn btn-default" ng-click="goback()" ng-if="courseware.courseEditViewShow">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

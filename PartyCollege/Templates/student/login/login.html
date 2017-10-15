@@ -1,0 +1,395 @@
+﻿<div class="container">
+    <!--
+        作者：1350691651@qq.com
+        时间：2016-10-12
+        描述：登陆框
+    -->
+    <div class="pull-center content" ng-if="loginPanelStyle[0]">
+        <h3><i class="tubiaoicon-19"></i>用户登陆</h3>
+        <form class="form-group" action="">
+            <ul class="list-unstyled">
+                <li>
+                    <i class="tubiaoicon-44"></i><input class="form-control" type="text" placeholder="账号/手机号" ng-model="loginObj.logname" />
+                    <div class="loginTsBox" ng-if="loginError.isnamenull">
+                        <p>账号/手机号不能为空</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="tubiaoicon-43"></i><input class="form-control" type="password" placeholder="密码" ng-model="loginObj.logpwd" />
+                    <div class="loginTsBox" ng-if="loginError.ispwdnull">
+                        <p>密码不能为空</p>
+                    </div>
+                </li>
+                <li>
+                    <img class="pull-right" ng-src="{{loginVerifyCodeSrc}}" title="点击换一个"  ng-click="changeLoginVerifyCode()" /><i class="tubiaoicon-02"></i><input class="form-control yzm" type="text" placeholder="验证码" ng-model="loginObj.verifycode" maxlength="4" />
+                    <div class="loginTsBox" ng-if="loginError.isverifynull">
+                        <p>验证码不能为空</p>
+                    </div>
+                    <div class="loginTsBox" ng-if="loginError.isverifyfailed">
+                        <p>验证码错误</p>
+                    </div>
+                </li>
+                <li class="orange"><input type="checkbox" ng-model="loginObj.isremember" />记住用户名<a class="pull-right" ng-click="changePanel(5)">找回密码</a></li>
+                <li class="submit">
+                    <button class="btn btn-block" type="submit" ng-click="login()" btn-loading-text="登录中..." trigger-loading="beginLoading" ng-disabled="loginError.isloginin">登录</button>
+                    <div class="loginTsBox" ng-if="!loginError.isverifyfailed && loginError.isloginfailed">
+                        <p>{{loginError.message}}</p>
+                    </div>
+                </li>
+                <li class="submit"><button class="btn btn-block" type="button" ng-click="nextStep(2,false)">注册</button></li>
+            </ul>
+            <div class="bottom" ng-click="changePanel(1)">
+				<span>
+					微信服务号及APP应用下载
+				</span>
+				<!--<span><i class="icon icon_ios"></i>Ios</span>
+				<span><i class="icon icon_android"></i>Android</span>-->
+			</div>
+        </form>
+    </div>
+    <!--
+        作者：1350691651@qq.com
+        时间：2016-10-12
+        描述：下载APP
+    -->
+    <div class="pull-center content" ng-if="loginPanelStyle[1]">
+        <h3><i class="icon icon_ewm"></i>关注环保</h3>
+        <div class="text-center appXZ_box" action="" method="">
+			<p>
+				<img src="../img/android_rwm.png" width="80" alt="" />
+				<span>安卓版</span>
+			</p>
+			<p><img src="../img/ios_rwm.png" width="80" alt="" /> 
+				<span>IOS版</span>
+			</p>
+			<p>
+				<img src="../img/hbb8.png" width="80" />
+				<span>微信服务号</span>
+			</p>
+            <div class="bottom text-center" ng-click="changePanel(0)">
+                <a href="javascript:void(0);" class="orange" ng-click="nextStep(0,true)">返回登陆</a>
+            </div>
+        </div>
+    </div>
+    <!--
+         作者：1350691651@qq.com
+         时间：2016-10-12
+         描述：注册1
+    -->
+    <div class="register" ng-if="loginPanelStyle[2]">
+        <div class="content ">
+            <h2>
+                <span class="active">1 填写验证信息</span>
+                <span>2 填写注册信息</span>
+                <span>3 设置密码</span>
+                <span>4 完成注册</span>
+            </h2>
+            <form name="validateForm" method="post" class="no-error-form" novalidate>
+                <ul>
+                    <li>
+                        <label><b>*</b>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+						<input type="text"
+                                ng-model="registerObj.name"
+                                autocomplete="off"
+                                name="name"
+                                validator="required"
+                                required-error-message="*" />
+                        <p class="ts">注：请填写本人真实姓名。</p>
+                        <p class="orange error"
+                           ng-if="registerError.style[0]"
+                           ng-bind="registerError.message"></p>
+                    </li>
+					<li>
+						<label><b>*</b>手机号：</label>
+							<input class="phone" type="text" id="telphone"
+							autocomplete="off"
+							name="telphone"
+							ng-model="registerObj.cellphone"
+							maxlength="11"
+							validator="cellphone"
+							cellphone-error-message="请输入有效的手机号码" />
+						<p class="ts">注：请填写常用手机号码。</p>
+						<p class="orange error" ng-if="registerError.style[11]" ng-bind="registerError.message"></p>
+					</li>
+                    <li>
+                        <label><b>*</b>所属机构：</label> <input type="text"
+                                                            id="txtdepartment"
+                                                            readonly="readonly"
+                                                            ng-click="departmentShow()"
+                                                            ng-model="registerObj.departmentname"
+                                                            autocomplete="off"
+                                                            name="departmentname"
+                                                            validator="required"
+                                                            required-error-message="*" style="margin-left: -5px;" />
+                        <p class="ts">注：请选择所在部门或单位</p>
+                        <p class="orange error" ng-if="registerError.style[1]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>同事 (一)：</label><input class="phone"
+                                                             type="text"
+                                                             ng-model="registerObj.colleague1"
+                                                             autocomplete="off"
+                                                             name="colleague1"
+                                                             validator="required"
+                                                             required-error-message="*" />
+                        <p class="ts">注：请填写本单位另一位同事姓名</p>
+                        <p class="orange error" ng-if="registerError.style[2]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>同事 (二)：</label><input type="text"
+                                                             ng-model="registerObj.colleague2"
+                                                             autocomplete="off"
+                                                             name="colleague2"
+                                                             validator="required"
+                                                             required-error-message="*" />
+                        <p class="ts">注：请填写本单位另一位同事姓名</p>
+                        <p class="orange error" ng-if="registerError.style[3]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li class="submit">
+						<button class="btn" type="button" tabindex="100" ng-click="goBackIndex()">返回</button>
+						<button class="btn" type="submit" tabindex="99" ng-click="nextStep(3,false)" ng-disabled="validateForm.$invalid">下一步</button>
+                        <!--<button class="btn" type="submit" ng-click="nextStep(3,false)">下一步</button>-->
+                    </li>
+                </ul>
+            </form>
+
+        </div>
+    </div>
+    <!--
+         作者：1350691651@qq.com
+         时间：2016-10-12
+         描述：注册2
+    -->
+    <div class="register" ng-if="loginPanelStyle[3]">
+        <div class="content ">
+            <h2>
+                <span class="active">1 填写验证信息</span>
+                <span class="active">2 填写注册信息</span>
+                <span>3 设置密码</span>
+                <span>4 完成注册</span>
+            </h2>
+            <form name="registerForm" method="post">
+                <ul>
+                    <li>
+                        <label><b>*</b>职务级别：</label><select ng-model="registerObj.rank">
+                            <option ng-repeat="p in levelArr" ng-value="p.showvalue" >{{p.showvalue}}</option><!--value="{{p.showvalue}}"-->
+                        </select>
+                        <p class="orange error" ng-if="registerError.style[4]" ng-bind="registerError.message"><!--职务级别与姓名不符--></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>安全码：</label> 
+                        <div class="pull-right "><img class="yzmImg" ng-src="{{regVerifyCodeSrc}}" title="点击换一个" ng-click="changeRegVerifyCode()" /><span ng-click="changeRegVerifyCode()">换一张</span></div>
+                        <input class="yzm"
+                               type="text"
+                               autocomplete="off"
+                               name="verifycode"
+                               ng-model="registerObj.verifycode"
+                               validator="required"
+                               maxlength="4"
+                               required-error-message="*" style="margin-left: -5px;" />
+                        <p class="orange error" ng-if="registerError.style[5]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>手机号：</label>
+						<input class="phone" type="text" id="telphone"
+                            autocomplete="off"
+                            name="telphone"
+                            ng-model="registerObj.cellphone"
+							readonly="readonly"
+                            maxlength="11"
+                            validator="cellphone"
+                            cellphone-error-message="请输入有效的手机号码" />
+                        <p class="ts">注：请填写常用手机号码。</p>
+                        <p class="orange error" ng-if="registerError.style[7]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>验证码：</label><input class="dxyz"
+                                                          type="text"
+                                                          autocomplete="off"
+                                                          name="smscode"
+                                                          maxlength="6"
+                                                          ng-model="registerObj.smscode"
+                                                          validator="required"
+                                                          required-error-message="*" />
+						<button class="dxyz" type="button" ng-disabled="!isVerifyCode||registerForm.telphone.$invalid" ng-click="verifyCodeClick(registerObj.cellphone,registerObj.verifycode,'regverify',5)">{{btnVerifyCode}}</button>
+                        <p class="orange error" ng-if="registerError.style[6]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li class="submit">
+						<button class="btn" type="button" tabindex="100" ng-click="nextStep(2,true)">上一步</button>
+						<button class="btn" type="submit" tabindex="99" ng-click="nextStep(4,false)" ng-disabled="registerForm.$invalid">下一步</button>
+                        <!--<button class="btn" type="submit" ng-click="nextStep(4,false)">下一步</button>-->
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <!--
+         作者：1350691651@qq.com
+         时间：2016-10-12
+         描述：注册3
+    -->
+    <div class="register" ng-if="loginPanelStyle[7]">
+        <div class="content ">
+            <h2>
+                <span class="active">1 填写验证信息</span>
+                <span class="active">2 填写注册信息</span>
+                <span class="active">3 设置密码</span>
+                <span>4 完成注册</span>
+            </h2>
+            <form name="modifypwdForm" method="post" class="no-error-form">
+                <ul>
+
+                    <li>
+                        <label><b>*</b>登录用户：</label><label>{{registerObj.logname}}</label>
+                    </li>
+                    <li>
+                        <label><b>*</b>登录密码：</label>
+                        <input type="password"
+                               autocomplete="off"
+                               name="password1"
+                               ng-model="registerObj.password1"
+                               maxlength="18"
+                               validator="password"
+                               password-error-message="密码格式不正确" />
+                        <p class="ts">密码不得低于8位</p>
+                        <p class="orange error" ng-if="registerError.style[0]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>确认密码：</label>
+                        <input type="password"
+                               autocomplete="off"
+                               name="password2"
+                               ng-model="registerObj.password2"
+                               maxlength="18"
+                               validator="password"
+                               password-error-message="密码格式不正确" />
+                        <p class="ts">密码不得低于8位</p>
+                        <p class="orange error" ng-if="registerError.style[1]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li class="submit">
+                        <button class="btn" type="button" ng-click="nextStep(3,true)">上一步</button>
+                        <button class="btn" type="submit" ng-click="nextStep(7,false)" ng-disabled="modifypwdForm.$invalid">下一步</button>
+                        <!--<button class="btn" type="submit" ng-click="nextStep(7,false)">下一步</button>-->
+                    </li>
+                </ul>
+            </form>
+
+        </div>
+    </div>
+    <!--
+         作者：1350691651@qq.com
+         时间：2016-10-12
+         描述：注册4
+    -->
+
+    <div class="register" ng-if="loginPanelStyle[4]">
+        <div class="content ">
+            <h2>
+                <span class="active">1 填写验证信息</span>
+                <span class="active">2 填写注册信息</span>
+                <span class="active">3 设置密码</span>
+                <span class="active">4 完成注册</span>
+            </h2>
+            <div class="complete_box">
+                <p>恭喜您成功注册成为全国环保网络学院学员！</p>
+                <a href="" class="btn" ng-click="nextStep(0,true)">返回登录</a>
+            </div>
+        </div>
+    </div>
+    <!--找回密码 1-->
+    <div class="register" ng-if="loginPanelStyle[5]">
+        <div class="content ">
+            <h2 class="title">找回密码</h2>
+            <form name="findpwdForm" method="post" class="error-form">
+                <ul>
+                    <li>
+                        <label><b>*</b>手机号：</label><input class="phone" type="text"
+                                                          autocomplete="off"
+                                                          name="telphone"
+                                                          ng-model="findpwdObj.cellphone"
+                                                          maxlength="11"
+                                                          validator="cellphone"
+                                                          cellphone-error-message="手机号格式错误" />
+                        <p class="ts">注：请填写注册时使用的手机号码</p>
+                        <p class="orange error" ng-if="registerError.style[1]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>安全码：</label>
+                        <!--
+                        -->
+                        <div class="pull-right ">
+                            <img class="yzmImg" ng-src="{{findpwdVerifyCodeSrc}}" title="点击换一个" ng-click="changefindpwdVerifyCode()" />
+                            <span ng-click="changefindpwdVerifyCode()">换一张</span>
+                        </div>
+                        <!--
+                        -->
+                        <input class="yzm"
+                               type="text"
+                               autocomplete="off"
+                               name="yzmcode"
+                               ng-model="findpwdObj.yzmcode"
+                               validator="required"
+                               maxlength="4"
+                               required-error-message="*" />
+                        <p class="orange error" ng-if="registerError.style[0]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>验证码：</label><input class="yzm"
+                                                          type="text"
+                                                          autocomplete="off"
+                                                          name="smsyzmcode"
+                                                          maxlength="6"
+                                                          ng-model="findpwdObj.smsyzmcode"
+                                                          validator="required"
+                                                          required-error-message="*" />
+                        <button class="dxyz" type="button" ng-click="verifyCodeClick(findpwdObj.cellphone,findpwdObj.yzmcode,'findpwdverify',0)">{{btnVerifyCode}}</button>
+                        <p class="orange error" ng-if="registerError.style[2]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li class="submit">
+						<button class="btn" type="button" tabindex="100" ng-click="goBackIndex()">返回</button>
+                        <button class="btn" type="submit" tabindex="99" ng-click="nextStep(6,false)" ng-disabled="findpwdForm.$invalid">下一步</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <!--密码找回 2-->
+    <div class="register" ng-if="loginPanelStyle[6]">
+        <div class="content ">
+            <h2 class="title">找回密码</h2>
+            <form name="findpwdForm_2" method="post" class="error-form">
+                <ul>
+                    <li>
+                        <label><b>*</b>新 密 码：</label><input class="phone" type="password"
+                                                            autocomplete="off"
+                                                            name="password1"
+                                                            ng-model="findpwdObj.password1"
+                                                            maxlength="18"
+                                                            validator="password"
+                                                            password-error-message="密码格式不正确" />
+                        <p class="ts">密码不得低于8位</p>
+                        <p class="orange error" ng-if="registerError.style[4]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li>
+                        <label><b>*</b>确认密码：</label><input class="phone" type="password"
+                                                           autocomplete="off"
+                                                           name="password2"
+                                                           ng-model="findpwdObj.password2"
+                                                           maxlength="18"
+                                                           validator="password"
+                                                           password-error-message="密码格式不正确" />
+                        <p class="orange error" ng-if="registerError.style[5]" ng-bind="registerError.message"></p>
+                    </li>
+                    <li class="submit">
+                        <button class="btn" type="button" tabindex="100" ng-click="nextStep(5,true)">返回</button>
+                        <button class="btn" type="submit" ng-click="nextStep(8,false)" ng-disabled="findpwdForm_2.$invalid">确认</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+    <div id="menuContent" class="menuContent" style="display:none;position: absolute;z-index:9999;width:350px;height:400px; overflow:auto;background-color:#eee;">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>

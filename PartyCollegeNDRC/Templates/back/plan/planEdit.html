@@ -1,0 +1,61 @@
+﻿
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="widget style1 badge-primary">
+                    <div class="row vertical-align">
+                        <div class="col-md-12 text-center">
+                            <h3>年度计划</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal" id="planForm" name="planForm">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*计划年份:</label>
+                            <div class="col-sm-8">
+                                <select ng-model="plan.year" class="form-control">
+                                    <option ng-repeat="c in yearArr" ng-value="c">{{c}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*组织机构:</label>
+                            <div class="col-sm-8">
+                                <div tree-dialog ng-id="plan.orgcode" ng-select="selectnode"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*职级:</label>
+                            <div class="col-sm-8">
+                                <span ng-repeat="n in levelArr" style="width: 120px; display: inline-block; ">
+                                    <input type="checkbox" id="ckb-{{n.id}}" name="rank" ng-value="n.showvalue" value="n.showvalue" ng-click="checkRank(n)" />{{n.showvalue}}
+                                </span> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">*总学时:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control"
+                                       ng-model="plan.studytime"
+                                       name="studytime"
+                                       autocomplete="off"
+                                       validator="required"
+                                       required-error-message="总学时是必填的" />
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-danger" ng-click="save()" ng-disabled="planForm.$invalid">保  存</button>
+                            <button class="btn btn-default" ng-click="golist()"> 取  消 </button>
+                        </div>
+                    </form>
+                    <div id="menuContent" class="menuContent" style="display:none; position: absolute;z-index:9999;background-color:lightgray">
+                        <ul id="treeDemo" class="ztree" style="margin-top:0; width:300px;"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

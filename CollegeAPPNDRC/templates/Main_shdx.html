@@ -1,0 +1,245 @@
+﻿<style type="text/css">
+*{
+    font-family: "微软雅黑";
+}
+
+.row-div {
+    width: 33.3%;
+    text-align: center;
+}
+
+.row-div:last-child {
+    border-right: none;
+}
+
+.row-div p {
+    margin-top: 5px;
+}
+
+.slider-pager {
+    font-size: 8px;
+    bottom: 0px;
+    display: block;
+}
+
+.ion-record:before {
+    color: #C00000;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+.gray_bg{
+    background: #eee;
+    padding: 8px 0px 1px;
+}
+.gray_bg .white_block{
+    background: #fff;
+    margin: 0px 8px 8px;
+    border-radius: 8px;
+}
+.gray_bg .white_block .item{
+    background: none;
+    padding:15px;
+    margin: 0 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.gray_bg .white_block .item-thumbnail-left{
+    padding-left: 16px;
+}
+.gray_bg .white_block .item-thumbnail-left.paddingLeft100{
+    padding-left: 100px;
+}
+.noticeBtn{
+    width: 100%;
+    height: 35px;
+    padding: 0px 0px 0px 12px;
+    margin-top:4px;
+    text-align: left;
+    color: #272636;
+    border-bottom: 1px solid #ccc;
+}
+.noticeBtn span{
+    display:inline-block;
+    font-size: 17px;
+    border-bottom: 3px solid #a80004;
+    padding: 5px 5px 2px;
+}
+.noticeBtn .pull-right{
+    border: 0px;
+    padding: 5px 20px 0px 0px;
+    font-size: 16px;
+}
+.noticeCourse_bg{
+    width:100%;
+    background:#e4e4e4;
+    padding:10px 0 5px 0;
+}
+.noticeCourse {
+    margin:0;
+}
+.noticeCourse span{
+    background:url(../staticresource/course.png)no-repeat left center;
+    background-size:20px 20px;
+}
+.noticeList{
+    width:100%;
+    margin-top:10px;
+    padding:0 15px;
+}
+.noticeList p {
+    font-size:14px;
+    color:#333;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+.pageBottom{
+    padding: 15px 0px;
+    text-align: center;
+}
+.pageBottom span{
+    display: block;
+    font-size: 14px;
+}
+.pageBottom .row .col-25{
+    border-right: 1px solid #ccc;
+}
+.pageBottom .row .col-25:last-child{
+    border: 0px;
+}
+</style>
+<ion-view cache-view="false" title="" hide-nav-bar="true" style="background:url(../content/bg.jpg)  no-repeat;background-size:100% 240px;">
+    <ion-header-bar style='border:none; padding: 0px;'>
+        <div class="bcContainer">
+            <!--<h1 class="bcName" id="indextitle">
+                上海市委党校
+            </h1>-->
+            <img class="img-100bf" src="../img/sqTitle_Bg_shswdx.jpg" />
+            <button class="button button-icon icon ion-ios-search-strong" style="position:absolute;top:10px;right:10px;"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content style="background-color:#eee;z-index:21;top:15%" ng-style="myStyle" class="has-tabs">
+        <ion-refresher on-refresh="flash()" style="top:-55px;z-index:20"
+                       pulling-text="拖动刷新"
+                       refreshing-text="加载中"
+                       refreshing-icon="ion-loading-c"
+                       disable-pulling-rotation="true">
+        </ion-refresher>
+        <!--<ion-refresher class="has-header h"></ion-refresher>-->
+        <!--<div style=" background-color:#fff; padding-left:0%;padding-top:-0.8px">
+            <ion-slide-box does-continue="true" show-pager="true" auto-play="true" style="height:160px;">
+                <ion-slide ng-repeat="img in dataImageSource" show-pager="true" ng-click="goNewsDetail(img)" style="background: url({{img.title_pic}}) no-repeat;background-size: cover;">
+                    <h3>
+                        {{img.title | limitTo: 15}}{{img.title.length > 15 ? '...' : ''}}
+                    </h3>
+                </ion-slide>
+            </ion-slide-box>   
+        </div>
+        <ion-list class="index-middle">
+            <ion-item class="item mainpage">
+                <ion-slide-box show-pager="false" auto-play="false">
+                    <ion-slide ng-repeat="dataPage in datameSource">
+                        <div class="row">
+                            <div class="row-div rowDiv" ng-repeat="dataRow in dataPage.data" ng-click="gosub(dataRow)">
+                                <div style="position: relative;display: inline-block;">
+                                    <img class="img-50" ng-src="{{dataRow.image}}">
+                                </div>
+                                <p class="size-14">{{dataRow.title}}</p>
+                            </div>
+                        </div>
+                    </ion-slide>
+                </ion-slide-box>
+            </ion-item>
+        </ion-list>-->
+        <div class="gray_bg">
+            <div>
+                <!--<ion-item class="item item-thumbnail-left video-list paddingLeft100">
+                <img src="../img/tzggImg.jpg" ng-click="goDetail($index,hotItem);" class="md-whiteframe-z2" />
+                <span ng-click="goDetail($index,hotItem);" class="video-lis-text">大型反腐专题片《永远在路上》</span>
+            </ion-item>-->
+                <div class="indexNotice row clearfix">
+                    <span class="col-20" ng-click="goMore(39)"><i>通 知</i></span>
+                    <span ng-click="goDetail(dataitem);" ng-repeat="dataitem in tzgg" class="pull-right col-80 text-ellipsis">{{dataitem.subject}}</span>
+                </div>
+            </div>
+            <div class="white_block">
+                <ion-list>
+                    <div class="noticeBtn"><span><img src="../img/icon_jczx.png" class="titleImg" />决策咨询</span><span class="pull-right" ng-click="goMore(2)">更多</span></div>
+                    <ion-item style="padding:13px 10px;color:#999" ng-if="topggxx.length<=0">
+                        暂无决策咨询
+                    </ion-item>
+                    <div class="noticeList" ng-repeat="gg in topggxx">
+                        <p ng-click="goDetail(gg)" class="text-ellipsis">{{gg.subject}}</p>
+                    </div>
+                </ion-list>
+            </div>
+            <div class="white_block">
+                <div class="noticeBtn size-16"><span><img src="../img/icon_xytd.png" class="titleImg" />学员天地</span><span class="pull-right" ng-click="goMore(36)">更多</span></div>
+                <ion-item class="item row clearfix" ng-repeat="dataitem in bjxx">
+                    <div class="pull-left col-90" ng-click="goDetail(dataitem);">
+                        <img src="{{dataitem.title_pic}}" class="md-whiteframe-z2 border_radius hide" />
+                        <span ng-click="goDetail(dataitem);" class="hide">{{dataitem.name}}</span>
+                        <p class="text-ellipsis">{{dataitem.subject}}</p>
+                        <img src="../img/icon_hot.png" class="titleImg" /><img src="../img/icon_new.png" class="titleImg" />
+                        <p class="pull-right size-12" style="color:#999;margin-right:20px;">
+                            <i class="icon ion-android-alarm-clock icon-left size-18" style="vertical-align: middle;"> </i>
+                            {{dataitem.dateline}}
+                        </p>
+                    </div>
+                    <div class="pull-right col-10 text-right">
+                        <i class="icon ion-ios-arrow-right icon-right" style="margin-top:20px;font-size:30px;"></i>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="white_block">
+                <div class="noticeBtn gray_bg size-16"><span><img src="../img/icon_jbhc.png" class="titleImg" />简报荟萃</span><span class="pull-right">更多</span></div>
+                <ion-item class="row item" style="padding:10px;">
+                    <div class="col-25 text-center" ng-click="goMore(41)">
+                        <img src="../img/icon_ldgbb.png" class="col-60" />
+                        <div class="jbhcText size-14">领导干部班</div>
+                    </div>
+                    <div class="col-25 text-center" ng-click="goMore(42)">
+                        <img src="../img/icon_zqb.png" class="col-60" />
+                        <div class="jbhcText size-14">中青班</div>
+                    </div>
+                    <div class="col-25 text-center" ng-click="goMore(43)">
+                        <img src="../img/icon_zcb.png" class="col-60" />
+                        <div class="jbhcText size-14">正处班</div>
+                    </div>
+                    <div class="col-25 text-center" ng-click="goMore(44)">
+                        <img src="../img/icon_gwyb.png" class="col-60" />
+                        <div class="jbhcText size-14">公务员班</div>
+                    </div>
+                </ion-item>
+            </div>
+            <div>
+                <ion-item class="row">
+                    <div class="col-50 text-center" style="border-right:1px solid #ccc;" ng-click="goMore(45)">
+                        <img src="../img/icon_xlstw.png" class="bottomImg" />
+                        <span class="size-14" style="margin-left:10px;">向老师提问</span>
+                    </div>
+                    <div class="col-50 text-center" ng-click="goMore(46)">
+                        <img src="../img/icon_zlxz.png" style="margin-top:3%;" class="bottomImg" />
+                        <span class="size-14" style="margin-left:10px;">资料下载</span>
+                    </div>
+                </ion-item>
+            </div>
+            <iframe src="" id="discuzUrl" style="width:100%;height:100%; display:none;" />
+        </div>
+    </ion-content>
+</ion-view>
+

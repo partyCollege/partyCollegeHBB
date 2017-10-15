@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FileReader</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+    <script type="text/javascript" charset="utf-8" src="native.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        //alert("deviceready");
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+
+function readExitFile()
+{
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+                             fs.root.getFile("readme.txt", { create: true, exclusive: false }, function (fileEntry) {
+                                             
+                                             readFile(fileEntry);
+                                             
+                                             }, fail);
+                             
+                             }, fail);
+}
+    function readFile(fileEntry) {
+        
+        fileEntry.file(function (file) {
+                       
+                       var reader = new FileReader();
+                       
+                       reader.onloadend = function() {
+                       console.log("Successful file read: " + this.result);
+                       alert(fileEntry.fullPath + ": " + this.result);
+                       };
+                       
+                       reader.readAsText(file);
+                       
+                       }, fail);
+    }
+
+    function fail(error) {
+        console.log(error.code);
+        alert("ERROR : " + error);
+    }
+function goHome()
+{
+    window.location.href = "index.html";
+}
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "readExitFile();">readExitFile()读文件（此示例读取txt文件）</div><br/>
+      <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

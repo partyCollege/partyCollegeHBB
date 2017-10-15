@@ -1,0 +1,24 @@
+﻿<ion-view title="修改密码">
+    <go-main-page></go-main-page>
+    <ion-content class="has-header">
+        <div class="studentUserInfo">
+            <div>
+                <span>输入密码：</span>
+                <p>
+                    <input placeholder="请输入密码" maxlength="11" ng-model="changePsd.firstPsd" type="password" />
+                </p>
+            </div>
+            <div>
+                <span>确认密码：</span>
+                <p>
+                    <input placeholder="确认密码" maxlength="18" ng-model="changePsd.secondPsd" type="password" />
+                </p>
+            </div>            
+            <div id="submit" style="left:0px;bottom:0px;right:0px;height:64px;overflow:hidden;width:auto;padding:0px 20px; background:#ffffff;">
+                <button class="button button-assertive ty_font" ng-click="updateStuInfo()" style="min-height:35px;height:35px;line-height:35px;margin-top:15px;width:100%;border-radius:5px;">
+                    <!--<i class="ion-android-add" style="font-size:20px;margin-right:5px;"></i>-->保存
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,16 @@
+﻿
+<div class="main">
+    <div class="course_tj">
+        <h2 class="common"><b>教材推荐</b></h2>
+        <ul class="clearfix bookList page">
+            <li ng-repeat="item in bookData" ng-click="openBookinfo(item.id)">
+                <img ng-src="{{getImg(item.cover_servername,item.cover_servername,'bookPhoto')}}" onerror="this.scr = '../img/defaultcover.jpg'" />
+                <span>{{item.bookname}}</span>
+            </li>
+        </ul>
+        <div class="more" ng-if="moreShow" ng-click="loadMore()">
+            <span class="btn">显示更多</span>
+            <i class="icon icon_more"></i>
+        </div>
+    </div>
+</div>

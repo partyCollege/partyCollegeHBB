@@ -1,0 +1,18 @@
+﻿
+<div class="main">
+    <div class="course_tj">
+        <!--<h2 class="common many">
+            <b ng-class="{'select':config[0].newstype}" ng-click="selectNewsType(2)">通知公告</b>
+            <b ng-class="{'select':config[1].newstype}" ng-click="selectNewsType(3)">最新动态</b>
+            <b ng-class="{'select':config[2].newstype}" ng-click="selectNewsType(4)">政策法规</b>
+        </h2>-->
+        <ul class="list list-unstyled informList">
+            <li ng-repeat="item in config[newstype - 2].newslist" ng-click="openNewsDetail(item.id)">{{item.title}}<span class="pull-right time">{{item.publishtime | date:'yyyy.MM.dd'}}</span></li>
+        </ul>
+        <div class="more" ng-show="config[newstype - 2].moreShow" ng-click="loadMore()">
+            <span class="btn">显示更多</span>
+            <i class="icon icon_more"></i>
+        </div>
+
+    </div>
+</div>

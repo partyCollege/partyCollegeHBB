@@ -1,0 +1,15 @@
+﻿
+<ion-view title="学员须知">
+    <go-main-page></go-main-page>
+    <ion-content class="has-header" overflow-scroll="true">
+        <div class="xyxz_container">
+            <div class="xyxz_list" ng-repeat="item in xyxz">
+                <div class="item xyxz_list_hd" ng-click="changeDisplay(item.id)">
+                    {{item.title}}
+                    <i id="i{{item.id}}" class="ion-arrow-up-b"></i>
+                </div>
+                <div class="xyxz_list_bd" id="{{item.id}}" ng-bind-html="item.content"></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

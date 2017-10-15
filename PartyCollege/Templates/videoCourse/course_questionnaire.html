@@ -1,0 +1,25 @@
+﻿<div class="noPass"></div>
+<div class="pass"></div>
+<accordion close-others="oneAtATime">
+    <accordion-group ng-class="{'panel-danger': quest.isanswer==0, 'panel-success': quest.isanswer>0}" ng-repeat="quest in quests" ng-click="initOneQuest(status,quest)" is-open="status.open">
+        <accordion-heading>
+            {{quest.title}}<span class="pull-right"><span ng-if="quest.isanswer>0">已提交</span><i class="glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></span>
+        </accordion-heading>
+        <div ng-repeat="q in quest.questionnaires" style="margin-top:20px">
+            <h3>{{$index+1}}&nbsp;&nbsp;{{q.title}}&nbsp;&nbsp;&nbsp;&nbsp;({{q.category|quest_detailCategoryFilter}})</h3>
+            <div style="margin-left:16px;margin-top:10px" ng-if="q.category!=2" ng-repeat="answer in q.answers">
+                {{$index+1}})&nbsp;
+                <input type="radio" ng-if="q.category==0" ng-value="answer.id" ng-model="q.checked" name="{{q.id}}" />
+                <input type="checkbox" ng-if="q.category==1" ng-model="answer.checked" name="{{q.id}}" />
+                &nbsp;{{answer.answer}}
+            </div>
+            <div ng-if="q.category==2" style="margin-left:16px;margin-top:10px">
+                <textarea rows="5" cols="95" ng-if="q.category==2" ng-model="q.checked"></textarea>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-sm btn-danger" ng-if="quest.isanswer==0" ng-click="save(quest)">提交</button>
+        </div>
+    </accordion-group>
+
+</accordion>

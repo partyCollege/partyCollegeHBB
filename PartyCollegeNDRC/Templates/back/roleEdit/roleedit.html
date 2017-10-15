@@ -1,0 +1,55 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="row text-right">
+					<div class="widget style1 badge-primary">
+						<div class="row vertical-align">
+							<div class="col-md-12 text-center">
+								<h3>角色维护</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<form method="get" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" style="text-align:left;">角色名称</label>
+							<div class="col-sm-10"><input type="text" class="form-control" ng-model="roleForm.name"></div>
+						</div>
+						<!--<div class="form-group">
+							<label class="col-sm-2 control-label" style="text-align:left;">系统级角色</label>
+							<div class="col-sm-4"><input type="checkbox" ng-disabled="chooseSysLevel" ng-model="roleForm.syslevel" /></div>
+							<label class="col-sm-2 control-label" >是否可用</label>
+							<div class="col-sm-4"><input type="checkbox" ng-model="roleForm.enable" /></div>
+						</div>-->
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" style="text-align:left;">管理中心</label>
+						</div>
+						
+						<div ng-if="grp.category==2" ng-repeat="grp in roleForm.permissionGroupList" style="padding-left:50px;">
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="text-align:left;">{{grp.groupname}}</label>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="text-align:left;" ng-repeat="per in grp.permissionArray">
+									<input type="checkbox" title="{{per.comment}}" ng-model="per.selected" />{{per.name}}
+								</label>
+							</div>
+						</div>
+
+
+						<div class="text-center">
+							<button class="btn btn-primary" ng-click="saveRole();" ng-disabled="saveButtonDisabled">保存</button>
+							<button class="btn btn-default" ng-click="goToList();">取消</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

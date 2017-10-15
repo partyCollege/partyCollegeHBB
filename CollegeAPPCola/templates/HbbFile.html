@@ -1,0 +1,205 @@
+<ion-view title="学档"> 
+	<div class="h_Scourse-content h-file">
+		<ion-tabs class=" tabs-top h-Scontent-tab hbb-top-xkTabs"    delegate-handle="mainrecord-tab-handle">
+			<ion-tab title="总体情况"   ng-click="onTabClick(0)">
+				<ion-header-bar>
+					<label class="item-input item-stacked-label hbb-active-select-container" ng-click="showRankPopup()">
+						<input type="text" ng-model="info.year" readonly>
+						<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+					</label>
+				</ion-header-bar>
+				<ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+					<ion-content class="has-tabs">
+						<div class="wrap stu-file">
+							<div class="section" ng-repeat="item in datalistarchives">
+								<div class="tit" ng-click="onExpand(item);">
+									<a href="" class="flod">
+										<!--<img src="../img/student_file/arrow03.png" alt="open" />-->
+										<img ng-src="{{item.src}}" alt="open" />
+									</a>
+									<i class="year">{{item.year}}</i>
+									总共完成 <b class="c01">{{item.total_studytime}}</b> 学时，<br>
+									学习课件累计 <b class="c01">{{item.total_time_cn}}</b> 个小时。
+								</div>
+								<div class="text" ng-if="item.expand">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tables">
+										<tr>
+											<th width="25%" height="41px" align="center" bgcolor="#f5f5f5" scope="col">&nbsp;</th>
+											<th align="center" bgcolor="#f5f5f5" scope="col">课程</th>
+											<th align="center" bgcolor="#f5f5f5" scope="col">共计</th>
+											<th align="center" bgcolor="#f5f5f5" scope="col">已完成</th>
+											<th align="center" bgcolor="#f5f5f5" scope="col">完成率</th>
+										</tr>
+										<tr ng-if="item.yearplan_total==0">
+											<th align="center" height="41px" bgcolor="#f5f5f5" class="c01" scope="row">年度计划</th>
+											<td align="center">学时</td>
+											<td align="center" colspan="2">无</td>
+											<td align="center"><b class="c02 ">-</b></td>
+										</tr>
+										<tr ng-if="item.yearplan_total>0">
+											<th align="center" height="41px" bgcolor="#f5f5f5" class="c01" scope="row">年度计划</th>
+											<td align="center">学时</td>
+											<td align="center">{{item.yearplan_total}}</td>
+											<td align="center">{{item.yearplan_finished}}</td>
+											<td align="center"><b class="c02 ">{{item.yearplan_progess}}</b></td>
+										</tr>
+										<tr>
+											<th rowspan="2" align="center" bgcolor="#f5f5f5" class="c01" scope="row">参加{{item.class_classcount}}个学习班</th>
+											<td align="center" height="41px">课程</td>
+											<td align="center"><a ng-click="goToTabIndex('syclass',item.year);" class="but01">{{item.class_courseallcount}}</a></td>
+											<td align="center"><a ng-click="goToTabIndex('syclass',item.year);" class="but01">{{item.class_coursefinishedcount}}</a></td>
+											<td rowspan="2" align="center"><b class="c02 ">{{item.class_progess}}</b></td>
+										</tr>
+										<tr>
+											<td align="center" height="41px">学时</td>
+											<td align="center"><a ng-click="goToTabIndex('syclass',item.year);" class="but01">{{item.class_allstudytime}}</a></td>
+											<td align="center"><a ng-click="goToTabIndex('syclass',item.year);" class="but01">{{item.class_finishedstudytime}}</a></td>
+										</tr>
+										<tr>
+											<th align="center" height="41px" bgcolor="#f5f5f5" class="c01" scope="row">面授培训</th>
+											<td align="center">学时</td>
+											<td colspan="3" align="center"><a ng-click="goToTabIndex('train',item.year);" class="but01">{{item.train_studytime}}</a></td>
+										</tr>
+										<tr>
+											<th rowspan="2" align="center" bgcolor="#f5f5f5" class="c01" scope="row">选修学时</th>
+											<td align="center" height="41px">课程</td>
+											<td align="center"><a ng-click="goToTabIndex('choosemyself',item.year);" class="but01">{{item.choose_courseallcount}}</a></td>
+											<td align="center"><a ng-click="goToTabIndex('choosemyself',item.year);" class="but01">{{item.choose_coursefinishedcount}}</a></td>
+											<td rowspan="2" align="center"><b class="c01 ">{{item.choose_progess}}</b></td>
+										</tr>
+										<tr>
+											<td align="center" height="41px">学时</td>
+											<td align="center"><a ng-click="goToTabIndex('choosemyself',item.year);" class="but01">{{item.choose_allstudytime}}</a></td>
+											<td align="center"><a ng-click="goToTabIndex('choosemyself',item.year);" class="but01">{{item.choose_finishedstutytime}}</a></td>
+										</tr>
+									</table>
+									<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tables">
+										<tr>
+											<th width="25%" bgcolor="#F5F5F5" class="c01" scope="row">学习关键词</th>
+											<td>
+												<a ng-repeat="key in item.keywordsArr" href="javascript:void(0);" title="" class="but01">{{key}}</a>
+											</td>
+										</tr>
+										<tr>
+											<th bgcolor="#F5F5F5" class="c01" scope="row">
+												学习时间<br>
+												分布
+											</th>
+											<td>
+												<a href="javascript:void(0);" title="" class="but01">上午 {{item.time_morning}} </a>
+												<a href="javascript:void(0);" title="" class="but01">下午 {{item.time_noon}}</a>
+												<a href="javascript:void(0);" title="" class="but01">晚上 {{item.time_night}}</a>
+											</td>
+										</tr>
+										<tr>
+											<th bgcolor="#F5F5F5" class="c01" scope="row">学习频度</th>
+											<td>
+												您共登录了 <b class="c01 ">{{item.time_logincount}}</b> 次，{{item.year}}年第一次登录是
+												<b class=" c01">{{item.time_firstlogintime}}</b> ，最后一次登录是 <b class=" c01">{{item.time_lastlogintime}}</b> 。
+											</td>
+										</tr>
+										<tr>
+											<th bgcolor="#F5F5F5" class="c01" scope="row">评价与交流</th>
+											<td>
+												评价了 <b class="c01">{{item.appraise_appraisecount}}</b> 课程，提出了 <b class="c01">{{item.appraise_coursecount}}</b> 问题，共记录了
+												<b class="c01">{{item.appraise_notecount}}</b> 笔记。
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="section" ng-if="total.isshow">
+								<div class="tit"><i class="year">合计</i>总共完成 <b class="c01">{{total.totalstutytime}}</b> 学时，学习课件累计 <b class="c01">{{total.totaltimecn}}</b> 个小时。</div>
+							</div>
+						</div>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+
+			<ion-tab title="选学统计"  ng-click="onTabClick(1)">
+				<ion-header-bar>
+					<label class="item-input item-stacked-label hbb-active-select-container" ng-click="showRankPopup()">
+						<input type="text" ng-model="info.year" readonly>
+						<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+					</label>
+				</ion-header-bar>
+				<ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+					<ion-content class="h-Scontent-tab-view-content has-tabs">
+						<div class="face">
+							<ion-list class="list selectCourst-list" id="mainclass">
+								<ion-item class="item item-thumbnail-left" id="li" ng-repeat="item in datalist">
+									<span>{{item.coursewarename}}</span>
+									<!--<p class="main_time">开始时间 :<span class="main_time">{{item.createtime}}</span></p>
+									<p class="main_time">结束时间 :<span class="main_time">{{item.endtime}}</span></p>-->
+									<p class="main_time">学时：{{item.score}}</p>
+									<p class="main_schedule" ng-if="item.isfinished==1">已完成</p>
+									<p class="main_schedule" ng-if="item.isfinished==0">未完成</p>
+								</ion-item>
+					</ion-list>
+							<div class="hbb-course-empty-placeholder" ng-if="datalist.length<=0">
+								<i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+								<div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+							</div>
+						</div>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+
+			<ion-tab title="学习班统计"  ng-click="onTabClick(2)">
+				<ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+					<ion-header-bar>
+						<label class="item-input item-stacked-label hbb-active-select-container" ng-click="showRankPopup()">
+							<input type="text" ng-model="info.year" readonly>
+							<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+						</label>
+					</ion-header-bar>
+					<ion-content class="h-Scontent-tab-view-content has-tabs">
+						<div class="face">
+							<ion-list class="list selectCourst-list" id="mainclass">
+								<ion-item class="item item-thumbnail-left" id="li" ng-repeat="item in datalist">
+									<span>{{item.classname}}</span>
+									<p class="main_time">总计学时 :<span class="main_time">{{item.allstudytime}}</span></p>
+									<p class="main_time"> 总计完成学时：<span class="main_time">{{item.studytime}}</span></p>
+								</ion-item>
+					</ion-list>
+							<div class="hbb-course-empty-placeholder" ng-if="datalist.length<=0">
+								<i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+								<div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+							</div>
+						</div>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+       
+			<ion-tab title="面授培训" ng-click="onTabClick(3)">
+				<ion-view class="h-Scontent-tab-view" cache-view="false" style="margin-top: -1px;">
+					<ion-header-bar>
+						<label class="item-input item-stacked-label hbb-active-select-container" ng-click="showRankPopup()">
+							<input type="text" ng-model="info.year" readonly>
+							<i class="ion-arrow-down-b hbb-active-select-arrow"></i>
+						</label>
+					</ion-header-bar>
+					<ion-content class="h-Scontent-tab-view-content has-tabs face innerScrollHeight100">
+                        <!--<ion-refresher on-refresh="initTraining('new')" pulling-text="拖动刷新" refreshing-text="加载中"
+	                            refreshing-icon="ion-loading-c"  pulling-icon="ion-ios-arrow-down" >
+                        </ion-refresher>-->
+						<ion-list class="list selectCourst-list" id="mainclass">
+							<ion-item class="item item-thumbnail-left" id="li" ng-repeat="item in datalist" ng-click="openPopover(item)">
+								<span>{{item.title}}</span>
+								<p class="main_time">学时:<span class="main_time">{{item.studytime}}</span></p>
+								<p class="main_schedule" ng-class="{'hbb-passed-apply' : item.status == 2}">{{item.statusShow}}</p>
+							</ion-item>
+						</ion-list>
+						<div ng-if="datalist.length<=0" class="hbb-course-empty-placeholder">
+							<i class="ion-clipboard hbb-course-empty-placeholder-icon"></i><br />
+							<div class="hbb-course-empty-placeholder-tip">暂无内容</div>
+						</div>
+                        <!--!tainingMoreDataCanBeLoaded && <ion-infinite-scroll ng-if="tainingMoreDataCanBeLoaded" on-infinite="initTraining('more')" distance="3%" icon="ion-loading-c">
+                        </ion-infinite-scroll>-->
+						<button class="button button-full button-positive mspx_btn bottom" ng-click="openPopoverCreate()">面授申报</button>
+					</ion-content>
+				</ion-view>
+			</ion-tab>
+		</ion-tabs>
+	</div>
+</ion-view>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/style_box_demo.css">
+ <script type="text/javascript" charset="utf-8" src="native.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+        alert('onDeviceReady');
+    }
+
+    function start(){
+      alert("start");
+      xsfRecognition.start(function(result){
+        //alert(result.ls);
+        div1.innerHTML += "<br />" + result.results;
+      },function(err){
+        //
+      });
+      //
+    }
+        function goHome()
+        {
+            window.location.href = "index.html";
+        }
+    </script>
+  </head>
+  <body>
+      <br/>
+      <br/>
+      <div class = "btn bg_1" onclick = "start();">start开始</div><br/>
+      <div id="div1"></div>
+      <div class = "btn bg_1" onclick = "goHome();">返回</div><br/>
+  </body>
+</html>

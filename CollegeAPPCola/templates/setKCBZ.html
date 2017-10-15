@@ -1,0 +1,24 @@
+﻿<ion-view title="">
+    <ion-header-bar align-title="center" class="bar  bar-head bar-positive">
+        <h1 class="title">添加备注</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list text-center addRemark">
+            <textarea name="MSG" ng-model="nowclass.bz2" class="addRemark"></textarea>
+        </div>
+        <!--<div>
+            <button class="button button-block button-positive" ng-click="saveBZ()">保存</button>
+            <button class="button button-block button-stable" ng-click="displayPropbz()">取消</button>
+        </div>-->
+        <div class="row" style="margin-left:1px;">
+            <button class="button button-block button-positive" style="width:50%;" ng-click="saveBZ()">保存</button>
+            <button class="button button-block button-stable" style="width: 50%;" ng-click="displayPropbz()">取消</button>
+        </div>
+    </ion-content>
+    <!--<ion-nav-footer align-title="center" class="bar bar-footer">
+        <span class="alignCenter_block">
+            <button class="button button-block button-positive" ng-click="saveBZ()">保存</button>
+            <button class="button button-block button-positive" ng-click="displayPropbz()">取消</button>
+        </span>
+    </ion-nav-footer>-->
+</ion-view>

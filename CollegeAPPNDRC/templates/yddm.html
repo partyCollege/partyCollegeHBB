@@ -1,0 +1,36 @@
+﻿
+<ion-view>
+    <go-back my-title="历史点名"></go-back>
+    <ion-content class="has-header" style="top:47px;">
+        <div class="bar bar-header item-input-inset left">
+            <label class ="item-input-wrapper">
+                <i class ="icon ion-ios-search placeholder-icon"></i>
+                <input type="text" placeholder="查询" ng-model="keyqdword" maxlength="10">
+            </label>
+        </div>
+        <div ng-show="false" style="font-size:30px;color:#ccc;text-align:center;padding:50px 0px 0px;">
+            <i class="ion-clipboard" style="font-size:90px"></i><br /><br />
+        </div>
+        <ul>
+            <li class="item" ng-repeat="item in qDlist|queryStuList:keyqdword">
+                <div class="lsdmTitle size-14">{{item.bt}}</div>
+                <div class="clearfix">
+                    <p class="wdCount">未到：<a class="red" ng-click="viewStudent(item,1);">{{item.xycount-item.yqcount}}</a> </p>
+                    <p class="ydCount">已到：<a class="red" ng-click="viewStudent(item,0);">{{item.yqcount}}</a> </p>
+                </div>
+                <p>发起人：{{item.fqrname}}</p>
+                <p>发起时间：{{item.signbegin|date:'yyyy.MM.dd HH:mm'}}</p>
+                <p>结束时间：{{item.signend|date:'yyyy.MM.dd HH:mm'}}</p>
+            </li>
+        </ul>
+        <div class="text-center" ng-show="qDlist.length==0" style="color:#ccc; font-size:30px;border-bottom:0px;">
+            <i class="ion-clipboard" style="font-size:90px"></i>
+            <br />
+            <br />
+            无点名信息
+        </div>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded2" on-infinite="loadMoreQdList();" distance="1%" icon="ion-loading-d">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>
+

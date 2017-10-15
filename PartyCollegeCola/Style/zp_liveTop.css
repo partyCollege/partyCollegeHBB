@@ -1,0 +1,17 @@
+﻿*{
+    padding: 0px;
+    margin: 0px;
+}
+.zp_liveTop_box{
+    background: #262626;
+    padding: 2px 20px;
+}
+.zp_userImg{
+    float: right;
+}
+.zp_userImg img{
+    width: 38px;
+    height: 38px;
+    margin: 4px 10px 0px 0px;
+    border-radius: 50%;
+}

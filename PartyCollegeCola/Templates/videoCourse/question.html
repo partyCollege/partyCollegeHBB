@@ -1,0 +1,22 @@
+﻿
+<div class="title">
+    <div class="left">
+        <span ng-click="spanClick('myQuestionView')" ng-class="{'select':videoConfig.questionConfig[0].select}">我的提问</span>
+        <!--<span ng-click="spanClick('questionsView')" ng-class="{'select':videoConfig.questionConfig[1].select}">全部提问</span>-->
+    </div>
+    <div class="right" ng-if="videoConfig.questionConfig[0].show">
+        <span ng-click="questionDataOrder(1,0)" ng-class="{'select':myConfig[0].questionTimeSelect}"><i ng-class="myConfig[0].questionTime"></i>时间</span>
+        <span ng-click="questionDataOrder(2,0)" ng-class="{'select':myConfig[0].questionPopularitySelect}"><i ng-class="myConfig[0].questionPopularity"></i>人气</span>
+    </div>
+    <div class="right" ng-if="videoConfig.questionConfig[1].show">
+        <span ng-click="questionDataOrder(1,1)" ng-class="{'select':myConfig[1].questionTimeSelect}"><i ng-class="myConfig[1].questionTime"></i>时间</span>
+        <span ng-click="questionDataOrder(2,1)" ng-class="{'select':myConfig[1].questionPopularitySelect}"><i ng-class="myConfig[1].questionPopularity"></i>人气</span>
+    </div>
+    <div class="clear"></div>
+</div>
+<div ui-view name="myQuestionView" ng-if="videoConfig.questionConfig[0].show">
+
+</div>
+<div ui-view name="questionsView" ng-if="videoConfig.questionConfig[1].show">
+
+</div>
