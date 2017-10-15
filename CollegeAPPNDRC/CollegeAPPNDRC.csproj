@@ -103,23 +103,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Aspose.Words.dll" />
-    <Content Include="bin\CollegeAPP.dll" />
-    <Content Include="bin\CollegeAPP.pdb" />
     <Content Include="bin\Ionic.Zlib.dll" />
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
     <Content Include="bin\NPOI.dll" />
     <Content Include="bin\PartyCollegeUtil.dll" />
     <Content Include="bin\PartyCollegeUtil.pdb" />
     <Content Include="bin\Senparc.Weixin.dll" />
     <Content Include="bin\Senparc.Weixin.QY.dll" />
     <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
     <Content Include="bin\zh-Hans\System.Web.Http.resources.dll" />
     <Content Include="bin\zh-Hans\System.Web.Http.WebHost.resources.dll" />
     <Content Include="bower_components\angular-animate\angular-animate.js" />
@@ -2172,6 +2166,19 @@
     <Content Include="img\yzkb.png" />
     <Content Include="img\四川党校-120.png" />
     <Content Include="JS\mobiscroll.custom-2.17.1.min.js" />
+    <Content Include="lib\Aspose.Slides.dll" />
+    <Content Include="lib\Aspose.Words.dll" />
+    <Content Include="lib\Ionic.Zlib.dll" />
+    <Content Include="lib\Microsoft.QualityTools.Testing.Fakes.dll" />
+    <Content Include="lib\MySql.Data.dll" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\NPOI.dll" />
+    <Content Include="lib\QRCoder.dll" />
+    <Content Include="lib\Senparc.Weixin.dll" />
+    <Content Include="lib\Senparc.Weixin.QY.dll" />
+    <Content Include="lib\System.Net.Http.Formatting.dll" />
+    <Content Include="lib\System.Web.Http.dll" />
+    <Content Include="lib\System.Web.Http.WebHost.dll" />
     <Content Include="plugins\com.bridge.open\www\bridge.open.js" />
     <Content Include="plugins\com.hutchind.cordova.plugins.launcher\plugin.xml" />
     <Content Include="plugins\com.hutchind.cordova.plugins.launcher\www\Launcher.js" />
@@ -4181,7 +4188,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="ApiDoc\环保部接口说明.xlsx" />
-    <Content Include="bin\CollegeAPP.dll.config" />
     <Content Include="bower_components\angular-animate\.bower.json" />
     <Content Include="bower_components\angular-animate\angular-animate.min.js.map" />
     <Content Include="bower_components\angular-animate\bower.json" />
