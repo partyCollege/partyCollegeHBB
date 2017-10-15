@@ -14,11 +14,11 @@ namespace PartyCollegeUtil.Tools
     /// DES加密、解密类库，字符串加密结果使用BASE64编码返回，支持文件的加密和解密  
     /// Time:2010-04-30  
     /// Auther:Hyey.wl  
-    /// DES 的摘要说明。  
+    /// DES 的摘要说明。
     /// </summary>  
     public sealed class DES
     {
-		public static string NDRC_KEY_STRING = "ndrc@wlxy";
+        public static string NDRC_KEY_STRING = "ndrc@wlxy";
         #region  DES加解密方法及相关函数
 
         /// <summary>
@@ -492,4 +492,4 @@ namespace PartyCollegeUtil.Tools
         #endregion
     }
     #endregion
-}
+}  
