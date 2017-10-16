@@ -80,30 +80,6 @@ app.controller("bookListController", ['$rootScope', '$scope', '$http', '$locatio
 
 
 	}])
-app.controller("helpController", ['$rootScope', '$scope', '$http', '$location', 'getDataSource', "DateService", "GetFileService", "CommonService", "$stateParams", "$sce",
-	function ($rootScope, $scope, $http, $location, getDataSource, DateService, GetFileService, CommonService, $stateParams, $sce) {
-
-	    $scope.chooseMenu();
-	    var operationManualImgCount = $rootScope.appConfig.operationManualImgCount;
-	    $scope.maxSize = operationManualImgCount;
-	    $scope.totalItems = operationManualImgCount;
-	    $scope.pageSize = 1;
-	    $scope.currentPage = 1;
-
-	    $scope.pageChanged = function () {
-	    	//$scope.helpimg = GetFileService.showFile("operationManual", $scope.currentPage + ".png", $scope.currentPage + ".png")
-	    	$scope.helpimg = GetFileService.showFile("operationManual", $scope.currentPage + ".jpg", $scope.currentPage + ".jpg")
-	    }
-
-	    $scope.pageChanged();
-
-
-	    $scope.downloadpdf = function () {
-	        var filepath = GetFileService.showFile("operationManual", "help.pdf", "help.pdf");
-	        window.open(filepath);
-	    }
-
-	}])
 app.controller("downloadController", ['$rootScope', '$scope', '$http', '$location', 'getDataSource', "DateService", "GetFileService", "CommonService", "$stateParams", "$sce", "FilesService",
 	function ($rootScope, $scope, $http, $location, getDataSource, DateService, GetFileService, CommonService, $stateParams, $sce, FilesService) {
 
@@ -127,6 +103,30 @@ app.controller("downloadController", ['$rootScope', '$scope', '$http', '$locatio
 	    		return FilesService.downApiFiles("download", item.attach_servername, item.attach_clientname);
 	    	}
 	    }
+	}])
+app.controller("helpController", ['$rootScope', '$scope', '$http', '$location', 'getDataSource', "DateService", "GetFileService", "CommonService", "$stateParams", "$sce",
+	function ($rootScope, $scope, $http, $location, getDataSource, DateService, GetFileService, CommonService, $stateParams, $sce) {
+
+	    $scope.chooseMenu();
+	    var operationManualImgCount = $rootScope.appConfig.operationManualImgCount;
+	    $scope.maxSize = operationManualImgCount;
+	    $scope.totalItems = operationManualImgCount;
+	    $scope.pageSize = 1;
+	    $scope.currentPage = 1;
+
+	    $scope.pageChanged = function () {
+	    	//$scope.helpimg = GetFileService.showFile("operationManual", $scope.currentPage + ".png", $scope.currentPage + ".png")
+	    	$scope.helpimg = GetFileService.showFile("operationManual", $scope.currentPage + ".jpg", $scope.currentPage + ".jpg")
+	    }
+
+	    $scope.pageChanged();
+
+
+	    $scope.downloadpdf = function () {
+	        var filepath = GetFileService.showFile("operationManual", "help.pdf", "help.pdf");
+	        window.open(filepath);
+	    }
+
 	}])
 app.controller("indexController", ['$scope', '$timeout', '$interval', '$validation', '$rootScope', '$state',
 	'$http', '$modal', 'getDataSource', 'SessionService', 'GetFileService', 'CommonService', 'AccountService', 'dateFilter', 'smsService'

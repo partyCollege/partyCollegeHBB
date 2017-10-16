@@ -1370,6 +1370,124 @@ app.controller("booklistController", ["$scope", "$rootScope", "$modal", "$timeou
 	        $scope.loadGrid();
 	    }
 	}])
+app.controller("contentController", ['$scope', '$http', "getDataSource", "$rootScope","$modal", function ($scope, $http, getDataSource, $rootScope,$modal) {
+    getDataSource.getDataSource("gettbl", {}, function (data) {
+        //console.log(data);
+
+    });
+    $scope.peoples = [
+  { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States' },
+  { name: 'Amalie', email: 'amalie@email.com', age: 12, country: 'Argentina' },
+  { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
+  { name: 'Adrian', email: 'adrian@email.com', age: 21, country: 'Ecuador' },
+  { name: 'Wladimir', email: 'wladimir@email.com', age: 30, country: 'Ecuador' },
+  { name: 'Samantha', email: 'samantha@email.com', age: 30, country: 'United States' },
+  { name: 'Nicole', email: 'nicole@email.com', age: 43, country: 'Colombia' },
+  { name: 'Natasha', email: 'natasha@email.com', age: 54, country: 'Ecuador' },
+  { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia' },
+  { name: 'Nicolás', email: 'nicolas@email.com', age: 43, country: 'Colombia' }
+    ];
+
+    $scope.itemArray = [
+        { id: 1, name: 'first' },
+        { id: 2, name: 'second' },
+        { id: 3, name: 'third' },
+        { id: 4, name: 'fourth' },
+        { id: 5, name: 'fifth' },
+    ];
+
+    $scope.selected = { value: $scope.itemArray[0] };
+    $scope.open = function (size) {
+        window.open("http://www.baidu.com");
+        //var modalInstance = $modal.open({
+        //    templateUrl: 'myModalContent.html',
+        //    size: size,
+        //    resolve: {
+        //        items: function () {
+        //            return $scope.items;
+        //        }
+        //    }
+        //});
+
+        //modalInstance.result.then(function (selectedItem) {
+        //    $scope.selected = selectedItem;
+        //}, function () {
+        //    $log.info('Modal dismissed at: ' + new Date());
+        //});
+    };
+    $scope.pagingOptions = {
+        pageSizes: [10, 50, 100],
+        pageSize: 10,
+        currentPage: 1
+    };
+    $scope.gridOptions = {
+        data: 'data1',
+        enableCellSelection: true,
+        enablePaging: true,
+        showFooter: true,
+        enablePinning: true,
+        columnDefs: [
+                { field: "classroom", width: 120, pinned: true },
+                 { field: "id", width: 120 },
+                 { field: "name", width: 300 },
+                 { field: "createtime", width: 300 }
+        ], 
+        pagingOptions: $scope.pagingOptions,
+    };
+
+    getDataSource.getDataSource("gettbl", {}, function (data1) {
+        //var d1 = [];
+        //for (var c = 0; c < 200; c++) {
+        //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
+        //}
+
+
+
+        //$scope.gridOptions.columnDefs = [
+        //   { name: 'id', width: 200, enablePinning: false },
+        //  { name: 'name', width: 200, pinnedLeft: true },
+        //   { name: 'classsroom', width: 200, pinnedRight: true },
+        //   { name: 'myname', width: 150, enableCellEdit: true },
+        //   { name: 'wow', width: 150 },
+        //    { name: 'wow1', width: 150 },
+        //                { name: 'wow2', width: 300 },
+        //                        { name: 'wow3', width: 300 }
+        //];
+
+        $scope.data1 = data1;
+
+        //$scope.gridOptions = { data: $scope.myData};
+    });
+
+    //$scope.gridOptions = {};
+    //$scope.gridOptions.enableCellEditOnFocus = true;
+
+    //$scope.gridOptions.columnDefs = [
+    //  { name: 'id', enableCellEdit: false },
+    //  { name: 'age', enableCellEditOnFocus: false, displayName: 'age (f2/dblClick edit)', width: 200 },
+    //  { name: 'address.city', enableCellEdit: true, width: 300 },
+    //  { name: 'name', displayName: 'Name (editOnFocus)', width: 200 }
+    //];
+    //var d1 = [];
+    //for (var c = 0; c < 200; c++) {
+    //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
+    //}
+
+    //      $scope.gridOptions.data = d1;
+
+    //$scope.currentFocused = "";
+
+    //$scope.getCurrentFocus = function () {
+    //    var rowCol = $scope.gridApi.cellNav.getFocusedCell();
+    //    if (rowCol !== null) {
+    //        $scope.currentFocused = 'Row Id:' + rowCol.row.entity.id + ' col:' + rowCol.col.colDef.name;
+    //    }
+    //}
+
+    //$scope.gridOptions.onRegisterApi = function (gridApi) {
+    //    $scope.gridApi = gridApi;
+    //};
+}])
 angular.module("myApp")
 .controller("attachController", ['$rootScope', '$scope', 'getDataSource', "$state", '$stateParams', 'notify', '$modal', 'FilesService','DateService',
     function ($rootScope, $scope, getDataSource, $state, $stateParams, notify, $modal, FilesService, DateService) {
@@ -2901,124 +3019,6 @@ angular.module("myApp")
         }
     }
 }]);
-app.controller("contentController", ['$scope', '$http', "getDataSource", "$rootScope","$modal", function ($scope, $http, getDataSource, $rootScope,$modal) {
-    getDataSource.getDataSource("gettbl", {}, function (data) {
-        //console.log(data);
-
-    });
-    $scope.peoples = [
-  { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States' },
-  { name: 'Amalie', email: 'amalie@email.com', age: 12, country: 'Argentina' },
-  { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
-  { name: 'Adrian', email: 'adrian@email.com', age: 21, country: 'Ecuador' },
-  { name: 'Wladimir', email: 'wladimir@email.com', age: 30, country: 'Ecuador' },
-  { name: 'Samantha', email: 'samantha@email.com', age: 30, country: 'United States' },
-  { name: 'Nicole', email: 'nicole@email.com', age: 43, country: 'Colombia' },
-  { name: 'Natasha', email: 'natasha@email.com', age: 54, country: 'Ecuador' },
-  { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia' },
-  { name: 'Nicolás', email: 'nicolas@email.com', age: 43, country: 'Colombia' }
-    ];
-
-    $scope.itemArray = [
-        { id: 1, name: 'first' },
-        { id: 2, name: 'second' },
-        { id: 3, name: 'third' },
-        { id: 4, name: 'fourth' },
-        { id: 5, name: 'fifth' },
-    ];
-
-    $scope.selected = { value: $scope.itemArray[0] };
-    $scope.open = function (size) {
-        window.open("http://www.baidu.com");
-        //var modalInstance = $modal.open({
-        //    templateUrl: 'myModalContent.html',
-        //    size: size,
-        //    resolve: {
-        //        items: function () {
-        //            return $scope.items;
-        //        }
-        //    }
-        //});
-
-        //modalInstance.result.then(function (selectedItem) {
-        //    $scope.selected = selectedItem;
-        //}, function () {
-        //    $log.info('Modal dismissed at: ' + new Date());
-        //});
-    };
-    $scope.pagingOptions = {
-        pageSizes: [10, 50, 100],
-        pageSize: 10,
-        currentPage: 1
-    };
-    $scope.gridOptions = {
-        data: 'data1',
-        enableCellSelection: true,
-        enablePaging: true,
-        showFooter: true,
-        enablePinning: true,
-        columnDefs: [
-                { field: "classroom", width: 120, pinned: true },
-                 { field: "id", width: 120 },
-                 { field: "name", width: 300 },
-                 { field: "createtime", width: 300 }
-        ], 
-        pagingOptions: $scope.pagingOptions,
-    };
-
-    getDataSource.getDataSource("gettbl", {}, function (data1) {
-        //var d1 = [];
-        //for (var c = 0; c < 200; c++) {
-        //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
-        //}
-
-
-
-        //$scope.gridOptions.columnDefs = [
-        //   { name: 'id', width: 200, enablePinning: false },
-        //  { name: 'name', width: 200, pinnedLeft: true },
-        //   { name: 'classsroom', width: 200, pinnedRight: true },
-        //   { name: 'myname', width: 150, enableCellEdit: true },
-        //   { name: 'wow', width: 150 },
-        //    { name: 'wow1', width: 150 },
-        //                { name: 'wow2', width: 300 },
-        //                        { name: 'wow3', width: 300 }
-        //];
-
-        $scope.data1 = data1;
-
-        //$scope.gridOptions = { data: $scope.myData};
-    });
-
-    //$scope.gridOptions = {};
-    //$scope.gridOptions.enableCellEditOnFocus = true;
-
-    //$scope.gridOptions.columnDefs = [
-    //  { name: 'id', enableCellEdit: false },
-    //  { name: 'age', enableCellEditOnFocus: false, displayName: 'age (f2/dblClick edit)', width: 200 },
-    //  { name: 'address.city', enableCellEdit: true, width: 300 },
-    //  { name: 'name', displayName: 'Name (editOnFocus)', width: 200 }
-    //];
-    //var d1 = [];
-    //for (var c = 0; c < 200; c++) {
-    //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
-    //}
-
-    //      $scope.gridOptions.data = d1;
-
-    //$scope.currentFocused = "";
-
-    //$scope.getCurrentFocus = function () {
-    //    var rowCol = $scope.gridApi.cellNav.getFocusedCell();
-    //    if (rowCol !== null) {
-    //        $scope.currentFocused = 'Row Id:' + rowCol.row.entity.id + ' col:' + rowCol.col.colDef.name;
-    //    }
-    //}
-
-    //$scope.gridOptions.onRegisterApi = function (gridApi) {
-    //    $scope.gridApi = gridApi;
-    //};
-}])
 angular.module("myApp")
 .controller("courseAuthorizationController", ['$scope', '$modal', '$rootScope', '$timeout', 'getDataSource', '$stateParams', 'notify', '$state', "drawTable", "CommonService", "FilesService", function ($scope, $modal, $rootScope, $timeout, getDataSource, $stateParams, notify, $state, drawTable, CommonService, FilesService) {
     $scope.authorizationinfo = {
@@ -6115,11 +6115,6 @@ angular.module("myApp")
     $scope.loadGrid();
 }]);
 angular.module("myApp")
-.controller("departmentController", ['$rootScope', '$scope', 'getDataSource', "$state", '$stateParams', 'notify', '$modal', 'FilesService', 'DateService', '$timeout',
-    function ($rootScope, $scope, getDataSource, $state, $stateParams, notify, $modal, FilesService, DateService, $timeout) {
-
-    }]);
-angular.module("myApp")
 .controller("downloadController", ['$rootScope', '$scope', 'getDataSource', "$state", '$stateParams', 'notify', '$modal', 'FilesService', 'DateService',
     function ($rootScope, $scope, getDataSource, $state, $stateParams, notify, $modal, FilesService, DateService) {
 
@@ -8268,165 +8263,6 @@ function ($window, $scope, $rootScope, $modal, $rootScope, $timeout, getDataSour
         }
     }
 }]);
-app.controller("noticeController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state'
-	, function ($scope,$rootScope, $http, getDataSource, $state) {
-		var paginationOptions = {
-			pageNumber: 1,
-			pageSize: 25,
-			sort: null
-		};
-
-		$scope.gridOptions = {
-			paginationPageSizes: [25, 50, 75],
-			paginationPageSize: 25,
-			useExternalPagination: true,
-			data: [],
-			columnDefs: [
-                { name: '序号', field: "rownum", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-				{ name: '标题', field: "title", width: '30%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.title}}</a></div>' },
-				{ name: '内容', field: "content", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
-				{ name: '发布状态', field: "publishstate", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishstate == 0 ? "未发布" :"已发布"}}</div>' },
-                { name: '发布时间', field: "publishdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
-                { name: '发布人', field: "publishuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
-                { name: '创建时间', field: "createdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.createdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
-                { name: '创建人', field: "createuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-			],
-			onRegisterApi: function (gridApi) {
-				$scope.gridApi = gridApi;
-				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-					paginationOptions.pageNumber = newPage;
-					paginationOptions.pageSize = pageSize;
-					$scope.loadGrid();
-				});
-			}
-		};
-		$scope.goDetial = function (row) {
-			$state.go("index.noticeEdit", { id: row.entity.id });
-		}
-		$scope.search = {};
-
-		$scope.loadGrid = function () {
-			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
-			var pageSize = paginationOptions.pageSize;
-			var array = ["getAllNotice"];
-			getDataSource.getList(array, {  }
-				, { firstRow: firstRow, pageSize: pageSize }
-				, $scope.search, paginationOptions.sort
-				, function (data) {
-					$scope.gridOptions.totalItems = data[0].allRowCount;
-					$scope.gridOptions.data = data[0].data;
-				}, function (error) { });
-		}
-		$scope.loadGrid();
-		$scope.goSearch = function () {
-			$scope.gridOptions.paginationCurrentPage = 1;
-			$scope.loadGrid();
-		}
-}])
-app.controller("noticeEditController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state', '$stateParams', '$validation', 'notify'
-	, function ($scope, $rootScope, $http, getDataSource, $state, $stateParams, $validation, notify) {
-        
-	    $scope.currentConfig = {
-	        btnSaveShow: false,
-	        btnPublishShow: false,
-	        btnUnPublishShow: false,
-	    };
-
-		$scope.noticeData = {
-		    id:"",
-		    title: "",
-		    content: "",
-		    category: 0,
-		    createuser: $rootScope.user.name,
-		    createdate: "",
-		    publishuser: "",
-		    publishdate: "",
-		    publishstate : 0,
-		    isclose: 0,
-
-		};
-
-		var noticeId = $stateParams.id;
-		if (noticeId != undefined && noticeId != "") {
-		    $scope.noticeData.id = noticeId;
-		    //编辑，获取表单信息
-		    getDataSource.getDataSource("getNoticeById", { id: noticeId }, function (data) {
-		        $scope.noticeData = data[0];
-		        if ($scope.noticeData.publishstate == 0) {
-		            $scope.currentConfig.btnSaveShow = true;
-		            $scope.currentConfig.btnPublishShow = true;
-		            $scope.currentConfig.btnUnPublishShow = false;
-		        }
-		        else {
-		            $scope.currentConfig.btnSaveShow = false;
-		            $scope.currentConfig.btnPublishShow = false;
-		            $scope.currentConfig.btnUnPublishShow = true;
-		        }
-		    }, function (errortemp) { });
-		}
-		else {
-		    $scope.currentConfig.btnSaveShow = true;
-		    $scope.currentConfig.btnPublishShow = false;
-		    $scope.currentConfig.btnUnPublishShow = false;
-		}
-
-
-
-		$scope.goToList = function () {
-		    $state.go("index.notice");
-		}
-
-		$scope.saveDisabled = false;
-		$scope.savePermssion = function () {
-			$scope.saveDisabled = true;
-			getDataSource.getUrlData('../api/saveNotice', $scope.noticeData, function (datatemp) {
-				$scope.saveDisabled = false;
-				if (datatemp.code == "success") {
-					notify({ message: '保存成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-					$state.go("index.noticeEdit", { id: datatemp.id });
-				} else {
-					notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				}
-			}, function (errortemp) {
-				$scope.saveDisabled = false;
-				notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-			});
-		}
-
-		$scope.publishNotice = function () {
-		    getDataSource.getDataSource("publishNotice",
-                {
-                    publishuser: $rootScope.user.name,
-                    publishstate: 1,
-                    id: $scope.noticeData.id,
-                    title: $scope.noticeData.title,
-                    content: $scope.noticeData.content,
-                    category: $scope.noticeData.category,
-                    isclose: $scope.noticeData.isclose
-                }, function (data) {
-		        notify({ message: '发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		        $scope.currentConfig.btnSaveShow = false;
-		        $scope.currentConfig.btnPublishShow = false;
-		        $scope.currentConfig.btnUnPublishShow = true;
-		    }, function (error) {
-		        notify({ message: '发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		    })
-		}
-
-		$scope.unpublishNotice = function () {
-		    getDataSource.getDataSource("publishUnNotice", { id: $scope.noticeData.id }, function (data) {false
-		        notify({ message: '撤销发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		        $scope.currentConfig.btnSaveShow = true;
-		        $scope.currentConfig.btnPublishShow = true;
-		        $scope.currentConfig.btnUnPublishShow = false;
-		    }, function (error) {
-		        notify({ message: '撤销发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		    })
-		}
-	}
-]);
 angular.module("myApp")
 .controller("newsController", ["$scope", "$rootScope", "getDataSource", "$state", 'notify', '$timeout', '$modal', function ($scope, $rootScope, getDataSource, $state, notify, $timeout, $modal) {
     var paginationOptions = {
@@ -9233,6 +9069,165 @@ app.controller("permissionEditController", ['$scope', '$rootScope', '$http', 'ge
 			}, function (errortemp) {
 				notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
 			});
+		}
+	}
+]);
+app.controller("noticeController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state'
+	, function ($scope,$rootScope, $http, getDataSource, $state) {
+		var paginationOptions = {
+			pageNumber: 1,
+			pageSize: 25,
+			sort: null
+		};
+
+		$scope.gridOptions = {
+			paginationPageSizes: [25, 50, 75],
+			paginationPageSize: 25,
+			useExternalPagination: true,
+			data: [],
+			columnDefs: [
+                { name: '序号', field: "rownum", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+				{ name: '标题', field: "title", width: '30%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.title}}</a></div>' },
+				{ name: '内容', field: "content", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
+				{ name: '发布状态', field: "publishstate", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishstate == 0 ? "未发布" :"已发布"}}</div>' },
+                { name: '发布时间', field: "publishdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
+                { name: '发布人', field: "publishuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
+                { name: '创建时间', field: "createdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.createdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
+                { name: '创建人', field: "createuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+			],
+			onRegisterApi: function (gridApi) {
+				$scope.gridApi = gridApi;
+				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+					paginationOptions.pageNumber = newPage;
+					paginationOptions.pageSize = pageSize;
+					$scope.loadGrid();
+				});
+			}
+		};
+		$scope.goDetial = function (row) {
+			$state.go("index.noticeEdit", { id: row.entity.id });
+		}
+		$scope.search = {};
+
+		$scope.loadGrid = function () {
+			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
+			var pageSize = paginationOptions.pageSize;
+			var array = ["getAllNotice"];
+			getDataSource.getList(array, {  }
+				, { firstRow: firstRow, pageSize: pageSize }
+				, $scope.search, paginationOptions.sort
+				, function (data) {
+					$scope.gridOptions.totalItems = data[0].allRowCount;
+					$scope.gridOptions.data = data[0].data;
+				}, function (error) { });
+		}
+		$scope.loadGrid();
+		$scope.goSearch = function () {
+			$scope.gridOptions.paginationCurrentPage = 1;
+			$scope.loadGrid();
+		}
+}])
+app.controller("noticeEditController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state', '$stateParams', '$validation', 'notify'
+	, function ($scope, $rootScope, $http, getDataSource, $state, $stateParams, $validation, notify) {
+        
+	    $scope.currentConfig = {
+	        btnSaveShow: false,
+	        btnPublishShow: false,
+	        btnUnPublishShow: false,
+	    };
+
+		$scope.noticeData = {
+		    id:"",
+		    title: "",
+		    content: "",
+		    category: 0,
+		    createuser: $rootScope.user.name,
+		    createdate: "",
+		    publishuser: "",
+		    publishdate: "",
+		    publishstate : 0,
+		    isclose: 0,
+
+		};
+
+		var noticeId = $stateParams.id;
+		if (noticeId != undefined && noticeId != "") {
+		    $scope.noticeData.id = noticeId;
+		    //编辑，获取表单信息
+		    getDataSource.getDataSource("getNoticeById", { id: noticeId }, function (data) {
+		        $scope.noticeData = data[0];
+		        if ($scope.noticeData.publishstate == 0) {
+		            $scope.currentConfig.btnSaveShow = true;
+		            $scope.currentConfig.btnPublishShow = true;
+		            $scope.currentConfig.btnUnPublishShow = false;
+		        }
+		        else {
+		            $scope.currentConfig.btnSaveShow = false;
+		            $scope.currentConfig.btnPublishShow = false;
+		            $scope.currentConfig.btnUnPublishShow = true;
+		        }
+		    }, function (errortemp) { });
+		}
+		else {
+		    $scope.currentConfig.btnSaveShow = true;
+		    $scope.currentConfig.btnPublishShow = false;
+		    $scope.currentConfig.btnUnPublishShow = false;
+		}
+
+
+
+		$scope.goToList = function () {
+		    $state.go("index.notice");
+		}
+
+		$scope.saveDisabled = false;
+		$scope.savePermssion = function () {
+			$scope.saveDisabled = true;
+			getDataSource.getUrlData('../api/saveNotice', $scope.noticeData, function (datatemp) {
+				$scope.saveDisabled = false;
+				if (datatemp.code == "success") {
+					notify({ message: '保存成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+					$state.go("index.noticeEdit", { id: datatemp.id });
+				} else {
+					notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				}
+			}, function (errortemp) {
+				$scope.saveDisabled = false;
+				notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+			});
+		}
+
+		$scope.publishNotice = function () {
+		    getDataSource.getDataSource("publishNotice",
+                {
+                    publishuser: $rootScope.user.name,
+                    publishstate: 1,
+                    id: $scope.noticeData.id,
+                    title: $scope.noticeData.title,
+                    content: $scope.noticeData.content,
+                    category: $scope.noticeData.category,
+                    isclose: $scope.noticeData.isclose
+                }, function (data) {
+		        notify({ message: '发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		        $scope.currentConfig.btnSaveShow = false;
+		        $scope.currentConfig.btnPublishShow = false;
+		        $scope.currentConfig.btnUnPublishShow = true;
+		    }, function (error) {
+		        notify({ message: '发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		    })
+		}
+
+		$scope.unpublishNotice = function () {
+		    getDataSource.getDataSource("publishUnNotice", { id: $scope.noticeData.id }, function (data) {false
+		        notify({ message: '撤销发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		        $scope.currentConfig.btnSaveShow = true;
+		        $scope.currentConfig.btnPublishShow = true;
+		        $scope.currentConfig.btnUnPublishShow = false;
+		    }, function (error) {
+		        notify({ message: '撤销发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		    })
 		}
 	}
 ]);
@@ -11906,6 +11901,56 @@ angular.module("myApp")
 .controller("videoPerviewCtrl", ['$scope', function ($scope) {
 
 }]);
+app.controller("syroleController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', 'getDataSource'
+	, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource) {
+		var paginationOptions = {
+			pageNumber: 1,
+			pageSize: 25,
+			sort: null
+		};
+
+		$scope.gridOptions = {
+			paginationPageSizes: [25, 50, 75],
+			paginationPageSize: 25,
+			useExternalPagination: true,
+			data: [],
+			columnDefs: [
+              { name: '序号', field: "rownum", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+			  { name: '角色名称', field: "name", width: '55%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.name}}</a></div>' },
+			  { name: '级别', field: "syslevel", width: '35%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: 'sysLevelFilter' }
+			],
+			onRegisterApi: function (gridApi) {
+				$scope.gridApi = gridApi;
+				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+					paginationOptions.pageNumber = newPage;
+					paginationOptions.pageSize = pageSize;
+					$scope.loadGrid();
+				});
+			}
+		};
+		$scope.goDetial = function (row) {
+			$state.go("index.roleedit", { id: row.entity.id });
+		}
+		$scope.search = {};
+
+		$scope.loadGrid = function () {
+			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
+			var pageSize = paginationOptions.pageSize;
+			var array = ["getRoleList"];
+			getDataSource.getList(array, { platformid: $rootScope.user.platformid }
+				, { firstRow: firstRow, pageSize: pageSize }
+				, $scope.search, paginationOptions.sort
+				, function (data) {
+					$scope.gridOptions.totalItems = data[0].allRowCount;
+					$scope.gridOptions.data = data[0].data;
+
+				}, function (error) { });
+		}
+		$scope.loadGrid();
+		$scope.goSearch = function () {
+			$scope.loadGrid();
+		}
+}])
 angular.module("myApp")
 .controller("coursestatisticsController", ["$scope", "$rootScope", "getDataSource", "$state", 'notify', function ($scope, $rootScope, getDataSource, $state, notify) {
 
@@ -12386,56 +12431,6 @@ angular.module("myApp")
 
 
 }]);
-app.controller("syroleController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', 'getDataSource'
-	, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource) {
-		var paginationOptions = {
-			pageNumber: 1,
-			pageSize: 25,
-			sort: null
-		};
-
-		$scope.gridOptions = {
-			paginationPageSizes: [25, 50, 75],
-			paginationPageSize: 25,
-			useExternalPagination: true,
-			data: [],
-			columnDefs: [
-              { name: '序号', field: "rownum", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-			  { name: '角色名称', field: "name", width: '55%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.name}}</a></div>' },
-			  { name: '级别', field: "syslevel", width: '35%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: 'sysLevelFilter' }
-			],
-			onRegisterApi: function (gridApi) {
-				$scope.gridApi = gridApi;
-				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-					paginationOptions.pageNumber = newPage;
-					paginationOptions.pageSize = pageSize;
-					$scope.loadGrid();
-				});
-			}
-		};
-		$scope.goDetial = function (row) {
-			$state.go("index.roleedit", { id: row.entity.id });
-		}
-		$scope.search = {};
-
-		$scope.loadGrid = function () {
-			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
-			var pageSize = paginationOptions.pageSize;
-			var array = ["getRoleList"];
-			getDataSource.getList(array, { platformid: $rootScope.user.platformid }
-				, { firstRow: firstRow, pageSize: pageSize }
-				, $scope.search, paginationOptions.sort
-				, function (data) {
-					$scope.gridOptions.totalItems = data[0].allRowCount;
-					$scope.gridOptions.data = data[0].data;
-
-				}, function (error) { });
-		}
-		$scope.loadGrid();
-		$scope.goSearch = function () {
-			$scope.loadGrid();
-		}
-}])
 angular.module("myApp")
 .controller("roleEditController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', "getDataSource"
 	, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource) {
@@ -13672,3 +13667,8 @@ angular.module("myApp")
     }
     $scope.loadGrid();
 }]);
+angular.module("myApp")
+.controller("departmentController", ['$rootScope', '$scope', 'getDataSource', "$state", '$stateParams', 'notify', '$modal', 'FilesService', 'DateService', '$timeout',
+    function ($rootScope, $scope, getDataSource, $state, $stateParams, notify, $modal, FilesService, DateService, $timeout) {
+
+    }]);
