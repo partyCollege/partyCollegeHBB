@@ -3360,8 +3360,8 @@
     <Content Include="bower_components\ueditor1_4_3_3-utf8-net\utf8-net\ueditor.parse.js" />
     <Content Include="bower_components\ueditor1_4_3_3-utf8-net\utf8-net\ueditor.parse.min.js" />
     <Content Include="bower_components\ui-router-extras\gulpfile.js" />
-    <Content Include="bower_components\ui-router-extras\release\ct-ui-router-extras.js" />
-    <Content Include="bower_components\ui-router-extras\release\ct-ui-router-extras.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\ct-ui-routerextras.js" />
+    <Content Include="bower_components\ui-router-extras\release\ct-ui-routerextras.min.js" />
     <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.core.js" />
     <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.core.min.js" />
     <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.dsr.js" />
