@@ -1,297 +1,3 @@
-app.controller("accountController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', 'getDataSource', 'Base64'
-	, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource, Base64) {
-		var paginationOptions = {
-			pageNumber: 1,
-			pageSize: 25,
-			sort: null
-		};
-
-		//
-		$scope.gridOptions = {
-			paginationPageSizes: [25, 50, 75],
-			paginationPageSize: 25,
-			useExternalPagination: true,
-			data: [],
-			columnDefs: [
-			  { name: '登录名', field: "logname", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },//, cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.logname}}</a></div>'
-			  { name: '姓名', field: "name", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-			  { name: '性别', field: "sex", width: '7%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: 'sexFilter' },
-			  { name: '联系方式', field: "cellphone", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-			  { name: '创建时间', field: "createtime", width: '13%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "date:'yyyy-MM-dd HH:mm:ss'" },
-              { name: '职级', field: "rank", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-              { name: '所属机构', field: "departmentname", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-              { name: '激活状态', field: "signstatus", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "activeStatus" },
-              { name: '登录状态', field: "status", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "lockStatus" }
-			],
-			onRegisterApi: function (gridApi) {
-				$scope.gridApi = gridApi;
-				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-					paginationOptions.pageNumber = newPage;
-					paginationOptions.pageSize = pageSize;
-					$scope.loadGrid();
-				});
-			}
-		};
-		$scope.goDetial = function (row) {
-			$state.go("index.accountedit", { id: row.entity.id });
-		}
-		$scope.search = {}; 
-		$scope.search.signstatus = "1";
-		$scope.search.signstatus_dbcolumn = "signstatus";
-		$scope.search.signstatus_dbtype = "int";
-		$scope.search.signstatus_handle = "equal";
-
-		$scope.loadGrid = function (init) {
-		    if (init == 0){
-		    	//$scope.search_departmentid = $rootScope.user.departmentId;
-		    	$scope.search_departmentid = $rootScope.user.pids;
-		    }
-			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
-			var pageSize = paginationOptions.pageSize;
-			var array = ["getAllStudent"];
-			getDataSource.getList(array, { selectedpids: $scope.search_departmentid, selectedpids2: $scope.search_departmentid }
-			//getDataSource.getList(array, {}
-				, { firstRow: firstRow, pageSize: pageSize }
-				, $scope.search, paginationOptions.sort
-				, function (data) {
-				$scope.gridOptions.totalItems = data[0].allRowCount;
-				$scope.gridOptions.data = data[0].data;
-				}, function (error) { console.log(error); });
-		}
-		//$scope.loadGrid(0);
-
-		$scope.goSearch = function () {
-		    $scope.gridOptions.paginationCurrentPage = 1;
-		    $scope.gridOptions.totalItems = 0;
-		    $scope.gridOptions.data = [];
-			$scope.loadGrid();
-		}
-
-		//关闭模式窗口
-		$scope.close = function () {
-			$scope.modalInstance.dismiss('cancel');
-		}
-
-		$scope.ok = function () {
-			$scope.isAccept = true;
-			var lockArray = new Array();
-			var temp = new Object();
-			var selectRows = $scope.gridApi.selection.getSelectedRows();
-			var length = selectRows.length;
-			for (var i = 0; i < length; i++) {
-				temp = new Object();
-				temp.id = selectRows[i].id;
-				temp.status = 1;
-				lockArray.push(temp);
-			}
-			getDataSource.doArray("lockAccount", lockArray, function () {
-				notify({ message: '操作成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				$scope.loadGrid();
-			}, function (errortemp) {
-				notify({ message: '操作失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-			});
-			$scope.close();
-		}
-
-		$scope.lockUser = function () {
-			$scope.modalInstance = $modal.open({
-				templateUrl: 'confirm.html',
-				size: 'sm',
-				scope: $scope
-			});
-		}
-		$scope.unLockUser = function () {
-			var unlockArray = new Array();
-			var temp = new Object();
-			var selectRows = $scope.gridApi.selection.getSelectedRows();
-			var length = selectRows.length;
-			for (var i = 0; i < length; i++) {
-				temp = new Object();
-				temp.id = selectRows[i].id;
-				temp.status = 0;
-				unlockArray.push(temp);
-			}
-			getDataSource.doArray("lockAccount", unlockArray, function () {
-				notify({ message: '启用成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				$scope.loadGrid();
-			}, function (errortemp) {
-				notify({ message: '启用失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-			});
-		}
-
-		//重置密码，支持批量
-		$scope.resetUserPwd = function () {
-			$scope.modalInstance = $modal.open({
-				templateUrl: 'resetpwd.html',
-				size: 'lg',
-				scope: $scope
-			});
-
-			
-		}
-		$scope.accobj = {
-			submit: function () {
-				$scope.resetPwd();
-			}
-		};
-		$scope.resetbtn = false;
-		$scope.resetPwd = function () {
-			$scope.resetbtn = true;
-			var newpwdArray = new Array();
-			var temp = new Object();
-			var selectRows = $scope.gridApi.selection.getSelectedRows();
-			var length = selectRows.length;
-		    //var md5pwd = md5($scope.accobj.hashpwd);
-			var md5pwd = Base64.encode($scope.accobj.hashpwd); 
-			for (var i = 0; i < length; i++) {
-				temp = new Object();
-				temp.id = selectRows[i].id;
-				temp.newpwd = md5pwd;
-				newpwdArray.push(temp);
-			}
-			getDataSource.getUrlData("../api/account/resetuserpwd", newpwdArray, function () {
-				notify({ message: '密码重置成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				//$scope.loadGrid();
-				$scope.close();
-				$scope.resetbtn = false;
-			}, function (errortemp) {
-				notify({ message: '密码重置失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				$scope.resetbtn = false;
-			});
-		}
-
-		$scope.close = function () {
-			$scope.modalInstance.dismiss('cancel');
-		};
-
-		$scope.nodeselect = function (n) {
-			//$scope.search_departmentid = n.id;
-			$scope.search_departmentid = n.pids;
-		}
-}])
-angular.module("myApp")
-.controller("accountEditController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', "getDataSource"
-	, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource) {
-		$scope.accForm = new Object();
-		$scope.accForm.rolelist = new Array();
-		$scope.accForm.name = '';
-		$scope.accForm.logname = '';
-		$scope.accForm.pwd = '';
-		$scope.accForm.cellphone = '';
-		$scope.accForm.idcard = '';
-		$scope.accForm.accountid = '';
-
-		$scope.formInput = new Object();
-		$scope.formInput.lognameDisabled = true;
-		$scope.formInput.pwdDisabled = true;
-		$scope.formInput.idcardDisabled = true;
-		$scope.formInput.nameDisabled = true;
-		$scope.formInput.cellphoneDisabled = true;
-
-		$scope.formBtn = new Object();
-		$scope.formBtn.saveButtonDisabled = false;
-
-		var accid = $stateParams.id;
-		if (accid != "") {
-			$scope.accForm.accountid = accid;
-			getDataSource.getDataSource(["getAccountById", "getAccountRole"], { accid: accid }, function (data) {
-				$scope.accForm = _.find(data, { name: "getAccountById" }).data[0];
-				$scope.accForm.accountid = accid;
-				$scope.accForm.pwd = '******';
-
-				var accroles = _.find(data, { name: "getAccountRole" }).data;
-
-				var roles = _.filter(accroles, { accountid: accid });
-				var roletemp = new Object();
-				var rolearray = new Array();
-				var length = roles.length;
-				for (var i = 0; i < length; i++) {
-					roletemp = new Object();
-					roletemp.id = roles[i].id;
-					roletemp.name = roles[i].name;
-					roletemp.platformname = roles[i].platformname;
-					rolearray.push(roletemp);
-				}
-				$scope.accForm.rolelist = rolearray;
-
-			}, function (errortemp) { });
-		}
-		//else {
-		//	$scope.accForm.lognameDisabled = false;
-		//	$scope.accForm.pwdDisabled = false;
-		//}
-
-		getDataSource.getDataSource("getRoleList", { platformid: $rootScope.user.platformid}, function (data) {
-			var roletemp = new Object();
-			var rolearray = new Array();
-			var length = data.length;
-			for (var i = 0; i < length; i++) {
-				roletemp = new Object();
-				roletemp.id = data[i].id;
-				roletemp.name = data[i].name;
-				roletemp.platformname = data[i].platformname;
-				rolearray.push(roletemp);
-			}
-			$scope.roles = rolearray;
-		}, function (errortemp) { });
-
-		$scope.goToList = function () {
-			$state.go("index.account");
-		}
-
-		$scope.saveAccount = function () {
-			$scope.saveButtonDisabled = true;
-			getDataSource.getUrlData('../api/account/SaveAccount', $scope.accForm, function (datatemp) {
-				$scope.saveButtonDisabled = false;
-				if (datatemp.code == "success") {
-					notify({ message: '保存成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				} else {
-					notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				}
-			}, function (errortemp) {
-				$scope.saveButtonDisabled = false;
-			});
-		}
-	}
-]);
-app.controller("importaccController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', 'getDataSource', 'CommonService'
-, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource, CommonService) {
-	$scope.acclist = new Array();
-	$scope.textareastr = '';
-	$scope.disableBtn = false;
-	$scope.errorlist = new Array();
-	$scope.importAccount = function () {
-		$scope.disableBtn = true;
-		$scope.beginLoading = !$scope.beginLoading;
-		var data = $scope.textareastr.replace(new RegExp(/(	)/g), ',');
-		var dataarray = data.split('\n');
-		var length = dataarray.length;
-		var datarow = new Array();
-		//var submitrow = new Object();
-		var submitdata = new Array();
-		for (var i = 0; i < length; i++) {
-			datarow = dataarray[i].split(',');
-			datarow[2]=md5(datarow[2]);
-			submitdata.push(datarow);
-		}
-
-		getDataSource.getUrlData("../api/account/importAccount", { submitdata: submitdata }, function (datatemp) {
-			$scope.disableBtn = false;
-			$scope.beginLoading = false;
-			if (datatemp.code == "success") {
-				CommonService.alert(datatemp.message);
-				//console.log(datatemp.errorlist);
-				$scope.errorlist = datatemp.errorlist;
-			} else {
-				CommonService.alert(datatemp.message);
-			}
-		}, function (errortemp) {
-			
-			$scope.disableBtn = false;
-			CommonService.alert("注册失败");
-		});
-	}
-}]);
 angular.module("myApp")
 .controller("alumnusCoursewareController", ["$scope", "$rootScope", "getDataSource", "$state", 'notify', function ($scope, $rootScope, getDataSource, $state, notify) {
     var paginationOptions = {
@@ -1016,6 +722,300 @@ angular.module("myApp")
         }
     }
 }]);
+app.controller("accountController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', 'getDataSource', 'Base64'
+	, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource, Base64) {
+		var paginationOptions = {
+			pageNumber: 1,
+			pageSize: 25,
+			sort: null
+		};
+
+		//
+		$scope.gridOptions = {
+			paginationPageSizes: [25, 50, 75],
+			paginationPageSize: 25,
+			useExternalPagination: true,
+			data: [],
+			columnDefs: [
+			  { name: '登录名', field: "logname", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },//, cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.logname}}</a></div>'
+			  { name: '姓名', field: "name", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+			  { name: '性别', field: "sex", width: '7%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: 'sexFilter' },
+			  { name: '联系方式', field: "cellphone", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+			  { name: '创建时间', field: "createtime", width: '13%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "date:'yyyy-MM-dd HH:mm:ss'" },
+              { name: '职级', field: "rank", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+              { name: '所属机构', field: "departmentname", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+              { name: '激活状态', field: "signstatus", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "activeStatus" },
+              { name: '登录状态', field: "status", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "lockStatus" }
+			],
+			onRegisterApi: function (gridApi) {
+				$scope.gridApi = gridApi;
+				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+					paginationOptions.pageNumber = newPage;
+					paginationOptions.pageSize = pageSize;
+					$scope.loadGrid();
+				});
+			}
+		};
+		$scope.goDetial = function (row) {
+			$state.go("index.accountedit", { id: row.entity.id });
+		}
+		$scope.search = {}; 
+		$scope.search.signstatus = "1";
+		$scope.search.signstatus_dbcolumn = "signstatus";
+		$scope.search.signstatus_dbtype = "int";
+		$scope.search.signstatus_handle = "equal";
+
+		$scope.loadGrid = function (init) {
+		    if (init == 0){
+		    	//$scope.search_departmentid = $rootScope.user.departmentId;
+		    	$scope.search_departmentid = $rootScope.user.pids;
+		    }
+			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
+			var pageSize = paginationOptions.pageSize;
+			var array = ["getAllStudent"];
+			getDataSource.getList(array, { selectedpids: $scope.search_departmentid, selectedpids2: $scope.search_departmentid }
+			//getDataSource.getList(array, {}
+				, { firstRow: firstRow, pageSize: pageSize }
+				, $scope.search, paginationOptions.sort
+				, function (data) {
+				$scope.gridOptions.totalItems = data[0].allRowCount;
+				$scope.gridOptions.data = data[0].data;
+				}, function (error) { console.log(error); });
+		}
+		//$scope.loadGrid(0);
+
+		$scope.goSearch = function () {
+		    $scope.gridOptions.paginationCurrentPage = 1;
+		    $scope.gridOptions.totalItems = 0;
+		    $scope.gridOptions.data = [];
+			$scope.loadGrid();
+		}
+
+		//关闭模式窗口
+		$scope.close = function () {
+			$scope.modalInstance.dismiss('cancel');
+		}
+
+		$scope.ok = function () {
+			$scope.isAccept = true;
+			var lockArray = new Array();
+			var temp = new Object();
+			var selectRows = $scope.gridApi.selection.getSelectedRows();
+			var length = selectRows.length;
+			for (var i = 0; i < length; i++) {
+				temp = new Object();
+				temp.id = selectRows[i].id;
+				temp.status = 1;
+				lockArray.push(temp);
+			}
+			getDataSource.doArray("lockAccount", lockArray, function () {
+				notify({ message: '操作成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				$scope.loadGrid();
+			}, function (errortemp) {
+				notify({ message: '操作失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+			});
+			$scope.close();
+		}
+
+		$scope.lockUser = function () {
+			$scope.modalInstance = $modal.open({
+				templateUrl: 'confirm.html',
+				size: 'sm',
+				scope: $scope
+			});
+		}
+		$scope.unLockUser = function () {
+			var unlockArray = new Array();
+			var temp = new Object();
+			var selectRows = $scope.gridApi.selection.getSelectedRows();
+			var length = selectRows.length;
+			for (var i = 0; i < length; i++) {
+				temp = new Object();
+				temp.id = selectRows[i].id;
+				temp.status = 0;
+				unlockArray.push(temp);
+			}
+			getDataSource.doArray("lockAccount", unlockArray, function () {
+				notify({ message: '启用成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				$scope.loadGrid();
+			}, function (errortemp) {
+				notify({ message: '启用失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+			});
+		}
+
+		//重置密码，支持批量
+		$scope.resetUserPwd = function () {
+			$scope.modalInstance = $modal.open({
+				templateUrl: 'resetpwd.html',
+				size: 'lg',
+				scope: $scope
+			});
+
+			
+		}
+		$scope.accobj = {
+			submit: function () {
+				$scope.resetPwd();
+			}
+		};
+		$scope.resetbtn = false;
+		$scope.resetPwd = function () {
+			$scope.resetbtn = true;
+			var newpwdArray = new Array();
+			var temp = new Object();
+			var selectRows = $scope.gridApi.selection.getSelectedRows();
+			var length = selectRows.length;
+		    //var md5pwd = md5($scope.accobj.hashpwd);
+			var md5pwd = Base64.encode($scope.accobj.hashpwd); 
+			for (var i = 0; i < length; i++) {
+				temp = new Object();
+				temp.id = selectRows[i].id;
+				temp.newpwd = md5pwd;
+				newpwdArray.push(temp);
+			}
+			getDataSource.getUrlData("../api/account/resetuserpwd", newpwdArray, function () {
+				notify({ message: '密码重置成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				//$scope.loadGrid();
+				$scope.close();
+				$scope.resetbtn = false;
+			}, function (errortemp) {
+				notify({ message: '密码重置失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				$scope.resetbtn = false;
+			});
+		}
+
+		$scope.close = function () {
+			$scope.modalInstance.dismiss('cancel');
+		};
+
+		$scope.nodeselect = function (n) {
+			//$scope.search_departmentid = n.id;
+			$scope.search_departmentid = n.pids;
+		}
+}])
+angular.module("myApp")
+.controller("accountEditController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', "getDataSource"
+	, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource) {
+		$scope.accForm = new Object();
+		$scope.accForm.rolelist = new Array();
+		$scope.accForm.name = '';
+		$scope.accForm.logname = '';
+		$scope.accForm.pwd = '';
+		$scope.accForm.cellphone = '';
+		$scope.accForm.idcard = '';
+		$scope.accForm.accountid = '';
+
+		$scope.formInput = new Object();
+		$scope.formInput.lognameDisabled = true;
+		$scope.formInput.pwdDisabled = true;
+		$scope.formInput.idcardDisabled = true;
+		$scope.formInput.nameDisabled = true;
+		$scope.formInput.cellphoneDisabled = true;
+
+		$scope.formBtn = new Object();
+		$scope.formBtn.saveButtonDisabled = false;
+
+		var accid = $stateParams.id;
+		if (accid != "") {
+			$scope.accForm.accountid = accid;
+			getDataSource.getDataSource(["getAccountById", "getAccountRole"], { accid: accid }, function (data) {
+				$scope.accForm = _.find(data, { name: "getAccountById" }).data[0];
+				$scope.accForm.accountid = accid;
+				$scope.accForm.pwd = '******';
+
+				var accroles = _.find(data, { name: "getAccountRole" }).data;
+
+				var roles = _.filter(accroles, { accountid: accid });
+				var roletemp = new Object();
+				var rolearray = new Array();
+				var length = roles.length;
+				for (var i = 0; i < length; i++) {
+					roletemp = new Object();
+					roletemp.id = roles[i].id;
+					roletemp.name = roles[i].name;
+					roletemp.platformname = roles[i].platformname;
+					rolearray.push(roletemp);
+				}
+				$scope.accForm.rolelist = rolearray;
+
+			}, function (errortemp) { });
+		}
+		//else {
+		//	$scope.accForm.lognameDisabled = false;
+		//	$scope.accForm.pwdDisabled = false;
+		//}
+
+		getDataSource.getDataSource("getRoleList", { platformid: $rootScope.user.platformid}, function (data) {
+			var roletemp = new Object();
+			var rolearray = new Array();
+			var length = data.length;
+			for (var i = 0; i < length; i++) {
+				roletemp = new Object();
+				roletemp.id = data[i].id;
+				roletemp.name = data[i].name;
+				roletemp.platformname = data[i].platformname;
+				rolearray.push(roletemp);
+			}
+			$scope.roles = rolearray;
+		}, function (errortemp) { });
+
+		$scope.goToList = function () {
+			$state.go("index.account");
+		}
+
+		$scope.saveAccount = function () {
+			$scope.saveButtonDisabled = true;
+			getDataSource.getUrlData('../api/account/SaveAccount', $scope.accForm, function (datatemp) {
+				$scope.saveButtonDisabled = false;
+				if (datatemp.code == "success") {
+					notify({ message: '保存成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				} else {
+					notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				}
+			}, function (errortemp) {
+				$scope.saveButtonDisabled = false;
+			});
+		}
+	}
+]);
+app.controller("importaccController", ["$scope", "$rootScope", "$modal", "$timeout", '$stateParams', 'notify', '$state', 'getDataSource', 'CommonService'
+, function ($scope, $rootScope, $modal, $timeout, $stateParams, notify, $state, getDataSource, CommonService) {
+	$scope.acclist = new Array();
+	$scope.textareastr = '';
+	$scope.disableBtn = false;
+	$scope.errorlist = new Array();
+	$scope.importAccount = function () {
+		$scope.disableBtn = true;
+		$scope.beginLoading = !$scope.beginLoading;
+		var data = $scope.textareastr.replace(new RegExp(/(	)/g), ',');
+		var dataarray = data.split('\n');
+		var length = dataarray.length;
+		var datarow = new Array();
+		//var submitrow = new Object();
+		var submitdata = new Array();
+		for (var i = 0; i < length; i++) {
+			datarow = dataarray[i].split(',');
+			datarow[2]=md5(datarow[2]);
+			submitdata.push(datarow);
+		}
+
+		getDataSource.getUrlData("../api/account/importAccount", { submitdata: submitdata }, function (datatemp) {
+			$scope.disableBtn = false;
+			$scope.beginLoading = false;
+			if (datatemp.code == "success") {
+				CommonService.alert(datatemp.message);
+				//console.log(datatemp.errorlist);
+				$scope.errorlist = datatemp.errorlist;
+			} else {
+				CommonService.alert(datatemp.message);
+			}
+		}, function (errortemp) {
+			
+			$scope.disableBtn = false;
+			CommonService.alert("注册失败");
+		});
+	}
+}]);
 angular.module("myApp")
 .controller("addbookController", ["$scope",
     "$rootScope",
@@ -1370,6 +1370,124 @@ app.controller("booklistController", ["$scope", "$rootScope", "$modal", "$timeou
 	        $scope.loadGrid();
 	    }
 	}])
+app.controller("contentController", ['$scope', '$http', "getDataSource", "$rootScope","$modal", function ($scope, $http, getDataSource, $rootScope,$modal) {
+    getDataSource.getDataSource("gettbl", {}, function (data) {
+        //console.log(data);
+
+    });
+    $scope.peoples = [
+  { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States' },
+  { name: 'Amalie', email: 'amalie@email.com', age: 12, country: 'Argentina' },
+  { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
+  { name: 'Adrian', email: 'adrian@email.com', age: 21, country: 'Ecuador' },
+  { name: 'Wladimir', email: 'wladimir@email.com', age: 30, country: 'Ecuador' },
+  { name: 'Samantha', email: 'samantha@email.com', age: 30, country: 'United States' },
+  { name: 'Nicole', email: 'nicole@email.com', age: 43, country: 'Colombia' },
+  { name: 'Natasha', email: 'natasha@email.com', age: 54, country: 'Ecuador' },
+  { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia' },
+  { name: 'Nicolás', email: 'nicolas@email.com', age: 43, country: 'Colombia' }
+    ];
+
+    $scope.itemArray = [
+        { id: 1, name: 'first' },
+        { id: 2, name: 'second' },
+        { id: 3, name: 'third' },
+        { id: 4, name: 'fourth' },
+        { id: 5, name: 'fifth' },
+    ];
+
+    $scope.selected = { value: $scope.itemArray[0] };
+    $scope.open = function (size) {
+        window.open("http://www.baidu.com");
+        //var modalInstance = $modal.open({
+        //    templateUrl: 'myModalContent.html',
+        //    size: size,
+        //    resolve: {
+        //        items: function () {
+        //            return $scope.items;
+        //        }
+        //    }
+        //});
+
+        //modalInstance.result.then(function (selectedItem) {
+        //    $scope.selected = selectedItem;
+        //}, function () {
+        //    $log.info('Modal dismissed at: ' + new Date());
+        //});
+    };
+    $scope.pagingOptions = {
+        pageSizes: [10, 50, 100],
+        pageSize: 10,
+        currentPage: 1
+    };
+    $scope.gridOptions = {
+        data: 'data1',
+        enableCellSelection: true,
+        enablePaging: true,
+        showFooter: true,
+        enablePinning: true,
+        columnDefs: [
+                { field: "classroom", width: 120, pinned: true },
+                 { field: "id", width: 120 },
+                 { field: "name", width: 300 },
+                 { field: "createtime", width: 300 }
+        ], 
+        pagingOptions: $scope.pagingOptions,
+    };
+
+    getDataSource.getDataSource("gettbl", {}, function (data1) {
+        //var d1 = [];
+        //for (var c = 0; c < 200; c++) {
+        //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
+        //}
+
+
+
+        //$scope.gridOptions.columnDefs = [
+        //   { name: 'id', width: 200, enablePinning: false },
+        //  { name: 'name', width: 200, pinnedLeft: true },
+        //   { name: 'classsroom', width: 200, pinnedRight: true },
+        //   { name: 'myname', width: 150, enableCellEdit: true },
+        //   { name: 'wow', width: 150 },
+        //    { name: 'wow1', width: 150 },
+        //                { name: 'wow2', width: 300 },
+        //                        { name: 'wow3', width: 300 }
+        //];
+
+        $scope.data1 = data1;
+
+        //$scope.gridOptions = { data: $scope.myData};
+    });
+
+    //$scope.gridOptions = {};
+    //$scope.gridOptions.enableCellEditOnFocus = true;
+
+    //$scope.gridOptions.columnDefs = [
+    //  { name: 'id', enableCellEdit: false },
+    //  { name: 'age', enableCellEditOnFocus: false, displayName: 'age (f2/dblClick edit)', width: 200 },
+    //  { name: 'address.city', enableCellEdit: true, width: 300 },
+    //  { name: 'name', displayName: 'Name (editOnFocus)', width: 200 }
+    //];
+    //var d1 = [];
+    //for (var c = 0; c < 200; c++) {
+    //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
+    //}
+
+    //      $scope.gridOptions.data = d1;
+
+    //$scope.currentFocused = "";
+
+    //$scope.getCurrentFocus = function () {
+    //    var rowCol = $scope.gridApi.cellNav.getFocusedCell();
+    //    if (rowCol !== null) {
+    //        $scope.currentFocused = 'Row Id:' + rowCol.row.entity.id + ' col:' + rowCol.col.colDef.name;
+    //    }
+    //}
+
+    //$scope.gridOptions.onRegisterApi = function (gridApi) {
+    //    $scope.gridApi = gridApi;
+    //};
+}])
 angular.module("myApp")
 .controller("attachController", ['$rootScope', '$scope', 'getDataSource', "$state", '$stateParams', 'notify', '$modal', 'FilesService','DateService',
     function ($rootScope, $scope, getDataSource, $state, $stateParams, notify, $modal, FilesService, DateService) {
@@ -2901,124 +3019,6 @@ angular.module("myApp")
         }
     }
 }]);
-app.controller("contentController", ['$scope', '$http', "getDataSource", "$rootScope","$modal", function ($scope, $http, getDataSource, $rootScope,$modal) {
-    getDataSource.getDataSource("gettbl", {}, function (data) {
-        //console.log(data);
-
-    });
-    $scope.peoples = [
-  { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States' },
-  { name: 'Amalie', email: 'amalie@email.com', age: 12, country: 'Argentina' },
-  { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina' },
-  { name: 'Adrian', email: 'adrian@email.com', age: 21, country: 'Ecuador' },
-  { name: 'Wladimir', email: 'wladimir@email.com', age: 30, country: 'Ecuador' },
-  { name: 'Samantha', email: 'samantha@email.com', age: 30, country: 'United States' },
-  { name: 'Nicole', email: 'nicole@email.com', age: 43, country: 'Colombia' },
-  { name: 'Natasha', email: 'natasha@email.com', age: 54, country: 'Ecuador' },
-  { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia' },
-  { name: 'Nicolás', email: 'nicolas@email.com', age: 43, country: 'Colombia' }
-    ];
-
-    $scope.itemArray = [
-        { id: 1, name: 'first' },
-        { id: 2, name: 'second' },
-        { id: 3, name: 'third' },
-        { id: 4, name: 'fourth' },
-        { id: 5, name: 'fifth' },
-    ];
-
-    $scope.selected = { value: $scope.itemArray[0] };
-    $scope.open = function (size) {
-        window.open("http://www.baidu.com");
-        //var modalInstance = $modal.open({
-        //    templateUrl: 'myModalContent.html',
-        //    size: size,
-        //    resolve: {
-        //        items: function () {
-        //            return $scope.items;
-        //        }
-        //    }
-        //});
-
-        //modalInstance.result.then(function (selectedItem) {
-        //    $scope.selected = selectedItem;
-        //}, function () {
-        //    $log.info('Modal dismissed at: ' + new Date());
-        //});
-    };
-    $scope.pagingOptions = {
-        pageSizes: [10, 50, 100],
-        pageSize: 10,
-        currentPage: 1
-    };
-    $scope.gridOptions = {
-        data: 'data1',
-        enableCellSelection: true,
-        enablePaging: true,
-        showFooter: true,
-        enablePinning: true,
-        columnDefs: [
-                { field: "classroom", width: 120, pinned: true },
-                 { field: "id", width: 120 },
-                 { field: "name", width: 300 },
-                 { field: "createtime", width: 300 }
-        ], 
-        pagingOptions: $scope.pagingOptions,
-    };
-
-    getDataSource.getDataSource("gettbl", {}, function (data1) {
-        //var d1 = [];
-        //for (var c = 0; c < 200; c++) {
-        //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
-        //}
-
-
-
-        //$scope.gridOptions.columnDefs = [
-        //   { name: 'id', width: 200, enablePinning: false },
-        //  { name: 'name', width: 200, pinnedLeft: true },
-        //   { name: 'classsroom', width: 200, pinnedRight: true },
-        //   { name: 'myname', width: 150, enableCellEdit: true },
-        //   { name: 'wow', width: 150 },
-        //    { name: 'wow1', width: 150 },
-        //                { name: 'wow2', width: 300 },
-        //                        { name: 'wow3', width: 300 }
-        //];
-
-        $scope.data1 = data1;
-
-        //$scope.gridOptions = { data: $scope.myData};
-    });
-
-    //$scope.gridOptions = {};
-    //$scope.gridOptions.enableCellEditOnFocus = true;
-
-    //$scope.gridOptions.columnDefs = [
-    //  { name: 'id', enableCellEdit: false },
-    //  { name: 'age', enableCellEditOnFocus: false, displayName: 'age (f2/dblClick edit)', width: 200 },
-    //  { name: 'address.city', enableCellEdit: true, width: 300 },
-    //  { name: 'name', displayName: 'Name (editOnFocus)', width: 200 }
-    //];
-    //var d1 = [];
-    //for (var c = 0; c < 200; c++) {
-    //    d1.push({ id: c, classroom: "教室123" + c, createtime: (new Date()), name: "课程" + c, myname: '中国' + c, wow: c, wow1: c, wow2: c, wow3: c });
-    //}
-
-    //      $scope.gridOptions.data = d1;
-
-    //$scope.currentFocused = "";
-
-    //$scope.getCurrentFocus = function () {
-    //    var rowCol = $scope.gridApi.cellNav.getFocusedCell();
-    //    if (rowCol !== null) {
-    //        $scope.currentFocused = 'Row Id:' + rowCol.row.entity.id + ' col:' + rowCol.col.colDef.name;
-    //    }
-    //}
-
-    //$scope.gridOptions.onRegisterApi = function (gridApi) {
-    //    $scope.gridApi = gridApi;
-    //};
-}])
 angular.module("myApp")
 .controller("courseAuthorizationController", ['$scope', '$modal', '$rootScope', '$timeout', 'getDataSource', '$stateParams', 'notify', '$state', "drawTable", "CommonService", "FilesService", function ($scope, $modal, $rootScope, $timeout, getDataSource, $stateParams, notify, $state, drawTable, CommonService, FilesService) {
     $scope.authorizationinfo = {
@@ -8268,165 +8268,6 @@ function ($window, $scope, $rootScope, $modal, $rootScope, $timeout, getDataSour
         }
     }
 }]);
-app.controller("noticeController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state'
-	, function ($scope,$rootScope, $http, getDataSource, $state) {
-		var paginationOptions = {
-			pageNumber: 1,
-			pageSize: 25,
-			sort: null
-		};
-
-		$scope.gridOptions = {
-			paginationPageSizes: [25, 50, 75],
-			paginationPageSize: 25,
-			useExternalPagination: true,
-			data: [],
-			columnDefs: [
-                { name: '序号', field: "rownum", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-				{ name: '标题', field: "title", width: '30%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.title}}</a></div>' },
-				{ name: '内容', field: "content", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
-				{ name: '发布状态', field: "publishstate", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishstate == 0 ? "未发布" :"已发布"}}</div>' },
-                { name: '发布时间', field: "publishdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
-                { name: '发布人', field: "publishuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
-                { name: '创建时间', field: "createdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.createdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
-                { name: '创建人', field: "createuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-			],
-			onRegisterApi: function (gridApi) {
-				$scope.gridApi = gridApi;
-				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-					paginationOptions.pageNumber = newPage;
-					paginationOptions.pageSize = pageSize;
-					$scope.loadGrid();
-				});
-			}
-		};
-		$scope.goDetial = function (row) {
-			$state.go("index.noticeEdit", { id: row.entity.id });
-		}
-		$scope.search = {};
-
-		$scope.loadGrid = function () {
-			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
-			var pageSize = paginationOptions.pageSize;
-			var array = ["getAllNotice"];
-			getDataSource.getList(array, {  }
-				, { firstRow: firstRow, pageSize: pageSize }
-				, $scope.search, paginationOptions.sort
-				, function (data) {
-					$scope.gridOptions.totalItems = data[0].allRowCount;
-					$scope.gridOptions.data = data[0].data;
-				}, function (error) { });
-		}
-		$scope.loadGrid();
-		$scope.goSearch = function () {
-			$scope.gridOptions.paginationCurrentPage = 1;
-			$scope.loadGrid();
-		}
-}])
-app.controller("noticeEditController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state', '$stateParams', '$validation', 'notify'
-	, function ($scope, $rootScope, $http, getDataSource, $state, $stateParams, $validation, notify) {
-        
-	    $scope.currentConfig = {
-	        btnSaveShow: false,
-	        btnPublishShow: false,
-	        btnUnPublishShow: false,
-	    };
-
-		$scope.noticeData = {
-		    id:"",
-		    title: "",
-		    content: "",
-		    category: 0,
-		    createuser: $rootScope.user.name,
-		    createdate: "",
-		    publishuser: "",
-		    publishdate: "",
-		    publishstate : 0,
-		    isclose: 0,
-
-		};
-
-		var noticeId = $stateParams.id;
-		if (noticeId != undefined && noticeId != "") {
-		    $scope.noticeData.id = noticeId;
-		    //编辑，获取表单信息
-		    getDataSource.getDataSource("getNoticeById", { id: noticeId }, function (data) {
-		        $scope.noticeData = data[0];
-		        if ($scope.noticeData.publishstate == 0) {
-		            $scope.currentConfig.btnSaveShow = true;
-		            $scope.currentConfig.btnPublishShow = true;
-		            $scope.currentConfig.btnUnPublishShow = false;
-		        }
-		        else {
-		            $scope.currentConfig.btnSaveShow = false;
-		            $scope.currentConfig.btnPublishShow = false;
-		            $scope.currentConfig.btnUnPublishShow = true;
-		        }
-		    }, function (errortemp) { });
-		}
-		else {
-		    $scope.currentConfig.btnSaveShow = true;
-		    $scope.currentConfig.btnPublishShow = false;
-		    $scope.currentConfig.btnUnPublishShow = false;
-		}
-
-
-
-		$scope.goToList = function () {
-		    $state.go("index.notice");
-		}
-
-		$scope.saveDisabled = false;
-		$scope.savePermssion = function () {
-			$scope.saveDisabled = true;
-			getDataSource.getUrlData('../api/saveNotice', $scope.noticeData, function (datatemp) {
-				$scope.saveDisabled = false;
-				if (datatemp.code == "success") {
-					notify({ message: '保存成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-					$state.go("index.noticeEdit", { id: datatemp.id });
-				} else {
-					notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-				}
-			}, function (errortemp) {
-				$scope.saveDisabled = false;
-				notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-			});
-		}
-
-		$scope.publishNotice = function () {
-		    getDataSource.getDataSource("publishNotice",
-                {
-                    publishuser: $rootScope.user.name,
-                    publishstate: 1,
-                    id: $scope.noticeData.id,
-                    title: $scope.noticeData.title,
-                    content: $scope.noticeData.content,
-                    category: $scope.noticeData.category,
-                    isclose: $scope.noticeData.isclose
-                }, function (data) {
-		        notify({ message: '发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		        $scope.currentConfig.btnSaveShow = false;
-		        $scope.currentConfig.btnPublishShow = false;
-		        $scope.currentConfig.btnUnPublishShow = true;
-		    }, function (error) {
-		        notify({ message: '发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		    })
-		}
-
-		$scope.unpublishNotice = function () {
-		    getDataSource.getDataSource("publishUnNotice", { id: $scope.noticeData.id }, function (data) {false
-		        notify({ message: '撤销发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		        $scope.currentConfig.btnSaveShow = true;
-		        $scope.currentConfig.btnPublishShow = true;
-		        $scope.currentConfig.btnUnPublishShow = false;
-		    }, function (error) {
-		        notify({ message: '撤销发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-		    })
-		}
-	}
-]);
 angular.module("myApp")
 .controller("newsController", ["$scope", "$rootScope", "getDataSource", "$state", 'notify', '$timeout', '$modal', function ($scope, $rootScope, getDataSource, $state, notify, $timeout, $modal) {
     var paginationOptions = {
@@ -9148,6 +8989,165 @@ angular.module("myApp")
 }]).controller("videoPerviewCtrl", ['$scope', function ($scope) {
 
 }]);
+app.controller("noticeController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state'
+	, function ($scope,$rootScope, $http, getDataSource, $state) {
+		var paginationOptions = {
+			pageNumber: 1,
+			pageSize: 25,
+			sort: null
+		};
+
+		$scope.gridOptions = {
+			paginationPageSizes: [25, 50, 75],
+			paginationPageSize: 25,
+			useExternalPagination: true,
+			data: [],
+			columnDefs: [
+                { name: '序号', field: "rownum", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+				{ name: '标题', field: "title", width: '30%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.title}}</a></div>' },
+				{ name: '内容', field: "content", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
+				{ name: '发布状态', field: "publishstate", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishstate == 0 ? "未发布" :"已发布"}}</div>' },
+                { name: '发布时间', field: "publishdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.publishdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
+                { name: '发布人', field: "publishuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+                { name: '类型', field: "category", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.category == 0 ? "系统升级" :"系统提醒"}}</div>' },
+                { name: '创建时间', field: "createdate", width: '15%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.createdate | date:"yyyy-MM-dd hh:mm:ss"}}</div>' },
+                { name: '创建人', field: "createuser", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
+			],
+			onRegisterApi: function (gridApi) {
+				$scope.gridApi = gridApi;
+				gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+					paginationOptions.pageNumber = newPage;
+					paginationOptions.pageSize = pageSize;
+					$scope.loadGrid();
+				});
+			}
+		};
+		$scope.goDetial = function (row) {
+			$state.go("index.noticeEdit", { id: row.entity.id });
+		}
+		$scope.search = {};
+
+		$scope.loadGrid = function () {
+			var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
+			var pageSize = paginationOptions.pageSize;
+			var array = ["getAllNotice"];
+			getDataSource.getList(array, {  }
+				, { firstRow: firstRow, pageSize: pageSize }
+				, $scope.search, paginationOptions.sort
+				, function (data) {
+					$scope.gridOptions.totalItems = data[0].allRowCount;
+					$scope.gridOptions.data = data[0].data;
+				}, function (error) { });
+		}
+		$scope.loadGrid();
+		$scope.goSearch = function () {
+			$scope.gridOptions.paginationCurrentPage = 1;
+			$scope.loadGrid();
+		}
+}])
+app.controller("noticeEditController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state', '$stateParams', '$validation', 'notify'
+	, function ($scope, $rootScope, $http, getDataSource, $state, $stateParams, $validation, notify) {
+        
+	    $scope.currentConfig = {
+	        btnSaveShow: false,
+	        btnPublishShow: false,
+	        btnUnPublishShow: false,
+	    };
+
+		$scope.noticeData = {
+		    id:"",
+		    title: "",
+		    content: "",
+		    category: 0,
+		    createuser: $rootScope.user.name,
+		    createdate: "",
+		    publishuser: "",
+		    publishdate: "",
+		    publishstate : 0,
+		    isclose: 0,
+
+		};
+
+		var noticeId = $stateParams.id;
+		if (noticeId != undefined && noticeId != "") {
+		    $scope.noticeData.id = noticeId;
+		    //编辑，获取表单信息
+		    getDataSource.getDataSource("getNoticeById", { id: noticeId }, function (data) {
+		        $scope.noticeData = data[0];
+		        if ($scope.noticeData.publishstate == 0) {
+		            $scope.currentConfig.btnSaveShow = true;
+		            $scope.currentConfig.btnPublishShow = true;
+		            $scope.currentConfig.btnUnPublishShow = false;
+		        }
+		        else {
+		            $scope.currentConfig.btnSaveShow = false;
+		            $scope.currentConfig.btnPublishShow = false;
+		            $scope.currentConfig.btnUnPublishShow = true;
+		        }
+		    }, function (errortemp) { });
+		}
+		else {
+		    $scope.currentConfig.btnSaveShow = true;
+		    $scope.currentConfig.btnPublishShow = false;
+		    $scope.currentConfig.btnUnPublishShow = false;
+		}
+
+
+
+		$scope.goToList = function () {
+		    $state.go("index.notice");
+		}
+
+		$scope.saveDisabled = false;
+		$scope.savePermssion = function () {
+			$scope.saveDisabled = true;
+			getDataSource.getUrlData('../api/saveNotice', $scope.noticeData, function (datatemp) {
+				$scope.saveDisabled = false;
+				if (datatemp.code == "success") {
+					notify({ message: '保存成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+					$state.go("index.noticeEdit", { id: datatemp.id });
+				} else {
+					notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+				}
+			}, function (errortemp) {
+				$scope.saveDisabled = false;
+				notify({ message: datatemp.message, classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+			});
+		}
+
+		$scope.publishNotice = function () {
+		    getDataSource.getDataSource("publishNotice",
+                {
+                    publishuser: $rootScope.user.name,
+                    publishstate: 1,
+                    id: $scope.noticeData.id,
+                    title: $scope.noticeData.title,
+                    content: $scope.noticeData.content,
+                    category: $scope.noticeData.category,
+                    isclose: $scope.noticeData.isclose
+                }, function (data) {
+		        notify({ message: '发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		        $scope.currentConfig.btnSaveShow = false;
+		        $scope.currentConfig.btnPublishShow = false;
+		        $scope.currentConfig.btnUnPublishShow = true;
+		    }, function (error) {
+		        notify({ message: '发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		    })
+		}
+
+		$scope.unpublishNotice = function () {
+		    getDataSource.getDataSource("publishUnNotice", { id: $scope.noticeData.id }, function (data) {false
+		        notify({ message: '撤销发布成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		        $scope.currentConfig.btnSaveShow = true;
+		        $scope.currentConfig.btnPublishShow = true;
+		        $scope.currentConfig.btnUnPublishShow = false;
+		    }, function (error) {
+		        notify({ message: '撤销发布失败', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+		    })
+		}
+	}
+]);
 app.controller("permissionController", ['$scope', '$rootScope', '$http', 'getDataSource', '$state'
 	, function ($scope,$rootScope, $http, getDataSource, $state) {
 		var paginationOptions = {
@@ -12733,6 +12733,129 @@ angular.module("myApp")
 
 
 
+app.controller('IeTest1Ctrl', ['$rootScope', '$http', '$scope', '$timeout', '$state', '$stateParams'
+, function ($rootScope, $http, $scope, $timeout, $state, $stateParams) {
+	$scope.datalist = new Array();
+	$scope.showtable = false;    
+	$scope.open1w = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 10000; i++) {
+			//$scope.datalist.push({ id:i, name: "test_" + btnname + "_1wsss_" + i, sex: "男", age: "20" });
+		}
+	}
+	$scope.open1k = function (btnname) {
+	    //var list = [];
+	    //console.log(Date.now());
+		$scope.datalist = new Array();
+		//for (var i = 0; i < 1000/2; i++) {
+		//    list.push({ id: i, name: btnname, sex: "男", age: "20" });
+		//}
+		$http.get("../testJSON/json1.json").success(function (data) {
+		    $scope.datalist = data;
+		})
+		//$scope.datalist = list;
+	}
+	$scope.goSQL = function () {
+	    $state.go("getSQL");
+	};
+	$scope.Change = function () {
+		$scope.showtable = !$scope.showtable;
+	}
+	$scope.open1k('Btn1_');
+	$scope.HrefTo = function (statename) {
+		//console.log(statename);
+		$state.go(statename)
+	}
+}])
+app.controller('IeTest2Ctrl', ['$rootScope', '$http', '$scope', '$timeout', '$state', '$stateParams'
+, function ($rootScope, $http, $scope, $timeout, $state, $stateParams) {
+	$scope.datalist = new Array();
+	$scope.open1w = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 10000; i++) {
+			$scope.datalist.push({ id: i, name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
+		}
+	}
+	$scope.open1k = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 1000 / 2; i++) {
+			$scope.datalist.push({ id: i, name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
+		}
+	}
+	$scope.open1k('Btn2_'); 
+	$scope.HrefTo = function (statename) {
+		//console.log(statename);
+		$state.go(statename)
+	}
+}])
+app.controller('IeTest3Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
+, function ($rootScope, $http, $scope, $timeout) {
+	$scope.datalist = new Array();
+	$scope.open1w = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 10000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
+		}
+	}
+	$scope.open1k = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 1000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
+		}
+	}
+}])
+
+app.controller('IeTest4Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
+, function ($rootScope, $http, $scope, $timeout) {
+	$scope.datalist = new Array();
+	$scope.open1w = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 10000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
+		}
+	}
+	$scope.open1k = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 1000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
+		}
+	}
+}])
+
+app.controller('IeTest5Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
+, function ($rootScope, $http, $scope, $timeout) {
+	$scope.datalist = new Array();
+	$scope.open1w = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 10000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
+		}
+	}
+	$scope.open1k = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 1000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
+		}
+	}
+}])
+
+app.controller('IeTest6Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
+, function ($rootScope, $http, $scope, $timeout) {
+	$scope.datalist = new Array();
+	$scope.open1w = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 10000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
+		}
+	}
+	$scope.open1k = function (btnname) {
+		$scope.datalist = new Array();
+		for (var i = 0; i < 1000; i++) {
+			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
+		}
+	}
+}])
+
 angular.module("myApp")
 .controller("teacherEditController", ["$scope",
     "$rootScope",
@@ -12923,129 +13046,6 @@ angular.module("myApp")
         $state.go("index.teacherEdit", { id: row.entity.id });
     }
 }]);
-app.controller('IeTest1Ctrl', ['$rootScope', '$http', '$scope', '$timeout', '$state', '$stateParams'
-, function ($rootScope, $http, $scope, $timeout, $state, $stateParams) {
-	$scope.datalist = new Array();
-	$scope.showtable = false;    
-	$scope.open1w = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 10000; i++) {
-			//$scope.datalist.push({ id:i, name: "test_" + btnname + "_1wsss_" + i, sex: "男", age: "20" });
-		}
-	}
-	$scope.open1k = function (btnname) {
-	    //var list = [];
-	    //console.log(Date.now());
-		$scope.datalist = new Array();
-		//for (var i = 0; i < 1000/2; i++) {
-		//    list.push({ id: i, name: btnname, sex: "男", age: "20" });
-		//}
-		$http.get("../testJSON/json1.json").success(function (data) {
-		    $scope.datalist = data;
-		})
-		//$scope.datalist = list;
-	}
-	$scope.goSQL = function () {
-	    $state.go("getSQL");
-	};
-	$scope.Change = function () {
-		$scope.showtable = !$scope.showtable;
-	}
-	$scope.open1k('Btn1_');
-	$scope.HrefTo = function (statename) {
-		//console.log(statename);
-		$state.go(statename)
-	}
-}])
-app.controller('IeTest2Ctrl', ['$rootScope', '$http', '$scope', '$timeout', '$state', '$stateParams'
-, function ($rootScope, $http, $scope, $timeout, $state, $stateParams) {
-	$scope.datalist = new Array();
-	$scope.open1w = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 10000; i++) {
-			$scope.datalist.push({ id: i, name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
-		}
-	}
-	$scope.open1k = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 1000 / 2; i++) {
-			$scope.datalist.push({ id: i, name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
-		}
-	}
-	$scope.open1k('Btn2_'); 
-	$scope.HrefTo = function (statename) {
-		//console.log(statename);
-		$state.go(statename)
-	}
-}])
-app.controller('IeTest3Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
-, function ($rootScope, $http, $scope, $timeout) {
-	$scope.datalist = new Array();
-	$scope.open1w = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 10000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
-		}
-	}
-	$scope.open1k = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 1000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
-		}
-	}
-}])
-
-app.controller('IeTest4Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
-, function ($rootScope, $http, $scope, $timeout) {
-	$scope.datalist = new Array();
-	$scope.open1w = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 10000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
-		}
-	}
-	$scope.open1k = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 1000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
-		}
-	}
-}])
-
-app.controller('IeTest5Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
-, function ($rootScope, $http, $scope, $timeout) {
-	$scope.datalist = new Array();
-	$scope.open1w = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 10000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
-		}
-	}
-	$scope.open1k = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 1000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
-		}
-	}
-}])
-
-app.controller('IeTest6Ctrl', ['$rootScope', '$http', '$scope', '$timeout'
-, function ($rootScope, $http, $scope, $timeout) {
-	$scope.datalist = new Array();
-	$scope.open1w = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 10000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1w_" + i, sex: "男", age: "20" });
-		}
-	}
-	$scope.open1k = function (btnname) {
-		$scope.datalist = new Array();
-		for (var i = 0; i < 1000; i++) {
-			$scope.datalist.push({ name: "test_" + btnname + "_1k_" + i, sex: "男", age: "20" });
-		}
-	}
-}])
-
 app.controller("testfileuploadController", ['$scope', '$rootScope', 'Upload', 'FilesService', 'Base64', function ($scope, $rootScope, Upload, FilesService, Base64) {
     $scope.files = [];
     $scope.doclick = function () {

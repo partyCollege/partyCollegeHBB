@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyCollegeHBB", "PartyCollege\PartyCollegeHBB.csproj", "{CE5A5812-6D0C-4D00-B0FB-5B3AE92FBBC1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -24,6 +24,32 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{FDE29DBB-CDE7-4B13-8F85-BF99EC8777C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollegeAPPNDRC", "CollegeAPPNDRC\CollegeAPPNDRC.csproj", "{C3861917-501C-426E-8245-3B5B4AC3A4C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{6BB5F32B-97A7-472A-B56C-F5FFE3084046}"
+	ProjectSection(SolutionItems) = preProject
+		PartyCollege\lib\Aspose.Slides.dll = PartyCollege\lib\Aspose.Slides.dll
+		PartyCollege\lib\Aspose.Words.dll = PartyCollege\lib\Aspose.Words.dll
+		PartyCollege\lib\Ionic.Zlib.dll = PartyCollege\lib\Ionic.Zlib.dll
+		PartyCollege\lib\log4net.dll = PartyCollege\lib\log4net.dll
+		PartyCollege\lib\log4net.pdb = PartyCollege\lib\log4net.pdb
+		PartyCollege\lib\Microsoft.Owin.Security.dll = PartyCollege\lib\Microsoft.Owin.Security.dll
+		PartyCollege\lib\Microsoft.Owin.Security.OAuth.dll = PartyCollege\lib\Microsoft.Owin.Security.OAuth.dll
+		PartyCollege\lib\MySql.Data.dll = PartyCollege\lib\MySql.Data.dll
+		PartyCollege\lib\Newtonsoft.Json.dll = PartyCollege\lib\Newtonsoft.Json.dll
+		PartyCollege\lib\Newtonsoft.Json.xml = PartyCollege\lib\Newtonsoft.Json.xml
+		PartyCollege\lib\NPOI.dll = PartyCollege\lib\NPOI.dll
+		PartyCollege\lib\QRCoder.dll = PartyCollege\lib\QRCoder.dll
+		PartyCollege\lib\SmsLib.dll = PartyCollege\lib\SmsLib.dll
+		C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll = C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll
+		PartyCollege\lib\System.Net.Http.Formatting.dll = PartyCollege\lib\System.Net.Http.Formatting.dll
+		PartyCollege\lib\System.Net.Http.Formatting.xml = PartyCollege\lib\System.Net.Http.Formatting.xml
+		PartyCollege\lib\System.Web.Http.dll = PartyCollege\lib\System.Web.Http.dll
+		PartyCollege\lib\System.Web.Http.Owin.dll = PartyCollege\lib\System.Web.Http.Owin.dll
+		PartyCollege\lib\System.Web.Http.WebHost.dll = PartyCollege\lib\System.Web.Http.WebHost.dll
+		PartyCollege\lib\System.Web.Http.WebHost.xml = PartyCollege\lib\System.Web.Http.WebHost.xml
+		PartyCollege\lib\System.Web.Http.xml = PartyCollege\lib\System.Web.Http.xml
+		PartyCollege\lib\Thinktecture.IdentityModel.Client.dll = PartyCollege\lib\Thinktecture.IdentityModel.Client.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

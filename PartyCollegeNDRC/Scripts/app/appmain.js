@@ -45,6 +45,7 @@ function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: mainRootUrl + "/main/main.html",
             controller: 'mainController'
         })
+
 		.state("main.index", {
 		    url: '/index',
 		    cache: false,

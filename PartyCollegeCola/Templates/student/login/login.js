@@ -198,8 +198,8 @@
                     }
 
                     $scope.registerObj.type = 2;
-                    $scope.registerObj.pass1 = Base64.encode($scope.registerObj.password1);
-                    $scope.registerObj.pass2 = Base64.encode($scope.registerObj.password2);
+                    $scope.registerObj.pass1 = md5($scope.registerObj.password1);
+                    $scope.registerObj.pass2 = md5($scope.registerObj.password2);
                      
                     $scope.validateInfo(function (data) {
                         $scope.changePanel(4);
@@ -346,8 +346,8 @@
                 cellphone: $scope.findpwdObj.cellphone,
                 yzmcode: $scope.findpwdObj.yzmcode,
                 smsyzmcode: $scope.findpwdObj.smsyzmcode,
-                password1: Base64.encode($scope.findpwdObj.password1),
-                password2: Base64.encode($scope.findpwdObj.password2)
+                password1: md5($scope.findpwdObj.password1),
+                password2: md5($scope.findpwdObj.password2)
             };
 
             getDataSource.getUrlData("../api/resetpassword", parameter, function (data) {
@@ -476,7 +476,7 @@
 
             var loginparam = {
                 logname: $scope.loginObj.logname,
-                hashpwd: Base64.encode($scope.loginObj.logpwd),
+                hashpwd: md5($scope.loginObj.logpwd),
                 verifycode: $scope.loginObj.verifycode
             };
 

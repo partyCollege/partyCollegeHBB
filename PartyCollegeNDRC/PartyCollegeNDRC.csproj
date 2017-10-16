@@ -14,7 +14,7 @@
     <RootNamespace>PartyCollegeNDRC</RootNamespace>
     <AssemblyName>PartyCollegeNDRC</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -60,6 +60,10 @@
       <HintPath>..\PartyCollegeCola\bin\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -69,6 +73,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -80,15 +92,6 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -3357,8 +3360,8 @@
     <Content Include="bower_components\ueditor1_4_3_3-utf8-net\utf8-net\ueditor.parse.js" />
     <Content Include="bower_components\ueditor1_4_3_3-utf8-net\utf8-net\ueditor.parse.min.js" />
     <Content Include="bower_components\ui-router-extras\gulpfile.js" />
-    <Content Include="bower_components\ui-router-extras\release\ct-ui-router-extras.js" />
-    <Content Include="bower_components\ui-router-extras\release\ct-ui-router-extras.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\ct-ui-routerextras.js" />
+    <Content Include="bower_components\ui-router-extras\release\ct-ui-routerextras.min.js" />
     <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.core.js" />
     <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.core.min.js" />
     <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.dsr.js" />
@@ -4878,12 +4881,6 @@
     <Content Include="bower_components\ueditor1_4_3_3-utf8-net\utf8-net\third-party\video-js\font\vjs.eot" />
     <Content Include="bower_components\ueditor1_4_3_3-utf8-net\utf8-net\third-party\video-js\font\vjs.ttf" />
     <Content Include="bower_components\ueditor1_4_3_3-utf8-net\utf8-net\third-party\video-js\font\vjs.woff" />
-    <Content Include="bower_components\ui-router-extras\.bower.json" />
-    <Content Include="bower_components\ui-router-extras\banners.json" />
-    <Content Include="bower_components\ui-router-extras\bower.json" />
-    <Content Include="bower_components\ui-router-extras\CHANGELOG.md" />
-    <Content Include="bower_components\ui-router-extras\LICENSE" />
-    <Content Include="bower_components\ui-router-extras\README.md" />
     <Content Include="bower_components\ui-select\.bower.json" />
     <Content Include="bower_components\ui-select\bower.json" />
     <Content Include="bower_components\ui-select\CHANGELOG.md" />
@@ -4943,6 +4940,12 @@
     <Content Include="bower_components\layer-v3.0.3\文档\layer文档.url" />
     <Content Include="bower_components\layer-v3.0.3\文档\Layui社区.url" />
     <Content Include="bower_components\layer-v3.0.3\获得layim.url" />
+    <Content Include="bower_components\ui-router-extras\.bower.json" />
+    <Content Include="bower_components\ui-router-extras\banners.json" />
+    <Content Include="bower_components\ui-router-extras\bower.json" />
+    <Content Include="bower_components\ui-router-extras\CHANGELOG.md" />
+    <Content Include="bower_components\ui-router-extras\LICENSE" />
+    <Content Include="bower_components\ui-router-extras\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4985,7 +4988,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>10848</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:10848/</IISUrl>
+          <IISUrl>http://localhost/PartyCollegeNDRC</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
