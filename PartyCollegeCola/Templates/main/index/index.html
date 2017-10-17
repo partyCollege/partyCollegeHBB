@@ -43,36 +43,41 @@
         </ul>
         <div class="clear"></div>
     </div>
-    <div class="course_ph m-b-md">
-        <h2 class="common"><b>课程排行</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
-        <ul class="left top">
-            <li ng-repeat="item in coursewarelist[1][0]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 1}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
-        </ul>
-        <ul class="right">
-            <li ng-repeat="item in coursewarelist[1][1]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 6}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
-        </ul>
-        <div class="clear"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="course_ph m-b-md">
+                <h2 class="common"><b>课程排行1</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
+                <ul class="left top">
+                    <li ng-repeat="item in coursewarelist[1][0]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 1}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
+                    <li ng-repeat="item in coursewarelist[1][1]" ng-click="openCoursedetail(item.id)"><i class="icon">{{$index + 6}}</i><span class="className">{{item.name}}</span><span class="pull-right">{{item.choosecount}}人选用</span></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="course_ph m-b-md">
+                <h2 class="common"><b>学员学时累计排名</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
+                <ul class="left top haveLine">
+                    <li ng-repeat="s in studentlist"><i class="icon">{{$index + 1}}</i><span class="className">{{s.name}}</span><span class="pull-right">{{s.total_studytime}}学时</span></li>
+                    <li ng-repeat="st in studentlisttwo"><i class="icon">{{$index + 6}}</i><span class="className">{{st.name}}</span><span class="pull-right">{{st.total_studytime}}学时</span></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="course_ph">
+                <h2 class="common"><b>装瓶厂人均学时排行</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
+                <ul class="left top">
+                    <li ng-repeat="b in bottlinglist"><i class="icon">{{$index + 1}}</i><span class="className">{{b.name}}</span><span class="pull-right">{{b.studytime}}学时</span></li>
+                    <li ng-repeat="bt in bottlinglisttwo"><i class="icon">{{$index + 6}}</i><span class="className">{{bt.name}}</span><span class="pull-right">{{bt.studytime}}学时</span></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
     </div>
-    <div class="course_ph m-b-md">
-        <h2 class="common"><b>学员学时累计排名</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
-        <ul class="left top haveLine">
-            <li ng-repeat="s in studentlist"><i class="icon">{{$index + 1}}</i><span class="className">{{s.name}}</span><span class="pull-right">{{s.total_studytime}}学时</span></li>
-        </ul>
-        <ul class="right haveLine">
-            <li ng-repeat="st in studentlisttwo"><i class="icon">{{$index + 6}}</i><span class="className">{{st.name}}</span><span class="pull-right">{{st.total_studytime}}学时</span></li>
-        </ul>
-        <div class="clear"></div>
-    </div>
-    <div class="course_ph">
-        <h2 class="common"><b>装瓶厂人均学时排行</b><a class="more" href="indexfront.html#/main/allcourse/4">更多</a></h2>
-        <ul class="left top haveLine">
-            <li ng-repeat="b in bottlinglist"><i class="icon">{{$index + 1}}</i><span class="className">{{b.name}}</span><span class="pull-right">{{b.studytime}}学时</span></li>
-        </ul>
-        <ul class="right top haveLine">
-            <li ng-repeat="bt in bottlinglisttwo"><i class="icon">{{$index + 6}}</i><span class="className">{{bt.name}}</span><span class="pull-right">{{bt.studytime}}学时</span></li>
-        </ul>
-        <div class="clear"></div>
-    </div>
+    
+    
+    
     <!--<div class="course_tj">
         <h2 class="common"><b>精品课程</b><a class="more" href="indexfront.html#/main/allcourse/2">更多</a></h2>
         <ul class="course_list">
