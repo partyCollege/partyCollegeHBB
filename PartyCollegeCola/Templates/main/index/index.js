@@ -15,7 +15,7 @@
 
 	    $scope.myInterval = 5000;
 	    $scope.newtype = 3;
-	    getDataSource.getDataSource(['getIndexNews', 'getPlatformData', 'getIndexCoursewarelist', 'selectSyBook'],
+	    getDataSource.getDataSource(['getIndexNews', 'getPlatformData', 'getIndexCoursewarelist', 'selectSyBook', 'getStudentsql', 'getBottlingsql'],
             {
                 departmentid: $rootScope.user.departmentId,
                 departmentid1: $rootScope.user.departmentId,
@@ -58,6 +58,17 @@
                     books[i].cover_servername = (books[i].cover_servername != undefined && books[i].cover_servername != "") ? GetFileService.showFile("bookPhoto", books[i].cover_servername, books[i].cover_servername) : "";
                 }
                 $scope.booklist = books;
+
+                //学员学时累计排名
+                var student = _.find(data, { name: "getStudentsql" }).data;
+                $scope.studentlist = student.slice(0, 5);
+                $scope.studentlisttwo = student.slice(5, 10);
+
+
+                //装瓶厂人均学时数
+                var bottling = _.find(data, { name: "getBottlingsql" }).data;
+                $scope.bottlinglist = bottling.slice(0, 5);
+                $scope.bottlinglisttwo = bottling.slice(5, 10);
             },
             function (error) { })
 

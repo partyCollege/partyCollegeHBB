@@ -170,6 +170,13 @@ namespace PartyCollege.Controllers
             return service.BatchInsertStudent(dynObj);
         }
 
+        [Route("api/batchinsertstudent_ndrc")]
+        [HttpPost]
+        public dynamic BatchInsertStudent_ndrc(dynamic dynObj)
+        {
+            StudentService service = new StudentService();
+            return service.BatchInsertStudent_ndrc(dynObj);
+        }
 
 
 
