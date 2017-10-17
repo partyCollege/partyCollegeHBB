@@ -1,5 +1,6 @@
-﻿<div ng-repeat="study in data" ng-if="data.length > 0">
-    <ul class="timeShaft_list">
+﻿
+<div ng-repeat="study in data" ng-if="data.length > 0">
+    <ul class="timeShaft_list zwl_timeShaft">
         <li class="timeDot"><b>{{study.dYear}}</b><br />{{study.dTime}}<i></i></li>
         <li ng-repeat="stu in study.dataList">
             <p class="fen">评分：{{stu.grade}}<a ng-class="{true: 'btn', false: 'btn grey'}[enableBtnAppraise(stu)]" ng-click="appraiseClick(stu)">{{ stu.appraise==0 ? "评价" : "已评" }}</a><b>总时长：{{stu.duration}}分钟</b></p>

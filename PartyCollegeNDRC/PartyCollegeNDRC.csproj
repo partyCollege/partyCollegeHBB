@@ -3959,6 +3959,7 @@
     <Content Include="Style\studentCenter.css" />
     <Content Include="Style\styles.css" />
     <Content Include="Style\teacherCenter.css" />
+    <Content Include="Style\recentlearning.css" />
     <Content Include="Style\video.css" />
     <Content Include="Style\zp_liveTop.css" />
     <Content Include="Templates\back\account\account.html" />

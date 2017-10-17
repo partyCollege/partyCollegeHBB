@@ -2,7 +2,7 @@
             , function ($scope, $rootScope, $document, $http, $timeout, getDataSource, FilesService, CommonService) {
 
                 $document[0].title = _.find($rootScope.myStudyLinks, { id: "1001" }).title;
-
+                console.log($rootScope.user);
                 $scope.nostudymessage = '';
                 $scope.filter = {
                     filterType: 0,
