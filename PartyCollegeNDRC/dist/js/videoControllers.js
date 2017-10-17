@@ -1542,54 +1542,54 @@ app.controller("videoController", ["$scope", "$rootScope", "$stateParams", "getD
 	    }();
 	    //加载聊天 
 
-	    $timeout(function () {
-	    	$(function () {
-	    		$("#emotion").SinaEmotion($("#message"));
-	    		var chat = {};
-	    		$.getScript($rootScope.appConfig.signalRHub)
-	    		.done(function (script, textStatus) {
-	    			$.connection.hub.url = $rootScope.appConfig.signalRHub;
-	    			chat = $.connection.chatHub;
-	    			 //接受信息
-	    			chat.client.broadcastMessage = function (data) {
-	    				// Html encode display name and message.
-	    				var encodedName = $('<div />').text(data.name).html();
-	    				//// Add the message to the page.
-	    				$('#chartDiv').append('<li><strong>' + encodedName
-	    					+ ':</strong>' + "<div>" + AnalyticEmotion(data.message) + "</div>" + "<span class='time'>" + data.dateTime + '</span></li>');
+	    //$timeout(function () {
+	    //	$(function () {
+	    //		$("#emotion").SinaEmotion($("#message"));
+	    //		var chat = {};
+	    //		$.getScript($rootScope.appConfig.signalRHub)
+	    //		.done(function (script, textStatus) {
+	    //			$.connection.hub.url = $rootScope.appConfig.signalRHub;
+	    //			chat = $.connection.chatHub;
+	    //			 //接受信息
+	    //			chat.client.broadcastMessage = function (data) {
+	    //				// Html encode display name and message.
+	    //				var encodedName = $('<div />').text(data.name).html();
+	    //				//// Add the message to the page.
+	    //				$('#chartDiv').append('<li><strong>' + encodedName
+	    //					+ ':</strong>' + "<div>" + AnalyticEmotion(data.message) + "</div>" + "<span class='time'>" + data.dateTime + '</span></li>');
 
-	    			};
-	    			chat.client.repeatLogin = function () {
-	    			    player1.j2s_pauseVideo();
-	    			    if ($scope.course.videotype > 0) {
-	    			        if (player2 != undefined && player2.j2s_pauseVideo != undefined) {
-	    			            player2.j2s_pauseVideo();
-	    			        }
-	    			    }
-	    				var j = window.confirm("您已重复登录")
-	    				if (j || !j) {
-	    					window.close();
-	    				}
-	    			}
-	    			$.connection.hub.start(function () {
+	    //			};
+	    //			chat.client.repeatLogin = function () {
+	    //			    player1.j2s_pauseVideo();
+	    //			    if ($scope.course.videotype > 0) {
+	    //			        if (player2 != undefined && player2.j2s_pauseVideo != undefined) {
+	    //			            player2.j2s_pauseVideo();
+	    //			        }
+	    //			    }
+	    //				var j = window.confirm("您已重复登录")
+	    //				if (j || !j) {
+	    //					window.close();
+	    //				}
+	    //			}
+	    //			$.connection.hub.start(function () {
 
-	    				chat.server.addConnection($rootScope.user.accountId);
-	    				//加入聊天室，同一门课程一个聊天室
-	    				chat.server.joinRoom($stateParams.coursewareid);
-	    				//发送信息
-	    				$('#sendmessage').click(function () {
-	    					// Call the Send method on the hub.
-	    					chat.server.send($rootScope.user.name, $('#message').val(), $stateParams.coursewareid);
-	    					// Clear text box and reset focus for next comment.
-	    					$('#message').val('').focus();
-	    				});
-	    			}, function (data) {
-	    				alert(errorMessage);
-	    			});
-	    		});
+	    //				chat.server.addConnection($rootScope.user.accountId);
+	    //				//加入聊天室，同一门课程一个聊天室
+	    //				chat.server.joinRoom($stateParams.coursewareid);
+	    //				//发送信息
+	    //				$('#sendmessage').click(function () {
+	    //					// Call the Send method on the hub.
+	    //					chat.server.send($rootScope.user.name, $('#message').val(), $stateParams.coursewareid);
+	    //					// Clear text box and reset focus for next comment.
+	    //					$('#message').val('').focus();
+	    //				});
+	    //			}, function (data) {
+	    //				alert(errorMessage);
+	    //			});
+	    //		});
 
-	    	});
-	    }, 0);
+	    //	});
+	    //}, 0);
 
 	    var player1Obj = {};
 	    var player2Obj = {};
@@ -1929,7 +1929,18 @@ app.controller("videoController", ["$scope", "$rootScope", "$stateParams", "getD
 	    			O_func();
 	    			obj = setInterval(O_func, 60000);
 	    		}
+
+	    		if (player1 != undefined && player1.j2s_rightpanelBtnSet != undefined) {
+	    		    player1.j2s_rightpanelBtnSet(_chapterString = "off", _noteString = "on", _questionString = "on", _communicationString = "off");
+	    		    if ($scope.course.videotype > 0) {
+
+	    		        if (player2 != undefined && player2.j2s_rightpanelBtnSet != undefined) {
+	    		            player2.j2s_rightpanelBtnSet(_chapterString = "off", _noteString = "on", _questionString = "on", _communicationString = "off");
+	    		        }
+	    		    }
+	    		}
 	    	}
+
 	    }
 
 	    var O_func = function () {

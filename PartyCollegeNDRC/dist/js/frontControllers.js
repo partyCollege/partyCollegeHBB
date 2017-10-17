@@ -1,3 +1,115 @@
+app.controller("mainController", ['$scope', '$rootScope', '$state', '$http', '$location', '$document', 'getDataSource', 'DateService', 'SessionService', 'FilesService'
+	, function ($scope, $rootScope, $state, $http, $location, $document, getDataSource, DateService, SessionService, FilesService) {
+
+	    $scope.defaultUserPhoto = "../img/default_img.png";
+
+	    $scope.userHeadphoto = FilesService.getUserPhoto();
+	    $scope.departmentname = $rootScope.user.departmentName;
+	    $scope.yearplanStudytimeRate = 0;
+	    $scope.userReportData = {
+	        id: '',
+	        userid: '',
+	        classcount: 0,
+	        waitcoursecount: 0,
+	        finishedcoursecount: 0,
+	        totalstudytime: 0,
+	        electivestudytime: 0
+	    };
+	    var parameter= { studentid: $rootScope.user.studentId,year: new Date().getFullYear() };
+	    getDataSource.getDataSource("getUserReportByUserId", parameter,
+            function (data) {
+                if (data && data.length > 0) {
+                    $scope.userReportData = data[0];
+                    $scope.showYeaplan = false;
+                    var totalstudytime = $scope.userReportData.totalstudytime;
+                    if ($rootScope.user.yearplan && $rootScope.user.yearplan.departmentname != "") {
+                    	$scope.departmentname = $rootScope.user.yearplan.departmentname;
+
+                        var yearplanstudytime = $rootScope.user.yearplan.studytime;
+                        if (yearplanstudytime != "无") {
+                            $scope.showYeaplan = true;
+                            $scope.yearplanStudytimeRate = $scope.userReportData.yearplan_progess;
+                        }
+                    }
+                } else {
+                    $scope.userReportData.classcount = 0; 
+                    $scope.userReportData.finishedcoursecount = 0; 
+                    $scope.userReportData.totalstudytime = 0;
+                }
+                setTimeout(function () {
+                    var radObj = $('#indicatorContainer').data('radialIndicator');
+                    radObj.animate($scope.yearplanStudytimeRate);
+                }, 300);
+
+            }, function (error) { })
+
+        
+	    $rootScope.confirmOptions = {
+	        message: "提示",
+	        isOpened: false,
+	        open: function () {
+	            this.isOpened = true;
+	        },
+	        closed: function () {
+	            this.isOpened = false;
+	        }
+	    };
+
+	    //弧形进度条
+	    $(function () {
+	        $('#indicatorContainer').radialIndicator({
+	            barColor: '#1c5c97',
+	            barWidth: 5,
+	            initValue: 100,
+	            roundCorner: true,
+	            percentage: true,
+	            displayNumber: false,
+	            radius: 50
+	        });
+	    });
+
+
+	    var path = $location.$$path;
+	    var pArr = path.split("/");
+	    var currentView = pArr[pArr.length - 1];
+	    for (var i = 0; i < $rootScope.mainConfig.length; i++) {
+	        var n = $rootScope.mainConfig[i];
+	        n.select = false;
+	        for (var a = 0; a < n.childMenus.length ; a++) {
+	            if (path.indexOf(n.childMenus[a]) >= 0) {
+	                n.select = true;
+	                break;
+	            }
+	        }
+	    }
+
+	    //选项卡
+	    $scope.aClick = function (ename) {
+
+	        _.find($rootScope.mainConfig, { 'select': true }).select = false;;
+	        _.find($rootScope.mainConfig, { 'elementName': ename }).select = true;
+
+	    };
+
+	    $rootScope.loadingOptions = {
+	        message: "正在处理中,请稍候",
+	        isOpened: false
+	    };
+
+	    //$scope.settotal = function () {
+             
+	    //    var p = {};
+	    //    p.departmentid = $rootScope.user.departmentId;
+	    //    p.studentid = $rootScope.user.studentId;
+	    //    p.accountid = $rootScope.user.accountId;
+	    //    p.rank = $rootScope.user.yearplan.rank;
+	    //    return;
+	    //    getDataSource.getUrlData("../api/gettotal", p, function (data) {
+	    //        alert(JSON.stringify(data));
+	    //    }, function (errortemp) { });
+	    //}(); 
+	    //console.log($rootScope.user); 
+	}])
 app.controller("archivesController", ['$scope', '$rootScope', '$timeout', '$state', '$stateParams', 'getDataSource', 'CommonService'
 , function ($scope, $rootScope, $timeout, $state, $stateParams, getDataSource, CommonService) {
 
@@ -1279,7 +1391,7 @@ app.controller("studytotalController", ['$scope', '$rootScope', '$timeout', '$st
         { id: "1000", title: "总体情况统计", selected: false, isshow: true, index: 0, init: function () { $scope.goAutoCompute(); } },
         { id: "1001", title: "选修学时", selected: false, isshow: true, index: 1, init: function () { $scope.inittrain(); } },
         { id: "1002", title: "学习班", selected: false, isshow: true, index: 2, init: function () { $scope.inittrain(); } },
-        { id: "1003", title: "面授培训", selected: false, isshow: true, index: 3, init: function () { $scope.inittrain(); } }
+        //{ id: "1003", title: "面授培训", selected: false, isshow: true, index: 3, init: function () { $scope.inittrain(); } }
     ];
 
     $scope.changetab = function (n, cyear,ctype) {
@@ -1612,118 +1724,6 @@ app.controller("trainController", ['$scope', '$rootScope', '$state', '$timeout',
  }])
 
 
-app.controller("mainController", ['$scope', '$rootScope', '$state', '$http', '$location', '$document', 'getDataSource', 'DateService', 'SessionService', 'FilesService'
-	, function ($scope, $rootScope, $state, $http, $location, $document, getDataSource, DateService, SessionService, FilesService) {
-
-	    $scope.defaultUserPhoto = "../img/default_img.png";
-
-	    $scope.userHeadphoto = FilesService.getUserPhoto();
-	    $scope.departmentname = $rootScope.user.departmentName;
-	    $scope.yearplanStudytimeRate = 0;
-	    $scope.userReportData = {
-	        id: '',
-	        userid: '',
-	        classcount: 0,
-	        waitcoursecount: 0,
-	        finishedcoursecount: 0,
-	        totalstudytime: 0,
-	        electivestudytime: 0
-	    };
-	    var parameter= { studentid: $rootScope.user.studentId,year: new Date().getFullYear() };
-	    getDataSource.getDataSource("getUserReportByUserId", parameter,
-            function (data) {
-                if (data && data.length > 0) {
-                    $scope.userReportData = data[0];
-                    $scope.showYeaplan = false;
-                    var totalstudytime = $scope.userReportData.totalstudytime;
-                    if ($rootScope.user.yearplan && $rootScope.user.yearplan.departmentname != "") {
-                    	$scope.departmentname = $rootScope.user.yearplan.departmentname;
-
-                        var yearplanstudytime = $rootScope.user.yearplan.studytime;
-                        if (yearplanstudytime != "无") {
-                            $scope.showYeaplan = true;
-                            $scope.yearplanStudytimeRate = $scope.userReportData.yearplan_progess;
-                        }
-                    }
-                } else {
-                    $scope.userReportData.classcount = 0; 
-                    $scope.userReportData.finishedcoursecount = 0; 
-                    $scope.userReportData.totalstudytime = 0;
-                }
-                setTimeout(function () {
-                    var radObj = $('#indicatorContainer').data('radialIndicator');
-                    radObj.animate($scope.yearplanStudytimeRate);
-                }, 300);
-
-            }, function (error) { })
-
-        
-	    $rootScope.confirmOptions = {
-	        message: "提示",
-	        isOpened: false,
-	        open: function () {
-	            this.isOpened = true;
-	        },
-	        closed: function () {
-	            this.isOpened = false;
-	        }
-	    };
-
-	    //弧形进度条
-	    $(function () {
-	        $('#indicatorContainer').radialIndicator({
-	            barColor: '#1c5c97',
-	            barWidth: 5,
-	            initValue: 100,
-	            roundCorner: true,
-	            percentage: true,
-	            displayNumber: false,
-	            radius: 50
-	        });
-	    });
-
-
-	    var path = $location.$$path;
-	    var pArr = path.split("/");
-	    var currentView = pArr[pArr.length - 1];
-	    for (var i = 0; i < $rootScope.mainConfig.length; i++) {
-	        var n = $rootScope.mainConfig[i];
-	        n.select = false;
-	        for (var a = 0; a < n.childMenus.length ; a++) {
-	            if (path.indexOf(n.childMenus[a]) >= 0) {
-	                n.select = true;
-	                break;
-	            }
-	        }
-	    }
-
-	    //选项卡
-	    $scope.aClick = function (ename) {
-
-	        _.find($rootScope.mainConfig, { 'select': true }).select = false;;
-	        _.find($rootScope.mainConfig, { 'elementName': ename }).select = true;
-
-	    };
-
-	    $rootScope.loadingOptions = {
-	        message: "正在处理中,请稍候",
-	        isOpened: false
-	    };
-
-	    //$scope.settotal = function () {
-             
-	    //    var p = {};
-	    //    p.departmentid = $rootScope.user.departmentId;
-	    //    p.studentid = $rootScope.user.studentId;
-	    //    p.accountid = $rootScope.user.accountId;
-	    //    p.rank = $rootScope.user.yearplan.rank;
-	    //    return;
-	    //    getDataSource.getUrlData("../api/gettotal", p, function (data) {
-	    //        alert(JSON.stringify(data));
-	    //    }, function (errortemp) { });
-	    //}(); 
-	    //console.log($rootScope.user); 
-	}])
 app.controller("usercenterController", ['$scope', '$rootScope', '$document', function ($scope, $rootScope, $document) {
      
     $document[0].title = "个人中心";
@@ -1830,9 +1830,6 @@ app.controller("userinfoController", ['$scope', '$rootScope', '$document', '$htt
                 }
             }
         });
-
-
-
 
         $scope.userInfoEdited = true;
         $scope.workPlaceEdited = true;
@@ -2098,6 +2095,107 @@ app.controller("userinfoController", ['$scope', '$rootScope', '$document', '$htt
 
         //注册验证码
         $scope.regVerifyCodeSrc = "../api/VerifyCode/forgotpwdcode/" + new Date().getTime();
+        $scope.changeRegVerifyCode = function () {
+            $scope.regVerifyCodeSrc = "../api/VerifyCode/forgotpwdcode/" + new Date().getTime();
+        }
+
+        $scope.showAvatarUpload = function () {
+            if ($("#showAvatarDiv").css("display") == "none") {
+                $("#showAvatarDiv").css("display", "block");
+            }
+            else {
+                $("#showAvatarDiv").css("display", "none");
+            }
+
+        }
+        $timeout(function () {
+            var swf = new fullAvatarEditor("../bower_components/fullAvatarEditor-2.3/fullAvatarEditor.swf", "../bower_components/fullAvatarEditor-2.3/expressInstall.swf", "swfContainer", {
+                id: "swf",
+                upload_url: "../api/uploadAvatar/userPhoto",
+                method: "post",
+                tab_visible: false,
+                src_upload: 1,
+                tab_active: "upload",
+                avatar_sizes: "80*80",
+                avatar_sizes_desc: "80*80像素",
+                src_size: "1MB",
+                src_size_over_limit: "文件大小超出限制（1MB）\n请重新上传",
+                browse_tip: "仅支持JPG、JPEG、GIF、PNG格式的图片文件\n文件不能大于1MB"
+            }, function (msg) {
+                if (msg.code == 5) {
+                    $scope.showAvatar = false;
+                    $scope.userinfo.photoObj = FilesService.showFile("userPhoto", msg.content.avatarUrls, msg.content.avatarUrls);
+
+                    var param = { studentid: $rootScope.user.studentId, idphoto: msg.content.avatarUrls, thumbname: msg.content.avatarUrls };
+
+                    getDataSource.getDataSource("updateUserInfoHeadImage", param, function (data) {
+
+                        CommonService.alert("修改图像成功！"); 
+                        getDataSource.changeUserPhoto(msg.content.avatarUrls, msg.content.avatarUrls);
+                    }, function (e) {
+                        CommonService.alert("修改图像失败！");
+                    });
+                    getDataSource.writeLog("操作-头像修改", "20019");
+
+                    $scope.$apply();
+                    $("#showAvatarDiv").css("display", "none");
+                }
+            }
+            );
+            
+        }, 1000);
+
+
+        $scope.validation = {
+            confirmpassword: {
+                message: "",
+                valid: false,
+                comfirm: function (password1, password2) {
+                    if (password1 != password2) {
+                        this.message = "两次输入密码不一致";
+                        this.valid = false;
+                    } else {
+                        this.message = "";
+                        this.valid = true;
+                    }
+                },
+                reset: function () {
+                    this.message = "";
+                }
+            },
+            validtelphone: {
+                message: "",
+                valid: false,
+                remotetelphone: function (oldtel, newtel) {
+                    if (oldtel == newtel) {
+                        this.valid = false;
+                        this.message = "新手机号码不能和原手机号码一样";
+                    } else {
+                        this.message = "";
+                        var self = this;
+                        getDataSource.getDataSource("usercenter-telphone-valid", { cellphone: newtel }, function (data) {
+                            if (data.length>0 && data[0].count > 0) {
+                                self.valid = false;
+                                self.message = "新手机号码已经存在";
+                            } else {
+                                self.valid = true;
+                                self.message = "";
+                            }
+                        }, function (error) {
+                            CommonService.error(error);
+                        });
+                    }
+                },
+                reset: function () {
+                    this.message = "";
+                }
+            }
+
+
+        };
+
+    }])
+e();
         $scope.changeRegVerifyCode = function () {
             $scope.regVerifyCodeSrc = "../api/VerifyCode/forgotpwdcode/" + new Date().getTime();
         }
