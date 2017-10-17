@@ -280,17 +280,23 @@
         $scope.files = files;
     }
     $scope.save = function () {
-        //保存封面图
-        if ($scope.files) {
-            FilesService.upLoadPicture($scope.files[0], { upcategory: "coursewarePhoto", width: 200, height: 120 }, function (data) {
-                $scope.course.imagephoto = data.data[0].servername;
-                doSave();
-            });
-        }
-        else {
-            doSave();
-        }
-
+        //检测课程编码是否存在
+        getDataSource.getDataSource("checkCoursecodeRepeat", $scope.course, function (data) {
+            if (data[0].num == 0) {
+                //保存封面图
+                if ($scope.files) {
+                    FilesService.upLoadPicture($scope.files[0], { upcategory: "coursewarePhoto", width: 200, height: 120 }, function (data) {
+                        $scope.course.imagephoto = data.data[0].servername;
+                        doSave();
+                    });
+                }
+                else {
+                    doSave();
+                }
+            }else {
+                notify({ message: '课程编码已存在', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+            }
+        });
     }
 
 
