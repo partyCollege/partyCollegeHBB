@@ -6491,10 +6491,12 @@ h2.common.index b{
 .course_ph .left
 ,.course_ph .right{
 }
+
 .course_ph ul{
 	padding: 0px 16px 0px;
 	box-sizing: border-box;
 }
+
 .course_ph ul li{
 	padding: 0px 0px 12px;
 }
