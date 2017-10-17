@@ -154,6 +154,6 @@ app.run(['$http', "$state", '$rootScope', 'SessionService', function ($http, $st
 			//{ "title": "最新动态", "rounteName": "main.newslist", "routeparam": { "type": "3" }, "elementName": "newinfo", "childMenus": ["newinfo"], "select": false },
 			//{ "title": "政策法规", "rounteName": "main.newslist", "routeparam": { "type": "4" }, "elementName": "lowinfo", "childMenus": ["lowinfo"], "select": false },
             { "title": "常用下载", "rounteName": "main.download", "routeparam": null, "elementName": "download", "childMenus": ["download"], "select": false },
-            { "title": "统计分析", "rounteName": "", "routeparam": null, "elementName": "download", "childMenus": ["download"], "select": false }
+            { "title": "统计分析", "rounteName": "main.allcourse", "routeparam": null, "elementName": "allcourse", "childMenus": ["allcourse"], "select": false }
     ];
 }]);

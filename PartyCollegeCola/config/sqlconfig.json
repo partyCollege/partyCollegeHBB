@@ -368,6 +368,10 @@
         "sql": "select id,cover_servername,cover_serverthumbname,bookname,author from sy_book where status=1 and istop=1 order by publishdate desc limit 8"
     },
     {
+        "key": "getBottlingsql",
+        "sql": "select c.id,c.name,cu.studytime from sy_class c inner join sy_class_user cu on c.id = cu.classid order by studytime desc limit 5"
+    },
+    {
         "key": "getMyClassList",
         "sql": "select cla.id,cla.name,DATE_FORMAT(cla.starttime,'%Y-%m-%d') as starttime,DATE_FORMAT(cla.endtime,'%Y-%m-%d') as endtime,cla.studentnum,cla.studytime as clstudytime,cu.studytime as stustudytime,DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%s') as nowtime,cla.categoryone,cla.categorytwo,cla.categorythree,cla.categoryfour from sy_class_user cu inner join sy_class cla on cu.classid = cla.id where cu.userid = [session.studentid] and now() >= cla.starttime and cla.endtime >= now() and cla.status>=0 order by cla.starttime desc limit [pageindex],[pagesize]"
     },
