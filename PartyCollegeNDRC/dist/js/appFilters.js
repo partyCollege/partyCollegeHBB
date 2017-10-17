@@ -97,8 +97,7 @@ angular.module("app.filters", [])
         var p=parseInt(input);
 	    switch (p) {
 	        case 0: return "正常";
-	        case -1: return "禁用";
-	        case -2: return "锁定";
+	        case 1: return "锁定";
 	        default: return "";
 	    }
 	};

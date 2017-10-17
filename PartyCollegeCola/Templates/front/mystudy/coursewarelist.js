@@ -19,6 +19,26 @@
         { id: "search_tj", showtext: "推荐", datavalue: "3" },
         { id: "search_ph", showtext: "排行", datavalue: "4" }
     ];
+
+    $scope.allCourseCategory = [
+        { id: "search_xyg", showtext: "新员工", datavalue: "1" },
+        { id: "search_zyl", showtext: "专业力", datavalue: "2" },
+        { id: "search_tyl", showtext: "通用力", datavalue: "3" },
+        { id: "search_ldl", showtext: "领导力", datavalue: "4" }
+    ];
+
+    $scope.allCourseLevel = [
+        { id: "search_ygj", showtext: "员工级", datavalue: "1" },
+        { id: "search_zrj", showtext: "主任级", datavalue: "2" },
+        { id: "search_jlj", showtext: "经理级", datavalue: "3" },
+        { id: "search_zjj", showtext: "总监级", datavalue: "4" },
+        { id: "search_zjlj", showtext: "总经理级", datavalue: "5" }
+    ];
+
+    //coursecategory 1新员工 2专业力 3通用力 4领导力
+    //courselevel 1员工级 2主任级 3经理级 4总监级 5总经理级
+
+
     //查询条件
     $scope.searchparameter = {
         condation: "", onecate: "", twocate: "", year: "", courseType: "", searchType: "", pageIndex: 0, pageSize: 6, isMore: false
@@ -86,6 +106,14 @@
         if ($activeLink)
             $scope.searchparameter.searchType = $currentLink.attr("data-value");
 
+        $activeLink = $(".pull-right a.pull-courseCategory.active");
+        if ($activeLink)
+            $scope.searchparameter.courseCategory = $currentLink.attr("data-value");
+
+        $activeLink = $(".pull-right a.pull-courseLevel.active");
+        if ($activeLink)
+            $scope.searchparameter.courseLevel = $currentLink.attr("data-value");
+
 
         return searchParameter;
     }
@@ -144,11 +172,17 @@
             //$arr = $(".pull-right a.pull-searchType");
             aKey = ".pull-right a.pull-searchType";
             $scope.searchparameter.searchType = $currentLink.attr("data-value");
+        } else if (linkType == "pull-courseCategory") {
+            //$arr = $(".pull-right a.pull-searchType");
+            aKey = ".pull-right a.pull-courseCategory";
+            $scope.searchparameter.courseCategory = $currentLink.attr("data-value");
+        } else if (linkType == "pull-courseLevel") {
+            //$arr = $(".pull-right a.pull-searchType");
+            aKey = ".pull-right a.pull-courseLevel";
+            $scope.searchparameter.courseLevel = $currentLink.attr("data-value");
         }
-
-        //$arr.each(function () {
-        //    $(this).removeClass("active");
-        //});   
+         
+         
         $(aKey + ".active").removeClass("active");
         $currentLink.addClass("active");
 
