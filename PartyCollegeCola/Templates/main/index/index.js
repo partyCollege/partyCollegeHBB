@@ -67,7 +67,8 @@
 
                 //装瓶厂人均学时数
                 var bottling = _.find(data, { name: "getBottlingsql" }).data;
-                $scope.bottlinglist = bottling;
+                $scope.bottlinglist = bottling.slice(0, 5);
+                $scope.bottlinglisttwo = bottling.slice(5, 10);
             },
             function (error) { })
 

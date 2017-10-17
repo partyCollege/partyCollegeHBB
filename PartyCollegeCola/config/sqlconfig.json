@@ -369,7 +369,7 @@
     },
     {
         "key": "getBottlingsql",
-        "sql": "select c.id,c.name,cu.studytime from sy_class c inner join sy_class_user cu on c.id = cu.classid order by studytime desc limit 5"
+        "sql": "select c.id,c.name,cu.studytime from sy_class c inner join sy_class_user cu on c.id = cu.classid order by studytime desc limit 10"
     },
     {
         "key": "getMyClassList",
