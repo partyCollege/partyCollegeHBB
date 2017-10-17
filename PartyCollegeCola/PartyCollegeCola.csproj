@@ -4972,7 +4972,6 @@
     <Folder Include="authImg\" />
     <Folder Include="bower_components\fullAvatarEditor-2.3\upload\" />
     <Folder Include="bower_components\NewFolder1\" />
-    <Folder Include="dist\" />
     <Folder Include="HtmlDisgn\img\center\" />
     <Folder Include="HtmlDisgn\js\" />
     <Folder Include="img\center\" />
