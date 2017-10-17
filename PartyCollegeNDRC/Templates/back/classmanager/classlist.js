@@ -15,12 +15,12 @@
         data: [],
         columnDefs: [
           { name: "序号", field: "rownum", width: '6%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-          { name: '班级名称', field: "name", width: '35%', headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.name}}</a></div>' },
-          { name: '年份', field: "starttime", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.starttime|date:"yyyy"}}</div>' },
-          { name: "起始时间", field: "starttime", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "date:'yyyy-MM-dd'" },
-          { name: "结束时间", field: "endtime", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "date:'yyyy-MM-dd'" },
+          { name: '班级名称', field: "name", width: '50%', headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.goDetial(row)">{{row.entity.name}}</a></div>' },
+          //{ name: '年份', field: "starttime", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.starttime|date:"yyyy"}}</div>' },
+          //{ name: "起始时间", field: "starttime", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "date:'yyyy-MM-dd'" },
+          //{ name: "结束时间", field: "endtime", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter', cellFilter: "date:'yyyy-MM-dd'" },
 		  { name: "班级人数", field: "studentnum", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-		  { name: "所属机构", field: "departmentname", width: '20%', cellClass: "mycenter", headerCellClass: 'mycenter' }
+		  { name: "所属类别", field: "departmentname", width: '30%', cellClass: "mycenter", headerCellClass: 'mycenter' }
         ],
         onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
@@ -63,21 +63,7 @@
     $scope.loadGrid = function (init) {
         var firstRow = (paginationOptions.pageNumber - 1) * paginationOptions.pageSize;
         var pageSize = paginationOptions.pageSize;
-		//初始化按机构查询
-        $scope.search.departmentid_dbcolumn = "departmentid";
-        $scope.search.departmentid_dbtype = "string";
-        $scope.search.departmentid_handle = "like";
 
-        //console.log("$rootScope.user", $rootScope.user);
-        if (init == 0) {
-            var mid = $rootScope.user.mdepartmentId;
-            if ($rootScope.user.usertype == 2) {
-                mid = $rootScope.user.departmentId;
-            }
-            $scope.search.departmentid = mid;
-        } else {
-            $scope.search.departmentid = $scope.search.departmentid;
-        }
         //console.log("$scope.search", $scope.search);
         getDataSource.getList("selectClassList", { platformid: $rootScope.user.platformid }, { firstRow: firstRow, pageSize: pageSize }
 			, $scope.search, paginationOptions.sort, function (data) {

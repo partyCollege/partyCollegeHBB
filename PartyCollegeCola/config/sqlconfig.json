@@ -360,8 +360,16 @@
         "sql": "select * from (select '1' category,id,name,teachersname,choosecount,imagephoto from sy_courseware where mainstatus >= 0 order by createtime desc limit 8) a union select * from (select '2' category,id,name,teachersname,choosecount,imagephoto from sy_courseware where mainstatus >= 0 order by choosecount desc limit 10) a union select * from (select '3' category,id,name,teachersname,choosecount,imagephoto from sy_courseware where mainstatus >= 0 order by grade desc limit 4) a union select * from (select '4' category,cw.id,cw.name,cw.teachersname,cw.choosecount,cw.imagephoto from sy_courseware cw inner join sy_courseware_recommend cwr on cw.id = cwr.coursewareid where cw.mainstatus >= 0 order by cwr.createtime desc limit 4 ) a"
     },
     {
+        "key": "getStudentsql",
+        "sql": "select u.id,u.name,ut.total_studytime from sy_user u inner join sy_user_totalreport ut on u.id = ut.studentid order by ut.total_studytime desc limit 10"
+    },
+    {
         "key": "selectSyBook",
         "sql": "select id,cover_servername,cover_serverthumbname,bookname,author from sy_book where status=1 and istop=1 order by publishdate desc limit 8"
+    },
+    {
+        "key": "getBottlingsql",
+        "sql": "select c.id,c.name,cu.studytime from sy_class c inner join sy_class_user cu on c.id = cu.classid order by studytime desc limit 10"
     },
     {
         "key": "getMyClassList",
