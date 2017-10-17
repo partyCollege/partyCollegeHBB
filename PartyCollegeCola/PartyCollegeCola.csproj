@@ -105,6 +105,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Aspose.Slides.dll" />
+    <Content Include="bin\Aspose.Words.dll" />
+    <Content Include="bin\Ionic.Zlib.dll" />
+    <Content Include="bin\MySql.Data.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\NPOI.dll" />
+    <Content Include="bin\PartyCollegeUtil.dll" />
+    <Content Include="bin\PartyCollegeUtil.pdb" />
+    <Content Include="bin\QRCoder.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\zh-Hans\System.Net.Http.Formatting.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.Http.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.Http.WebHost.resources.dll" />
     <Content Include="bower_components\angular-animate\angular-animate.js" />
     <Content Include="bower_components\angular-animate\angular-animate.min.js" />
     <Content Include="bower_components\angular-animate\index.js" />
