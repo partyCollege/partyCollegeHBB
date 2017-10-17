@@ -4256,6 +4256,8 @@
     <Content Include="Templates\front\mystudy\myclasslist.js" />
     <Content Include="Templates\front\mystudy\myoptioncourse.html" />
     <Content Include="Templates\front\mystudy\myoptioncourse.js" />
+    <Content Include="Templates\front\mystudy\recentlearning.html" />
+    <Content Include="Templates\front\mystudy\recentlearning.js" />
     <Content Include="Templates\front\mystudy\myrequirecourse.html" />
     <Content Include="Templates\front\mystudy\myrequirecourse.js" />
     <Content Include="Templates\front\mystudy\mystudy.html" />

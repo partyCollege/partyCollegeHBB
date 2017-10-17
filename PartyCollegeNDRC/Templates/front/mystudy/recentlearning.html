@@ -1,0 +1,34 @@
+﻿<div ng-repeat="study in data" ng-if="data.length > 0">
+    <ul class="timeShaft_list">
+        <li class="timeDot"><b>{{study.dYear}}</b><br />{{study.dTime}}<i></i></li>
+        <li ng-repeat="stu in study.dataList">
+            <p class="fen">评分：{{stu.grade}}<a ng-class="{true: 'btn', false: 'btn grey'}[enableBtnAppraise(stu)]" ng-click="appraiseClick(stu)">{{ stu.appraise==0 ? "评价" : "已评" }}</a><b>总时长：{{stu.duration}}分钟</b></p>
+            <div class="img"><img ng-src="{{stu.photo}}" onerror="this.src='../img/course_img.jpg'" ng-click="ContinueStudy(stu)" /> </div>
+            <div class="info">
+                <h3 ng-click="ContinueStudy(stu)">{{stu.title}}--{{stu.teachersname}}</h3>
+                <p>学分：<b>{{stu.isfinished ? stu.totalscore : 0}}</b>/{{stu.totalscore}}分</p>
+                <div class="progress">
+                    <div class="finish" ng-style="{width:'{{ stu.isplaycompletion=='1' ? '100%' : stu.progress }}'}">
+                        {{ stu.isplaycompletion=="1" ? "100%" : stu.progress }}
+                    </div>
+                </div>
+                <p><span>我的笔记：{{stu.note}}</span><span>我的提问：{{stu.question}}</span><span>我的学后感：{{stu.feel}}</span></p>
+            </div>
+            <ul class="cz" ng-show="!stu.isfinished && stu.mainstatus>= 0">
+                <li><a class="btn" ng-click="ContinueStudy(stu)">{{ stu.studytime==0 ? "开始学习" : "继续学习"}}</a></li>
+                <li><a ng-class="{true: 'btn', false: 'btn black'}[enableBtnWriteFeel(stu)]" ng-show="stu.isneedwritefeel" ng-click="WriteFeel(stu)">学后感</a></li>
+                <li><a ng-class="{true: 'btn', false: 'btn black'}[enableBtnExam(stu)]" ng-show="stu.isneedexam" ng-click="Exam(stu)">考试</a></li>
+            </ul>
+            <div class="wc" ng-show="stu.isfinished && stu.mainstatus>= 0">
+                <i class="tubiaoicon-11"></i>
+                <span>通过</span>
+            </div>
+            <div class="wc" ng-if="stu.mainstatus==-2">
+                <span class="red">课程已下架</span>
+            </div>
+            <div class="clear"></div>
+        </li>
+    </ul>
+</div>
+<div ng-if="data.length==0" class="message" style="font-size:25px;margin-left:250px;margin-top:120px;">{{nostudymessage}}</div>
+<div class="more"><span class="btn" ng-if="filter.isMore" ng-click="moreList()">更多</span></div>
