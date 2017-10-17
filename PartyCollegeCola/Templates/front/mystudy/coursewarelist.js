@@ -174,11 +174,11 @@
             $scope.searchparameter.searchType = $currentLink.attr("data-value");
         } else if (linkType == "pull-courseCategory") {
             //$arr = $(".pull-right a.pull-searchType");
-            aKey = ".pull-right a.pull-searchType";
+            aKey = ".pull-right a.pull-courseCategory";
             $scope.searchparameter.courseCategory = $currentLink.attr("data-value");
         } else if (linkType == "pull-courseLevel") {
             //$arr = $(".pull-right a.pull-searchType");
-            aKey = ".pull-right a.pull-searchType";
+            aKey = ".pull-right a.pull-courseLevel";
             $scope.searchparameter.courseLevel = $currentLink.attr("data-value");
         }
          

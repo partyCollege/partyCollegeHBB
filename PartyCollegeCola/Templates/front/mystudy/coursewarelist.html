@@ -27,15 +27,15 @@
         <li>
             <b>课程类别</b>
             <div class="pull-right">
-                <a href="javascript:void(0);" class="pull-courseType active" id="linkAllCourseType" ng-click="linkActive('pull-courseType','linkAllCourseCategory')">全部</a>
-                <a href="javascript:void(0);" class="pull-courseType" ng-repeat="n in allCourseCategory" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseCategory',n.id)">{{n.showtext}}</a>
+                <a href="javascript:void(0);" class="pull-courseCategory active" id="linkAllCourseCategory" ng-click="linkActive('pull-courseCategory','linkAllCourseCategory')">全部</a>
+                <a href="javascript:void(0);" class="pull-courseCategory" ng-repeat="n in allCourseCategory" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseCategory',n.id)">{{n.showtext}}</a>
             </div>
         </li>
         <li>
             <b>职级</b>
             <div class="pull-right">
-                <a href="javascript:void(0);" class="pull-courseType active" id="linkAllCourseType" ng-click="linkActive('pull-courseType','linkAllCourseLevel')">全部</a>
-                <a href="javascript:void(0);" class="pull-courseType" ng-repeat="n in allCourseLevel" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseLevel',n.id)">{{n.showtext}}</a>
+                <a href="javascript:void(0);" class="pull-courseLevel active" id="linkAllCourseLevel" ng-click="linkActive('pull-courseLevel','linkAllCourseLevel')">全部</a>
+                <a href="javascript:void(0);" class="pull-courseLevel" ng-repeat="n in allCourseLevel" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseLevel',n.id)">{{n.showtext}}</a>
             </div>
         </li>
         <li>
