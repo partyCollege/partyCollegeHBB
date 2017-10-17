@@ -76,9 +76,6 @@
             }
         });
 
-
-
-
         $scope.userInfoEdited = true;
         $scope.workPlaceEdited = true;
         //控制是否编辑

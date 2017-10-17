@@ -1,6 +1,16 @@
 ﻿angular.module("myApp")
 .controller("classeditController", ['$previousState', '$rootScope', '$scope', 'getDataSource', "$state", '$stateParams', 'notify', '$filter', "$window", '$timeout', function ($previousState, $rootScope, $scope, getDataSource, $state, $stateParams, notify, $filter, $window, $timeout) {
-	$scope.class = {};
+    $scope.class = {
+        categoryone: "组织调训",
+        categorytwo: "业务培训",
+        categorythree: "网络培训",
+        categoryfour: "境内培训",
+        starttime: new Date(),
+        endtime: new Date(),
+        signupstatus: 0,
+        studentlimit: 99999,
+
+    };
 	$scope.class.studentnum = 0;
 	$scope.class.comment = "";
 	$scope.class.signupstatus = 0;
@@ -67,6 +77,12 @@
             classid = $stateParams.id;
         }
         $scope.saveButtonDisabled = true;
+
+        if ($scope.class.departmentid == '1000000') {
+            $scope.saveButtonDisabled = false;
+            notify({ message: '请选择类别', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+            return;
+        }
         
         //var mid = $rootScope.user.mdepartmentId;
         //if ($rootScope.user.usertype == 2) {
@@ -91,6 +107,9 @@
                 notify({ message: '保存成功', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
                 $scope.saveButtonDisabled = false;
                 $state.go("index.classedit", { id: classid });
+            }, function () {
+                $scope.saveButtonDisabled = false;
+                notify({ message: '保存失败', classes: 'alert-danger', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
             });
         }
     }

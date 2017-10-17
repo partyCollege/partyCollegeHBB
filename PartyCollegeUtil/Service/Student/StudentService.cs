@@ -252,6 +252,94 @@ namespace PartyCollegeUtil.Service
 
 		}
 
+
+        public dynamic BatchInsertStudent_ndrc(dynamic queryModel)
+        {
+            dynamic dyn = new System.Dynamic.ExpandoObject();
+            dyn.result = false;
+            dyn.message = "新增学员失败";
+
+            string sql = string.Empty;
+
+            string classid = Convert.ToString(queryModel.classid);
+            string departmentid = string.Empty;// Convert.ToString(queryModel.departmentid);
+            //List<dynamic> departmentArray = (List<dynamic>)queryModel.departmentid;
+            JArray departArray = queryModel.departmentid;
+            List<string> idlist = new List<string>();
+            foreach (dynamic c in departArray)
+            {
+                idlist.Add("'" + Convert.ToString(c.id) + "'");
+            }
+            using (MySqlConnection conn = new MySqlConnection(DBConfig.ConnectionString))
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+
+                //sql = "select studentlimit from sy_class where id=?classid";
+                //cmd.CommandText = sql;
+                cmd.Parameters.Add(new MySqlParameter("classid", classid));
+//                int studentlimit = Convert.ToInt32("0" + cmd.ExecuteScalar());
+//                int currentStuNum = 0;
+//                if (studentlimit > 0)
+//                {
+//                    //得到本次要加载的人数
+//                    cmd.Parameters.Clear();
+//                    sql = string.Format(@"select count(1) from sy_user usr where usr.departmentid in({0})
+//							and not exists(select * from sy_class_user clur where usr.id=clur.userid and clur.classid=?classid )", string.Join(",", idlist));
+//                    cmd.CommandText = sql;
+//                    //cmd.Parameters.Add(new MySqlParameter("departmentid", departmentid));
+//                    cmd.Parameters.Add(new MySqlParameter("classid", classid));
+//                    currentStuNum = Convert.ToInt32("0" + cmd.ExecuteScalar());
+
+//                    //and id not in (select usr.id from  sy_user usr inner join sy_class_user clur on clur.userid=usr.id where clur.classid=?classid and usr.departmentid=?departmentid)
+//                    cmd.Parameters.Clear();
+//                    sql = "select count(1) from sy_class_user where classid=?classid";
+//                    cmd.CommandText = sql;
+//                    cmd.Parameters.Add(new MySqlParameter("classid", classid));
+//                    int studentNum = Convert.ToInt32("0" + cmd.ExecuteScalar());
+//                    //当前学员数量+已有学员数量>限制数
+//                    if (studentlimit < (currentStuNum + studentNum))
+//                    {
+//                        int result = studentlimit - studentNum;
+//                        dyn.result = false;
+//                        dyn.message = string.Format("超过人数限制，限制人数为：{0}，当前班级剩余人数：{1}", studentlimit.ToString(), (result <= 0 ? 0 : result).ToString());
+//                        return dyn;
+//                    }
+//                }
+
+                MySqlTransaction tran = null;
+                try
+                {
+                    tran = conn.BeginTransaction();
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.Add(new MySqlParameter("classid", classid));
+                    //cmd.Parameters.Add(new MySqlParameter("departmentid", departmentid));
+                    sql = string.Format(@"insert into sy_class_user(id,classid,userid,createtime) 
+								select uuid(),?classid,usr.id,now() from sy_user usr where usr.departmentid in({0}) 
+								and not exists(select * from sy_class_user clur where usr.id=clur.userid and clur.classid=?classid )", string.Join(",", idlist));
+                    cmd.CommandText = sql;
+                    int exec = cmd.ExecuteNonQuery();
+
+                    tran.Commit();
+                    dyn.result = true;
+                    dyn.message = "新增学员成功";
+                }
+                catch (Exception ex)
+                {
+                    ErrLog.Log(sql + ex);
+
+                    if (tran != null)
+                    {
+                        tran.Rollback();
+                    }
+                }
+                /// 重新统计学员人数
+                UpdateClassStudentNum(cmd, classid);
+            }
+            return dyn;
+
+        }
+
         public dynamic GetStudent(dynamic queryModel)
         {
             dynamic dyn = new System.Dynamic.ExpandoObject();

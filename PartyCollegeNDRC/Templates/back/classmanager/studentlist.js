@@ -22,16 +22,16 @@
     
     $scope.loadGrid();
 
-	//获取职级数据
-    $scope.getLevelArr = function () {
-    	if (!$scope.levelArr) {
-    		getDataSource.getUrlData("../api/getsycodes", { categorys: "职级" }, function (data) {
-    			$scope.levelArr = _.find(data, { type: "职级" }).list;
-    		}, function (errortemp) { });
-    	}
-    }
+	////获取职级数据
+    //$scope.getLevelArr = function () {
+    //	if (!$scope.levelArr) {
+    //		getDataSource.getUrlData("../api/getsycodes", { categorys: "职级" }, function (data) {
+    //			$scope.levelArr = _.find(data, { type: "职级" }).list;
+    //		}, function (errortemp) { });
+    //	}
+    //}
 
-    $scope.getLevelArr();
+    //$scope.getLevelArr();
 
     $scope.gridOptions = {
         paginationPageSizes: [25, 50, 100],
@@ -43,9 +43,9 @@
             { name: '姓名', field: "name", headerCellClass: "text-center" },
             { name: '手机号码', headerCellClass: "text-center", field: "cellphone" },
             { name: '职级', headerCellClass: "text-center", field: "rank" },
-            { name: "部门名称", headerCellClass: "text-center", field: "departmentname" },
+            { name: "类别", headerCellClass: "text-center", field: "departmentname" },
             { name: "状态", headerCellClass: "text-center", field: "status" },
-            { name: "注册状态", headerCellClass: "text-center", field: "signstatus" },
+            //{ name: "注册状态", headerCellClass: "text-center", field: "signstatus" },
         ],
         onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
