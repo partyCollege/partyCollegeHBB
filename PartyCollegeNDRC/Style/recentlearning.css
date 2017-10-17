@@ -1,0 +1,218 @@
+﻿ul.zwl_timeShaft {
+        border-left: 1px solid #c9c9c9;
+        margin: 0px 0px 0px 55px;
+        padding: 0px 0px 24px 24px;
+}
+ul.zwl_timeShaft li.timeDot {
+    border: 0px;
+    padding: 0px;
+    margin: 0px 0px 0px -88px;
+    position: absolute;
+    font-family: "微软雅黑";
+    color: #A8A8A8;
+}
+.zwl_timeShaft li.timeDot {
+    border: 0px;
+    padding: 0px;
+    margin: 0px 0px 0px -88px;
+    position: absolute;
+    font-family: "微软雅黑";
+    color: #A8A8A8;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+ul.zwl_timeShaft li.timeDot b {
+    font-size: 16px;
+    color: #A8A8A8;
+}
+ul.zwl_timeShaft li.timeDot i {
+    background: #c9c9c9;
+    width: 8px;
+    height: 8px;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: 0px;
+    left: 60px;
+}
+ul.zwl_timeShaft>li {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 24px;
+    position: relative;
+}
+ul.zwl_timeShaft li .fen {
+    color: #ff7200;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 18px 0px;
+}
+p {
+    line-height: 20px;
+}
+ul.zwl_timeShaft li .fen .btn.grey {
+    border-color: #c9c9c9;
+    color: #c9c9c9;
+}
+ul.zwl_timeShaft  li .fen .btn {
+    border-radius: 20px;
+    padding: 2px 15px;
+    margin-left: 20px;
+}
+*[ng-click] {
+    cursor: pointer;
+}
+    
+.btn {
+    border: 1px solid #ce0e08;
+    color: #ce0e08;
+    padding: 3px 8px;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    display: inline-block;
+        margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    user-select: none;
+}
+a {
+    outline: none;
+}
+ul.zwl_timeShaft  li .fen b {
+    float: right;
+    color: #A8A8A8;
+    letter-spacing: 1px;
+}
+ul.zwl_timeShaft  li .img {
+    margin-right: 16px;
+    float: left;
+    cursor: pointer;
+}
+ul.zwl_timeShaftli .img img {
+    width: 200px;
+    height: 120px;
+}
+ul.zwl_timeShaft li .info {
+    float: left;
+}
+ul.zwl_timeShaft li .info h3 {
+    font-size: 14px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 450px;
+    overflow: hidden;
+    cursor: pointer;
+    color: #262626;
+}
+ul.zwl_timeShaft li .info p, ul.zwl_timeShaft li .info p b {
+    font-weight: bold;
+}
+ul.zwl_timeShaft li .info p {
+    margin: 8px 0px 0px;
+}
+ul.zwl_timeShaft>li p {
+    padding-top: 5px;
+}
+p {
+    padding: 0px;
+        font-size: 12px;
+    line-height: 20px;
+}
+ul.zwl_timeShaft li .info p b {
+    color: #CE0E08;
+}
+ul.zwl_timeShaftt li .info p, ul.zwl_timeShaftli .info p b {
+    font-weight: bold;
+}
+ul.zwl_timeShaft .progress {
+    width: 320px;
+    background: #ebebeb;
+    margin-top: 16px;
+}
+.progress {
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+}
+ul.zwl_timeShaft .progress .finish {
+    background: #85d157;
+    color: #fff;
+    font-family: "微软雅黑";
+    text-align: center;
+}
+ul.zwl_timeShaft li .info p span {
+    padding-right: 50px;
+}
+ul.zwl_timeShaft .cz, ul.zwl_timeShaft .wc {
+    float: right;
+}
+ul ul, ol ul, ul ol, ol ol {
+    margin-bottom: 0;
+}
+ul.zwl_timeShaft .cz li {
+    padding: 0px 0px 18px;
+}
+ul.zwl_timeShaft .cz .btn {
+    width: 80px;
+    padding: 4px 0px;
+    text-align: center;
+    display: block;
+}
+*[ng-click] {
+    cursor: pointer;
+}
+.btn {
+    border: 1px solid #ce0e08;
+    color: #ce0e08;
+    padding: 3px 8px;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+}
+ul.zwl_timeShaft .cz, ul.zwl_timeShaft .wc {
+    float: right;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+    display: none !important;
+}
+ul.zwl_timeShaft .wc i {
+    color: #85d157;
+    font-size: 40px;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    z-index: 10;
+    margin: 20px 20px 0px;
+}
+[class^="tubiao"], [class*=" tubiao"] {
+    font-family: 'xueyuanyongfonts' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+ul.zwl_timeShaft .wc span {
+    color: #85d157;
+    font-size: 14px;
+    padding-top: 5px;
+    display: block;
+    text-align: center;
+    letter-spacing: 3px;
+}
+.clear {
+    clear: both;
+}
