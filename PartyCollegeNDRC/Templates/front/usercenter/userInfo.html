@@ -23,7 +23,7 @@
     </div>
 </div>
 <div class="block">
-    <h2><b>基本信息</b><!--<a class="change" ng-click="editedClick(0)">{{userInfoEdited ? "修改" : "取消"}}</a>--></h2>
+    <h2><b>基本信息</b><a class="change" ng-click="editedClick(0)">{{userInfoEdited ? "修改" : "取消"}}</a></h2>
     <form name="baseForm" novalidate>
         <ul class="form">
             <li>
@@ -77,6 +77,27 @@
                     </select>
                 </span>
             </li>
+            <li>
+                <label for=""><i>*</i>地区：</label>
+                <span class="select_box" ng-disabled="userInfoEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.provice" ng-disabled="userInfoEdited">
+                        <option ng-repeat="c in allCity" ng-value="c.name">{{c.name}}</option>
+                    </select>
+                </span>
+                <span class="select_box" ng-disabled="userInfoEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.city" ng-disabled="userInfoEdited" ng-change="userChanged()">
+                        <option ng-repeat="c in currentCities" ng-value="c.name">{{c.name}}</option>
+                    </select>
+                </span>
+                <span class="select_box" ng-disabled="userInfoEdited">
+                    <i class="shade"></i>
+                    <select ng-model="userinfo.area" ng-disabled="userInfoEdited" ng-change="userChanged()">
+                        <option ng-repeat="c in currentCounties" ng-value="c">{{c}}</option>
+                    </select>
+                </span>
+            </li>
             <!--<li>
                 <label for=""><i>*</i>邮箱：</label>
                 <input type="text"
@@ -95,7 +116,7 @@
         </div>
     </form>
 </div>
-<!--<div class="block">
+<div class="block">
     <h2><b>单位信息</b><a class="change" ng-click="editedClick(1)">{{workPlaceEdited ? "修改" : "取消"}}</a></h2>
     <form name="companyForm" novalidate>
         <ul class="form">
@@ -157,7 +178,7 @@
             <button type="button" class="btn grey" ng-click="editedClick(1)">取消</button>
         </div>
     </form>
-</div>-->
+</div>
 
 <div class="popup_box" ng-show="isChangeTel || isChangePwd">
     <!--密码修改 - 开始-->
