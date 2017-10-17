@@ -14,14 +14,14 @@
             <b>单位</b>
             <div class="pull-right">
                 <a href="javascript:void(0);" class="pull-one active" id="linkAllOneCate" ng-click="linkActive('pull-one','linkAllOneCate')">全部</a>
-                <a href="javascript:void(0);" class="pull-one" ng-repeat="n in oneCategory" id="{{n.id}}" data-value="{{n.id}}" ng-click="linkActive('pull-one',n.id)">{{n.name}}（{{n.coursecount}}）</a> 
+                <a href="javascript:void(0);" class="pull-one" ng-repeat="n in oneCategory" id="{{n.id}}" data-value="{{n.id}}" ng-click="linkActive('pull-one',n.id)">{{n.name}}<!--（{{n.coursecount}}）--></a> 
             </div>
         </li>
         <li>
             <b>部门</b>
             <div class="pull-right">
                 <a href="javascript:void(0);" class="pull-two active" id="linkAllTwoCate" ng-click="linkActive('pull-two','linkAllTwoCate')">全部</a>
-                <a href="javascript:void(0);" class="pull-two" ng-repeat="n in twoCategory" id="{{n.id}}" data-value="{{n.id}}" ng-click="linkActive('pull-two',n.id)">{{n.name}}（{{n.coursecount}}）</a> 
+                <a href="javascript:void(0);" class="pull-two" ng-repeat="n in twoCategory" id="{{n.id}}" data-value="{{n.id}}" ng-click="linkActive('pull-two',n.id)">{{n.name}}<!--（{{n.coursecount}}）--></a> 
             </div>
         </li>
         <li>
