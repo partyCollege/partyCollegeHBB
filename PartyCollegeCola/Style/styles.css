@@ -6481,6 +6481,7 @@ h2.common.index b{
 }
 .course_ph{
 	background: #f2f2f2;
+    height: 450px;
 }
 .course_ph .common{
 }
@@ -6489,14 +6490,15 @@ h2.common.index b{
 }
 .course_ph .left
 ,.course_ph .right{
-	width: 50%;
 }
+
 .course_ph ul{
-	padding: 0px 16px 20px;
+	padding: 0px 16px 0px;
 	box-sizing: border-box;
 }
+
 .course_ph ul li{
-	padding: 0px 0px 5px;
+	padding: 0px 0px 12px;
 }
 .course_ph ul li i{
 	background-position: -36px -177px;
@@ -6510,7 +6512,8 @@ h2.common.index b{
 }
 .course_ph ul li .className{
     display: inline-block;
-    width: 450px;
+    width: 253px;
+    padding-right: 15px;
     padding-top: 0px;
     white-space: nowrap;
     text-overflow: ellipsis;

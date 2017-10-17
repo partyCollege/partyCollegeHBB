@@ -720,7 +720,7 @@ angular.module('app.directive', [])
                     },
                     {
                         field: 'departmentname',
-                    	displayName: '类别',
+                    	displayName: '机构',
                     	width: 300
                     },
                     {
