@@ -66,7 +66,10 @@
                     <span>学时：{{n.studytime}}</span>
                     <span>课程类型：{{ n.coursetype==0 ? "视频课程" :"非视频课程"}}</span>
                 </p>
-                <p class="grey courseSource">课程来源：{{n.source}}</p>
+                <p class="grey courseSource">
+                    <span>课程来源：{{n.source}}</span>
+                    <span ng-show="n.fid>'0'">功能组：{{n.categoryname}}</span>
+                </p>
                 <p>
                     <span class="pf">评分：{{n.grade}}</span> 
                     <span ng-class="{true: 'pull-right btn del', false: 'pull-right btn yx'}[n.style]" ng-click="selectCourse(n)">{{n.buttontext}}</span>

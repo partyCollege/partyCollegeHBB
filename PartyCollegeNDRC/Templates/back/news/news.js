@@ -1,5 +1,5 @@
 ﻿angular.module("myApp")
-.controller("newsController", ["$scope", "$rootScope", "getDataSource", "$state", 'notify', '$timeout', '$modal', function ($scope, $rootScope, getDataSource, $state, notify, $timeout, $modal) {
+.controller("newsController", ["$scope", "$rootScope", "getDataSource", "$state", 'notify', '$timeout', '$modal', 'CommonService', function ($scope, $rootScope, getDataSource, $state, notify, $timeout, $modal, CommonService) {
     var paginationOptions = {
         pageNumber: 1,
         pageSize: 25,
@@ -22,7 +22,7 @@
           { name: "创建机构", field: "name", width: '13%', cellClass: "mycenter", headerCellClass: 'mycenter' },
           { name: "创建时间", field: "createtime", width: '8%', cellClass: "mycenter", headerCellClass: 'mycenter' },
           { name: "发布时间", field: "publishtime", width: '10%', cellClass: "mycenter", headerCellClass: 'mycenter' },
-          { name: '发布范围', field: "ispublic", width: '8%', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.status == "已发布" ? (row.entity.ispublic == 1 ?"全部机构":"部分机构"):""}}</div>', headerCellClass: 'mycenter' },
+          //{ name: '发布范围', field: "ispublic", width: '8%', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.status == "已发布" ? (row.entity.ispublic == 1 ?"全部机构":"部分机构"):""}}</div>', headerCellClass: 'mycenter' },
           { name: "状态", field: "status", width: '8%', cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) { if (grid.getCellValue(row, col) === '已发布') { return 'blue'; } }, cellClass: "mycenter", headerCellClass: 'mycenter' },
           { name: "是否置顶", field: "istop", width: '7%', cellClass: "mycenter", headerCellClass: 'mycenter' },
           { name: '操作', field: "id", width: '9%', cellTemplate: '<div class="ui-grid-cell-contents"><a ng-href="../html/index.html#/main/news/{{row.entity.id}}" target="_blank">预览</a></div>', cellClass: "mycenter", headerCellClass: 'mycenter' }
@@ -106,37 +106,60 @@
 
     //打开发布
     $scope.publish = function () {
+
         var selectRows = $scope.gridApi.selection.getSelectedRows();
         if (selectRows != null && selectRows != undefined && selectRows.length > 0) {
-            
-            if (selectRows[0].status == "已发布") {
-                notify({ message: '不能重复发布', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
-                return;
-            }
-            else {
-                var modalInstance = $modal.open({
-                    animation: false,
-                    templateUrl: 'publish.html',
-                    controller: 'publishCtrl',
-                    size: 'lg',
-                    resolve: {
-                        alldepartment: function () {
-                            return $scope.alldepartment;
-                        },
-                        gridApi: function () {
-                            return $scope.gridApi;
-                        },
-                        loadSource: function () {
-                            return $scope.loadSource;
-                        },
-                        alert: function () {
-                            return $scope.alert;
-                        }
-                    }
-                });
-
-            }
+            //全部机构
+            getDataSource.getDataSource("updateNewsPublishAlldepartment", { id: selectRows[0].id }, function (data) {
+                alert('发布成功');
+                //CommonService.alert('发布成功');
+                $scope.loadSource();
+            }, function (e) {
+                alert("发布失败");
+                //CommonService.alert("发布失败");
+            });
         }
+        else {
+            alert("请选择要发布的数据");
+            //CommonService.alert("请选择要发布的数据");
+        }
+
+
+
+
+
+        
+        //var selectRows = $scope.gridApi.selection.getSelectedRows();
+        //if (selectRows != null && selectRows != undefined && selectRows.length > 0) {
+            
+        //    if (selectRows[0].status == "已发布") {
+        //        notify({ message: '不能重复发布', classes: 'alert-info', templateUrl: $rootScope.appConfig.defaultNoticeUrl });
+        //        return;
+        //    }
+        //    else {
+        //        var modalInstance = $modal.open({
+        //            animation: false,
+        //            templateUrl: 'publish.html',
+        //            controller: 'publishCtrl',
+        //            size: 'lg',
+        //            resolve: {
+        //                alldepartment: function () {
+        //                    return $scope.alldepartment;
+        //                },
+        //                gridApi: function () {
+        //                    return $scope.gridApi;
+        //                },
+        //                loadSource: function () {
+        //                    return $scope.loadSource;
+        //                },
+        //                alert: function () {
+        //                    return $scope.alert;
+        //                }
+        //            }
+        //        });
+
+        //    }
+        //}
     }
 
 
