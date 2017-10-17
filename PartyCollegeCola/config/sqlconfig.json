@@ -166,7 +166,7 @@
     },
     {
         "key": "selectCoursewareById",
-        "sql": "select scw.id,scw.name,scw.teachersname,scw.teachtime,scw.duration,scw.realduration,scw.source,scw.teachervideo,scw.videotype,scw.pptvideo,scw.comment,scw.teachervideoname,scw.pptvideoname,scw.imagephoto,scw.rate,scw.tempteachervideo,scw.temppptvideo,scw.tempteachervideofilename,scw.temppptvideofilename,scw.deleteContent,scw.deletestatus,scw.studytime,scw.courseyear,scw.coursetype,scw.grade,scw.pptcoursefile_servername,pptcoursefile_clientname,DATE_FORMAT(scw.createtime,'%Y-%m-%d') createtime,scw.coursecode from sy_courseware scw where scw.id=[id] and (scw.mainstatus >= 0 or scw.mainstatus=-10)"
+        "sql": "select scw.id,scw.name,scw.teachersname,scw.teachtime,scw.duration,scw.realduration,scw.source,scw.teachervideo,scw.videotype,scw.pptvideo,scw.comment,scw.teachervideoname,scw.pptvideoname,scw.imagephoto,scw.rate,scw.tempteachervideo,scw.temppptvideo,scw.tempteachervideofilename,scw.temppptvideofilename,scw.deleteContent,scw.deletestatus,scw.studytime,scw.courseyear,scw.coursetype,scw.grade,scw.pptcoursefile_servername,pptcoursefile_clientname,DATE_FORMAT(scw.createtime,'%Y-%m-%d') createtime,scw.coursecode,scw.coursecategory,scw.courselevel,scw.coursegoal from sy_courseware scw where scw.id=[id] and (scw.mainstatus >= 0 or scw.mainstatus=-10)"
     },
     {
         "key": "selectCourseware_teacherRelation",
@@ -709,15 +709,19 @@
     },
     {
         "key": "updateCoursewareById",
-        "sql": "update sy_courseware set name=[name],teachersname=[teachersname],duration=[duration],source=[source],teachervideo=[teachervideo]{,pptvideo=[pptvideo]},videotype=[videotype],teachervideoname=[teachervideoname]{,pptvideoname=[pptvideoname]},comment=[comment],imagephoto=[imagephoto],studytime = [studytime],courseyear = [courseyear],grade=[grade],pptcoursefile_servername=[pptcoursefile_servername],pptcoursefile_clientname=[pptcoursefile_clientname],coursetype=[coursetype],createtime=[createtime],coursecode=[coursecode] where id=[id]"
+        "sql": "update sy_courseware set name=[name],teachersname=[teachersname],duration=[duration],source=[source],teachervideo=[teachervideo]{,pptvideo=[pptvideo]},videotype=[videotype],teachervideoname=[teachervideoname]{,pptvideoname=[pptvideoname]},comment=[comment],imagephoto=[imagephoto],studytime = [studytime],courseyear = [courseyear],grade=[grade],pptcoursefile_servername=[pptcoursefile_servername],pptcoursefile_clientname=[pptcoursefile_clientname],coursetype=[coursetype],createtime=[createtime],coursecode=[coursecode],coursecategory=[coursecategory],courselevel=[courselevel],coursegoal=[coursegoal] where id=[id]"
     },
     {
         "key": "insertCourseware",
-        "sql": "insert into sy_courseware (id,name,teachersname,duration,source,teachervideo,pptvideo,videotype,teachervideoname,pptvideoname,createplatformid,mainstatus,createuser,createtime,comment,imagephoto,studytime,courseyear,grade,pptcoursefile_servername,pptcoursefile_clientname,coursetype,coursecode) values ([id],[name],[teachersname],[duration],[source],[teachervideo],[pptvideo],[videotype],[teachervideoname],[pptvideoname],[createplatformid],[mainstatus],[session.name],[createtime],[comment],[imagephoto],[studytime],[courseyear],[grade],[pptcoursefile_servername],[pptcoursefile_clientname],[coursetype],[coursecode])"
+        "sql": "insert into sy_courseware (id,name,teachersname,duration,source,teachervideo,pptvideo,videotype,teachervideoname,pptvideoname,createplatformid,mainstatus,createuser,createtime,comment,imagephoto,studytime,courseyear,grade,pptcoursefile_servername,pptcoursefile_clientname,coursetype,coursecode,coursecategory,courselevel,coursegoal) values ([id],[name],[teachersname],[duration],[source],[teachervideo],[pptvideo],[videotype],[teachervideoname],[pptvideoname],[createplatformid],[mainstatus],[session.name],[createtime],[comment],[imagephoto],[studytime],[courseyear],[grade],[pptcoursefile_servername],[pptcoursefile_clientname],[coursetype],[coursecode],[coursecategory],[courselevel],[coursegoal])"
     },
     {
         "key": "checkCoursecodeRepeat",
         "sql": "select count(*) num from sy_courseware where coursecode = [coursecode]"
+    },
+     {
+        "key": "reCheckCoursecodeRepeat",
+        "sql": "select count(*) number from sy_courseware where coursecode = [coursecode] and id = [id]"
     },
     {
         "key": "selectClassList",
