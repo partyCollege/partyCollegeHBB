@@ -25,6 +25,20 @@
             </div>
         </li>
         <li>
+            <b>课程类别</b>
+            <div class="pull-right">
+                <a href="javascript:void(0);" class="pull-courseType active" id="linkAllCourseType" ng-click="linkActive('pull-courseType','linkAllCourseCategory')">全部</a>
+                <a href="javascript:void(0);" class="pull-courseType" ng-repeat="n in allCourseCategory" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseCategory',n.id)">{{n.showtext}}</a>
+            </div>
+        </li>
+        <li>
+            <b>职级</b>
+            <div class="pull-right">
+                <a href="javascript:void(0);" class="pull-courseType active" id="linkAllCourseType" ng-click="linkActive('pull-courseType','linkAllCourseLevel')">全部</a>
+                <a href="javascript:void(0);" class="pull-courseType" ng-repeat="n in allCourseLevel" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseLevel',n.id)">{{n.showtext}}</a>
+            </div>
+        </li>
+        <li>
             <b>所属年份</b>
             <div class="pull-right">
                 <a href="javascript:void(0);" class="pull-year active" id="linkAllYear" ng-click="linkActive('pull-year','linkAllYear')">全部</a>
@@ -37,7 +51,7 @@
                 <a href="javascript:void(0);" class="pull-courseType active" id="linkAllCourseType" ng-click="linkActive('pull-courseType','linkAllCourseType')">全部</a>
                 <a href="javascript:void(0);" class="pull-courseType" ng-repeat="n in allCourseType" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-courseType',n.id)">{{n.showtext}}</a> 
             </div>
-        </li>
+        </li> 
         <li>
             <b>查询类别</b>
             <div class="pull-right"> 
@@ -45,6 +59,7 @@
                 <a href="javascript:void(0);" class="pull-searchType" ng-repeat="n in allSearchType" id="{{n.id}}" data-value="{{n.datavalue}}" ng-click="linkActive('pull-searchType',n.id)">{{n.showtext}}</a> 
             </div>
         </li>
+        
     </ul>
 </div>
 <h2 class="text-center searchSum">

@@ -32,6 +32,8 @@ namespace PartyCollegeUtil.Service
             string year = Convert.ToString(queryModel.year);
             string courseType = Convert.ToString(queryModel.courseType);
             string searchType = Convert.ToString(queryModel.searchType);
+            string courseCategory = Convert.ToString(queryModel.courseCategory);
+            string courseLevel = Convert.ToString(queryModel.courseLevel);
             string studentid = Convert.ToString(HttpContext.Current.Session["studentid"]);
             string sqlTemp = string.Empty;
 
@@ -72,6 +74,20 @@ namespace PartyCollegeUtil.Service
                 parameters.Add(new MySqlParameter("coursetype", courseType));
                 sqlTemp += " and coursetype=@coursetype";
             }
+
+
+            if (!string.IsNullOrEmpty(courseCategory))
+            {
+                parameters.Add(new MySqlParameter("coursecategory", courseCategory));
+                sqlTemp += " and ware.coursecategory=@coursecategory";
+            }
+            if (!string.IsNullOrEmpty(courseLevel))
+            {
+                parameters.Add(new MySqlParameter("courselevel", courseLevel));
+                sqlTemp += " and ware.courselevel=@courselevel";
+            }
+
+             
 
             if (!string.IsNullOrEmpty(condation))
             {
