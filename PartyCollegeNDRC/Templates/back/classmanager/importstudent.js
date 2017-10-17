@@ -46,9 +46,9 @@
             { name: '姓名', field: "name", headerCellClass: "text-center" },
             { name: '手机号码', headerCellClass: "text-center", field: "cellphone" },
             { name: '职级', headerCellClass: "text-center", field: "rank" },
-            { name: "部门名称", headerCellClass: "text-center", field: "departmentname" },
+            { name: "所属类别", headerCellClass: "text-center", field: "departmentname" },
             { name: "状态", headerCellClass: "text-center", field: "status" },
-            { name: "注册状态", headerCellClass: "text-center", field: "signstatus" },
+            //{ name: "注册状态", headerCellClass: "text-center", field: "signstatus" },
         ],
         onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
