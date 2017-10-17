@@ -110,29 +110,29 @@
         $scope.isChangePwd = false;
         $scope.isChangeTel = false;
 
-        //弹框-修改密码
-        $scope.pwdDialogClick = function (flag) {
+        ////弹框-修改密码
+        //$scope.pwdDialogClick = function (flag) {
 
-            $scope.isChangePwd = flag;
+        //    $scope.isChangePwd = flag;
 
-            if (!flag) {
-                $scope.pwdObj = { sourcepassword: "", password: "", confirmpassword: "", message: "" };
-            }
+        //    if (!flag) {
+        //        $scope.pwdObj = { sourcepassword: "", password: "", confirmpassword: "", message: "" };
+        //    }
 
-        }
+        //}
 
-        //弹框-修改手机号码
-        $scope.telDialogClick = function (flag) {
+        ////弹框-修改手机号码
+        //$scope.telDialogClick = function (flag) {
 
-            $scope.isChangeTel = flag;
+        //    $scope.isChangeTel = flag;
 
-            if (!flag) {
-                $scope.telObj = { accountid: $rootScope.user.accountId, telphone: "", code: "" };
-                $scope.btnVerifyCode = "获取验证码";
-                $scope.isVerifyCode = true;
-                $interval.cancel($scope.timer);
-            }
-        }
+        //    if (!flag) {
+        //        $scope.telObj = { accountid: $rootScope.user.accountId, telphone: "", code: "" };
+        //        $scope.btnVerifyCode = "获取验证码";
+        //        $scope.isVerifyCode = true;
+        //        $interval.cancel($scope.timer);
+        //    }
+        //}
 
 
         //发送验证码

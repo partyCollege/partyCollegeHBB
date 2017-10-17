@@ -13,7 +13,13 @@
 x64/
 build/
 bld/
+dist/
 [Oo]bj/
+
+#个项目dist文件
+PartyCollegeCola/dist
+PartyCollegeNDRC/dist
+PartyCollegeHBB/dist
 
 # Roslyn cache directories
 *.ide/
