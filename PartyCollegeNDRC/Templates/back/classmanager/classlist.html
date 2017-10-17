@@ -28,16 +28,6 @@
     <div class="row form-horizontal">
         <div class="col-md-8 form-group">
 			<div class="row form-group">
-				<div class="col-md-6">
-					<label class="col-sm-4 control-label">所属机构</label>
-					<div class="col-sm-8">
-						<!--<input type="text"  class="form-control" search-dbcolumn="name" search-handle="like" search-dbtype="string" ng-model="search.name" />-->
-						<!--<ul ztree ng-model="selectNode"></ul>-->
-						<!--<ztree selectnodeid="search.departmentid" selectnode="node.selectNode"></ztree>-->
-                        <div tree-dialog  ng-id="search.departmentid"></div>
-					</div>
-				</div>
-
                 <div class="col-md-6">
                     <label class="col-sm-4 control-label">班级名称</label>
                     <div class="col-sm-8">
@@ -45,7 +35,7 @@
                     </div>
                 </div>
 			</div>
-            <div class="row form-group">
+            <!--<div class="row form-group">
                 <div class="col-md-12">
                     <label class="col-sm-2 control-label">起始时间</label>
                     <div class="col-sm-4">
@@ -58,7 +48,7 @@
                         <div app-date search-dbcolumn="starttime" search-handle="lte" search-dbtype="string" ng-model="search.questnum2" />
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
         <div class="col-md-4 text-right">
 			<button class="btn btn-info" ng-click="goSearch()">检索</button>

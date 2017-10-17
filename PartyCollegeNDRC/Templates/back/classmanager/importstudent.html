@@ -39,7 +39,7 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<label class="col-sm-4 control-label">组织机构</label>
+					<label class="col-sm-4 control-label">所属类别</label>
 					<div class="col-sm-8">
 						<div tree-dialog ng-id="search.departmentid" ng-check="true" ng-checked-array="ngcheckArray" ng-select="selectnode"></div>
 					</div>
@@ -49,7 +49,7 @@
         <div class="col-md-5 text-right">
             <button class="btn btn-info" ng-click="goSearch()">检索</button>  
             <button class="btn btn-info" ng-click="addStudent_view()" ng-disabled="gridApi.selection.getSelectedRows().length==0">保存选中学员</button> 
-            <button class="btn btn-info" ng-click="addStudent_org()" ng-disabled="search.departmentid.length==0">保存机构学员</button> 
+            <button class="btn btn-info" ng-click="addStudent_org()" ng-disabled="search.departmentid.length==0">保存类别学员</button> 
             <button class="btn btn-info" ng-click="goReturn()">返回</button> 
         </div>
     </div>

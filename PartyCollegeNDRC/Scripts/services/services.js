@@ -257,21 +257,11 @@ angular.module('app.public.commonServices', [])
 
         },
         getDepartment: function (success, error) {
-            if ($rootScope.user && $rootScope.user.isLogin && $rootScope.user.usertype == 2) {
-                //有登陆，超级管理员直接读json文件
-                this.getDataSource('getDepartment', { pid: $rootScope.user.departmentId }, function (data) {
-                    //success(data);
-                }, function (e) {
-                    error(e);
-                }, { key: "getAllDepartment", folder: "", callback: "apiCallback.getAllDepartment" });
-                
-            } else {
-                this.getDataSource('getDepartment', { pid: $rootScope.user.mdepartmentId }, function (data) {
-                    success(data);
-                }, function (e) {
-                    error(e);
-                });
-            }
+            this.getDataSource('getAllDepartment', {}, function (data) {
+                success(data);
+            }, function (e) {
+                error(e);
+            });
         },
         getDepartmentAdmin: function (success, error) {
 

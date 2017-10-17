@@ -235,7 +235,7 @@
                     },
                     {
                         field: 'departmentname',
-                    	displayName: '机构',
+                    	displayName: '类别',
                     	width: 300
                     },
                     {
