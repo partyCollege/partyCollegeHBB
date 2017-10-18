@@ -629,7 +629,6 @@ namespace PartyCollegeUtil.Service
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.Parameters.Add(new MySqlParameter("studentid", studentid));
-                cmd.Parameters.Add(new MySqlParameter("year", year));
                 cmd.Parameters.Add(new MySqlParameter("classid", classid));
 
                 string clmTmp = string.Empty;
@@ -647,8 +646,8 @@ namespace PartyCollegeUtil.Service
                 //总体情况统计   
                 if (type == "0")
                 {
-                    clmTmp = " year,yearplan_total,yearplan_finished,yearplan_progess,class_coursefinishedcount,train_studytime,choose_finishedstutytime ";
-                    sqlExec = "select {0}  from sy_user_totalreport where studentid=?studentid  and year=?year";
+                    clmTmp = " yearplan_total,yearplan_finished,yearplan_progess,class_coursefinishedcount,train_studytime,choose_finishedstutytime ";
+                    sqlExec = "select {0}  from sy_user_totalreport where studentid=?studentid ";
                     sqlCount = "1 count,0 score";
 
                     sqlExecCount = string.Format(sqlExec, sqlCount);
@@ -661,17 +660,23 @@ namespace PartyCollegeUtil.Service
                 {
                     clmTmp = "  cc.coursewareid,ware.name coursewarename,ware.studytime score,ifnull(vlog.isfinished,0) isfinished,DATE_FORMAT(vlog.endtime,'%Y-%m-%d') endtime ";
                     sqlExec = "select  {0} from sy_class_user csur inner join sy_classcourse cc on csur.classid=cc.classid inner JOIN sy_courseware ware on ware.id=cc.coursewareid left join sy_video_log vlog on vlog.coursewareid=cc.coursewareid and vlog.studentid=csur.userid where csur.classid=?classid and csur.userid=?studentid";
-                    sqlCount = " count(1) count,sum(case when ifnull(vlog.isfinished,0)=1 then ware.studytime else 0 END) score";
+                    //sqlCount = " count(1) count,sum(case when ifnull(vlog.isfinished,0)=1 then ware.studytime else 0 END) score";
+                    sqlCount = " count(1) count,sum(ware.studytime) score";
 
                     sqlExecCount = string.Format(sqlExec, sqlCount);
                     sqlExecList = string.Format(sqlExec, clmTmp);
+                    if (ctype == "1")
+                    {
+                        sqlExecCount += " and vlog.isfinished=1";
+                        sqlExecList += " and vlog.isfinished=1";
+                    }
                 }
 
                 //选修课
                 else if (type == "2")
                 {
-                    sqlExecCount = "SELECT count(1) count,ifnull(sum(ware.studytime),0)  score FROM sy_courseware_user cwur  inner join sy_courseware ware on ware.id=cwur.coursewareid LEFT JOIN sy_video_log vlog ON vlog.studentid = cwur.studentid AND vlog.coursewareid = cwur.coursewareid  and vlog.isfinished=1  where cwur.studentid =?studentid and  DATE_FORMAT(cwur.createtime, '%Y') =?year and cwur.status>=0";
-                    sqlExecList = "SELECT ware.name coursewarename,DATE_FORMAT(cwur.createtime,'%Y-%m-%d') createtime,DATE_FORMAT(vlog.endtime,'%Y-%m-%d') endtime,ifnull(vlog.isfinished,0)isfinished,ifnull(ware.studytime,0) score FROM sy_courseware_user cwur INNER JOIN sy_courseware ware ON cwur.coursewareid = ware.id LEFT JOIN sy_video_log vlog ON vlog.studentid = cwur.studentid AND vlog.coursewareid = cwur.coursewareid  where cwur.studentid =?studentid and  DATE_FORMAT(cwur.createtime, '%Y') =?year and cwur.status>=0";
+                    sqlExecCount = "SELECT count(1) count,ifnull(sum(ware.studytime),0)  score FROM sy_courseware_user cwur  inner join sy_courseware ware on ware.id=cwur.coursewareid LEFT JOIN sy_video_log vlog ON vlog.studentid = cwur.studentid AND vlog.coursewareid = cwur.coursewareid  where cwur.studentid =?studentid and cwur.status>=0";
+                    sqlExecList = "SELECT ware.name coursewarename,DATE_FORMAT(cwur.createtime,'%Y-%m-%d') createtime,DATE_FORMAT(vlog.endtime,'%Y-%m-%d') endtime,ifnull(vlog.isfinished,0)isfinished,ifnull(ware.studytime,0) score FROM sy_courseware_user cwur INNER JOIN sy_courseware ware ON cwur.coursewareid = ware.id LEFT JOIN sy_video_log vlog ON vlog.studentid = cwur.studentid AND vlog.coursewareid = cwur.coursewareid  where cwur.studentid =?studentid and cwur.status>=0";
 
                     if (ctype == "1")
                     {

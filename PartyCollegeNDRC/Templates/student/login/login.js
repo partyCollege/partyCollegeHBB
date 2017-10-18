@@ -584,7 +584,8 @@
             var loginparam = {
                 logname: $scope.loginObj.logname,
                 hashpwd: md5($scope.loginObj.logpwd),
-                verifycode: $scope.loginObj.verifycode
+                verifycode: $scope.loginObj.verifycode,
+                systemcode:10001
             };
 
             getDataSource.getUrlData("../api/Login", loginparam, function (data) {

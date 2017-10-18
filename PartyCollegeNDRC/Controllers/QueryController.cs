@@ -220,5 +220,19 @@ namespace PartyCollege.Controllers
             return service.AddHistoryUserTotal(dynObj);
         }
 
+
+        /// <summary>
+        /// 发改委生成培训档案
+        /// </summary>
+        /// <param name="dynObj"></param>
+        /// <returns></returns>
+        [Route("api/gettotal_ndrc")]
+        [HttpPost]
+        public dynamic AddUserTotal_ndrc(dynamic dynObj)
+        {
+            TotalService service = new TotalService();
+            return service.AddUserTotal_ndrc(dynObj);
+        }
+
     }
 }

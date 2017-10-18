@@ -1053,7 +1053,7 @@
     },
     {
         "key": "getarchives",
-        "sql": "select * from sy_user_totalreport where studentid=[session.studentid] and year<=[startyear] and year>=[endyear] order by year desc"
+        "sql": "select * from sy_user_totalreport where studentid=[session.studentid]"
     },
     {
         "key": "getDepartmentHasAdmin",

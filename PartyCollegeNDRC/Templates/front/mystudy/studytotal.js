@@ -9,7 +9,7 @@
         { id: "1001", title: "选修学时", selected: false, isshow: true, index: 2, init: function () { $scope.inittrain(); } }
     ];
 
-    $scope.changetab = function (n, cyear,ctype) {
+    $scope.changetab = function (n,ctype) {
         for (var i = 0; i < $scope.tabs.length; i++) {
             $scope.tabs[i].selected = false;
         }
@@ -17,11 +17,7 @@
         $scope.pIndex = n.index;
         $scope.pagefilter.type = n.index;
         $scope.pagefilter.reset();
-        $scope.searchfilter.year = yearInt;
         $scope.searchfilter.ctype = 0;
-        if (cyear) {
-            $scope.searchfilter.year = cyear;
-        }
         if (ctype) {
             $scope.searchfilter.ctype = ctype;
         }
@@ -44,9 +40,8 @@
         $scope.yearArr.push(i);
     }
 
-    $scope.searchfilter = { year: yearInt, totalscore: 0, classid: $rootScope.user.classId };
+    $scope.searchfilter = { totalscore: 0, classid: $rootScope.user.classId };
     $timeout(function () {
-        $scope.searchfilter.year = yearInt;
         $scope.pageinit();
     }, 500);
     $scope.pIndex = 0;
@@ -92,58 +87,6 @@
         }, function (errortemp) { });
     }
 
-    //提交或取消提交面授
-    $scope.submittrain = function (n, sta) {
-
-        var tips = sta == 0 ? "确定要取消提交该面授培训吗?" : "确定要提交该面授培训吗";
-        var submit = function () {
-            //var parameter = { status: sta, id: n.id };
-            var parameter = { status: sta, id: n.id, remark: "" };
-            getDataSource.getDataSource("submitrain", parameter, function (data) {
-                if (data[0] && data[0].crow > 0) {
-                    CommonService.alert("操作成功");
-                    $scope.tabs[$scope.pIndex].init();
-                }
-            }, function (error) { });
-        }
-        _.merge($rootScope.confirmOptions, {
-            message: tips,
-            confirm: function () {
-                submit();
-            }
-        });
-
-        $rootScope.confirmOptions.open();
-    }
-
-    //删除面授
-    $scope.deletetrain = function (n) {
-
-        var deltrain = function () {
-            var parameter = { id: n.id };
-            getDataSource.getDataSource("deletetrain", parameter, function (data) {
-                if (data[0] && data[0].crow > 0) {
-                    CommonService.alert("操作成功");
-                    $scope.tabs[$scope.pIndex].init();
-                }
-            }, function (error) { });
-        }
-
-        _.merge($rootScope.confirmOptions, {
-            message: "确定要删除该面授培训吗",
-            confirm: function () {
-                deltrain();
-            }
-        });
-
-        $rootScope.confirmOptions.open();
-
-    }
-
-    //编辑面授
-    $scope.edittrain = function (n) {
-        $state.go('main.train2', { id: n.id });
-    }
 
     $scope.ClassAttr = {
         isclassattr: false,
@@ -167,8 +110,6 @@
     $scope.getArchives = function () {
         var parameter = {};
         parameter.studentid = $rootScope.user.studentId;
-        parameter.startyear = $scope.searchfilter.year;
-        parameter.endyear = $scope.searchfilter.year - 4;
         getDataSource.getDataSource("getarchives", parameter, function (data) {
             if (data && data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
@@ -195,10 +136,10 @@
         n.src = n.expand == false ? "../img/arrow01.png" : "../img/arrow02.png";
     }
 
-    $scope.goChange = function (no, year,ctype) {
+    $scope.goChange = function (no,ctype) {
         var n = $scope.tabs[parseInt(no)];
         if (n.isshow) {
-            $scope.changetab(n, year, ctype);
+            $scope.changetab(n, ctype);
         }
     }
 
@@ -223,7 +164,7 @@
         p.studentid = $rootScope.user.studentId;
         p.accountid = $rootScope.user.accountId;
         p.rank = $rootScope.user.yearplan.rank;
-        getDataSource.getUrlData("../api/gettotal", p, function (data) {
+        getDataSource.getUrlData("../api/gettotal_ndrc", p, function (data) {
             $rootScope.loadingOptions.isOpened = false;
             if (data.result) {
                 $scope.getArchives();

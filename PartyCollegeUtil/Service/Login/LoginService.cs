@@ -1245,7 +1245,17 @@ namespace PartyCollegeUtil.Service
                     Task.Factory.StartNew(() =>
                     {
                         TotalService service = new TotalService();
-                        return service.AddHistoryUserTotal(dynParameter);
+                        if (loginModel.systemcode != null && Convert.ToString(loginModel.systemcode) == "10001")
+                        {
+                            //发改委
+                            return service.AddUserTotal_ndrc(dynParameter);
+                        }
+                        else
+                        {
+                            //环保
+                            return service.AddHistoryUserTotal(dynParameter);
+                        }
+
                     });
 
 
