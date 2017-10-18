@@ -188,6 +188,7 @@ namespace PartyCollege.Controllers
             return service.AddTrain(dynObj);
         }
 
+
         [Route("api/gettrain")]
         [HttpPost]
         public dynamic GetTrain(dynamic dynObj)
@@ -196,7 +197,20 @@ namespace PartyCollege.Controllers
             //return service.GetTrain(dynObj);
             return service.GetReportDetail(dynObj);
         }
-
+ 
+        /// <summary>
+        /// 发改委 培训档案查询
+        /// </summary>
+        /// <param name="dynObj"></param>
+        /// <returns></returns>
+       [Route("api/gettrain_ndrc")]
+        [HttpPost]
+        public dynamic GetTrain_ndrc(dynamic dynObj)
+        {
+            YearPlanService service = new YearPlanService();
+            //return service.GetTrain(dynObj);
+            return service.GetReportDetail_ndrc(dynObj);
+        }
 
         [Route("api/gettotal")]
         [HttpPost]

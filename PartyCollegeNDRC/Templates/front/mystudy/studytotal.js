@@ -4,9 +4,8 @@
 
     $scope.tabs = [
         { id: "1000", title: "总体情况统计", selected: false, isshow: true, index: 0, init: function () { $scope.goAutoCompute(); } },
-        { id: "1001", title: "选修学时", selected: false, isshow: true, index: 1, init: function () { $scope.inittrain(); } },
-        { id: "1002", title: "学习班", selected: false, isshow: true, index: 2, init: function () { $scope.inittrain(); } },
-        { id: "1003", title: "面授培训", selected: false, isshow: true, index: 3, init: function () { $scope.inittrain(); } }
+         { id: "1002", title: "必修学时", selected: false, isshow: true, index: 1, init: function () { $scope.inittrain(); } },
+        { id: "1001", title: "选修学时", selected: false, isshow: true, index: 2, init: function () { $scope.inittrain(); } }
     ];
 
     $scope.changetab = function (n, cyear,ctype) {
@@ -44,7 +43,7 @@
         $scope.yearArr.push(i);
     }
 
-    $scope.searchfilter = { year: yearInt, totalscore: 0, classid: "" };
+    $scope.searchfilter = { year: yearInt, totalscore: 0, classid: $rootScope.user.classId };
     $timeout(function () {
         $scope.searchfilter.year = yearInt;
         $scope.pageinit();
@@ -82,7 +81,7 @@
 
         var parameter = _.merge({}, $scope.searchfilter, $scope.pagefilter);
 
-        getDataSource.getUrlData("../api/gettrain", parameter, function (data) {
+        getDataSource.getUrlData("../api/gettrain_ndrc", parameter, function (data) {
             if (data.result) {
                 $scope.datalist = data.items;
                 $scope.pagefilter.totalItems = data.rows.totalItems;

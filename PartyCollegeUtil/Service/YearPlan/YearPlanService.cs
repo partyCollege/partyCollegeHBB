@@ -604,5 +604,102 @@ namespace PartyCollegeUtil.Service
         }
 
 
+
+        public dynamic GetReportDetail_ndrc(dynamic queryModel)
+        {
+            dynamic dyn = new System.Dynamic.ExpandoObject();
+            dyn.result = false;
+            dyn.message = "failed";
+
+            string classid = Convert.ToString(queryModel.classid);
+            string type = Convert.ToString(queryModel.type);
+            string year = Convert.ToString(queryModel.year);
+            string ctype = Convert.ToString(queryModel.ctype);
+            int pageSize = Convert.ToInt32(queryModel.pageSize);
+            int pageIndex = Convert.ToInt32(queryModel.currentPage);
+            int totalIndex = (pageIndex - 1) * pageSize;
+
+            var session = HttpContext.Current.Session;
+            string studentid = Convert.ToString(session["studentid"]);
+
+
+            using (MySqlConnection conn = new MySqlConnection(DBConfig.ConnectionString))
+            {
+
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.Parameters.Add(new MySqlParameter("studentid", studentid));
+                cmd.Parameters.Add(new MySqlParameter("year", year));
+                cmd.Parameters.Add(new MySqlParameter("classid", classid));
+
+                string clmTmp = string.Empty;
+                string sqlCount = string.Empty;
+                string sqlExec = string.Empty;
+                string sqlExecCount = string.Empty;
+                string sqlExecList = string.Empty;
+                string sqlLimit = string.Format(" limit {0},{1} ", totalIndex, pageSize);
+                string sqlOrder = string.Empty;
+                string sqlWhere = string.Empty;
+
+                DataTable dt = null;
+                MySqlDataAdapter adpt = null;
+
+                //总体情况统计   
+                if (type == "0")
+                {
+                    clmTmp = " year,yearplan_total,yearplan_finished,yearplan_progess,class_coursefinishedcount,train_studytime,choose_finishedstutytime ";
+                    sqlExec = "select {0}  from sy_user_totalreport where studentid=?studentid  and year=?year";
+                    sqlCount = "1 count,0 score";
+
+                    sqlExecCount = string.Format(sqlExec, sqlCount);
+                    sqlExecList = string.Format(sqlExec, clmTmp);
+
+                }
+               
+                //必修课
+                else if (type == "1")
+                {
+                    clmTmp = "  cc.coursewareid,ware.name coursewarename,ware.studytime score,ifnull(vlog.isfinished,0) isfinished,DATE_FORMAT(vlog.endtime,'%Y-%m-%d') endtime ";
+                    sqlExec = "select  {0} from sy_class_user csur inner join sy_classcourse cc on csur.classid=cc.classid inner JOIN sy_courseware ware on ware.id=cc.coursewareid left join sy_video_log vlog on vlog.coursewareid=cc.coursewareid and vlog.studentid=csur.userid where csur.classid=?classid and csur.userid=?studentid";
+                    sqlCount = " count(1) count,sum(case when ifnull(vlog.isfinished,0)=1 then ware.studytime else 0 END) score";
+
+                    sqlExecCount = string.Format(sqlExec, sqlCount);
+                    sqlExecList = string.Format(sqlExec, clmTmp);
+                }
+
+                //选修课
+                else if (type == "2")
+                {
+                    sqlExecCount = "SELECT count(1) count,ifnull(sum(ware.studytime),0)  score FROM sy_courseware_user cwur  inner join sy_courseware ware on ware.id=cwur.coursewareid LEFT JOIN sy_video_log vlog ON vlog.studentid = cwur.studentid AND vlog.coursewareid = cwur.coursewareid  and vlog.isfinished=1  where cwur.studentid =?studentid and  DATE_FORMAT(cwur.createtime, '%Y') =?year and cwur.status>=0";
+                    sqlExecList = "SELECT ware.name coursewarename,DATE_FORMAT(cwur.createtime,'%Y-%m-%d') createtime,DATE_FORMAT(vlog.endtime,'%Y-%m-%d') endtime,ifnull(vlog.isfinished,0)isfinished,ifnull(ware.studytime,0) score FROM sy_courseware_user cwur INNER JOIN sy_courseware ware ON cwur.coursewareid = ware.id LEFT JOIN sy_video_log vlog ON vlog.studentid = cwur.studentid AND vlog.coursewareid = cwur.coursewareid  where cwur.studentid =?studentid and  DATE_FORMAT(cwur.createtime, '%Y') =?year and cwur.status>=0";
+
+                    if (ctype == "1")
+                    {
+                        sqlExecCount += " and vlog.isfinished=1";
+                        sqlExecList += " and vlog.isfinished=1";
+                    }
+
+                    sqlExecList += sqlLimit;
+                }
+                cmd.CommandText = sqlExecCount;
+                dt = new DataTable();
+                adpt = new MySqlDataAdapter(cmd);
+                adpt.Fill(dt);
+                dyn.rows = new { totalscore = 0, totalItems = 0 };
+                if (dt.Rows.Count > 0)
+                    dyn.rows = new { totalscore = dt.Rows[0]["score"], totalItems = dt.Rows[0]["count"] };
+
+                cmd.CommandText = sqlExecList;
+                dt = new DataTable();
+                adpt = new MySqlDataAdapter(cmd);
+                adpt.Fill(dt);
+                dyn.items = dt;
+
+                dyn.result = true;
+                dyn.message = "success";
+                return dyn;
+            }
+        }
+
     }
 }
