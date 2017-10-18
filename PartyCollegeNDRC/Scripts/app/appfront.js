@@ -306,14 +306,16 @@ app.run(['$http', '$rootScope', "SessionService", function ($http, $rootScope, S
 	);({bookType:0})
 
 	$rootScope.myStudyLinks = [
+         { id: "1045", title: "最近学习", sref: "main.recentlearning", icon: "tubiaoicon-45", isSelected: false, isShow: true, childMenus: ["recentlearning"] },
+         { id: "1005", title: "我的必修课", sref: "main.myclass", icon: "tubiaoicon-53", isSelected: false, isShow: true, childMenus: ["myclass"] },
          { id: "1001", title: "我的选修课", sref: "main.studycenter", icon: "tubiaoicon-10", isSelected: false, isShow: true, childMenus: ["studycenter"] },
-         { id: "1045", title: "最近学习", sref: "main.recentlearning", icon: "tubiaoicon-45", isSelected: false, isShow: true, childMenus: [] },
          { id: "1002", title: "所有课程", sref: "main.allcourse({param:0})", icon: "tubiaoicon-33", isSelected: false, isShow: true, childMenus: ["allcourse", "courseinfo"] },
          //{ id: "1003", title: "所有课程", sref: "main.allcourse({param:0})", icon: "tubiaoicon-33", isSelected: false, isShow: true, childMenus: ["allcourse", "courseinfo"] },
          
          //{ id: "1008", title: "必修课程", sref: "main.myrequirecourse", icon: "tubiaoicon-51", isSelected: false, isShow: true, childMenus: ["myrequirecourse", "myclass"] },
          //{ id: "1009", title: "选修课程", sref: "main.myoptioncourse", icon: "tubiaoicon-50", isSelected: false, isShow: true, childMenus: ["myoptioncourse", "myclass"] },
          //{ id: "1004", title: "面授培训", sref: "main.studytotal({no:3})", icon: "tubiaoicon-52", isSelected: false, isShow: true, childMenus: ["studytotal", "train"] },
+
          { id: "1007", title: "学习档案", sref: "main.studytotal({no:0})", icon: "tubiaoicon-52", isSelected: false, isShow: true, childMenus: ["archives", "studytotal", "train"] }
     ];
 

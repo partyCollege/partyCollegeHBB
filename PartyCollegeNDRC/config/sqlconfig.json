@@ -1088,6 +1088,11 @@
     {
         "key": "mystudy-list-time",
         "sql": "select DATE_FORMAT(vlog.lasttime, '%Y年%m月%d日') studydate,DATE_FORMAT(vlog.lasttime, '%Y') dyear,DATE_FORMAT(vlog.lasttime, '%m月%d日') dtime from sy_video_log vlog where vlog.studentid=[session.studentid] and vlog.classid=[session.classid] ORDER BY vlog.lasttime desc"
+    },
+    {
+        "key": "getDefaultClassIdByUserId",
+        "sql": "select classid from sy_class_user where userid = [userid] order by createtime desc limit 1"
+         
     }
 
 ]

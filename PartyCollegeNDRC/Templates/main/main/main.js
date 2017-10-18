@@ -1,6 +1,17 @@
 ﻿app.controller("mainController", ['$rootScope',"$state", '$scope', '$http', '$location', 'getDataSource', 'SessionService', "DateService", "GetFileService", "CommonService",
 	function ($rootScope,$state, $scope, $http, $location, getDataSource, SessionService, DateService, GetFileService, CommonService) {
          
+        //得到默认班级
+	    var getdefaultClass = function () {
+	        getDataSource.getDataSource("getDefaultClassIdByUserId", { userid: $rootScope.user.studentId },
+                function (data) {
+                    if (data && data.length > 0) {
+                        var classid = data[0].classid;
+                        getDataSource.getUrlData("../api/ChangeClass", { classid: classid }, function (data) { }, function (errortemp) {});
+                    }
+                }, function (e) { })
+	    }();
+
 	    $scope.changetab = function (idx) {
 	        for (var i = 0; i < $rootScope.mainConfig.length; i++) {
 	            $rootScope.mainConfig[i].select = false;
