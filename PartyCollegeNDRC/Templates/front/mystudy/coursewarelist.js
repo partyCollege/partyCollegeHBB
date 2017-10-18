@@ -1,5 +1,6 @@
-﻿app.controller("allCourseController", ['$scope', '$stateParams', '$rootScope', '$interval', '$timeout', 'getDataSource', 'FilesService', 'CommonService', function ($scope, $stateParams, $rootScope, $interval, $timeout, getDataSource, FilesService, CommonService) {
+﻿app.controller("allCourseController", ['$scope', '$stateParams', '$rootScope', '$interval', '$timeout', 'getDataSource', 'FilesService', 'CommonService', '$document', function ($scope, $stateParams, $rootScope, $interval, $timeout, getDataSource, FilesService, CommonService, $document) {
 
+    $document[0].title = _.find($rootScope.myStudyLinks, { id: "1004" }).title;
     var date = new Date();
     var currentYear = date.getFullYear();
     $scope.allYears = [

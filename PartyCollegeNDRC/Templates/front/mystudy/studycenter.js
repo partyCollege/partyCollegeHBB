@@ -1,5 +1,6 @@
-﻿app.controller("studyCenterController", ['$scope', '$stateParams', '$rootScope', '$interval', '$timeout', 'getDataSource', 'FilesService', 'CommonService', function ($scope, $stateParams, $rootScope, $interval, $timeout, getDataSource, FilesService, CommonService) {
-   
+﻿app.controller("studyCenterController", ['$scope', '$stateParams', '$rootScope', '$interval', '$timeout', 'getDataSource', 'FilesService', 'CommonService', '$document', function ($scope, $stateParams, $rootScope, $interval, $timeout, getDataSource, FilesService, CommonService, $document) {
+
+    $document[0].title = _.find($rootScope.myStudyLinks, { id: "1003" }).title;
     //查询条件
     $scope.searchparameter = {
         condation: "", searchType: "1", pageIndex: 0, pageSize: 6, isMore: false

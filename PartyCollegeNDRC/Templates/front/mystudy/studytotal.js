@@ -1,7 +1,8 @@
-﻿app.controller("studytotalController", ['$scope', '$rootScope', '$timeout', '$state', '$stateParams', 'getDataSource', 'CommonService'
-, function ($scope, $rootScope, $timeout, $state, $stateParams, getDataSource, CommonService) {
+﻿app.controller("studytotalController", ['$scope', '$rootScope', '$timeout', '$state', '$stateParams', 'getDataSource', 'CommonService', '$document'
+, function ($scope, $rootScope, $timeout, $state, $stateParams, getDataSource, CommonService, $document) {
 
 
+    $document[0].title = _.find($rootScope.myStudyLinks, { id: "1005" }).title;
     $scope.tabs = [
         { id: "1000", title: "总体情况统计", selected: false, isshow: true, index: 0, init: function () { $scope.goAutoCompute(); } },
          { id: "1002", title: "必修学时", selected: false, isshow: true, index: 1, init: function () { $scope.inittrain(); } },

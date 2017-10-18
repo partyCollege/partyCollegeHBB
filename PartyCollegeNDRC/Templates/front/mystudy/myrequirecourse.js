@@ -1,6 +1,6 @@
 ﻿app.controller("myrequirecourseController", ['$scope', '$rootScope', '$document', '$http', 'getDataSource', 'FilesService', 'CommonService', 'DateService', function ($scope, $rootScope, $document, $http, getDataSource, FilesService, CommonService, DateService) {
-    //我的班级
-    $document[0].title = _.find($rootScope.myStudyLinks, { id: "1005" }).title;
+    //我的必修课
+    $document[0].title = _.find($rootScope.myStudyLinks, { id: "1002" }).title;
     //弧形进度条
     $(function () {
         $('#class_indicatorContainer').radialIndicator({
